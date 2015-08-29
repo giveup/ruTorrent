@@ -27,42 +27,6 @@ if(!isset($profileMask))
 if(!isset($localhosts) || !count($localhosts))
 	$localhosts = array( "127.0.0.1", "localhost" );
 
-function stripSlashesFromArray(&$arr)
-{
-        if(is_array($arr))
-        {
-		foreach($arr as $k=>$v)
-		{
-			if(is_array($v))
-			{
-				stripSlashesFromArray($v);
-				$arr[$k] = $v;
-			}
-			else
-			{
-				$arr[$k] = stripslashes($v);
-			}
-		}
-	}
-}
-
-function fix_magic_quotes_gpc() 
-{
-	if(function_exists('ini_set'))
-	{
-		ini_set('magic_quotes_runtime', 0);
-		ini_set('magic_quotes_sybase', 0);
-	}
-	if(get_magic_quotes_gpc())
-	{
-		stripSlashesFromArray($_POST);
-		stripSlashesFromArray($_GET);
-		stripSlashesFromArray($_COOKIE);
-		stripSlashesFromArray($_REQUEST);
-	}
-}
-
-fix_magic_quotes_gpc();
 setlocale(LC_CTYPE, 'UTF8', "UTF-8", "en_US.UTF-8", "en_US.UTF8");
 setlocale(LC_COLLATE, 'UTF8', "UTF-8", "en_US.UTF-8", "en_US.UTF8");
 
