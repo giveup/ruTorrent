@@ -2165,24 +2165,7 @@ var theWebUI =
 			$("#tu").text(	$type(this.trackers[this.dID]) && $type(this.trackers[this.dID][d.tracker_focus]) ? this.trackers[this.dID][d.tracker_focus].name : '');
 	        	$("#hs").text(this.dID.substring(0,40));
 			$("#ts").text(d.msg);
-			var url = $.trim(d.comment);
-			if(!url.match(/<a href/i))
-			{
-				var start = url.indexOf("http://");
-				if(start<0)
-					start = url.indexOf("https://");
-				if(start>=0)
-				{
-					var end = url.indexOf(" ",start);
- 					if(end<0)
-						end = url.length;
-					var prefix = url.substring(0,start);
-					var postfix = url.substring(end);
-					url = url.substring(start,end);
-					url = prefix+"<a href='"+url+"' target=_blank>"+url+"</a>"+postfix;
-				}
-			}
-			$("#cmt").html( strip_tags(url,'<a><b><strong>') );
+			$("#cmt").text(d.comment);
 			$("#dsk").text((d.free_diskspace=='0') ? '' : theConverter.bytes(d.free_diskspace,2));
 	   		this.updatePeers();
 		}
