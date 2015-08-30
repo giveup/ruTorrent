@@ -642,7 +642,7 @@ class rRSSFilterList
 	}
 	public function sort()
 	{
-		usort($this->lst, create_function( '$a,$b', 'return(strcmp($a->name, $b->name));'));
+		usort($this->lst, function($a, $b) { return(strcmp($a->name, $b->name)); });
 	}
 	public function getContents()
 	{
@@ -697,7 +697,7 @@ class rRSSGroupList
 	}
 	public function sort()
 	{
-		uasort($this->lst, create_function( '$a,$b', 'return(strcmp($a->name, $b->name));'));
+		uasort($this->lst, function ($a, $b) { return(strcmp($a->name, $b->name)); });
 	}
 	public function getContents()
 	{

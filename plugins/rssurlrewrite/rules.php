@@ -150,7 +150,7 @@ class rURLRewriteRulesList
   	                }
 			if($rule)
 				$this->lst[] = $rule;
-			usort($this->lst, create_function( '$a,$b', 'return(strcmp($a->name, $b->name));'));
+			usort($this->lst, function($a, $b) { return(strcmp($a->name, $b->name)); });
 			$this->store();
 		}
 	}

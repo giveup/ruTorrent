@@ -50,8 +50,16 @@ if( count( $argv ) > 1 )
 			$announce_list[] = $trackers;
 		$path_edit = trim($request['path_edit']);
 		$piece_size = $request['piece_size'];
-		$callback_log = create_function('$msg', '$fp=fopen("php://stdout","w"); fputs($fp, $msg."\n"); fclose($fp);' );
-		$callback_err = create_function('$msg', '$fp=fopen("php://stderr","w"); fputs($fp, $msg."\n"); fclose($fp);' );
+		$callback_log = function ($msg) {
+			$fp = fopen("php://stdout","w");
+			fputs($fp, $msg."\n");
+			fclose($fp);
+		};
+		$callback_err = function ($msg) {
+			$fp=fopen("php://stderr","w");
+			fputs($fp, $msg."\n");
+			fclose($fp);
+		};
 
 		if(count($announce_list)>0)
 		{
