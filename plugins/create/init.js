@@ -1,7 +1,5 @@
 plugin.loadLang();
 plugin.loadMainCSS();
-if(browser.isKonqueror)
-	plugin.loadCSS("konqueror");
 
 plugin.recentTrackers = {};
 

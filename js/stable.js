@@ -97,8 +97,8 @@ dxSTable.prototype.setPaletteByURL = function(url)
 
 dxSTable.prototype.bindKeys = function()
 {
-	$(document).off( (browser.isOpera && browser.versionMinor<9.8) ? "keypress" : "keydown", this.keyEvents );
-	$(document).on( (browser.isOpera && browser.versionMinor<9.8) ? "keypress" : "keydown", this, this.keyEvents );
+	$(document).off("keydown", this.keyEvents );
+	$(document).on("keydown", this, this.keyEvents );
 }
 
 dxSTable.prototype.create = function(ele, styles, aName)
@@ -145,9 +145,6 @@ dxSTable.prototype.create = function(ele, styles, aName)
 		this.cols++;
 		this.colsdata[i] = styles[this.colOrder[i]];
 
-		if(browser.isIE7x && (this.colsdata[i].type==TYPE_PROGRESS))
-			this.colsdata[i].type = TYPE_NUMBER;
-
 		this.colsdata[i].width = iv(this.colsdata[i].width);
 		this.ids[i] = styles[i].id;
 
@@ -186,7 +183,7 @@ dxSTable.prototype.create = function(ele, styles, aName)
 					this.style.cursor = "default";
 				}
 			}
-       		});
+			});
 		tr.append( td.append( $("<div>").html(styles[this.colOrder[i]].text)).
 			width(styles[this.colOrder[i]].width).
 			attr("index", i));
@@ -202,7 +199,7 @@ dxSTable.prototype.create = function(ele, styles, aName)
 			td.mousedown( function(e) { self.bindKeys(); });
 		this.tHeadCols[i] = td.get(0);
 		if(!this.colsdata[i].enabled)
-  	                td.hide();
+					td.hide();
 		j++;
 	}
 	this.tBody = $("<table>").width(0).get(0);
@@ -223,7 +220,7 @@ dxSTable.prototype.create = function(ele, styles, aName)
 		cl = $("<col>").width(this.colsdata[i].width);
 		cg.append(cl);
 		this.tBodyCols[i] = cl.get(0);
-      		if(!this.colsdata[i].enabled)
+			if(!this.colsdata[i].enabled)
 			cl.hide();
 	}
 	this.scp = $("<span></span>").addClass("stable-scrollpos").get(0);
@@ -246,16 +243,13 @@ dxSTable.prototype.toggleColumn = function(i)
 	this.colsdata[i].enabled = !this.colsdata[i].enabled;
 	$(this.tBodyCols[i]).css( "display", this.colsdata[i].enabled ? "" : "none" );
 	$(this.tHeadCols[i]).css( "display", this.colsdata[i].enabled ? "" : "none" );
-	if(!browser.isIE7x)
-	        for (var D = 0, B = this.tBody.tb.childNodes.length; D < B; D ++ )
-			$(this.tBody.tb.childNodes[D].childNodes[i]).css( "display", this.colsdata[i].enabled ? "" : "none" );
 	if(this.colsdata[i].enabled)
 	{
 		$(this.tBodyCols[i]).width( this.colsdata[i].width );
 		$(this.tHeadCols[i]).width( this.colsdata[i].width );
 	}
-        this.dHead.scrollLeft = this.dBody.scrollLeft;
-        this.calcSize().resizeColumn();
+		this.dHead.scrollLeft = this.dBody.scrollLeft;
+		this.calcSize().resizeColumn();
 	if($type(this.onresize) == "function")
 		this.onresize();
 }
@@ -292,15 +286,15 @@ dxSTable.prototype.removeColumn = function(no)
 		if(this.secIndex == i)
 			this.secIndex = 0;
 
-	        this.dHead.scrollLeft = this.dBody.scrollLeft;
-        	this.calcSize().resizeColumn();
+			this.dHead.scrollLeft = this.dBody.scrollLeft;
+			this.calcSize().resizeColumn();
 	}
 }
 
 dxSTable.prototype.onRightClick = function(e)
 {
-        if((e.which==3) && !this.isMoving)
-        {
+		if((e.which==3) && !this.isMoving)
+		{
 		theContextMenu.clear();
 		for(var i = 0; i<this.colsdata.length; i++)
 		{
@@ -320,8 +314,7 @@ dxSTable.prototype.onRightClick = function(e)
 
 dxSTable.prototype.resizeHack = function()
 {
-	if(!browser.isIE7x)
-		this.resizeColumn();
+	this.resizeColumn();
 	return(this);
 }
 
@@ -350,16 +343,10 @@ dxSTable.prototype.calcSize = function()
 			for(var i = 0, l = this.cols; i < l; i++) 
 			{
 				var _9a = iv(this.tBodyCols[i].style.width);
-				if(browser.isIE && (this.tBodyCols[i].offsetWidth != 0)) 
-				{
-					_9a = this.tBodyCols[i].offsetWidth;
-				}
 				if(!_9a) 
 				{
 					continue;
 				}
-				if((browser.isChrome && (browser.versionMajor<537)) || browser.isKonqueror || browser.isSafari)
-					_9a+=4;
 				if(_9a>8)
 					this.tHeadCols[i].style.width = (_9a - 4) + "px";
 			}
@@ -375,26 +362,13 @@ dxSTable.prototype.resizeColumn = function()
 	var w = 0, c;
 	for(var i = 0, l = _e.length; i < l; i++) 
 	{
-                c = this.tHeadCols[i];
+				c = this.tHeadCols[i];
 		w = this.colsdata[i].width;
 		if(iv(_e[i].style.width)!=w)
 		{
 			_e[i].style.width = w + "px";
 			needCallHandler = true;
 		}
-		if(
-			(browser.isAppleWebKit || browser.isKonqueror || browser.isIE8up) &&
-			this.tBody.rows.length>0)
-		{
-			if((this.tBody.rows[0].cells[i].width!=w) && (w>=4))
-			{
-				this.tBody.rows[0].cells[i].width=w;
-				needCallHandler = true;
-			}
-//			for( var j=0; j<this.tBody.rows.length; j++ )
-//				this.tBody.rows[j].cells[i].style.textAlign = c.style.textAlign;
-		}
-
 	}
 	this.tBody.tb.style.width = this.tHead.offsetWidth + "px";
 	this.tBody.style.width = this.tHead.offsetWidth + "px";
@@ -604,8 +578,8 @@ dxSTable.ColumnMove.prototype =
 		var orx = ex + self.parent.dBody.scrollLeft - self.rx;
 		for(i = 0; i < c; i++) 
 		{
-		        if(self.parent.colsdata[i].enabled) 
-		        {
+				if(self.parent.colsdata[i].enabled) 
+				{
 				ox += self.parent.tHeadCols[i].offsetWidth;
 				if(ox > orx) 
 					break;
@@ -622,7 +596,7 @@ dxSTable.ColumnMove.prototype =
 		self.obj.lastMouseX = ex;
 		self.onDrag.apply(self.parent, [i]);
 		return(false);
-   	},
+	},
 	end : function(e)
 	{
 		var self = e.data;	
@@ -669,7 +643,7 @@ dxSTable.prototype.Sort = function(e)
 	{
 		if(this.sIndex ==- 1) 
 		{
-		        this.calcSize().resizeHack();
+				this.calcSize().resizeHack();
 			return(true);
 		}
 		rev = false;
@@ -698,7 +672,7 @@ dxSTable.prototype.Sort = function(e)
 		col = this.tHead.tb.rows[0].cells[this.sIndex];
 	}
 	if(rev) 
-	        this.reverse = (this.sIndex == ind) ? 1 - this.reverse : 0;
+			this.reverse = (this.sIndex == ind) ? 1 - this.reverse : 0;
 	if(this.sIndex >= 0) 
 	{
 		var td = this.tHead.tb.rows[0].cells[this.sIndex];
@@ -713,16 +687,16 @@ dxSTable.prototype.Sort = function(e)
 	{
 		case TYPE_STRING : 
 			d.sort(function(x, y) { return self.sortAlphaNumeric(x, y); });
-      			break;
-      		case TYPE_PROGRESS :
-      		case TYPE_NUMBER : 
-      			d.sort(function(x, y) { return self.sortNumeric(x, y); });
-      			break;
-      		default : 
-      			d.sort();
-      			break;
-      	}
-   	if(this.reverse) 
+				break;
+			case TYPE_PROGRESS :
+			case TYPE_NUMBER : 
+				d.sort(function(x, y) { return self.sortNumeric(x, y); });
+				break;
+			default : 
+				d.sort();
+				break;
+		}
+	if(this.reverse) 
 		d.reverse();
 	this.rowIDs = [];
 	var c = 0, i = 0;
@@ -730,7 +704,7 @@ dxSTable.prototype.Sort = function(e)
 	{
 		this.rowdata[d[i].key] = d[i].e;
 		this.rowIDs.push(d[i].key);
-      		i++;
+			i++;
 	}
 	this.clearCache(d);
 	this.clearCache(u);
@@ -763,7 +737,7 @@ dxSTable.prototype.sortSecondary = function(x, y)
 	{
 		var tmp = m;
 		m = n;
-      		n = tmp;
+			n = tmp;
 	}
 	var ret = this.colsdata[this.secIndex].type;
 	return( (ret==0) ? theSort.AlphaNumeric(m, n) : ((ret==1) || (ret==4)) ? theSort.Numeric(m, n) : theSort.Default(m, n) );
@@ -821,13 +795,13 @@ dxSTable.prototype.init = function()
 
 dxSTable.prototype.setBodyState = function(v)
 {
-        this.tBody.style.visibility = v;
+		this.tBody.style.visibility = v;
 	for(var i = 0; i < this.cols; i++) 
 	{
 		if((this.colsdata[i].type==TYPE_PROGRESS) && this.colsdata[i].enabled)
 		{
-                        for(var j = 0; j < this.rows; j++)
-                        {
+						for(var j = 0; j < this.rows; j++)
+						{
 				var id = this.rowIDs[j];
 				if($$(id))
 				{
@@ -872,25 +846,25 @@ dxSTable.prototype.assignEvents = function()
 					window.clearTimeout(self.scrollTimeout);
 				self.scrollTimeout = window.setTimeout(
 					function() { self.isScrolling = false; handleScroll.apply(self); }
-				        , 500);
+						, 500);
 				self.scrollPos();
 			}
 		});
 	this.tHead.onmousedown = function(e) 
 		{
 			if(self.isResizing)
-			      self.colDragEnd(e);
+				  self.colDragEnd(e);
 			else
 			if((self.hotCell >- 1) && !self.isMoving) 
 			{
 				self.cancelSort = true;
 				self.cancelMove = true;
-                                $(document).on("mousemove",self,self.colDrag);
-                                $(document).on("mouseup touchend",self,self.colDragEnd);
+								$(document).on("mousemove",self,self.colDrag);
+								$(document).on("mouseup touchend",self,self.colDragEnd);
 				self.rowCover.style.display = "block";
 				return(false);
-         		}
-      		};
+				}
+			};
 	this.tHead.onmouseup = function(e) 
 		{
 			if((self.hotCell >- 1) && !self.isMoving)
@@ -931,8 +905,7 @@ dxSTable.prototype.colDrag = function(e)
 	document.body.style.cursor = "e-resize";
 
 	self.colReszObj.style.visibility = "visible";
-	if(!browser.isAppleWebKit && !browser.isKonqueror)
-		nw+=4;
+	nw+=4;
 	self.colReszObj.style.left = (o.offsetLeft+nw-self.dHead.scrollLeft) + "px";
 
 	nw = iv(self.dBody.style.height) + iv(self.dHead.offsetHeight);
@@ -946,7 +919,7 @@ dxSTable.prototype.colDrag = function(e)
 
 dxSTable.prototype.colDragEnd = function(e) 
 {
-        var self = e.data;
+		var self = e.data;
 	$(document).off("mousemove",self.colDrag);
 	$(document).off("mouseup touchend",self.colDragEnd);
 	self.rowCover.style.display = "none";
@@ -1008,9 +981,9 @@ dxSTable.prototype.refreshRows = function( height, fromScroll )
 	if(this.isScrolling || !this.created) 
 	{
 		return;
-   	}
+	}
 
-   	var maxRows = height ? height/TR_HEIGHT : this.getMaxRows();
+	var maxRows = height ? height/TR_HEIGHT : this.getMaxRows();
 	var mni = Math.floor(this.dBody.scrollTop / TR_HEIGHT);
 	if(mni + maxRows > this.viewRows) 
 	{
@@ -1019,7 +992,7 @@ dxSTable.prototype.refreshRows = function( height, fromScroll )
 	if(mni < 0) 
 	{
 		mni = 0;
-   	}
+	}
 	var mxi = mni + maxRows;
 	if((mni==this.mni && mxi==this.mxi) && fromScroll)
 		return;
@@ -1057,13 +1030,13 @@ dxSTable.prototype.refreshRows = function( height, fromScroll )
 				if( (obj != null) && (obj.parentNode == tb) )
 				{
 					tb.removeChild(obj);
-            			}
+						}
 				else 
 				{
 					obj = this.createRow(r.data, id, r.icon, r.attr);
 				}
 				tb.appendChild(obj);
-         		}
+				}
 			else 
 			{
 				if(tb.rows[c].id != id) 
@@ -1071,16 +1044,16 @@ dxSTable.prototype.refreshRows = function( height, fromScroll )
 					if( (obj != null) && (obj.parentNode == tb) )
 					{
 						tb.removeChild(obj);
-               				}
+							}
 					else 
 					{
 						obj = this.createRow(r.data, id, r.icon, r.attr);
-               				}
+							}
 					tb.insertBefore(obj, tb.rows[c]);
-            			}
-         		}
+						}
+				}
 			c++;
-      		}
+			}
 		else 
 		{
 			if( (obj != null) && (obj.parentNode == tb) )
@@ -1088,7 +1061,7 @@ dxSTable.prototype.refreshRows = function( height, fromScroll )
 				tb.removeChild(obj);
 			}
 		}
-   	}
+	}
 	this.refreshSelection();
 	this.cancelSort = false;
 	this.calcSize().resizeHack();
@@ -1100,12 +1073,6 @@ dxSTable.prototype.keyEvents = function(e)
 	if(!e.fromTextCtrl && !theDialogManager.isModalState())
 	{
 		var c = e.which;
-		if((browser.isKonqueror && c == 127) || (c == 46))
-		{
-			if($type(self.ondelete) == "function") 
-				self.ondelete();
-		}
-		else 
 		if(e.metaKey)
 		{
 			switch(c)
@@ -1123,9 +1090,9 @@ dxSTable.prototype.keyEvents = function(e)
 					if($type(self.onselect) == "function") 
 						self.onselect(e);
 					return(false);
-	            		}
-        	 	}
-	      	}
+						}
+				}
+			}
 	}
 }
 
@@ -1158,12 +1125,12 @@ dxSTable.prototype.selectRow = function(e, row)
 						{
 							this.rowSel[k] = true;
 							this.selCount++;
-                     				}
+									}
 						else 
 						{
 							if((k == this.stSel) || (k == id)) 
 							{
-				                        	this.rowSel[k] = true;
+											this.rowSel[k] = true;
 								this.selCount++;
 							}
 						}
@@ -1183,15 +1150,15 @@ dxSTable.prototype.selectRow = function(e, row)
 								{
 									this.rowSel[k] = true;
 									this.selCount++;
-                           					}
-                        				}
-                     				}
-                  			}
+											}
+										}
+									}
+							}
 					if(!this.rowdata[k].enabled && this.rowSel[k]) 
 					{
 						this.rowSel[k] = false;
 						this.selCount--;
-                  			}
+							}
 					if(k == this.stSel) 
 						_81 = true;
 					if(k == id) 
@@ -1237,8 +1204,8 @@ dxSTable.prototype.selectRow = function(e, row)
 
 dxSTable.prototype.addRowById = function(ids, sId, icon, attr)
 {
-        var cols = [];
-        for(var i=0; i<this.cols; i++)
+		var cols = [];
+		for(var i=0; i<this.cols; i++)
 		cols.push(null);
 	for(var i in ids) 
 	{
@@ -1304,9 +1271,9 @@ dxSTable.prototype.createRow = function(cols, sId, icon, attr)
 		if(this.colsdata[i].type==TYPE_PROGRESS)
 		{
 			s+=" rawvalue='"+($type(cols[ind]) ? cols[ind] : "")+"'";
-		        span1 = "<span class='meter-text' style='overflow: visible'>"+escapeHTML(data[ind])+"</span>";
+				span1 = "<span class='meter-text' style='overflow: visible'>"+escapeHTML(data[ind])+"</span>";
 			div = "<div class='meter-value' style='float: left; background-color: "+
-		 		(new RGBackground()).setGradient(this.prgStartColor,this.prgEndColor,parseFloat(data[ind])).getColor()+
+				(new RGBackground()).setGradient(this.prgStartColor,this.prgEndColor,parseFloat(data[ind])).getColor()+
 				"; width: "+iv(data[ind])+"%"+
 				"; visibility: "+(iv(data[ind]) ? "visible" : "hidden")+
 				"'>&nbsp;</div>";
@@ -1315,7 +1282,7 @@ dxSTable.prototype.createRow = function(cols, sId, icon, attr)
 			div = "<div>"+((String(data[ind]) == "") ? "&nbsp;" : escapeHTML(data[ind]))+"</div>";
 		if((ind == 0) && (icon != null)) 
 			span2 = "<span class='stable-icon "+icon+"'></span>";
-		if(!this.colsdata[i].enabled && !browser.isIE7x)
+		if(!this.colsdata[i].enabled)
 			s+=" style='display: none'";
 		s+=">";
 		s+=span1;
@@ -1324,12 +1291,11 @@ dxSTable.prototype.createRow = function(cols, sId, icon, attr)
 		s+="</td>";
 	}
 	ret = tr.append(s).get(0);
-	if(!browser.isIE7x)
-	{
-		var _e = this.tBody.getElementsByTagName("colgroup")[0].getElementsByTagName("col");
-		for(var i = 0, l = _e.length; i < l; i++) 
-			ret.cells[i].style.textAlign = this.tHeadCols[i].style.textAlign;
-	}
+
+	var _e = this.tBody.getElementsByTagName("colgroup")[0].getElementsByTagName("col");
+	for(var i = 0, l = _e.length; i < l; i++) 
+		ret.cells[i].style.textAlign = this.tHeadCols[i].style.textAlign;
+
 	return(ret);
 }
 
@@ -1397,8 +1363,8 @@ dxSTable.prototype.setAlignment = function()
 			case ALIGN_CENTER: 
 				align = "center";
 				break;
-         		case ALIGN_RIGHT: 
-	         		align = "right";
+				case ALIGN_RIGHT: 
+					align = "right";
 				break;
 			case ALIGN_AUTO: 
 			default: 
@@ -1408,7 +1374,7 @@ dxSTable.prototype.setAlignment = function()
 		this.tHeadCols[i].style.textAlign = align;
 	}
 	var col = this.tBody.getElementsByTagName("colgroup")[0].getElementsByTagName("col");
-	if(document.all || browser.isAppleWebKit || browser.isKonqueror)
+	if(document.all)
 	{
 		for(var i = 0; i < col.length; i++)
 			col[i].align = aAlign[i];
@@ -1467,8 +1433,8 @@ dxSTable.prototype.unhideRow = function(sId)
 
 dxSTable.prototype.refreshSelection = function() 
 {
-        if(this.created)
-        {
+		if(this.created)
+		{
 		var rows = this.tBody.tb.rows, l = rows.length;
 		for(var i = 0; i < l; i++) 
 		{
@@ -1481,7 +1447,7 @@ dxSTable.prototype.refreshSelection = function()
 				else 
 					rows[i].className = (i & 1) ? "odd" : "even";
 			}
-      		}
+			}
 	}
 }
 
@@ -1538,8 +1504,8 @@ dxSTable.prototype.getColOrder = function(col)
 
 dxSTable.prototype.getColById = function(id)
 {
-        for(var i = 0; i < this.ids.length; i++)
-        	if(this.ids[i]==id)
+		for(var i = 0; i < this.ids.length; i++)
+			if(this.ids[i]==id)
 			return(i);
 	return(-1);
 }
@@ -1625,13 +1591,13 @@ dxSTable.prototype.setValue = function(row, col, val)
 		if(this.rowdata[row].fmtdata[col] != val)
 		{
 			this.rowdata[row].fmtdata[col] = val;
-        		if(r)
-        		{
-	        		var c = this.getColOrder(col);
+				if(r)
+				{
+					var c = this.getColOrder(col);
 				var td = r.cells[c];
 			
-			        if(td)
-			        {
+					if(td)
+					{
 					if(this.colsdata[c].type==TYPE_PROGRESS)
 					{
 						$(td).attr("rawvalue",rawvalue);
@@ -1676,8 +1642,8 @@ dxSTable.prototype.setIcon = function(row, icon)
 
 dxSTable.prototype.setAttr = function(row, attr)
 {
-        if(($type(attr)=="object") || ($type(attr)=="array"))
-        {
+		if(($type(attr)=="object") || ($type(attr)=="array"))
+		{
 		if(!this.rowdata[row].attr)
 			this.rowdata[row].attr = {};
 		for(var name in attr) 

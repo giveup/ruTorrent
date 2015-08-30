@@ -252,8 +252,6 @@ plugin.fillConsole = function(id,arr)
 		if(plugin.foreground[id]!=crc)
 		{
 			plugin.foreground[id] = crc;
-			if(browser.isKonqueror)
-				s = '<br>'+s;
 			$('#'+id).html(s);
 			if(!this.foreground.options.noclose)
 				$('#'+id)[0].scrollTop = $('#'+id)[0].scrollHeight;

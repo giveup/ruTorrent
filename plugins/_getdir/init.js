@@ -9,7 +9,7 @@ theWebUI.rDirBrowser = function( dlg_id, edit_id, btn_id, frame_id, withFiles )
 		frame_id = edit_id+"_frame";
 	var self = this;
 	this.btn.val("...").on( "click", function() { return(self.toggle()); } ).addClass("browseButton");
-	this.edit.prop("autocomplete", "off").on( browser.isIE ? "focusin" : "focus", function() { return(self.hide()); } ).addClass("browseEdit");
+	this.edit.prop("autocomplete", "off").on("focus", function() { return(self.hide()); } ).addClass("browseEdit");
 	this.frame = $("<iframe>").attr( {id: frame_id, src: ""} ).css({position: "absolute", width: 0, visibility: "hidden"}).addClass("browseFrame");
 	this.dlg_id = dlg_id;
 	$('#'+dlg_id).append( this.frame );
@@ -64,5 +64,5 @@ plugin.onRemove = function()
 {
 	$(".browseButton").remove();
 	$(".browseFrame").remove();
-	$(".browseEdit").prop("autocomplete", "on").off( browser.isIE ? "focusin" : "focus" );
+	$(".browseEdit").prop("autocomplete", "on").off( "focus" );
 }

@@ -83,7 +83,9 @@ plugin.onLangLoaded = function()
 			try { eval(d.body.textContent ? d.body.textContent : d.body.innerText); } catch(e) {}
 	}));
 	$(document.body).append(
-		$('<form action="plugins/data/action.php" id="getdata" method="get" target='+(browser.isiOS ? '"_blank"' : '"datafrm"')+'>'+
+		// TODO: don't hide the download in an iframe, we're very likely to run into browser security restrictions by downloading 
+		// stuff through iframes. This has already been seen in the wild with iOS Safari with PDFs.
+		$('<form action="plugins/data/action.php" id="getdata" method="get" target="datafrm">'+
 			'<input type="hidden" name="hash" id="datahash" value="">'+
 			'<input type="hidden" name="no" id="datano" value="">'+
 		'</form>').width(0).height(0));

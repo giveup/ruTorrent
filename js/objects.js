@@ -122,8 +122,7 @@ var theDialogManager =
 		};
 		obj.mousedown( function(e) 
 		{
-			if( (!browser.isOpera || !inScrollBarArea(e.target,e.clientX,e.clientY)) && !theDialogManager.modalState )
-				self.bringToTop(this.id);
+			self.bringToTop(this.id);
 		}).attr("tabindex","0").keypress( function (e)
 		{
 			if((e.keyCode==13) && !(e.target && e.target.tagName && (/^textarea$/i).test(e.target.tagName)) && !$('#'+id+' .OK').prop('disabled'))
@@ -214,8 +213,7 @@ var theDialogManager =
 			this.visible.push(id);
 		}
 		$('#'+id).css("z-index",++theDialogManager.maxZ);
-		if(!browser.isOpera)
-			$('#'+id).focus();
+		$('#'+id).focus();
 	},
 	hideTopmost: function()
 	{
