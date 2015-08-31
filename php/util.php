@@ -1,11 +1,4 @@
 <?php
-
-if(function_exists('ini_set'))
-{
-	ini_set('display_errors',false);
-	ini_set('log_errors',true);
-}
-
 if(!isset($_SERVER['REMOTE_USER']))
 {
 	if(isset($_SERVER['PHP_AUTH_USER']))

@@ -10,12 +10,6 @@ if( count( $argv ) > 1 )
 	require_once( dirname(__FILE__).'/../_task/task.php' );	
 	eval(getPluginConf('create'));
 	
-	if(function_exists('ini_set'))
-	{
-		ini_set('display_errors',true);
-		ini_set('log_errors',false);
-	}
-
 	$taskNo = $argv[1];
 	$fname = rTask::formatPath($taskNo).'/params';
 	$tname = rTask::formatPath($taskNo)."/temp.torrent";
