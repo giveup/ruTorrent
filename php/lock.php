@@ -15,7 +15,7 @@ class rLock
         $this->file = getSettingsPath().'/'.$name.".lock";
     }
 
-    function __destruct()
+    public function __destruct()
     {
         $this->release();
     }

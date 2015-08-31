@@ -274,7 +274,7 @@ if ($handle = opendir('../plugins')) {
 
         $cantBeShutdowned   = 0x0080;
         $canBeLaunched      = 0x0100;
-        $disabledByUser         = 0x8000;
+        $disabledByUser     = 0x8000;
 
         $loadedExtensions = array_map("strtolower", get_loaded_extensions());
 

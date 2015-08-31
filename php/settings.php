@@ -149,19 +149,19 @@ class rTorrentSettings
                 }
             }
 
-                        $req = new rXMLRPCRequest(new rXMLRPCCommand("to_kb", floatval(1024)));
+            $req = new rXMLRPCRequest(new rXMLRPCCommand("to_kb", floatval(1024)));
             if ($req->run()) {
                 if (!$req->fault) {
                     $this->badXMLRPCVersion = false;
                 }
-                $req = new rXMLRPCRequest(array(
+                $req = new rXMLRPCRequest([
                     new rXMLRPCCommand("get_directory"),
                     new rXMLRPCCommand("get_session"),
                     new rXMLRPCCommand("system.library_version"),
                     new rXMLRPCCommand("set_xmlrpc_size_limit", 67108863),
                     new rXMLRPCCommand("get_name"),
                     new rXMLRPCCommand("get_port_range"),
-                    ));
+                ]);
                 if ($req->success()) {
                     $this->directory = $req->val[0];
                             $this->session = $req->val[1];
