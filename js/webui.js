@@ -736,7 +736,7 @@ var theWebUI =
 		{
 			var width = [];
 			var enabled = [];
-			for(i = 0; i < table.obj.cols; i++) 
+			for(var i = 0; i < table.obj.cols; i++) 
 			{
 					width.push( table.obj.getColWidth(i) );
 					enabled.push( table.obj.isColumnEnabled(i) );

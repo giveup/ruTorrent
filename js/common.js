@@ -1347,13 +1347,12 @@ function RGBackground( selector )
 RGBackground.prototype.getColor = function()
 {
 	var r = this.channels[0].toString(16);
-		var g = this.channels[1].toString(16);
-		var b = this.channels[2].toString(16);
-		if(r.length == 1) r = '0' + r;
-		if(g.length == 1) g = '0' + g;
-		if(b.length == 1) b = '0' + b;
-		return('#' + r + g + b);
-	return(this);
+	var g = this.channels[1].toString(16);
+	var b = this.channels[2].toString(16);
+	if(r.length == 1) r = '0' + r;
+	if(g.length == 1) g = '0' + g;
+	if(b.length == 1) b = '0' + b;
+	return('#' + r + g + b);
 }
 
 RGBackground.prototype.setGradient = function(beginColor,endColor,percent)
