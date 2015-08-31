@@ -152,11 +152,9 @@ function rtSetDataDir($hash, $dest_path, $add_path, $move_files, $fast_resume, $
         $full_dest_path = $dest_path;
         // Don't use "count( $torrent_files ) > 1" check (there can be one file in a subdir)
         if ($is_multy_file) {
-        // torrent is a directory
+            // torrent is a directory
             $full_base_path .= rtAddTailSlash($base_file);
             $full_dest_path .= $add_path ? rtAddTailSlash($base_name) : "";
-        } else {
-            // torrent is a single file
         }
 
         if ($dbg) {

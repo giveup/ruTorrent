@@ -46,7 +46,6 @@ class rCPU
                 } else {
                     return(array_map("trim", explode(",", substr(strrchr(shell_exec("uptime"), ":"), 1))));
                 }
-                return array(0,0,0);
             }
         }
         $arr = sys_getloadavg();

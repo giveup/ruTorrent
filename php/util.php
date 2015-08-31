@@ -152,7 +152,6 @@ function mix2utf($str, $inv = '_')
                     $str[$i] = $inv;
                 } else {
                     $start = $i;
-                    $cnt = $bytes;
                     while ($bytes > 1) {
                         $i++;
                         $b = ord($str[$i]);
@@ -264,7 +263,7 @@ function fullpath($path, $base = '')
 {
     $root  = '';
     if (strlen($path) && ($path[0] == '/')) {
-            $root = '/';
+        $root = '/';
     } else {
         return(fullpath(addslash($base).$path, getcwd()));
     }

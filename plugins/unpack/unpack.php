@@ -342,7 +342,7 @@ class rUnpack
 				'mode'=>null, 
 				'no'=>null
 			) );
-			$ret = $task->start($commands, 0);
+			$task->start($commands, 0);
 		}
 	}
 
