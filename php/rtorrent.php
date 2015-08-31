@@ -40,7 +40,7 @@ class rTorrent
                 $cmd->addParameter($filename);
             }
             if (!is_null($filename) && (rTorrentSettings::get()->iVersion>=0x805)) {
-                $cmd->addParameter(getCmd("d.set_custom")."=x-filename,".rawurlencode(getFileName($filename)));
+                $cmd->addParameter(getCmd("d.set_custom")."=x-filename,".rawurlencode(basename($filename)));
             }
             $req = new rXMLRPCRequest();
             if ($directory && (strlen($directory)>0)) {
