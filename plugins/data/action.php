@@ -30,5 +30,5 @@ if (isset($_REQUEST['readable'])) {
     cachedEcho("Cant retrieve such large file, sorry", "text/html");
 } else {
     header("HTTP/1.0 302 Moved Temporarily");
-    header("Location: ".$_SERVER['REQUEST_URI'].'?result=0');
+    header("Location: ".parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH).'?result=0');
 }

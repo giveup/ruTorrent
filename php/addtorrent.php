@@ -86,7 +86,7 @@ if (isset($_REQUEST['result'])) {
             }
         }
     }
-    $location = "Location: ".$_SERVER['REQUEST_URI'].'?';
+    $location = "Location: ".parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH).'?';
     if (empty($uploaded_files)) {
         $uploaded_files = array( array( 'status' => "Failed" ) );
     }

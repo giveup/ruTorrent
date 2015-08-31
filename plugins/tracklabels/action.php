@@ -54,5 +54,5 @@ if (isset($_REQUEST["tracker"])) {
 }
 
 header("HTTP/1.0 302 Moved Temporarily");
-header("Location: ".dirname($_SERVER['REQUEST_URI']).'/trackers/unknown.png');
+header("Location: ".dirname(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)).'/trackers/unknown.png');
 exit();
