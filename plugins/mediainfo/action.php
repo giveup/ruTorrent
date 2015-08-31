@@ -42,7 +42,7 @@ if (isset($_REQUEST['hash']) &&
                     $st = mediainfoSettings::load();
                     $task = new rTask(array
                     (
-                        'arg'=>call_user_func('end', explode('/', $filename)),
+                        'arg'=>basename($filename),
                         'requester'=>'mediainfo',
                         'name'=>'mediainfo',
                         'hash'=>$_REQUEST['hash'],

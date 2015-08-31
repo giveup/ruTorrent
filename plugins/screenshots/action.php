@@ -46,7 +46,7 @@ if (isset($_REQUEST['cmd'])) {
                     }
                     $task = new rTask(array
                     (
-                        'arg'=>call_user_func('end', explode('/', $filename)),
+                        'arg'=>basename($filename),
                         'requester'=>'screenshots',
                         'name'=>'ffmpeg',
                         'hash'=>$_REQUEST['hash'],

@@ -334,7 +334,7 @@ class rUnpack
 				$commands[] = 'rm -r "${dir}"';	
 			$task = new rTask( array
 			( 
-				'arg'=>call_user_func('end',explode('/',delslash($basename))),
+				'arg'=>basename(delslash($basename)),
 				'requester'=>'unpack',
 				'name'=>'unpack', 
 				'hash'=>$hash, 
@@ -400,7 +400,7 @@ class rUnpack
 					escapeshellarg($arh)." ".
 					escapeshellarg($filename)." ".
 					escapeshellarg(addslash($outPath));
-				$taskArgs['arg'] = call_user_func('end',explode('/',$filename));
+				$taskArgs['arg'] = basename($filename);
 				$task = new rTask( $taskArgs );
 				$ret = $task->start($commands, 0);
 			}
@@ -471,7 +471,7 @@ class rUnpack
 							escapeshellarg($basename)." ".
 							escapeshellarg($outPath)." ".
 							escapeshellarg($pathToUnzip);
-						$taskArgs['arg'] = call_user_func('end',explode('/',delslash($basename)));
+						$taskArgs['arg'] = basename(delslash($basename));
 						$task = new rTask( $taskArgs );
 						$ret = $task->start($commands, 0);	
 					}
