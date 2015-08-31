@@ -3,10 +3,9 @@
 require_once( '../plugins/xmpp/xmpp.php');
 
 $at = rXmpp::load();
-if($at->setHandlers())
-{	
-	$jResult .= $at->get();
-	/*if( $do_diagnostic )
+if ($at->setHandlers()) {
+    $jResult .= $at->get();
+    /*if( $do_diagnostic )
 	{
 		if( $at->enable_move )
 		{
@@ -31,7 +30,7 @@ if($at->setHandlers())
 				$jResult .= "plugin.showError('theUILang.autotoolsNoPathToWatch');";
 		}
 	}*/
-	$theSettings->registerPlugin($plugin["name"],$pInfo["perms"]);
+    $theSettings->registerPlugin($plugin["name"], $pInfo["perms"]);
+} else {
+    $jResult .= "plugin.disable(); noty('xmpp: '+theUILang.pluginCantStart,'error');";
 }
-else
-        $jResult .= "plugin.disable(); noty('xmpp: '+theUILang.pluginCantStart,'error');";

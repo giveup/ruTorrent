@@ -4,9 +4,9 @@ require_once( 'rules.php' );
 
 class extratioHooks
 {
-	static public function OnLabelChanged( $prm )
-	{
-		$mngr = rRatioRulesList::load();
-		$mngr->checkLabels( array($prm["hash"]) );
-	}
+    public static function OnLabelChanged($prm)
+    {
+        $mngr = rRatioRulesList::load();
+        $mngr->checkLabels(array($prm["hash"]));
+    }
 }

@@ -1,3 +1,3 @@
 <?php
 
-$updateInterval 	= 60;	// in minutes, zero for disable
+$updateInterval     = 60;   // in minutes, zero for disable
