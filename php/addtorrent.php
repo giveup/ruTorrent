@@ -86,7 +86,7 @@ if (isset($_REQUEST['result'])) {
             }
         }
     }
-    $location = "Location: ".$_SERVER['PHP_SELF'].'?';
+    $location = "Location: ".$_SERVER['REQUEST_URI'].'?';
     if (empty($uploaded_files)) {
         $uploaded_files = array( array( 'status' => "Failed" ) );
     }

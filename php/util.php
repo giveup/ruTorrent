@@ -235,7 +235,7 @@ function isUserHavePermission($uid, $gids, $file, $flags)
 {
     if ($uid<=0) {
         if (($flags & 0x0001) && !is_dir($file)) {
-                return(($ss=LFS::stat($file)) && ($ss['mode'] & 0x49));
+            return(($ss=LFS::stat($file)) && ($ss['mode'] & 0x49));
         } else {
             return(true);
         }
@@ -304,7 +304,7 @@ function getConfFile($name)
 
 function getPluginConf($plugin)
 {
-        $ret = '';
+    $ret = '';
     global $rootPath;
     $conf = $rootPath.'/plugins/'.$plugin.'/conf.php';
     if (is_file($conf) && is_readable($conf)) {
@@ -327,7 +327,7 @@ function getLogin()
 
 function getUser()
 {
-        global $forbidUserSettings;
+    global $forbidUserSettings;
     return( !$forbidUserSettings ? getLogin() : '' );
 }
 
@@ -580,12 +580,12 @@ function sendFile($filename, $contentType = null, $nameToSent = null, $mustExit 
 function base32decode($input)
 {
     $keyStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567=";
-        $buffer = 0;
-        $bitsLeft = 0;
-        $output = '';
-        $i = 0;
-        $input = strtoupper($input);
-        $len = strlen($input);
+    $buffer = 0;
+    $bitsLeft = 0;
+    $output = '';
+    $i = 0;
+    $input = strtoupper($input);
+    $len = strlen($input);
     while ($i < $len) {
         $val = strpos($keyStr, $input[$i++]);
         if ($val >= 0 && $val < 32) {
