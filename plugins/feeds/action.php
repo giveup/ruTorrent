@@ -110,7 +110,7 @@ function formatItemDescription($torrent)
 }
 
 $mode = (isset($_REQUEST['mode'])) ? $_REQUEST['mode'] : 'all';
-$url = (empty($_SERVER['HTTPS']) ? "http" : "https")."://".$_SERVER['HTTP_HOST'].str_replace('/plugins/feeds/action.php', '/', $_SERVER['REQUEST_URI']);
+$url = "//".$_SERVER['HTTP_HOST'].str_replace('/plugins/feeds/action.php', '/', $_SERVER['REQUEST_URI']);
 $server = explode(':', rTorrentSettings::get()->server);
 $ret = '<?xml version="1.0" encoding="UTF-8"?>'.
     '<rss version="2.0"><channel><description>*** rTorrent '.
