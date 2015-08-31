@@ -117,7 +117,7 @@ if (isset($_REQUEST['cmd'])) {
                     }
                     $task = new rTask(array
                     (
-                    'arg'=>call_user_func('end', explode('/', $path_edit)),
+                    'arg'=>basename($path_edit),
                     'requester'=>'create',
                     'name'=>'create',
                     'path_edit'=>$_REQUEST['path_edit'],
