@@ -51,14 +51,10 @@ if( count( $argv ) > 1 )
 		$path_edit = trim($request['path_edit']);
 		$piece_size = $request['piece_size'];
 		$callback_log = function ($msg) {
-			$fp = fopen("php://stdout","w");
-			fputs($fp, $msg."\n");
-			fclose($fp);
+			fputs(STDOUT, $msg."\n");
 		};
 		$callback_err = function ($msg) {
-			$fp=fopen("php://stderr","w");
-			fputs($fp, $msg."\n");
-			fclose($fp);
+			fputs(STDERR, $msg."\n");
 		};
 
 		if(count($announce_list)>0)

@@ -2,11 +2,11 @@
 
 ruTorrent is a front-end for the popular Bittorrent client [rtorrent](http://rakshasa.github.io/rtorrent).
 
-## Main features
+Note: This is a pre-release fork of ruTorrent that has not yet had a stable release, we do not advise it's use in production at this time.
 
-* Lightweight server side, so it can be installed on old and low-end servers and even on some SOHO routers
-* Extensible - there are several plugins and everybody can create his own one
-* Nice look ;) 
+* PHP code will adhere to the PSR-2 Coding Style Guide
+* PHP 7.0 will be the minimum targeted version
+
 
 ## Screenshots
 
