@@ -151,7 +151,6 @@ if(plugin.canChangeTabs())
 		{
 			if(arr.labels[i]!=0)
 			{       	
-//				var dt = new Date(arr.labels[i]*1000-theWebUI.serverDeltaTime);
 				var dt = new Date(arr.labels[i]*1000);
 				var month = dt.getMonth()+1;
 				month = (month < 10) ? ("0" + month) : month;
@@ -229,10 +228,11 @@ if(plugin.canChangeTabs())
 	{
 		if(plugin.enabled) 
 		{
-		        if(plugin.allStuffLoaded)
+	        if(plugin.allStuffLoaded) {
 				this.trafGraph.resize(w,h);
-			else
+	        } else {
 				setTimeout( 'theWebUI.resize()', 1000 );
+	        }
 		}
 		plugin.resizeBottom.call(this,w,h);
 	}

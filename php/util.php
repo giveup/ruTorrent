@@ -414,7 +414,6 @@ function findEXE($exe)
 
 function cachedEcho($content, $type = null, $cacheable = false, $exit = true)
 {
-    header("X-Server-Timestamp: ".time());
     if ($cacheable && isset($_SERVER['REQUEST_METHOD']) && ($_SERVER['REQUEST_METHOD']=='GET')) {
         $etag = '"'.strtoupper(dechex(crc32($content))).'"';
         header('Expires: ');
