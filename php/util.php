@@ -40,10 +40,13 @@ function isInvalidUTF8($str)
         if ($c > 128) {
             if (($c > 247)) {
                 return(true);
-            } elseif ($c > 239) $bytes = 4;
-            elseif ($c > 223) $bytes = 3;
-            elseif ($c > 191) $bytes = 2;
-            else {
+            } elseif ($c > 239) {
+                $bytes = 4;
+            } elseif ($c > 223) {
+                $bytes = 3;
+            } elseif ($c > 191) {
+                $bytes = 2;
+            } else {
                 return(true);
             }
             if (($i + $bytes) > $len) {
@@ -92,10 +95,11 @@ function win2utf($str)
         } else {
             $strhex=$recode[ord($str[$i])-128];
         }
+
         if ($strhex<0x0080) {
             $octet[0]=0x0;
         } elseif ($strhex<0x0800) {
-                $octet[0]=0xC0;
+            $octet[0]=0xC0;
             $octet[1]=0x80;
         } elseif ($strhex<0x10000) {
             $octet[0]=0xE0;
@@ -141,10 +145,13 @@ function mix2utf($str, $inv = '_')
             $bytes = 0;
             if (($c > 247)) {
                 $str[$i] = $inv;
-            } elseif ($c > 239) $bytes = 4;
-            elseif ($c > 223) $bytes = 3;
-            elseif ($c > 191) $bytes = 2;
-            else {
+            } elseif ($c > 239) {
+                $bytes = 4;
+            } elseif ($c > 223) {
+                $bytes = 3;
+            } elseif ($c > 191) {
+                $bytes = 2;
+            } else {
                 $str[$i] = $inv;
             }
             if ($bytes) {
@@ -173,7 +180,7 @@ function toLog($str)
 {
     global $log_file;
     if ($log_file && strlen($log_file) > 0) {
-    // dmrom: set proper permissions (need if rtorrent user differs from www user)
+        // dmrom: set proper permissions (need if rtorrent user differs from www user)
         if (!is_file($log_file)) {
             touch($log_file);
             chmod($log_file, 0666);

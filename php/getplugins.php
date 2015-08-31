@@ -5,13 +5,13 @@ require_once( "settings.php" );
 
 function getPluginInfo($name, $permissions)
 {
-        $info = array(
+    $info = [
         'rtorrent.need'=>1,
         'rtorrent.remote'=>'ok',
-        'rtorrent.external.warning'=>array(),
-        'rtorrent.external.error'=>array(),
-        'rtorrent.script.error'=>array(),
-        'rtorrent.php.error'=>array(),
+        'rtorrent.external.warning'=>[],
+        'rtorrent.external.error'=>[],
+        'rtorrent.script.error'=>[],
+        'rtorrent.php.error'=>[],
         'rtorrent.version'=>0x802,
         'rtorrent.version.readable'=>'0.8.2',
         'plugin.may_be_shutdowned'=>1,
@@ -19,82 +19,82 @@ function getPluginInfo($name, $permissions)
         'plugin.runlevel'=>10.0,
         'plugin.description'=>'',
         'plugin.author'=>'unknown',
-        'plugin.dependencies'=>array(),
+        'plugin.dependencies'=>[],
         'php.version'=>0x50000,
         'php.version.readable'=>'5.0.0',
-        'php.extensions.warning'=>array(),
-        'php.extensions.error'=>array(),
-        'web.external.warning'=>array(),
-        'web.external.error'=>array(),
+        'php.extensions.warning'=>[],
+        'php.extensions.error'=>[],
+        'web.external.warning'=>[],
+        'web.external.error'=>[],
         'plugin.help'=>'',
-        );
-        $fname = "../plugins/".$name."/plugin.info";
-        if (is_readable($fname)) {
-            $lines = file($fname);
-            foreach ($lines as $line) {
-                $fields = explode(":", $line, 2);
-                if (count($fields)==2) {
-                    $value = addcslashes(trim($fields[1]), "\\\'\"\n\r\t");
-                    $field = trim($fields[0]);
-                    switch($field)
-                    {
-                        case "plugin.help":
-                        case "plugin.author":
-                        case "plugin.description":
-                        case "rtorrent.remote":
-                            $info[$field] = $value;
-                            break;
-                        case "plugin.may_be_shutdowned":
-                        case "plugin.may_be_launched":
-                        case "rtorrent.need":
-                            $info[$field] = intval($value);
-                            break;
-                        case "plugin.version":
-                        case "plugin.runlevel":
-                            $info[$field] = floatval($value);
-                            break;
-                        case "rtorrent.version":
-                        case "php.version":
-                            $version = explode('.', $value);
-                            $info[$field] = (intval($version[0])<<16) + (intval($version[1])<<8) + intval($version[2]);
-                            $info[$field.'.readable'] = $value;
-                            break;
-                        case "plugin.dependencies":
-                        case "rtorrent.external.warning":
-                        case "rtorrent.external.error":
-                        case "rtorrent.script.error":
-                        case "rtorrent.php.error":
-                        case "web.external.warning":
-                        case "web.external.error":
-                        case "php.extensions.warning":
-                        case "php.extensions.error":
-                            $info[$field] = explode(',', $value);
-                            break;
+    ];
+    $fname = "../plugins/".$name."/plugin.info";
+    if (is_readable($fname)) {
+        $lines = file($fname);
+        foreach ($lines as $line) {
+            $fields = explode(":", $line, 2);
+            if (count($fields)==2) {
+                $value = addcslashes(trim($fields[1]), "\\\'\"\n\r\t");
+                $field = trim($fields[0]);
+                switch($field)
+                {
+                    case "plugin.help":
+                    case "plugin.author":
+                    case "plugin.description":
+                    case "rtorrent.remote":
+                        $info[$field] = $value;
+                        break;
+                    case "plugin.may_be_shutdowned":
+                    case "plugin.may_be_launched":
+                    case "rtorrent.need":
+                        $info[$field] = intval($value);
+                        break;
+                    case "plugin.version":
+                    case "plugin.runlevel":
+                        $info[$field] = floatval($value);
+                        break;
+                    case "rtorrent.version":
+                    case "php.version":
+                        $version = explode('.', $value);
+                        $info[$field] = (intval($version[0])<<16) + (intval($version[1])<<8) + intval($version[2]);
+                        $info[$field.'.readable'] = $value;
+                        break;
+                    case "plugin.dependencies":
+                    case "rtorrent.external.warning":
+                    case "rtorrent.external.error":
+                    case "rtorrent.script.error":
+                    case "rtorrent.php.error":
+                    case "web.external.warning":
+                    case "web.external.error":
+                    case "php.extensions.warning":
+                    case "php.extensions.error":
+                        $info[$field] = explode(',', $value);
+                        break;
 
-                        // for compatibility
-                        case "author":
-                        case "description":
-                            $info['plugin.'.$field] = $value;
-                            break;
-                        case "remote":
-                            $info['rtorrent.remote'] = $value;
-                            break;
-                        case "need_rtorrent":
-                            $info['rtorrent.need'] = intval($value);
-                            break;
-                        case "version":
-                        case "runlevel":
-                            $info['plugin.'.$field] = floatval($value);
-                            break;
-                    }
+                    // for compatibility
+                    case "author":
+                    case "description":
+                        $info['plugin.'.$field] = $value;
+                        break;
+                    case "remote":
+                        $info['rtorrent.remote'] = $value;
+                        break;
+                    case "need_rtorrent":
+                        $info['rtorrent.need'] = intval($value);
+                        break;
+                    case "version":
+                    case "runlevel":
+                        $info['plugin.'.$field] = floatval($value);
+                        break;
                 }
             }
-            $perms = 0;
-            if ($permissions!==false) {
-                if (!getFlag($permissions, $name, "enabled")) {
-                    return(false);
-                }
-                $flags = array(
+        }
+        $perms = 0;
+        if ($permissions!==false) {
+            if (!getFlag($permissions, $name, "enabled")) {
+                return(false);
+            }
+            $flags = [
                 "canChangeToolbar"  => 0x0001,
                 "canChangeMenu"     => 0x0002,
                 "canChangeOptions"  => 0x0004,
@@ -104,21 +104,21 @@ function getPluginInfo($name, $permissions)
                 "canChangeCategory"     => 0x0040,
                 "canBeShutdowned"   => 0x0080,
                 /*	"canBeLaunched"		=> 0x0100, */
-                );
-                foreach ($flags as $flagName => $flagVal) {
-                    if (!getFlag($permissions, $name, $flagName)) {
-                        $perms|=$flagVal;
-                    }
+            ];
+            foreach ($flags as $flagName => $flagVal) {
+                if (!getFlag($permissions, $name, $flagName)) {
+                    $perms|=$flagVal;
                 }
-
-                if (!$info["plugin.may_be_shutdowned"]) {
-                    $perms|=$flags["canBeShutdowned"];
-                }
-
             }
-            $info["perms"] = $perms;
+
+            if (!$info["plugin.may_be_shutdowned"]) {
+                $perms|=$flags["canBeShutdowned"];
+            }
+
         }
-        return(array_key_exists("plugin.version", $info) ? $info : false);
+        $info["perms"] = $perms;
+    }
+    return(array_key_exists("plugin.version", $info) ? $info : false);
 }
 
 function findRemoteEXE($exe, $err, &$remoteRequests)
@@ -127,13 +127,13 @@ function findRemoteEXE($exe, $err, &$remoteRequests)
     if (!array_key_exists($exe, $remoteRequests)) {
         $path=realpath(dirname('.'));
         global $pathToExternals;
-        $cmd = array( "sh", addslash($path)."test.sh", $exe, $st );
+        $cmd = [ "sh", addslash($path)."test.sh", $exe, $st ];
         if (isset($pathToExternals[$exe]) && !empty($pathToExternals[$exe])) {
             $cmd[] = $pathToExternals[$exe];
         }
         $req = new rXMLRPCRequest(new rXMLRPCCommand("execute", $cmd));
         $req->run();
-        $remoteRequests[$exe] = array( "path"=>$st, "err"=>array() );
+        $remoteRequests[$exe] = [ "path"=>$st, "err"=> [] ];
     }
     $remoteRequests[$exe]["err"][] = $err;
 }
@@ -160,7 +160,7 @@ if (!$access) {
     $access = "../conf/access.ini";
 }
 $permissions = parse_ini_file($access);
-$settingsFlags = array(
+$settingsFlags = [
     "showDownloadsPage"     => 0x0001,
     "showConnectionPage"    => 0x0002,
     "showBittorentPage"     => 0x0004,
@@ -169,7 +169,7 @@ $settingsFlags = array(
     "canChangeULRate"   => 0x0020,
     "canChangeDLRate"   => 0x0040,
     "canChangeTorrentProperties"    => 0x0080,
-);
+];
 $perms = 0;
 foreach ($settingsFlags as $flagName => $flagVal) {
     if (array_key_exists($flagName, $permissions) && $permissions[$flagName]) {
@@ -196,7 +196,7 @@ if ($handle = opendir('../plugins')) {
         $jResult.="noty(theUILang.PCRENotFound,'error');";
         $jResult.="theWebUI.systemInfo.rTorrent = { started: false, iVersion : 0, version : '?', libVersion : '?' };\n";
     } else {
-        $remoteRequests = array();
+        $remoteRequests = [];
         $theSettings = rTorrentSettings::get(true);
         if (!$theSettings->linkExist) {
             $jResult.="noty(theUILang.badLinkTorTorrent,'error');";
@@ -257,9 +257,9 @@ if ($handle = opendir('../plugins')) {
             $plg = "../conf/plugins.ini";
         }
         $permissions = parse_ini_file($plg, true);
-        $init = array();
-        $names = array();
-        $disabled = array();
+        $init = [];
+        $names = [];
+        $disabled = [];
         $phpVersion = phpversion();
         if (($pos=strpos($phpVersion, '-'))!==false) {
             $phpVersion = substr($phpVersion, 0, $pos);
@@ -268,7 +268,7 @@ if ($handle = opendir('../plugins')) {
         $phpIVersion = (intval($phpIVersion[0])<<16) + (intval($phpIVersion[1])<<8) + intval($phpIVersion[2]);
         $phpRequired = false;
 
-        $userPermissions = array( "__hash__"=>"plugins.dat" );
+        $userPermissions = [ "__hash__"=>"plugins.dat" ];
         $cache = new rCache();
         $cache->get($userPermissions);
 
@@ -411,7 +411,7 @@ if ($handle = opendir('../plugins')) {
                     if (!is_readable($php)) {
                         $php = null;
                     }
-                    $init[] = array( "js" => $js, "php" => $php, "info" => $info, "name" => $file );
+                    $init[] = [ "js" => $js, "php" => $php, "info" => $info, "name" => $file ];
                     $names[] = $file;
                 }
             }
@@ -422,7 +422,7 @@ if ($handle = opendir('../plugins')) {
                 $jResult.="noty(theUILang.phpParameterUnavailable,'error');";
             }
         }
-        usort($init, function($a, $b){
+        usort($init, function ($a, $b) {
             $runlevel = ($a['info']['plugin.runlevel'] <=> $b['info']['plugin.runlevel']);
 
             if ($runlevel !== 0) {
