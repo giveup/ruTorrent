@@ -17,19 +17,6 @@ if (!chdir(dirname(__FILE__))) {
         exit();
 }
 
-function pluginsSort($a, $b)
-{
-    $lvl1 = (float) $a["level"];
-    $lvl2 = (float) $b["level"];
-    if ($lvl1>$lvl2) {
-        return(1);
-    }
-    if ($lvl1<$lvl2) {
-        return(-1);
-    }
-    return( strcmp($a["name"], $b["name"]) );
-}
-
 function getFlag($permissions, $pname, $fname)
 {
     $ret = true;
@@ -210,7 +197,15 @@ if ($theSettings->linkExist && ($handle = opendir('../plugins'))) {
         }
     }
     closedir($handle);
-    usort($init, "pluginsSort");
+    usort($init, function($a, $b){
+            $runlevel = ($a['level'] <=> $b['level']);
+
+            if ($runlevel !== 0) {
+                return $runlevel;
+            }
+
+            return strcasecmp($a['name'], $b['name']);
+    });
     $do_diagnostic = false;
     $jResult = '';
     $jEnd = '';

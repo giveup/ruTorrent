@@ -3,19 +3,6 @@
 require_once( "util.php" );
 require_once( "settings.php" );
 
-function pluginsSort($a, $b)
-{
-    $lvl1 = (float) $a["info"]["plugin.runlevel"];
-    $lvl2 = (float) $b["info"]["plugin.runlevel"];
-    if ($lvl1>$lvl2) {
-        return(1);
-    }
-    if ($lvl1<$lvl2) {
-        return(-1);
-    }
-    return( strcmp($a["name"], $b["name"]) );
-}
-
 function getFlag($permissions, $pname, $fname)
 {
     $ret = true;
@@ -450,7 +437,15 @@ if ($handle = opendir('../plugins')) {
                 $jResult.="noty(theUILang.phpParameterUnavailable,'error');";
             }
         }
-        usort($init, "pluginsSort");
+        usort($init, function($a, $b){
+            $runlevel = ($a['info']['plugin.runlevel'] <=> $b['info']['plugin.runlevel']);
+
+            if ($runlevel !== 0) {
+                return $runlevel;
+            }
+
+            return strcasecmp($a['name'], $b['name']);
+        });
         foreach ($init as $plugin) {
             $jEnd = '';
                 $pInfo = $plugin["info"];
