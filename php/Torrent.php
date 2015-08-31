@@ -109,7 +109,7 @@ class Torrent
      * @param mixed data to encode
      * @return string torrent encoded data
      */
-    protected static function encode($mixed)
+    protected static function encode($mixed): string
     {
         switch (gettype($mixed))
         {
@@ -129,7 +129,7 @@ class Torrent
      * @param string string to encode
      * @return string encoded string
      */
-    private static function encode_string($string)
+    private static function encode_string(string $string): string
     {
         return(strlen($string) . ':' . $string);
     }
@@ -138,7 +138,7 @@ class Torrent
      * @param integer integer to encode
      * @return string encoded integer
      */
-    private static function encode_integer($integer)
+    private static function encode_integer(int $integer): string
     {
         return('i' . $integer . 'e');
     }
@@ -147,7 +147,7 @@ class Torrent
      * @param array array to encode
      * @return string encoded dictionary or list
      */
-    private static function encode_array(array $array)
+    private static function encode_array(array $array): string
     {
         if (self::is_list((array) $array)) {
             $return = 'l';
@@ -185,7 +185,7 @@ class Torrent
 
     /**** Decode BitTorrent ****/
 
-    public function decode($string)
+    public function decode(string $string)
     {
         if (is_file($string)) {
             $this->data = file_get_contents($string);
@@ -215,7 +215,7 @@ class Torrent
         }
     }
 
-    private function decode_dictionary()
+    private function decode_dictionary(): array
     {
         $dictionary = [];
         $this->pointer++;
@@ -223,11 +223,11 @@ class Torrent
             $key = $this->decode_string();
             $dictionary[$key] = $this->decode_data();
         }
-            $this->pointer++;
-            return($dictionary);
+        $this->pointer++;
+        return($dictionary);
     }
 
-    private function decode_list()
+    private function decode_list(): array
     {
         $list = [];
         $this->pointer++;
@@ -271,7 +271,7 @@ class Torrent
         return($integer);
     }
 
-    private function isOfType($type)
+    private function isOfType($type): bool
     {
         if ($this->pointer>=strlen($this->data)) {
             throw new Exception('Bad torrent data3 '.$this->pointer);
@@ -412,7 +412,7 @@ class Torrent
     protected function build($data, $piece_length)
     {
         if (is_null($data)) {
-                return(false);
+            return(false);
         }
         if (is_array($data) && self::is_list($data)) {
             $this->info = $this->files($data, $piece_length);
@@ -454,7 +454,7 @@ class Torrent
         ]);
     }
 
-    private static function sortNames($a, $b)
+    private static function sortNames($a, $b): int
     {
         $ret = substr_count($b, DIRECTORY_SEPARATOR)-substr_count($a, DIRECTORY_SEPARATOR);
         return( ($ret==0) ? strcoll($a, $b) : $ret );
