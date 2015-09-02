@@ -2288,7 +2288,7 @@ var theWebUI =
 		var ww = $(window).width();
 		var wh = $(window).height();
 			var w = Math.floor(ww * (1 - theWebUI.settings["webui.hsplit"])) - 5;
-			var th = ($("#t").is(":visible") ? $("#t").height() : -1)+$("#StatusBar").height()+12;
+			var th = ($("header").is(":visible") ? $("header").height() : -1)+$("#StatusBar").height()+12;
 		$("#StatusBar").width(ww);
 		if(theWebUI.settings["webui.show_cats"])
 		{
@@ -2339,7 +2339,7 @@ var theWebUI =
 
 	toggleMenu: function()
 	{
-		$("#t").toggle();
+		$("header").toggle();
 		theWebUI.resize();
 	},
 

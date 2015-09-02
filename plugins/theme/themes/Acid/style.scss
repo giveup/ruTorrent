@@ -39,6 +39,8 @@ header {
 	#setting {background: transparent url(./images/toolbar.png) no-repeat -264px center}
 	#help {background: transparent url(./images/quest.gif) no-repeat 0px center}
 	#go {background: transparent url(./images/go.gif) no-repeat 0px center; }
+
+	#ind { background: transparent url(./images/ajax-loader.gif) no-repeat 0px center; }
 }
 
 input.Button { background: #D7D7D7 url(./images/h.gif) repeat-x center bottom; }
@@ -98,8 +100,6 @@ div#dlgAbout div.dlg-header {background-image: url(./images/about.gif); }
 div#dlgHelp div.dlg-header {background-image: url(./images/about.gif); }
 div#dlgProps div.dlg-header {background-image: url(./images/props.gif); }
 div#yesnoDlg div.dlg-header {background-image: url(./images/error.gif); }
-
-header div#ind { background: transparent url(./images/ajax-loader.gif) no-repeat 0px center; }
 
 span#loadimg { background: transparent url(./images/ajax-loader.gif) no-repeat center center; }
 
