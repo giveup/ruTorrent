@@ -21,24 +21,30 @@ ul.CMenu li ul li a.dis:hover {background-color: #181818; color: #333333}
 
 #sel {border: 1px dotted #555555;}
 
-div#t {background: #181818 url(./images/t_bg.png) repeat-x center center; border-bottom: 1px solid #333333;}
-div#t a:hover {background: transparent url(./images/tb_bg.gif) no-repeat scroll center center}
-div#t div.TB_Separator {background-color: #333333}
-div#t div#add {background: transparent url(./images/toolbar.png) no-repeat -24px center}
-div#t div#create {background: transparent url(./images/toolbar.png) no-repeat -48px center}
-div#t div#remove {background: transparent url(./images/toolbar.png) no-repeat -72px center}
-div#t div#start {background: transparent url(./images/toolbar.png) no-repeat -96px center}
-div#t div#pause {background: transparent url(./images/toolbar.png) no-repeat -120px center}
-div#t div#stop {background: transparent url(./images/toolbar.png) no-repeat -144px center}
-div#t div#moveu {background: transparent url(./images/toolbar.png) no-repeat -168px center}
-div#t div#moved {background: transparent url(./images/toolbar.png) no-repeat -192px center}
-div#t div#search {background: transparent url(./images/toolbar.png) no-repeat -216px center}
-div#t div#rss {background: transparent url(./images/toolbar.png) no-repeat -240px center}
-div#t div#setting {background: transparent url(./images/toolbar.png) no-repeat -264px center}
+header {
+	background: #181818 url(./images/t_bg.png) repeat-x center center;
+	border-bottom: 1px solid #333333;
 
-div#t div#help {background: transparent url(./images/quest.gif) no-repeat 0px center}
-div#t div#go {background: transparent url(./images/toolbar.png) no-repeat -96px center}
-div#t div#plugins {background: transparent url(./images/plugin.png) no-repeat 0px center}
+	a:hover {background: transparent url(./images/tb_bg.gif) no-repeat scroll center center}
+	.TB_Separator {background-color: #333333}
+	#add {background: transparent url(./images/toolbar.png) no-repeat -24px center}
+	#create {background: transparent url(./images/toolbar.png) no-repeat -48px center}
+	#remove {background: transparent url(./images/toolbar.png) no-repeat -72px center}
+	#start {background: transparent url(./images/toolbar.png) no-repeat -96px center}
+	#pause {background: transparent url(./images/toolbar.png) no-repeat -120px center}
+	#stop {background: transparent url(./images/toolbar.png) no-repeat -144px center}
+	#moveu {background: transparent url(./images/toolbar.png) no-repeat -168px center}
+	#moved {background: transparent url(./images/toolbar.png) no-repeat -192px center}
+	#search {background: transparent url(./images/toolbar.png) no-repeat -216px center}
+	#rss {background: transparent url(./images/toolbar.png) no-repeat -240px center}
+	#setting {background: transparent url(./images/toolbar.png) no-repeat -264px center}
+
+	#help {background: transparent url(./images/quest.gif) no-repeat 0px center}
+	#go {background: transparent url(./images/toolbar.png) no-repeat -96px center}
+	#plugins {background: transparent url(./images/plugin.png) no-repeat 0px center}
+
+	#ind {background: transparent url(./images/ajax-loader.gif) no-repeat 0px center;}
+}
 
 input.Textbox, input.Button, select {border: 1px solid #333333}
 Input.TextboxShort {border: 1px solid #333333}
@@ -103,8 +109,6 @@ div.dlg-window {background-color: #181818; color: #888888; border: 1px solid #33
 div.dlg-header { background-color: #181818; border-bottom: 1px solid #333333}
 
 div.tab {background-color: #181818}
-
-div#t div#ind {background: transparent url(./images/ajax-loader.gif) no-repeat 0px center;}
 
 span#loadimg {background: transparent url(./images/ajax-loader.gif) no-repeat center center; }
 

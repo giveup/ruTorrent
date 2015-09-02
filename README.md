@@ -14,12 +14,9 @@ Note: This is a pre-release fork of ruTorrent that has not yet had a stable rele
 [![](https://github.com/Novik/ruTorrent/wiki/images/scr2_small.jpg)](https://github.com/Novik/ruTorrent/wiki/images/scr2_big.jpg)
 [![](https://github.com/Novik/ruTorrent/wiki/images/scr3_small.jpg)](https://github.com/Novik/ruTorrent/wiki/images/scr3_big.jpg)
 
-## Download
-
-* [Development version](https://github.com/Novik/ruTorrent/tarball/master)
-* [Stable version](https://bintray.com/novik65/generic/ruTorrent)
-
 ## Getting started
 
-* There's no installation routine or compilation necessary. The sources are cloned/unpacked into a directory which is setup as document root of a web server of your choice (for detailed instructions see the [webserver wiki article](https://github.com/Novik/ruTorrent/wiki/WebSERVER).
-*  After setting up the webserver `ruTorrent` itself needs to be configured. Instructions can be found in various articles in the [wiki](https://github.com/Novik/ruTorrent/wiki).
+1. Compile the stylesheets
+
+	sass --scss --style compressed --update css/ --update plugins/theme/themes/
+

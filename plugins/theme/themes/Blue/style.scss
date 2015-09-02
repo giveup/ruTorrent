@@ -1,21 +1,26 @@
 html, body { background-color: #DFE8F6 }
 
-div#t {background: #181818 url(./images/header_bg.gif) repeat-x center center; border-bottom: 1px solid #333333;}
+header {
+	background: #181818 url(./images/header_bg.gif) repeat-x center center;
+	border-bottom: 1px solid #333333;
 
-div#t div#add {background: transparent url(./images/toolbar.png) no-repeat -24px center}
-div#t div#create {background: transparent url(./images/toolbar.png) no-repeat -48px center}
-div#t div#remove {background: transparent url(./images/toolbar.png) no-repeat -72px center}
-div#t div#start {background: transparent url(./images/toolbar.png) no-repeat -96px center}
-div#t div#pause {background: transparent url(./images/toolbar.png) no-repeat -120px center}
-div#t div#stop {background: transparent url(./images/toolbar.png) no-repeat -144px center}
-div#t div#moveu {background: transparent url(./images/toolbar.png) no-repeat -168px center}
-div#t div#moved {background: transparent url(./images/toolbar.png) no-repeat -192px center}
-div#t div#search {background: transparent url(./images/toolbar.png) no-repeat -216px center}
-div#t div#rss {background: transparent url(./images/toolbar.png) no-repeat -240px center}
-div#t div#setting {background: transparent url(./images/toolbar.png) no-repeat -264px center}
-div#t div#help {background: transparent url(./images/quest.gif) no-repeat 0px center}
-div#t div#go {background: transparent url(./images/go.gif) no-repeat 0px center; }
-div#t div#plugins {background: transparent url(./images/plugin.png) no-repeat 0px center}
+	#add {background: transparent url(./images/toolbar.png) no-repeat -24px center}
+	#create {background: transparent url(./images/toolbar.png) no-repeat -48px center}
+	#remove {background: transparent url(./images/toolbar.png) no-repeat -72px center}
+	#start {background: transparent url(./images/toolbar.png) no-repeat -96px center}
+	#pause {background: transparent url(./images/toolbar.png) no-repeat -120px center}
+	#stop {background: transparent url(./images/toolbar.png) no-repeat -144px center}
+	#moveu {background: transparent url(./images/toolbar.png) no-repeat -168px center}
+	#moved {background: transparent url(./images/toolbar.png) no-repeat -192px center}
+	#search {background: transparent url(./images/toolbar.png) no-repeat -216px center}
+	#rss {background: transparent url(./images/toolbar.png) no-repeat -240px center}
+	#setting {background: transparent url(./images/toolbar.png) no-repeat -264px center}
+	#help {background: transparent url(./images/quest.gif) no-repeat 0px center}
+	#go {background: transparent url(./images/go.gif) no-repeat 0px center; }
+	#plugins {background: transparent url(./images/plugin.png) no-repeat 0px center}
+
+	#ind {background: transparent url(./images/ajax-loader.gif) no-repeat 0px center;}
+}
 
 ul.CMenu li a:hover {background-color: #D9E8FB}
 ul.CMenu li:hover ul li a:hover {background-color: #D9E8FB}
@@ -64,8 +69,6 @@ div.dlg-header { background: #D9E8FB url(../../images/blank.gif) no-repeat scrol
 .stg_con { background-color: #FFFFFF }
 div#stg .lm { background-color: #FAFAFA; border: 1px solid #D0D0D0; }
 .lm li a.focus {background-color: #D9E8FB}
-
-div#t div#ind {background: transparent url(./images/ajax-loader.gif) no-repeat 0px center;}
 
 .x-window-tl { background: url(./images/left-corners.png) no-repeat scroll 0 0 transparent; padding-left: 6px; margin: 0 }
 .x-window-tr { background: url(./images/right-corners.png) no-repeat scroll right 0 transparent; padding-right: 2px; margin: 0 }

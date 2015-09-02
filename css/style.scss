@@ -41,33 +41,40 @@ ul.CMenu li ul li a.dis:hover {background-color: #FFFFFF; color: #C0C0C0}
 span.htkey {text-align:right; position: absolute; right: 16px; z-index:100}
 #sel {width: 0px; height: 0px; position: absolute; left: 0px; top: 0px; border: 1px dotted #000000; display: none; z-index: 1000}
 
-div#t {width: 100%; height: 36px; background: #F0F0F0 url(../images/t_bg.png) repeat-x center center; line-height: 36px; border-bottom: 1px solid #D0D0D0; white-space: nowrap}
-div#t a {float: left; margin: 3px 0 0 5px; padding: 3px}
-div#t a:hover {background: transparent url(../images/tb_bg.gif) no-repeat scroll center center}
-div#t a:active {padding: 4px 2px 2px 4px}
-div#t div {width: 24px; height: 24px; float: left; cursor: pointer}
-div#t div.TB_Separator {width: 1px; height: 22px; margin: 7px 0 0 5px; padding: 0; border: 0; background-color: #A0A0A0}
+header {
+	height: 36px;
+	background: #F0F0F0 url(../images/t_bg.png) repeat-x center center;
+	line-height: 36px;
+	border-bottom: 1px solid #D0D0D0;
+	white-space: nowrap;
 
-div#t div#add {background: transparent url(../images/toolbar.png) no-repeat -24px center}
-div#t div#create {background: transparent url(../images/toolbar.png) no-repeat -48px center}
-div#t div#remove {background: transparent url(../images/toolbar.png) no-repeat -72px center}
-div#t div#start {background: transparent url(../images/toolbar.png) no-repeat -96px center}
-div#t div#pause {background: transparent url(../images/toolbar.png) no-repeat -120px center}
-div#t div#stop {background: transparent url(../images/toolbar.png) no-repeat -144px center}
-div#t div#moveu {background: transparent url(../images/toolbar.png) no-repeat -168px center}
-div#t div#moved {background: transparent url(../images/toolbar.png) no-repeat -192px center}
-div#t div#search {background: transparent url(../images/toolbar.png) no-repeat -216px center}
-div#t div#rss {background: transparent url(../images/toolbar.png) no-repeat -240px center}
-div#t div#setting {background: transparent url(../images/toolbar.png) no-repeat -264px center}
+	a {float: left; margin: 3px 0 0 5px; padding: 3px}
+	a:hover {background: transparent url(../images/tb_bg.gif) no-repeat scroll center center}
+	a:active {padding: 4px 2px 2px 4px}
+	div {width: 24px; height: 24px; float: left; cursor: pointer}
+	.TB_Separator {width: 1px; height: 22px; margin: 7px 0 0 5px; padding: 0; border: 0; background-color: #A0A0A0}
 
-div#t div#help {background: transparent url(../images/quest.gif) no-repeat 0px center}
-div#t div#plugins {background: transparent url(../images/plugin.png) no-repeat 0px center}
+	#add {background: transparent url(../images/toolbar.png) no-repeat -24px center}
+	#create {background: transparent url(../images/toolbar.png) no-repeat -48px center}
+	#remove {background: transparent url(../images/toolbar.png) no-repeat -72px center}
+	#start {background: transparent url(../images/toolbar.png) no-repeat -96px center}
+	#pause {background: transparent url(../images/toolbar.png) no-repeat -120px center}
+	#stop {background: transparent url(../images/toolbar.png) no-repeat -144px center}
+	#moveu {background: transparent url(../images/toolbar.png) no-repeat -168px center}
+	#moved {background: transparent url(../images/toolbar.png) no-repeat -192px center}
+	#search {background: transparent url(../images/toolbar.png) no-repeat -216px center}
+	#rss {background: transparent url(../images/toolbar.png) no-repeat -240px center}
+	#setting {background: transparent url(../images/toolbar.png) no-repeat -264px center}
 
+	#help {background: transparent url(../images/quest.gif) no-repeat 0px center}
+	#plugins {background: transparent url(../images/plugin.png) no-repeat 0px center}
+
+}
 #rc { float: right; }
 #go {background: transparent url(../images/go.gif) no-repeat 0px center; }
 #query { margin-top: 4px; }
-div#t a#mnu_go {margin: 3px 0 0 0; padding: 3px}
-div#t #ind {margin-top: 2px; background: transparent url(../images/ajax-loader.gif) no-repeat 0px center; width: 32px; margin-right: 2px; line-height: 26px; cursor: default; }
+header a#mnu_go {margin: 3px 0 0 0; padding: 3px}
+header #ind {margin-top: 2px; background: transparent url(../images/ajax-loader.gif) no-repeat 0px center; width: 32px; margin-right: 2px; line-height: 26px; cursor: default; }
 
 input.Textbox, input.Button, select {border: 1px solid #B0B0B0; font-size: 11px; font-family: Tahoma, Arial, Helvetica, sans-serif; padding: 2px}
 Input.TextboxShort {border: 1px solid #B0B0B0; font-size: 11px; font-family: Tahoma, Arial, Helvetica, sans-serif; padding: 2px; width: 50px}

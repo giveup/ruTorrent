@@ -26,43 +26,49 @@ ul.CMenu li ul li a.sel {color:#178FD1}
 ul.CMenu li a:hover {background-color: #888888;; color: #fff;text-shadow:0px -1px 0px #000;}
 
 ul.CMenu li:hover ul li a {background-color: #181818; color: #666666}
-ul.CMenu li:hover ul li a:hover {background-color; color: #fff;text-shadow:0px -1px 0px #000;}
+ul.CMenu li:hover ul li a:hover {color: #fff;text-shadow:0px -1px 0px #000;}
 ul.CMenu li ul li a.dis {color: #333333}
 ul.CMenu li ul li a.dis:hover {background-color: #181818; color: #333333}
 
 
 #sel {border: 1px dotted #555555;}
 
-div#t {background: #000 url(./images/headers.png) repeat-x 0px -252px; border-bottom: none;}
-div#t a:hover {background: none;}
-div#t div.TB_Separator {border-right:1px solid #262626;background-color: #000;height:35px;margin:0px 0px 0px 5px}
-div#t div#add {background: transparent url(./images/toolbar.png) no-repeat 0px 0px}
-div#t div#add:hover {background: transparent url(./images/toolbar.png) no-repeat px -24px}
-div#t div#create {background: transparent url(./images/toolbar.png) no-repeat -24px 0px}
-div#t div#create:hover {background: transparent url(./images/toolbar.png) no-repeat -24px -24px}
-div#t div#remove {background: transparent url(./images/toolbar.png) no-repeat -48px 0px}
-div#t div#remove:hover {background: transparent url(./images/toolbar.png) no-repeat -48px -24px}
-div#t div#start {background: transparent url(./images/toolbar.png) no-repeat -72px 0px}
-div#t div#start:hover {background: transparent url(./images/toolbar.png) no-repeat -72px -24px}
-div#t div#pause {background: transparent url(./images/toolbar.png) no-repeat -96px 0px}
-div#t div#pause:hover {background: transparent url(./images/toolbar.png) no-repeat -96px -24px}
-div#t div#stop {background: transparent url(./images/toolbar.png) no-repeat -120px 0px}
-div#t div#stop:hover {background: transparent url(./images/toolbar.png) no-repeat -120px -24px}
-div#t div#moveu {background: transparent url(./images/toolbar.png) no-repeat -144px 0px}
-div#t div#moveu:hover {background: transparent url(./images/toolbar.png) no-repeat -144px -24px}
-div#t div#moved {background: transparent url(./images/toolbar.png) no-repeat -168px 0px}
-div#t div#moved:hover {background: transparent url(./images/toolbar.png) no-repeat -168px -24px}
-div#t div#search {background: transparent url(./images/toolbar.png) no-repeat -192px 0px}
-div#t div#search:hover {background: transparent url(./images/toolbar.png) no-repeat -192px -24px}
-div#t div#rss {background: transparent url(./images/toolbar.png) no-repeat -241px 0px}
-div#t div#rss:hover {background: transparent url(./images/toolbar.png) no-repeat -241px -24px}
-div#t div#setting {background: transparent url(./images/toolbar.png) no-repeat -264px 0px}
-div#t div#setting:hover {background: transparent url(./images/toolbar.png) no-repeat -264px -24px}
-div#t div#plugins {background: transparent url(./images/plugin.png) no-repeat 0px center}
+header {
+    background: #000 url(./images/headers.png) repeat-x 0px -252px;
+    border-bottom: none;
 
-div#t div#help {background: transparent url(./images/toolbar.png) no-repeat -288px 0px}
-div#t div#help:hover {background: transparent url(./images/toolbar.png) no-repeat -288px -24px}
-div#t div#go {background: transparent url(./images/toolbar.png) no-repeat -72px 0px}
+    a:hover {background: none;}
+    .TB_Separator {border-right:1px solid #262626;background-color: #000;height:35px;margin:0px 0px 0px 5px}
+    #add {background: transparent url(./images/toolbar.png) no-repeat 0px 0px}
+    #add:hover {background: transparent url(./images/toolbar.png) no-repeat px -24px}
+    #create {background: transparent url(./images/toolbar.png) no-repeat -24px 0px}
+    #create:hover {background: transparent url(./images/toolbar.png) no-repeat -24px -24px}
+    #remove {background: transparent url(./images/toolbar.png) no-repeat -48px 0px}
+    #remove:hover {background: transparent url(./images/toolbar.png) no-repeat -48px -24px}
+    #start {background: transparent url(./images/toolbar.png) no-repeat -72px 0px}
+    #start:hover {background: transparent url(./images/toolbar.png) no-repeat -72px -24px}
+    #pause {background: transparent url(./images/toolbar.png) no-repeat -96px 0px}
+    #pause:hover {background: transparent url(./images/toolbar.png) no-repeat -96px -24px}
+    #stop {background: transparent url(./images/toolbar.png) no-repeat -120px 0px}
+    #stop:hover {background: transparent url(./images/toolbar.png) no-repeat -120px -24px}
+    #moveu {background: transparent url(./images/toolbar.png) no-repeat -144px 0px}
+    #moveu:hover {background: transparent url(./images/toolbar.png) no-repeat -144px -24px}
+    #moved {background: transparent url(./images/toolbar.png) no-repeat -168px 0px}
+    #moved:hover {background: transparent url(./images/toolbar.png) no-repeat -168px -24px}
+    #search {background: transparent url(./images/toolbar.png) no-repeat -192px 0px}
+    #search:hover {background: transparent url(./images/toolbar.png) no-repeat -192px -24px}
+    #rss {background: transparent url(./images/toolbar.png) no-repeat -241px 0px}
+    #rss:hover {background: transparent url(./images/toolbar.png) no-repeat -241px -24px}
+    #setting {background: transparent url(./images/toolbar.png) no-repeat -264px 0px}
+    #setting:hover {background: transparent url(./images/toolbar.png) no-repeat -264px -24px}
+    #plugins {background: transparent url(./images/plugin.png) no-repeat 0px center}
+
+    #help {background: transparent url(./images/toolbar.png) no-repeat -288px 0px}
+    #help:hover {background: transparent url(./images/toolbar.png) no-repeat -288px -24px}
+    #go {background: transparent url(./images/toolbar.png) no-repeat -72px 0px}
+
+    #ind {background: transparent url(./images/ajax-loader.gif) no-repeat 0px center;}
+}
 .stg_con td input {padding:1px 4px;}
 
 a {color: #686868; font-family:inherit;}
@@ -151,8 +157,6 @@ div#tadd-header {background: #181818 url(./images/dlg-toolbars.gif) no-repeat 0p
 
 
 div.tab {background-color: #181818}
-
-div#t div#ind {background: transparent url(./images/ajax-loader.gif) no-repeat 0px center;}
 
 span#loadimg {background: transparent url(./images/ajax-loader.gif) no-repeat center center; }
 /*Scrollbars*/

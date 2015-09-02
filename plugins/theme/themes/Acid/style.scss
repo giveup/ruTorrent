@@ -20,22 +20,26 @@ ul.CMenu li:hover ul li a:hover {background-color: #BDDBDB; color: #272E36;}
 
 div.graph_tab {background-color: #272E36; color: #BDDBDB; font-weight: bold;}
 
-div#t {background: #252525 url(./images/t_bg.png) repeat-x center center; border-bottom: 1px solid #252525;}
-div#t a:hover {background: transparent url(./images/tb_bg.gif) no-repeat scroll center center}
+header {
+	background: #252525 url(./images/t_bg.png) repeat-x center center;
+	border-bottom: 1px solid #252525;
 
-div#t div#add {background: transparent url(./images/toolbar.png) no-repeat -24px center}
-div#t div#create {background: transparent url(./images/toolbar.png) no-repeat -48px center}
-div#t div#remove {background: transparent url(./images/toolbar.png) no-repeat -72px center}
-div#t div#start {background: transparent url(./images/toolbar.png) no-repeat -96px center}
-div#t div#pause {background: transparent url(./images/toolbar.png) no-repeat -120px center}
-div#t div#stop {background: transparent url(./images/toolbar.png) no-repeat -144px center}
-div#t div#moveu {background: transparent url(./images/toolbar.png) no-repeat -168px center}
-div#t div#moved {background: transparent url(./images/toolbar.png) no-repeat -192px center}
-div#t div#search {background: transparent url(./images/toolbar.png) no-repeat -216px center}
-div#t div#rss {background: transparent url(./images/toolbar.png) no-repeat -240px center}
-div#t div#setting {background: transparent url(./images/toolbar.png) no-repeat -264px center}
-div#t div#help {background: transparent url(./images/quest.gif) no-repeat 0px center}
-div#t div#go {background: transparent url(./images/go.gif) no-repeat 0px center; }
+	a:hover {background: transparent url(./images/tb_bg.gif) no-repeat scroll center center}
+
+	#add {background: transparent url(./images/toolbar.png) no-repeat -24px center}
+	#create {background: transparent url(./images/toolbar.png) no-repeat -48px center}
+	#remove {background: transparent url(./images/toolbar.png) no-repeat -72px center}
+	#start {background: transparent url(./images/toolbar.png) no-repeat -96px center}
+	#pause {background: transparent url(./images/toolbar.png) no-repeat -120px center}
+	#stop {background: transparent url(./images/toolbar.png) no-repeat -144px center}
+	#moveu {background: transparent url(./images/toolbar.png) no-repeat -168px center}
+	#moved {background: transparent url(./images/toolbar.png) no-repeat -192px center}
+	#search {background: transparent url(./images/toolbar.png) no-repeat -216px center}
+	#rss {background: transparent url(./images/toolbar.png) no-repeat -240px center}
+	#setting {background: transparent url(./images/toolbar.png) no-repeat -264px center}
+	#help {background: transparent url(./images/quest.gif) no-repeat 0px center}
+	#go {background: transparent url(./images/go.gif) no-repeat 0px center; }
+}
 
 input.Button { background: #D7D7D7 url(./images/h.gif) repeat-x center bottom; }
 
@@ -95,7 +99,7 @@ div#dlgHelp div.dlg-header {background-image: url(./images/about.gif); }
 div#dlgProps div.dlg-header {background-image: url(./images/props.gif); }
 div#yesnoDlg div.dlg-header {background-image: url(./images/error.gif); }
 
-div#t div#ind { background: transparent url(./images/ajax-loader.gif) no-repeat 0px center; }
+header div#ind { background: transparent url(./images/ajax-loader.gif) no-repeat 0px center; }
 
 span#loadimg { background: transparent url(./images/ajax-loader.gif) no-repeat center center; }
 
