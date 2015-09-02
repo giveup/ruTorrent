@@ -17,6 +17,6 @@ Note: This is a pre-release fork of ruTorrent that has not yet had a stable rele
 ## Getting started
 
 1. Compile the stylesheets
-
-	sass --scss --style compressed --update css/ --update plugins/theme/themes/
-
+```
+sass --scss --style compressed --update css/ --update plugins/theme/themes/
+```

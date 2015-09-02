@@ -69,12 +69,19 @@ header {
 	#help {background: transparent url(../images/quest.gif) no-repeat 0px center}
 	#plugins {background: transparent url(../images/plugin.png) no-repeat 0px center}
 
+	#ind {margin-top: 2px; background: transparent url(../images/ajax-loader.gif) no-repeat 0px center; width: 32px; margin-right: 2px; line-height: 26px; cursor: default; }
 }
+
+.row {
+	> * {
+		display: inline-block;
+	}
+}
+
 #rc { float: right; }
 #go {background: transparent url(../images/go.gif) no-repeat 0px center; }
 #query { margin-top: 4px; }
 header a#mnu_go {margin: 3px 0 0 0; padding: 3px}
-header #ind {margin-top: 2px; background: transparent url(../images/ajax-loader.gif) no-repeat 0px center; width: 32px; margin-right: 2px; line-height: 26px; cursor: default; }
 
 input.Textbox, input.Button, select {border: 1px solid #B0B0B0; font-size: 11px; font-family: Tahoma, Arial, Helvetica, sans-serif; padding: 2px}
 Input.TextboxShort {border: 1px solid #B0B0B0; font-size: 11px; font-family: Tahoma, Arial, Helvetica, sans-serif; padding: 2px; width: 50px}
@@ -249,7 +256,17 @@ div#tadd select { width: 220px }
 .konqueror div#tadd { height: 290px; }
 .konqueror #st_con { height: 340px; overflow: auto; }
 
-#StatusBar { border-top: 1px solid #A0A0A0; background-color: #FFFFFF; margin-top: 4px; height: 24px; font-size: 11px; font-family: Tahoma, Arial, Helvetica, sans-serif; color: #000000; white-space: nowrap; overflow: hidden;}
+#StatusBar {
+	border-top: 1px solid #A0A0A0;
+	background-color: #FFFFFF;
+	margin-top: 4px;
+	height: 24px;
+	font-size: 11px;
+	font-family: Tahoma, Arial, Helvetica, sans-serif;
+	color: #000000;
+	white-space: nowrap;
+	overflow: hidden;
+}
 #StatusBar table { line-height: 24px; }
 #st_up { background:url(../images/status_up.gif) 6px no-repeat; }
 #st_down { background:url(../images/status_down.gif) 6px no-repeat; }

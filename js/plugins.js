@@ -371,11 +371,12 @@ rPlugin.prototype.removeSeparatorFromToolbar = function(idBefore)
 
 rPlugin.prototype.addPaneToStatusbar = function(id,div,no)
 {
-        if(this.canChangeStatusBar())
-        {
-		var row = $("#firstStatusRow").get(0);
-		var td = row.insertCell(iv(no));
-		$(td).attr("id",id).addClass("statuscell").append( $(div) );
+        if(this.canChangeStatusBar()) {
+		var row = $("#StatusBar");
+		var container = $('<div/>');
+		container.attr("id",id).addClass("statuscell").append( $(div) );
+
+		row.prepend(container);
 	}
 	return(this);
 }
