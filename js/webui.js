@@ -1985,43 +1985,42 @@ var theWebUI =
 	{
 		if(obj.id != this.actLbl)
 		{
-			if((this.actLbl != "") && $$(this.actLbl))
+			if((this.actLbl != "") && $$(this.actLbl)) {
 				$($$(this.actLbl)).removeClass("sel");
+			}
 			$(obj).addClass("sel");
 			this.actLbl = obj.id;
 			var table = this.getTable("trt");
 			table.scrollTo(0);
-			for(var k in this.torrents)
+			for(var k in this.torrents) {
 				this.filterByLabel(k);
+			}
 			table.clearSelection();
-			if(this.dID != "")
-				{
+			if(this.dID != "") {
 				this.dID = "";
 				this.clearDetails();
-				}
+			}
 			table.refreshRows();
 		}
 	},
 
 	filterByLabel: function(sId)
 	{
-			var table = this.getTable("trt");
-			if($($$(this.actLbl)).hasClass("teg"))
-			{
-					var teg = this.tegs[this.actLbl];
-					if(teg)
-					{
-					if(table.getValueById(sId, "name").toLowerCase().indexOf(teg.val.toLowerCase()) >- 1)
+		var table = this.getTable("trt");
+		if($($$(this.actLbl)).hasClass("teg")) {
+			var teg = this.tegs[this.actLbl];
+			if(teg) {
+				if(table.getValueById(sId, "name").toLowerCase().indexOf(teg.val.toLowerCase()) >- 1) {
 					table.unhideRow(sId);
-				else 
+				} else {
 					table.hideRow(sId);
+				}
 			}
-			}
-			else
-			if(table.getAttr(sId, "label").indexOf(this.actLbl) >- 1)
-				table.unhideRow(sId);
-			else 
-				table.hideRow(sId);
+		} else if(table.getAttr(sId, "label").indexOf(this.actLbl) >- 1) {
+			table.unhideRow(sId);
+		} else {
+			table.hideRow(sId);
+		}
 	},
 
 //
@@ -2049,7 +2048,7 @@ var theWebUI =
 		$("#prop-tracker_numwant").val( props.tracker_numwant );
 		if(props.pex ==- 1) 
 		{
-				$("#prop-pex").prop("checked",false).prop("disabled",true);
+			$("#prop-pex").prop("checked",false).prop("disabled",true);
 			$("#lbl_prop-pex").addClass("disabled");
 		}
 		else 
@@ -2060,15 +2059,15 @@ var theWebUI =
 		o = $$("prop-superseed");
 		if(this.torrents[this.pID].done==1000)
 		{
-				$("#prop-superseed").prop("disabled",false);
-				$("#lbl_prop-superseed").removeClass("disabled");
+			$("#prop-superseed").prop("disabled",false);
+			$("#lbl_prop-superseed").removeClass("disabled");
 		}
 		else
 		{
-				$("#prop-superseed").prop("disabled",true);
-				$("#lbl_prop-superseed").addClass("disabled");
-			}
-			$("#prop-superseed").prop("checked",(props.superseed==1));
+			$("#prop-superseed").prop("disabled",true);
+			$("#lbl_prop-superseed").addClass("disabled");
+		}
+		$("#prop-superseed").prop("checked",(props.superseed==1));
 		theDialogManager.show("dlgProps");
 	},
 
@@ -2076,22 +2075,23 @@ var theWebUI =
 	{
 		theDialogManager.hide("dlgProps");
 		var req = '';
-		for(var k in this.props[this.pID]) 
-		{
-				var v = this.props[this.pID][k];
+		for(var k in this.props[this.pID])  {
+			var v = this.props[this.pID][k];
 			var o = $("#prop-" + k);
-				var nv = o.is("input:checkbox") ? o.is(":checked")+0 : o.val()
-				if((k == "hash") || ((k == "pex") && (v ==- 1)))
-					continue;
-				if(v != nv)
-				{
-				this.props[this.pID][k] = nv;
-					req+=("&s=" + k + "&v=" + nv);
+			var nv = o.is("input:checkbox") ? o.is(":checked")+0 : o.val()
+			if((k == "hash") || ((k == "pex") && (v ==- 1))) {
+				continue;
 			}
-		}	      		
-			if(req.length>0)
-				this.request("?action=setprops&hash=" + this.pID + req);
-		},
+			if(v != nv) {
+				this.props[this.pID][k] = nv;
+				req+=("&s=" + k + "&v=" + nv);
+			}
+		}
+
+		if(req.length>0) {
+			this.request("?action=setprops&hash=" + this.pID + req);
+		}
+	},
 
 //
 // details
@@ -2127,7 +2127,7 @@ var theWebUI =
 		if((this.dID != "") && this.torrents[this.dID])
 		{
 			var d = this.torrents[this.dID];
-						$("#dl").text(theConverter.bytes(d.downloaded,2));
+			$("#dl").text(theConverter.bytes(d.downloaded,2));
 			$("#ul").text(theConverter.bytes(d.uploaded,2));
 			$("#ra").html( (d.ratio ==- 1) ? "&#8734;" : theConverter.round(d.ratio/1000,3));
 			$("#us").text(theConverter.speed(d.ul));
@@ -2137,10 +2137,10 @@ var theWebUI =
 			$("#pe").text(d.peers_actual + " " + theUILang.of + " " + d.peers_all + " " + theUILang.connected);
 			$("#et").text(theConverter.time(Math.floor((new Date().getTime()-theWebUI.deltaTime)/1000-iv(d.state_changed)),true));
 			$("#wa").text(theConverter.bytes(d.skip_total,2));
-				$("#bf").text(d.base_path);
-				$("#co").text(theConverter.date(iv(d.created)+theWebUI.deltaTime/1000));
+			$("#bf").text(d.base_path);
+			$("#co").text(theConverter.date(iv(d.created)+theWebUI.deltaTime/1000));
 			$("#tu").text(	$type(this.trackers[this.dID]) && $type(this.trackers[this.dID][d.tracker_focus]) ? this.trackers[this.dID][d.tracker_focus].name : '');
-				$("#hs").text(this.dID.substring(0,40));
+			$("#hs").text(this.dID.substring(0,40));
 			$("#ts").text(d.msg);
 			$("#cmt").text(d.comment);
 			$("#dsk").text((d.free_diskspace=='0') ? '' : theConverter.bytes(d.free_diskspace,2));
@@ -2159,26 +2159,29 @@ var theWebUI =
 
 	updateStatus: function()
 	{
-			var self = theWebUI;
+		var self = theWebUI;
 		var ul = theConverter.speed(self.total.speedUL);
 		var dl = theConverter.speed(self.total.speedDL);
 		var newTitle = '';
-		if(theWebUI.settings["webui.speedintitle"])
-		{	
-			if(ul.length)
+		if(theWebUI.settings["webui.speedintitle"]) {	
+			if(ul.length) {
 				newTitle+=('↑'+ul+' ');
-			if(dl.length)
+			}
+			if(dl.length) {
 				newTitle+=('↓'+dl+' ');
+			}
 		}
 		newTitle+="ruTorrent v"+self.version;
-		if(document.title!=newTitle)
+		if(document.title!=newTitle) {
 			document.title = newTitle;
-			$("#stup_speed").text(ul);
-			$("#stup_limit").text((self.total.rateUL>0 && self.total.rateUL<100*1024*1024) ? theConverter.speed(self.total.rateUL) : theUILang.no);
-			$("#stup_total").text(theConverter.bytes(self.total.UL));
-			$("#stdown_speed").text(dl);
-			$("#stdown_limit").text((self.total.rateDL>0 && self.total.rateDL<100*1024*1024) ? theConverter.speed(self.total.rateDL) : theUILang.no);
-			$("#stdown_total").text(theConverter.bytes(self.total.DL));
+		}
+
+		$("#stup_speed").text(ul);
+		$("#stup_limit").text((self.total.rateUL>0 && self.total.rateUL<100*1024*1024) ? theConverter.speed(self.total.rateUL) : theUILang.no);
+		$("#stup_total").text(theConverter.bytes(self.total.UL));
+		$("#stdown_speed").text(dl);
+		$("#stdown_limit").text((self.total.rateDL>0 && self.total.rateDL<100*1024*1024) ? theConverter.speed(self.total.rateDL) : theUILang.no);
+		$("#stdown_total").text(theConverter.bytes(self.total.DL));
 	},
 
 	setDLRate: function(spd)
@@ -2259,26 +2262,24 @@ var theWebUI =
 
 	resizeBottom : function( w, h )
 	{
-			if(w!==null)
-			{
+		if (w!==null) {
 			$("#tdetails").width( w );
 			w-=8;
 		}
-		if(h!==null)
-			{
+		if(h!==null) {
 			$("#tdetails").height( h );
 			h-=($("#tabbar").height());
 			$("#tdcont").height( h );
 			h-=2;
-			}
-			if(theWebUI.configured)
-			{
-				this.getTable("fls").resize(w,h);
+		}
+		if(theWebUI.configured) {
+			this.getTable("fls").resize(w,h);
 			this.getTable("trk").resize(w,h);
 			this.getTable("prs").resize(w,h);
 			var table = this.getTable("plg");
-			if(table)
+			if(table) {
 				table.resize(w,h);
+			}
 			this.speedGraph.resize(w,h);
 		}
 	},
@@ -2305,14 +2306,15 @@ var theWebUI =
 		if(theWebUI.settings["webui.show_dets"])
 			theWebUI.resizeBottom( w, Math.floor(wh * (1 - theWebUI.settings["webui.vsplit"])) );
 		$("#HDivider").height( wh-th+2 );
-	},      	
+	},
 
 	update: function()
 	{
-			if(theWebUI.systemInfo.rTorrent.started || !this.firstLoad)
+		if(theWebUI.systemInfo.rTorrent.started || !this.firstLoad) {
 			theWebUI.getTorrents("list=1");
-		else
+		} else {
 			theWebUI.show();
+		}
 	},
 
 	setVSplitter : function()
@@ -2347,15 +2349,15 @@ var theWebUI =
 	{
 		theWebUI.settings["webui.show_dets"] = !theWebUI.settings["webui.show_dets"];
 		$("#tdetails").toggle();
-			theWebUI.resize();
+		theWebUI.resize();
 		theWebUI.save();
 	},
 
 	toggleCategories: function()
 	{
-			theWebUI.settings["webui.show_cats"] = !theWebUI.settings["webui.show_cats"];
+		theWebUI.settings["webui.show_cats"] = !theWebUI.settings["webui.show_cats"];
 		$("#CatList").toggle();
-			theWebUI.resize();
+		theWebUI.resize();
 		theWebUI.save();
 	},
 
@@ -2381,8 +2383,9 @@ var theWebUI =
 	resetInterval: function() 
 	{
 		this.timer.stop();
-		if(this.updTimer)
+		if(this.updTimer) {
 			window.clearTimeout(this.updTimer);
+		}
 		this.interval = iv(this.settings["webui.update_interval"]);
 		this.updTimer = window.setTimeout(this.update, this.interval);
 	},
@@ -2390,13 +2393,13 @@ var theWebUI =
 	setInterval: function( force ) 
 	{
 		this.timer.stop();
-		if(force)
+		if(force) {
 			this.interval = force;
-		else
-		if(this.interval ==- 1) 
+		} else if(this.interval ==- 1) {
 			this.interval = iv(this.settings["webui.update_interval"]) + this.timer.interval * 4;
-		else 
+		} else  {
 			this.interval = iv((this.interval + iv(this.settings["webui.update_interval"]) + this.timer.interval * 4) / 2);
+		}
 		this.updTimer = window.setTimeout(this.update, this.interval);
 	},
 
@@ -2434,26 +2437,25 @@ var theWebUI =
 	msg: function(s)
 	{
 		$('#loadimg').hide();
-			$("#msg").text(s);
+		$("#msg").text(s);
 	},
 
 	catchErrors: function(toLog)
 	{
-			if(toLog)
-			window.onerror = function(msg, url, line) 
-			{
+		if(toLog) {
+			window.onerror = function(msg, url, line) {
 					theWebUI.show();
 				noty("JS error: [" + url + " : " + line + "] " + msg,"error");
 				return true;
 			}
-		else
-			window.onerror = function(msg, url, line) 
-			{
+		} else {
+			window.onerror = function(msg, url, line) {
 				msg = "JS error: [" + url + " : " + line + "] " + msg;
 				theWebUI.msg(msg);
 				log(msg);
 				return true;
 			}
+		}
 	},
 
 	error: function(status,text) 
@@ -2465,13 +2467,13 @@ var theWebUI =
 	timeout: function() 
 	{
 		theWebUI.show();
-		if(!theWebUI.settings["webui.ignore_timeouts"])
+		if(!theWebUI.settings["webui.ignore_timeouts"]) {
 			noty(theUILang.Request_timed_out,"alert");
+		}
 	}
 };
 
-$(document).ready(function() 
-{
+$(document).ready(function() {
 	makeContent();
 	theContextMenu.init();
 	theTabs.init();
