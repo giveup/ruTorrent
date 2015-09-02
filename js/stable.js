@@ -210,8 +210,6 @@ dxSTable.prototype.create = function(ele, styles, aName)
 	this.dBody.appendChild(this.tBody);
 	this.bpad = $("<div>").addClass("stable-virtpad").get(0);
 	this.dBody.appendChild(this.bpad);
-	this.tBody.tb = $("<tbody>").get(0);
-	this.tBody.appendChild(this.tBody.tb);
 
 	cg = $("<colgroup>");
 	this.tBody.appendChild(cg.get(0));
@@ -223,6 +221,10 @@ dxSTable.prototype.create = function(ele, styles, aName)
 			if(!this.colsdata[i].enabled)
 			cl.hide();
 	}
+
+	this.tBody.tb = $("<tbody>").get(0);
+	this.tBody.appendChild(this.tBody.tb);
+
 	this.scp = $("<span></span>").addClass("stable-scrollpos").get(0);
 	this.dCont.appendChild(this.scp);
 	this.dCont.style.position = "relative";
