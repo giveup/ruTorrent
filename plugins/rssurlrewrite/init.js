@@ -48,7 +48,7 @@ theWebUI.loadRules = function( rle )
 	this.curRule = null;
 	var list = $("#rlslist");
 	list.empty();
-	$('#RLS_rss option').remove();	
+	$('#RLS_rss option').remove();
 	$('#RLS_rss').append("<option value=''>"+theUILang.allFeeds+"</option>");
 	for(var lbl in this.rssGroups)
 		$('#RLS_rss').append("<option value='"+lbl+"'>"+this.rssGroups[lbl].name+"</option>");
@@ -111,7 +111,7 @@ theWebUI.deleteCurrentRule = function()
 			}
 			if(no>=this.rules.length)
 				no = no - 1;
-			$("#_rn"+no).focus();	
+			$("#_rn"+no).focus();
 		}
 		else
 		{
@@ -144,8 +144,7 @@ rTorrentStub.prototype.setrules = function()
 {
 	this.content = "mode=setrules";
 	theWebUI.storeRuleParams();
-	for(var i=0; i<theWebUI.rules.length; i++)
-	{
+	for(var i=0; i<theWebUI.rules.length; i++) {
 		var rle = theWebUI.rules[i];
 		var enabled = $("#_re"+i).prop("checked") ? 1 : 0;
 		var name = $("#_rn"+i).val();
@@ -183,7 +182,7 @@ plugin.correctCSS = function()
 {
         if(!this.cssCorrected)
         {
-		rule = getCSSRule("div#CatList ul li.sel");
+		rule = getCSSRule("#CatList ul li.sel");
 		rule3 = getCSSRule(".lf_rur li input.TextboxFocus");
 		if(rule && rule3)
 		{
@@ -250,14 +249,14 @@ if(plugin.canChangeMenu())
 plugin.createPluginMenu = function()
 {
 	if(this.enabled)
-		theContextMenu.add([theUILang.mnu_rssurlrewrite, "theWebUI.showRules()"]);		
+		theContextMenu.add([theUILang.mnu_rssurlrewrite, "theWebUI.showRules()"]);
 }
 
 plugin.onLangLoaded = function()
 {
 	this.registerTopMenu(5);
 	theDialogManager.make( "dlgEditRules", theUILang.rssRulesManager,
-		"<div class='fxcaret'>"+
+		"<div class='row'>"+
 			"<div class='lfc_rur'>"+
 				"<div class='lf_rur' id='ruleList'>"+
 					"<ul id='rlslist'></ul>"+

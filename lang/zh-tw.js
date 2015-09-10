@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Chinese Traditional language file.
  *
  * Author: Eyes Blue (kingofeyesblue@yahoo.com.tw)
@@ -73,7 +73,7 @@ var theUILang =
  Remove_and			: "移除並",
  Details			: "詳細內容...",
  Properties			: "屬性...",
- of				: "的", //this two creates line 
+ of				: "的", //this two creates line
  connected			: "已連接", //  XX of YY connected
  High_priority			: "較高優先權",
  Normal_priority		: "正常優先權",
@@ -88,7 +88,6 @@ var theUILang =
  GB				: "GB",
  TB				: "TB",
  PB				: "PB",
- Loading			: "載入中...",
  Torrent_file			: "Torrent 檔案",
  Torrent_URL			: "Torrent 網址",
  Torrent_properties		: "Torrent 屬性",
@@ -161,7 +160,7 @@ var theUILang =
  GetTrackerMessage		: "從tracker接收使用者資訊",
  Help				: "Help",
  Speed				: "速度",
- Dont_add_tname 		: "請勿將 torrent 名稱作為目錄名稱", 
+ Dont_add_tname 		: "請勿將 torrent 名稱作為目錄名稱",
  Free_Disk_Space		: "磁碟可用空間",
  badXMLRPCVersion		: "rTorrent使用了錯誤的xmlrpc-c版本編譯, 該版本不含i8支援,版本必須大於或等於1.11版,某些功能將無法使用",
  badLinkTorTorrent		: "錯誤的rTorrent連結, 請檢查rTorrent是否已經正確執行, 請確認rTorrent設定檔與config.php中的 $scgi_port 與 $scgi_host 相符合",
@@ -230,7 +229,6 @@ var theUILang =
  peerDetails			: "Details",
  peerUnsnub			: "Unsnub",
  peerAddLabel			: "Enter IP/Hostname[:port]",
- noTorrentList			: "Torrent list not yet available, connection to rTorrent not established.",
  yes				: "yes",
  no				: "no",
  DateFormat			: "Date format",

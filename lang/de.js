@@ -1,9 +1,9 @@
-﻿/*
+/*
  * German language file.
  *
  * Initial Author: schnurlos (utorrent@gmx.at)
  *
- * Author: 
+ * Author:
  */
 
 var theUILang =
@@ -90,7 +90,6 @@ var theUILang =
  GB				: "GB",
  TB				: "TB",
  PB				: "PB",
- Loading			: "Lade rTorrent WebUI in Deutsch...",
  Torrent_file			: "Torrent Datei",
  Torrent_URL			: "Torrent URL",
  Torrent_properties		: "Torrent Eigenschaften",
@@ -163,7 +162,7 @@ var theUILang =
  GetTrackerMessage		: "Receive messages from tracker",
  Help				: "Hilfe",
  Speed				: "Geschwindigkeit",
- Dont_add_tname 		: "Torrentnamen nicht zum Pfad hinzufügen", 
+ Dont_add_tname 		: "Torrentnamen nicht zum Pfad hinzufügen",
  Free_Disk_Space		: "Freier Speicherplatz",
  badXMLRPCVersion		: "rTorrent wurde mit einer falschen Version von xmlrpc-c ohne i8 Support kompiliert. Version muss >= 1.11 sein. Einige Funktionalitäten werden nicht zur Verfügung stehen.",
  badLinkTorTorrent		: "Keine Verbindung zu rTorrent. Überprüfe ob es wirklicht läuft. Überprüfe $scgi_port und $scgi_host Einstellungen in config.php und scgi_port in der rTorrent Konfigurationsdatei.",
@@ -232,7 +231,6 @@ var theUILang =
  peerDetails			: "Details",
  peerUnsnub			: "Unsnub",
  peerAddLabel			: "Gebe IP/Hostname[:port] ein",
- noTorrentList			: "Torrentliste noch nicht verfügbar, Verbindung zu rtorrent noch nicht hergestellt.",
  yes				: "ja",
  no				: "nein",
  DateFormat			: "Datumsformat",

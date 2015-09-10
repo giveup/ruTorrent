@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Turkish language file.
  *
  * Author: Turgay Yıldıran (votkalivirgul@gmail)
@@ -73,7 +73,7 @@ var theUILang =
  Remove_and			: "Kaldır Ve",
  Details			: "Ayrıntılar...",
  Properties			: "Özellikler...",
- of				: "tanesine", //this two creates line 
+ of				: "tanesine", //this two creates line
  connected			: "içinden bağlı", //  XX of YY connected
  High_priority			: "Yüksek",
  Normal_priority		: "Normal",
@@ -88,7 +88,6 @@ var theUILang =
  GB				: "GB",
  TB				: "TB",
  PB				: "PB",
- Loading			: "Bekleyiniz...",
  Torrent_file			: "Torrent dosyası",
  Torrent_URL			: "Torrent URL",
  Torrent_properties		: "Torrent Özellikleri",
@@ -145,7 +144,7 @@ var theUILang =
  Other_Limiting 		: "Diğer sınırlandırmalar",
  Number_dl_slots		: "İndirme yuva sayısı",
  Glob_max_memory		: "En fazla hafıza kullanımı",
- Glob_max_files 		: "En fazla açık dosya sayısı", 
+ Glob_max_files 		: "En fazla açık dosya sayısı",
  Glob_max_http			: "En fazla açık http bağlantı sayısı",
  Other_sett			: "Diğer",
  Directory_For_Dl		: "Yüklemeler için varsayılan klasör",
@@ -230,7 +229,6 @@ var theUILang =
  peerDetails			: "Details",
  peerUnsnub			: "Unsnub",
  peerAddLabel			: "Enter IP/Hostname[:port]",
- noTorrentList			: "Torrent list not yet available, connection to rTorrent not established.",
  yes				: "yes",
  no				: "no",
  DateFormat			: "Date format",

@@ -1,9 +1,9 @@
-﻿/*
+/*
  * Portuguese language file.
  *
  * Initial Author: Oszy007 (oszy007@gmail.com)
  *
- * Author: 
+ * Author:
  */
 
 var theUILang =
@@ -75,7 +75,7 @@ var theUILang =
  Remove_and			: "Remover e",
  Details			: "Detalhes...",
  Properties			: "Propriedades...",
- of				: "de", //this two creates line 
+ of				: "de", //this two creates line
  connected			: "conectado(s)", //  XX of YY connected
  High_priority			: "Alta",
  Normal_priority		: "Normal",
@@ -90,7 +90,6 @@ var theUILang =
  GB				: "GB",
  TB				: "TB",
  PB				: "PB",
- Loading			: "Carregando...",
  Torrent_file			: "Arquivo torrent",
  Torrent_URL			: "URL do torrent",
  Torrent_properties		: "Propriedades do Torrent",
@@ -163,7 +162,7 @@ var theUILang =
  GetTrackerMessage		: "Receive messages from tracker",
  Help				: "Help",
  Speed				: "Speed",
- Dont_add_tname 		: "Don't add torrent's name to path", 
+ Dont_add_tname 		: "Don't add torrent's name to path",
  Free_Disk_Space		: "Free Disk Space",
  badXMLRPCVersion		: "rTorrent is compiled with incorrect version of xmlrpc-c library, without i8 support. Version must be >= 1.11. Some functionality will be unavailable.",
  badLinkTorTorrent		: "No connection to rTorrent. Check if it is really running. Check $scgi_port and $scgi_host settings in config.php and scgi_port in rTorrent configuration file.",
@@ -232,7 +231,6 @@ var theUILang =
  peerDetails			: "Details",
  peerUnsnub			: "Unsnub",
  peerAddLabel			: "Enter IP/Hostname[:port]",
- noTorrentList			: "Torrent list not yet available, connection to rTorrent not established.",
  yes				: "yes",
  no				: "no",
  DateFormat			: "Date format",

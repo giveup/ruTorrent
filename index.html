@@ -3,7 +3,7 @@
 <head>
 	<title></title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" /> 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
 	<meta http-equiv="cache-control" content="no-cache" />
 	<link href="./images/favicon.ico" rel="SHORTCUT ICON" />
 	<link rel="apple-touch-icon-precomposed" sizes="57x57" href="./images/apple-touch-icon-57x57.png" />
@@ -34,11 +34,13 @@
 	<script type="text/javascript" src="./js/webui.js"></script>
 	<script type="text/javascript" src="./js/rtorrent.js"></script>
 </head>
-<body>
+<body class="col">
+	<!--
 	<div id="preload"></div>
 	<div id="cover">
-		<div id="msg"><span id="loadimg">&nbsp;</span><script type="text/javascript"> document.write(theUILang.Loading); </script></div>
+		<div id="msg"></div>
 	</div>
+	-->
 	<div id="modalbg"></div>
 	<div id="dragmask"></div>
 	<div id="rs"></div>
@@ -68,7 +70,7 @@
 		<a id="mnu_help" href="#" onclick="theDialogManager.toggle('dlgHelp'); return(false);" onfocus="this.blur()" title="Help">
 			<div id="help"></div>
 		</a>
-		<table id='rc' cellpadding="0" cellspacing="0"><tr id='rrow'>
+		<table id='rc'><tr id='rrow'>
 			<td>
 				<a id="mnu_search" class="top-menu-item" href="#" onclick="theSearchEngines.show(); return(false);" onfocus="this.blur()" title="Search">
 					<div id="search" class="top-menu-item"></div>
@@ -87,155 +89,145 @@
 			</td>
 		</tr></table>
 	</header>
-	<table id="maincont" cellpadding="0" cellspacing="0" summary="layout table">
-		<tr>
-			<td class="uicell" rowspan="3">
-				<div id="CatList">
-					<div class="catpanel" id="pstate" onclick="theWebUI.togglePanel(this); return(false);"><script type="text/javascript"> document.write(theUILang.pnlState); </script></div>
-					<ul id="pstate_cont" class="catpanel_cont">
-						<li id="-_-_-all-_-_-" class="sel cat">
-							<script type="text/javascript"> document.write(theUILang.All); </script> (<span id="-_-_-all-_-_-c">0</span>)</li>
-						<li id="-_-_-dls-_-_-" class="cat">
-							<script type="text/javascript"> document.write(theUILang.Downloading); </script> (<span id="-_-_-dls-_-_-c">0</span>)</li>
-						<li id="-_-_-com-_-_-" class="cat">
-							<script type="text/javascript"> document.write(theUILang.Finished); </script> (<span id="-_-_-com-_-_-c">0</span>)</li>
-						<li id="-_-_-act-_-_-" class="cat">
-							<script type="text/javascript"> document.write(theUILang.Active); </script> (<span id="-_-_-act-_-_-c">0</span>)</li>
-						<li id="-_-_-iac-_-_-" class="cat">
-							<script type="text/javascript"> document.write(theUILang.Inactive); </script> (<span id="-_-_-iac-_-_-c">0</span>)</li>
-						<li id="-_-_-err-_-_-" class="cat">
-							<script type="text/javascript"> document.write(theUILang.Error); </script> (<span id="-_-_-err-_-_-c">0</span>)</li>
-					</ul>
-					<div class="catpanel" id="plabel" onclick="theWebUI.togglePanel(this); return(false);"><script type="text/javascript"> document.write(theUILang.Labels); </script></div>
-					<div class="catpanel_cont" id="plabel_cont">
-						<ul>
-						<li id="-_-_-nlb-_-_-" class="cat">
-							<script type="text/javascript"> document.write(theUILang.No_label); </script> (<span id="-_-_-nlb-_-_-c">0</span>)</li>
-						</ul>
-						<ul id="lbll">
-						</ul>
+	<main class="auto row">
+		<aside id="CatList">
+			<div class="catpanel" id="pstate" onclick="theWebUI.togglePanel(this); return(false);"><script type="text/javascript"> document.write(theUILang.pnlState); </script></div>
+			<ul id="pstate_cont" class="catpanel_cont">
+				<li id="-_-_-all-_-_-" class="sel cat">
+					<script type="text/javascript"> document.write(theUILang.All); </script> (<span id="-_-_-all-_-_-c">0</span>)</li>
+				<li id="-_-_-dls-_-_-" class="cat">
+					<script type="text/javascript"> document.write(theUILang.Downloading); </script> (<span id="-_-_-dls-_-_-c">0</span>)</li>
+				<li id="-_-_-com-_-_-" class="cat">
+					<script type="text/javascript"> document.write(theUILang.Finished); </script> (<span id="-_-_-com-_-_-c">0</span>)</li>
+				<li id="-_-_-act-_-_-" class="cat">
+					<script type="text/javascript"> document.write(theUILang.Active); </script> (<span id="-_-_-act-_-_-c">0</span>)</li>
+				<li id="-_-_-iac-_-_-" class="cat">
+					<script type="text/javascript"> document.write(theUILang.Inactive); </script> (<span id="-_-_-iac-_-_-c">0</span>)</li>
+				<li id="-_-_-err-_-_-" class="cat">
+					<script type="text/javascript"> document.write(theUILang.Error); </script> (<span id="-_-_-err-_-_-c">0</span>)</li>
+			</ul>
+			<div class="catpanel" id="plabel" onclick="theWebUI.togglePanel(this); return(false);"><script type="text/javascript"> document.write(theUILang.Labels); </script></div>
+			<div class="catpanel_cont" id="plabel_cont">
+				<ul>
+				<li id="-_-_-nlb-_-_-" class="cat">
+					<script type="text/javascript"> document.write(theUILang.No_label); </script> (<span id="-_-_-nlb-_-_-c">0</span>)</li>
+				</ul>
+				<ul id="lbll">
+				</ul>
+			</div>
+			<div class="catpanel" id="flabel" onclick="theWebUI.togglePanel(this); return(false);"><script type="text/javascript"> document.write(theUILang.mnu_search); </script></div>
+			<div class="catpanel_cont" id="flabel_cont">
+				<ul id="lblf">
+				</ul>
+			</div>
+		</aside>
+
+		<div id="HDivider"></div>
+
+		<div id="maincont" class="auto col">
+			<div id="List" class="table_tab auto"></div>
+			<div id="VDivider"></div>
+			<div id="tdetails" class="col">
+				<ul id="tabbar" class="tabbar"></ul>
+				<div id="tdcont" class="auto">
+					<div id="gcont" class="tab">
+						<table width="100%" summary="layout table" id="mainlayout">
+							<tr>
+								<td colspan="6" class="Header">
+									<script type="text/javascript"> document.write(theUILang.Transfer); </script></td>
+							</tr>
+							<tr>
+								<td width="6%" nowrap><script type="text/javascript"> document.write(theUILang.Time_el); </script>:</td><td width="11%" nowrap><span id="et" class="det"></span></td>
+								<td width="6%" nowrap><script type="text/javascript"> document.write(theUILang.Remaining); </script>:</td><td width="11%" nowrap><span id="rm" class="det"></span></td>
+								<td width="6%" nowrap><script type="text/javascript"> document.write(theUILang.Share_ratio); </script>:</td><td width="11%" nowrap><span id="ra" class="det"></span></td>
+							</tr>
+							<tr>
+								<td width="6%" nowrap><script type="text/javascript"> document.write(theUILang.Downloaded); </script>:</td><td width="11%" nowrap><span id="dl" class="det"></span></td>
+								<td width="6%" nowrap><script type="text/javascript"> document.write(theUILang.Down_speed); </script>:</td><td width="11%" nowrap><span id="ds" class="det"></span></td>
+								<td width="6%" nowrap><script type="text/javascript"> document.write(theUILang.Wasted); </script>:</td><td width="11%" nowrap><span id="wa" class="det"></span></td>
+							</tr>
+							<tr>
+								<td nowrap><script type="text/javascript"> document.write(theUILang.Uploaded); </script>:</td><td nowrap><span id="ul" class="det"></span></td>
+								<td nowrap><script type="text/javascript"> document.write(theUILang.Ul_speed); </script>:</td><td nowrap><span id="us" class="det"></span></td>
+								<td nowrap>&nbsp;</td><td nowrap>&nbsp;</td>
+							</tr>
+							<tr>
+								<td nowrap><script type="text/javascript"> document.write(theUILang.Seeds); </script>:</td><td nowrap><span id="se" class="det"></span></td>
+								<td nowrap><script type="text/javascript"> document.write(theUILang.Peers); </script>:</td><td nowrap><span id="pe" class="det"></span></td>
+								<td nowrap>&nbsp;</td><td>&nbsp;</td>
+							</tr>
+							<tr>
+								<td colspan="6" class="Header">
+									<script type="text/javascript"> document.write(theUILang.Tracker); </script></td>
+							</tr>
+							<tr>
+								<td nowrap><script type="text/javascript"> document.write(theUILang.Track_URL); </script>:</td>
+								<td colspan="5" nowrap><span id="tu" class="det"></span></td>
+							</tr>
+							<tr>
+								<td nowrap><script type="text/javascript"> document.write(theUILang.Track_status); </script>:</td>
+								<td colspan="5" nowrap><span id="ts" class="det"></span></td>
+							</tr>
+							<tr>
+								<td colspan="6" class="Header">
+									<script type="text/javascript"> document.write(theUILang.General); </script></td>
+							</tr>
+							<tr>
+								<td nowrap><script type="text/javascript"> document.write(theUILang.Save_as); </script>:</td>
+								<td colspan="5" nowrap><span id="bf" class="det"></span></td>
+							</tr>
+							<tr>
+								<td nowrap><script type="text/javascript"> document.write(theUILang.Free_Disk_Space); </script>:</td>
+								<td colspan="5" nowrap><span id="dsk" class="det"></span></td>
+							</tr>
+							<tr>
+								<td nowrap><script type="text/javascript"> document.write(theUILang.Created_on); </script>:</td>
+								<td colspan="5" nowrap><span id="co" class="det"></span></td>
+							</tr>
+							<tr>
+								<td nowrap><script type="text/javascript"> document.write(theUILang.Hash); </script>:</td>
+								<td colspan="5" nowrap><span id="hs" class="det"></span></td>
+							</tr>
+							<tr>
+								<td nowrap><script type="text/javascript"> document.write(theUILang.Comment); </script>:</td>
+								<td colspan="5"><span id="cmt" class="det"></span></td>
+							</tr>
+						</table>
 					</div>
-					<div class="catpanel" id="flabel" onclick="theWebUI.togglePanel(this); return(false);"><script type="text/javascript"> document.write(theUILang.mnu_search); </script></div>
-					<div class="catpanel_cont" id="flabel_cont">
-						<ul id="lblf">
-						</ul>
-					</div>
+					<div id="FileList" class="table_tab"></div>
+					<div id="TrackerList" class="table_tab"></div>
+					<div id="PeerList" class="table_tab"></div>
+					<div id="Speed" class="graph_tab"></div>
+					<div id="PluginList" class="table_tab"></div>
+					<div id="lcont" class="tab"></div>
 				</div>
-			</td>
-			<td class="uicell" rowspan="3">
-				<div id="HDivider"></div><div id="dividerDrag"></div>
-			</td>
-			<td class="uicell">
-				<div id="List" class="table_tab"></div>
-			</td>
-		</tr>
-		<tr>
-			<td class="uicell">
-				<div id="VDivider"></div>
-			</td>
-		</tr>
-		<tr>
-			<td class="uicell">
-				<div id="tdetails">
-					<ul id="tabbar" class="tabbar">
-					</ul>
-					<div id="tdcont">
-						<div id="gcont" class="tab">
-							<table cellpadding="5" cellspacing="2" width="100%" summary="layout table" id="mainlayout">
-								<tr>
-									<td colspan="6" class="Header">
-										<script type="text/javascript"> document.write(theUILang.Transfer); </script></td>
-								</tr>
-								<tr>
-									<td width="6%" nowrap><script type="text/javascript"> document.write(theUILang.Time_el); </script>:</td><td width="11%" nowrap><span id="et" class="det"></span></td>
-									<td width="6%" nowrap><script type="text/javascript"> document.write(theUILang.Remaining); </script>:</td><td width="11%" nowrap><span id="rm" class="det"></span></td>
-									<td width="6%" nowrap><script type="text/javascript"> document.write(theUILang.Share_ratio); </script>:</td><td width="11%" nowrap><span id="ra" class="det"></span></td>
-								</tr>
-								<tr>
-									<td width="6%" nowrap><script type="text/javascript"> document.write(theUILang.Downloaded); </script>:</td><td width="11%" nowrap><span id="dl" class="det"></span></td>
-									<td width="6%" nowrap><script type="text/javascript"> document.write(theUILang.Down_speed); </script>:</td><td width="11%" nowrap><span id="ds" class="det"></span></td>
-									<td width="6%" nowrap><script type="text/javascript"> document.write(theUILang.Wasted); </script>:</td><td width="11%" nowrap><span id="wa" class="det"></span></td>
-								</tr>
-								<tr>
-									<td nowrap><script type="text/javascript"> document.write(theUILang.Uploaded); </script>:</td><td nowrap><span id="ul" class="det"></span></td>
-									<td nowrap><script type="text/javascript"> document.write(theUILang.Ul_speed); </script>:</td><td nowrap><span id="us" class="det"></span></td>
-									<td nowrap>&nbsp;</td><td nowrap>&nbsp;</td>
-								</tr>
-								<tr>
-									<td nowrap><script type="text/javascript"> document.write(theUILang.Seeds); </script>:</td><td nowrap><span id="se" class="det"></span></td>
-									<td nowrap><script type="text/javascript"> document.write(theUILang.Peers); </script>:</td><td nowrap><span id="pe" class="det"></span></td>
-									<td nowrap>&nbsp;</td><td>&nbsp;</td>
-								</tr>
-								<tr>
-									<td colspan="6" class="Header">
-										<script type="text/javascript"> document.write(theUILang.Tracker); </script></td>
-								</tr>
-								<tr>
-									<td nowrap><script type="text/javascript"> document.write(theUILang.Track_URL); </script>:</td>
-									<td colspan="5" nowrap><span id="tu" class="det"></span></td>
-								</tr>
-								<tr>
-									<td nowrap><script type="text/javascript"> document.write(theUILang.Track_status); </script>:</td>
-									<td colspan="5" nowrap><span id="ts" class="det"></span></td>
-								</tr>
-								<tr>
-									<td colspan="6" class="Header">
-										<script type="text/javascript"> document.write(theUILang.General); </script></td>
-								</tr>
-								<tr>
-									<td nowrap><script type="text/javascript"> document.write(theUILang.Save_as); </script>:</td>
-									<td colspan="5" nowrap><span id="bf" class="det"></span></td>
-								</tr>
-								<tr>
-									<td nowrap><script type="text/javascript"> document.write(theUILang.Free_Disk_Space); </script>:</td>
-									<td colspan="5" nowrap><span id="dsk" class="det"></span></td>
-								</tr>
-								<tr>
-									<td nowrap><script type="text/javascript"> document.write(theUILang.Created_on); </script>:</td>
-									<td colspan="5" nowrap><span id="co" class="det"></span></td>
-								</tr>
-								<tr>
-									<td nowrap><script type="text/javascript"> document.write(theUILang.Hash); </script>:</td>
-									<td colspan="5" nowrap><span id="hs" class="det"></span></td>
-								</tr>
-								<tr>
-									<td nowrap><script type="text/javascript"> document.write(theUILang.Comment); </script>:</td>
-									<td colspan="5"><span id="cmt" class="det"></span></td>
-								</tr>
-							</table>
-						</div>
-						<div id="FileList" class="table_tab"></div>
-						<div id="TrackerList" class="table_tab"></div>
-						<div id="PeerList" class="table_tab"></div>
-						<div id="Speed" class="graph_tab"></div>
-						<div id="PluginList" class="table_tab"></div>
-						<div id="lcont" class="tab"></div>
-					</div>
-				</div>
-			</td>
-		</tr>
-	</table>
+			</div>
+		</div>
+	</main>
 
 	<footer id="StatusBar" class="row">
-		<table id="st_up" class="statuscell" cellpadding="0" cellspacing="0">
+		<table id="st_up" class="statuscell">
 			<tr>
 			<td><div class="sthdr"><script type="text/javascript"> document.write(theUILang.Speed); </script>:</div></td><td><div class="stval" id="stup_speed"></div></td>
 			<td><div class="sthdr"><script type="text/javascript"> document.write(theUILang.limit); </script>:</div></td><td><div class="stval" id="stup_limit"></div></td>
 			<td><div class="sthdr"><script type="text/javascript"> document.write(theUILang.Total); </script>:</div></td><td><div class="stval" id="stup_total"></div></td>
 		</tr>
 		</table>
-		<table id="st_down" class="statuscell" cellpadding="0" cellspacing="0">
+		<table id="st_down" class="statuscell">
 			<tr>
 				<td><div class="sthdr"><script type="text/javascript"> document.write(theUILang.Speed); </script>:</div></td><td><div class="stval" id="stdown_speed"></div></td>
 				<td><div class="sthdr"><script type="text/javascript"> document.write(theUILang.limit); </script>:</div></td><td><div class="stval" id="stdown_limit"></div></td>
 				<td><div class="sthdr"><script type="text/javascript"> document.write(theUILang.Total); </script>:</div></td><td><div class="stval" id="stdown_total"></div></td>
 			</tr>
 		</table>
-		<table id="st_system" class="statuscell" cellpadding="0" cellspacing="0">
+		<table id="st_system" class="statuscell">
 			<tr>
 				<td><div class="sthdr">rTorrent:</div></td><td><div class="stval" id="rtorrentv"></div></td>
 			</tr>
 		</table>
 	</footer>
+
+	<!-- Misc -->
+	<div id="dividerDrag"></div>
 </body>
 </html>

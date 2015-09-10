@@ -107,7 +107,7 @@ plugin.setButtonsState = function()
 		if(plugin.rules.length)
 			$('#ratDelRule').removeClass('disabled');
 		else
-			$('#ratDelRule').addClass('disabled');		
+			$('#ratDelRule').addClass('disabled');
 	}
 	else
 		$('#ratDelRule,#ratUpRule,#ratDownRule').addClass('disabled');
@@ -157,7 +157,7 @@ theWebUI.downRatioRule = function()
 
 		next.after( cur );
 		plugin.setButtonsState();
-	}	
+	}
 }
 
 theWebUI.addNewRatioRule = function()
@@ -192,7 +192,7 @@ theWebUI.deleteCurrentRatioRule = function()
 			}
 			if(no>=plugin.rules.length)
 				no = no - 1;
-			$("#_rrn"+no).focus();	
+			$("#_rrn"+no).focus();
 		}
 		else
 		{
@@ -263,7 +263,7 @@ plugin.correctCSS = function()
 {
         if(!this.cssCorrected)
         {
-		rule = getCSSRule("div#CatList ul li.sel");
+		rule = getCSSRule("#CatList ul li.sel");
 		rule3 = getCSSRule(".lf_rru li input.TextboxFocus");
 		if(rule && rule3)
 		{
@@ -301,7 +301,7 @@ plugin.onLangLoaded = function()
 {
 	this.registerTopMenu(7);
 	theDialogManager.make( "dlgEditRatioRules", theUILang.ratioRulesManager,
-		"<div class='fxcaret'>"+
+		"<div class='row'>"+
 			"<div class='lfc_rru'>"+
 				"<div class='lf_rru' id='ratioRuleList'>"+
 					"<ul id='rlsul'></ul>"+
@@ -339,8 +339,8 @@ plugin.onLangLoaded = function()
 			"<input type='button' class='OK Button' value='"+theUILang.ok+"' onclick='theDialogManager.hide(\"dlgEditRatioRules\");theWebUI.setRatioRules();return(false);'/>"+
 			"<input type='button' class='Cancel Button' value='"+theUILang.Cancel+"'/>"+
 		"</div>");
-  	$('#ratio_reason').change( function() 
-  	{ 
+  	$('#ratio_reason').change( function()
+  	{
 		if(iv($(this).val())>1)
 			$('#ratio_pattern').css("visibility","hidden");
 		else

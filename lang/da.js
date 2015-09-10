@@ -1,9 +1,9 @@
-﻿/*
+/*
  * Danish language file.
  *
  * Initial Author: Denhart (Denhart@Denhart.dk)
  *
- * Author: 
+ * Author:
  */
 
 var theUILang =
@@ -90,7 +90,6 @@ var theUILang =
  GB				: "GB",
  TB				: "TB",
  PB				: "PB",
- Loading			: "Indlæser...",
  Torrent_file			: "Torrent fil",
  Torrent_URL			: "Torrent URL",
  Torrent_properties		: "Torrent Egenskaber",
@@ -163,7 +162,7 @@ var theUILang =
  GetTrackerMessage		: "Modtag beskeder fra tracker",
  Help				: "Hjælp",
  Speed				: "Hastighed",
- Dont_add_tname 		: "Tilføj ikke torrentens navn til stien", 
+ Dont_add_tname 		: "Tilføj ikke torrentens navn til stien",
  Free_Disk_Space		: "Ledig Disk Plads",
  badXMLRPCVersion		: "rTorrent er kompileret med en forkert version af xmlrpc-c biblioteket, som ikke har support for i8. Versionen skal være >=1.11. Noget funktionalitet vil ikke være tilgængelig.",
  badLinkTorTorrent		: "Ingen forbindelse til rTorrent. Check om rtorrent kører. Check $scgi_port og $scgi_host settings i config.php og scgi_port i rTorrent konfigurations filen.",
@@ -232,7 +231,6 @@ var theUILang =
  peerDetails			: "Detaljer",
  peerUnsnub			: "Unsnub",
  peerAddLabel			: "Enter IP/Hostname[:port]",
- noTorrentList			: "Torrent listen er ikke tilgængelig endnu, forbindelsen til rTorrent er ikke etableret.",
  yes				: "ja",
  no				: "nej",
  DateFormat			: "Dato format",

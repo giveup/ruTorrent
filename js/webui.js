@@ -14,7 +14,7 @@ var theWebUI =
 			columns:
 			[
 				{ text: theUILang.Name, 		width: "200px", id: "name",		type: TYPE_STRING },
-					{ text: theUILang.Status, 		width: "100px",	id: "status",		type: TYPE_STRING },
+				{ text: theUILang.Status, 		width: "100px",	id: "status",		type: TYPE_STRING },
 				{ text: theUILang.Size, 		width: "60px",	id: "size", 		type: TYPE_NUMBER },
 				{ text: theUILang.Done, 		width: "100px",	id: "done",		type: TYPE_PROGRESS },
 				{ text: theUILang.Downloaded, 		width: "100px",	id: "downloaded",	type: TYPE_NUMBER },
@@ -169,7 +169,6 @@ var theWebUI =
 	sTimer: 	null,
 	updTimer: 	null,
 	configured:	false,
-	firstLoad:	true,
 	interval:	-1,
 	torrents:	{},
 	files:		{},
@@ -208,23 +207,52 @@ var theWebUI =
 	{
 		log("WebUI started.");
 		this.setStatusUpdate();
-		this.catchErrors(false);
 		this.getPlugins();
 		this.getUISettings();
 		if (!this.configured) {
 			this.config({});
 		}
-		this.catchErrors(true);
 		this.assignEvents();
-		this.resize();
+		this.set_sizing_preferences();
 		this.update();
+		this.polyfillPositionSticky();
 		return(this.configured);
+	},
+
+	polyfillPositionSticky: function()
+	{
+		var el = document.createElement( 'test' );
+		// This should mirror what we're using in stable.scss
+		// any differences could result in browser bugs
+		el.style.cssText = 'position: -webkit-sticky; position: sticky;';
+		if (el.style.position.indexOf('sticky') !== -1) {
+			return;
+		}
+
+		var animationFrame = null;
+		document.querySelector('#List').addEventListener('scroll', function(e){
+			cancelAnimationFrame(animationFrame);
+			animationFrame = requestAnimationFrame(function(){
+				// Scrolling up and down
+				$('#List .stable-head').css({
+					position: 'fixed',
+					top: $('#List').offset().top + 1,
+				});
+				$('#List .stable-body').css({
+					marginTop: $('#List .stable-head').outerHeight(),
+				});
+
+				// Scrolling left and right
+				$('#List .stable-head').css({
+					width: $('#List').width(),
+					overflow: 'hidden',
+				}).scrollLeft(e.target.scrollLeft);
+			});
+		});
 	},
 
 	assignEvents: function()
 	{
-		window.onresize = theWebUI.resize;
-		window.onorientationchange = theWebUI.resize;
 		$(document).on("dragstart",function(e) { return(false); } );
 		$(document).on("selectstart",function(e) { return(e.fromTextCtrl); });
 		$(document).on("contextmenu",function(e)
@@ -237,8 +265,7 @@ var theWebUI =
 		});
 		var keyEvent = function (e)
 		{
-			switch(e.which)
-			{
+			switch(e.which) {
 				case 27 : 				// Esc
 					if (theContextMenu.hide() || theDialogManager.hideTopmost()) {
 						return(false);
@@ -280,8 +307,7 @@ var theWebUI =
 	getPlugins: function()
 	{
 		this.request("?action=getplugins", null, false);
-		if (thePlugins.isInstalled("_getdir"))
-		{
+		if (thePlugins.isInstalled("_getdir")) {
 			$('#dir_edit').after($("<input type=button>").addClass("Button").attr("id","dir_btn").focus( function() { this.blur(); } ));
 			var btn = new this.rDirBrowser( 'tadd', 'dir_edit', 'dir_btn' );
 			theDialogManager.setHandler('tadd','afterHide',function()
@@ -300,12 +326,10 @@ var theWebUI =
 	config: function(data)
 	{
 		this.addSettings(data);
-		$.each(this.tables, function(ndx,table)
-		{
+		$.each(this.tables, function(ndx,table) {
 				var width = theWebUI.settings["webui."+ndx+".colwidth"];
 				var enabled = theWebUI.settings["webui."+ndx+".colenabled"];
-			$.each(table.columns, function(i,col)
-			{
+			$.each(table.columns, function(i,col) {
 				if (width && i<width.length && width[i]>4) {
 					col.width = width[i];
 				}
@@ -420,8 +444,6 @@ var theWebUI =
 				}, "_plg_"+plugin.name);
 			});
 		}
-		if (!theWebUI.systemInfo.rTorrent.started)
-			$(theWebUI.getTable("trt").scp).text(theUILang.noTorrentList).show();
 		$(".catpanel").each( function() {
 			theWebUI.showPanel(this,!theWebUI.settings["webui.closed_panels"][this.id]);
 		});
@@ -430,8 +452,7 @@ var theWebUI =
 
 	setStatusUpdate: function()
 	{
-		if (this.sTimer)
-		{
+		if (this.sTimer) {
 			window.clearInterval(this.sTimer);
 			this.sTimer = null;
 		}
@@ -454,20 +475,16 @@ var theWebUI =
 
 	plgSelect: function(e, id)
 	{
-		if ($type(id) && (e.which==3))
-		{
+		if ($type(id) && (e.which==3)) {
 				theContextMenu.clear();
-				if (this.getTable("plg").selCount > 1)
-				{
+				if (this.getTable("plg").selCount > 1) {
 				theContextMenu.add([theUILang.plgShutdown, "theWebUI.plgShutdown()"]);
 				theContextMenu.add([CMENU_CHILD, theUILang.plgLaunch,
 					[
 						[theUILang.EnableTracker, "theWebUI.plgLaunch(true)"],
 						[theUILang.DisableTracker, "theWebUI.plgLaunch(false)"]
 					]]);
-			}
-			else
-			{
+			} else {
 				var plugin = thePlugins.get(id.substr(5));
 				theContextMenu.add([theUILang.plgShutdown, (plugin.enabled && plugin.canShutdown()) ? "theWebUI.plgShutdown()" : null]);
 				theContextMenu.add([CMENU_CHILD, theUILang.plgLaunch,
@@ -475,8 +492,7 @@ var theWebUI =
 						[theUILang.EnableTracker, !plugin.launched && plugin.canBeLaunched() ? "theWebUI.plgLaunch(true)" : null],
 						[theUILang.DisableTracker, plugin.launched && plugin.canBeLaunched() ? "theWebUI.plgLaunch(false)" : null]
 					]]);
-				if (plugin.help)
-				{
+				if (plugin.help) {
 					theContextMenu.add([CMENU_SEP]);
 					theContextMenu.add([theUILang.Help, "window.open('"+plugin.help+"', '_blank')" ]);
 				}
@@ -492,18 +508,17 @@ var theWebUI =
 		var table = this.getTable("plg");
 		var sr = table.rowSel;
 		var str = "";
-		for (var k in sr)
-		{
-				if (sr[k])
-				{
-					var name = k.substr(5);
-					var plugin = thePlugins.get(name);
-						if (plugin.enabled && plugin.canShutdown())
-							str += "&hash=" + name;
+		for (var k in sr) {
+			if (sr[k]) {
+				var name = k.substr(5);
+				var plugin = thePlugins.get(name);
+				if (plugin.enabled && plugin.canShutdown()) {
+					str += "&hash=" + name;
 				}
 			}
+		}
 		if (str.length>0)
-				this.request("?action=doneplugins&s=done" + str, [this.plgRefresh, this]);
+			this.request("?action=doneplugins&s=done" + str, [this.plgRefresh, this]);
 		},
 
 	plgLaunch : function(enable)
@@ -511,29 +526,30 @@ var theWebUI =
 		var table = this.getTable("plg");
 		var sr = table.rowSel;
 		var str = "";
-		for (var k in sr)
-		{
-				if (sr[k])
-				{
-					var name = k.substr(5);
-					var plugin = thePlugins.get(name);
-						if ( (enable ^ plugin.launched) && plugin.canBeLaunched())
-							str += "&hash=" + name;
+		for (var k in sr) {
+			if (sr[k]) {
+				var name = k.substr(5);
+				var plugin = thePlugins.get(name);
+				if ( (enable ^ plugin.launched) && plugin.canBeLaunched()) {
+					str += "&hash=" + name;
 				}
 			}
-		if (str.length>0)
-				this.request("?action=doneplugins&s="+(enable ? "launch" : "unlaunch") + str, [this.plgRefresh, this]);
-		},
+		}
 
-		plgRefresh : function()
-		{
-			table = this.getTable("plg");
+		if (str.length>0) {
+			this.request("?action=doneplugins&s="+(enable ? "launch" : "unlaunch") + str, [this.plgRefresh, this]);
+		}
+	},
+
+	plgRefresh : function()
+	{
+		table = this.getTable("plg");
 		$.each( thePlugins.list, function(ndx,plugin)
 		{
 			table.setValueById( "_plg_"+plugin.name, "status", plugin.enabled ? 1 : 0 );
 			table.setValueById( "_plg_"+plugin.name, "launch", plugin.launched ? (plugin.canBeLaunched() ? 1 : 2) : 0 );
 		});
-		},
+	},
 
 //
 // settings
@@ -596,9 +612,8 @@ var theWebUI =
 
 	setSettings: function()
 	{
-			var req = '';
-			var needSave = false;
-		var needResize = false;
+		var req = '';
+		var needSave = false;
 		var reply = null;
 		$.each(this.settings, function(i,v)
 		{
@@ -629,11 +644,9 @@ var theWebUI =
 								break;
 							case "webui.show_cats":
 								$("#CatList").toggle();
-								needResize = true;
 								break;
 							case "webui.show_dets":
 								$("#tdetails").toggle();
-								needResize = true;
 								break;
 							case "webui.lang":
 								SetActiveLanguage(nv);
@@ -665,8 +678,6 @@ var theWebUI =
 				}
 			}
 		});
-		if (needResize)
-			this.resize();
 		if ((req.length>0) && theWebUI.systemInfo.rTorrent.started)
 				this.request("?action=setsettings" + req,null,true);
 		if (needSave)
@@ -1535,13 +1546,8 @@ var theWebUI =
 	loadTorrents: function()
 	{
 		var table = this.getTable("trt");
-		if (this.firstLoad) {
-			this.firstLoad = false;
-			this.show();
-		} else {
-			if (this.actLbl != "-_-_-all-_-_-") {
-				table.refreshRows();
-			}
+		if (this.actLbl != "-_-_-all-_-_-") {
+			table.refreshRows();
 		}
 		table.Sort();
 		this.setInterval();
@@ -2001,7 +2007,6 @@ var theWebUI =
 		if (!noSwitch && !theWebUI.settings["webui.show_dets"]) {
 			$("#tdetails").show();
 			theWebUI.settings["webui.show_dets"] = true;
-			theWebUI.resize();
 			theWebUI.save();
 		}
 		this.updateDetails();
@@ -2134,73 +2139,22 @@ var theWebUI =
 		return(false);
 	},
 
-	resizeLeft: function( w, h )
+	set_sizing_preferences: function()
 	{
-		if (w!==null) {
-			$("#CatList").width( w );
-			$("#VDivider").width( $(window).width()-w-10 );
-		}
-		if (h!==null) {
-			$("#CatList").height( h );
-		}
-	},
-
-	resizeTop : function( w, h )
-	{
-		this.getTable("trt").resize(w,h);
-	},
-
-	resizeBottom : function( w, h )
-	{
-		if (w!==null) {
-			$("#tdetails").width( w );
-			w-=8;
-		}
-		if (h!==null) {
-			$("#tdetails").height( h );
-			h-=($("#tabbar").height());
-			$("#tdcont").height( h );
-			h-=2;
-		}
-		if (theWebUI.configured) {
-			this.getTable("fls").resize(w,h);
-			this.getTable("trk").resize(w,h);
-			this.getTable("prs").resize(w,h);
-			var table = this.getTable("plg");
-			if (table) {
-				table.resize(w,h);
-			}
-			this.speedGraph.resize(w,h);
-		}
-	},
-
-	resize: function()
-	{
-		var ww = $(window).width();
-		var wh = $(window).height();
-		var w = Math.floor(ww * (1 - theWebUI.settings["webui.hsplit"])) - 5;
-		var th = ($("header").is(":visible") ? $("header").height() : -1)+$("#StatusBar").height()+12;
-		$("#StatusBar").width(ww);
+		var ww = $('main').width();
+		var wh = $('main').height();
 		if (theWebUI.settings["webui.show_cats"]) {
-			theWebUI.resizeLeft( w, wh-th );
-			w = ww - w;
-		} else {
-			$("#VDivider").width( ww-10 );
-			w = ww;
+			$("#CatList").width(Math.floor(ww * (1 - theWebUI.settings["webui.hsplit"])) - 5);
 		}
-		w-=11;
-		theWebUI.resizeTop( w, Math.floor(wh * (theWebUI.settings["webui.show_dets"] ? theWebUI.settings["webui.vsplit"] : 1))-th-7 );
-		if (theWebUI.settings["webui.show_dets"])
-			theWebUI.resizeBottom( w, Math.floor(wh * (1 - theWebUI.settings["webui.vsplit"])) );
-		$("#HDivider").height( wh-th+2 );
+		if (theWebUI.settings["webui.show_dets"]) {
+			$('#tdetails').height(Math.floor(wh * (1 - theWebUI.settings["webui.vsplit"])));
+		}
 	},
 
 	update: function()
 	{
-		if (theWebUI.systemInfo.rTorrent.started || !this.firstLoad) {
+		if (theWebUI.systemInfo.rTorrent.started) {
 			theWebUI.getTorrents("list=1");
-		} else {
-			theWebUI.show();
 		}
 	},
 
@@ -2227,14 +2181,12 @@ var theWebUI =
 	toggleMenu: function()
 	{
 		$("header").toggle();
-		theWebUI.resize();
 	},
 
 	toggleDetails: function()
 	{
 		theWebUI.settings["webui.show_dets"] = !theWebUI.settings["webui.show_dets"];
 		$("#tdetails").toggle();
-		theWebUI.resize();
 		theWebUI.save();
 	},
 
@@ -2242,7 +2194,6 @@ var theWebUI =
 	{
 		theWebUI.settings["webui.show_cats"] = !theWebUI.settings["webui.show_cats"];
 		$("#CatList").toggle();
-		theWebUI.resize();
 		theWebUI.save();
 	},
 
@@ -2309,48 +2260,15 @@ var theWebUI =
 		Ajax(this.url + qs, isASync, onComplite, null, this.error, -1);
 	},
 
-	show: function()
-	{
-		if ($("#cover").is(":visible")) {
-			$("#cover").hide();
-			theWebUI.resize();
-			theTabs.show("lcont");
-		}
-	},
-
-	msg: function(s)
-	{
-		$('#loadimg').hide();
-		$("#msg").text(s);
-	},
-
-	catchErrors: function(toLog)
-	{
-		if (toLog) {
-			window.onerror = function(msg, url, line) {
-					theWebUI.show();
-				noty("JS error: [" + url + " : " + line + "] " + msg,"error");
-				return true;
-			}
-		} else {
-			window.onerror = function(msg, url, line) {
-				msg = "JS error: [" + url + " : " + line + "] " + msg;
-				theWebUI.msg(msg);
-				log(msg);
-				return true;
-			}
-		}
-	},
-
 	error: function(status,text)
 	{
-		theWebUI.show();
+		theTabs.show("lcont");
 		noty("Bad response from server: ("+status+") "+(text ? text : ""),"error");
 	},
 
 	timeout: function()
 	{
-		theWebUI.show();
+		theTabs.show("lcont");
 		if (!theWebUI.settings["webui.ignore_timeouts"]) {
 			noty(theUILang.Request_timed_out,"alert");
 		}

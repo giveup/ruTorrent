@@ -1,34 +1,113 @@
-.stable {border: 1px solid; border-color: #D0D0D0 #FFFFFF #FFFFFF #D0D0D0; overflow: hidden; display: block; -moz-user-select: none; -moz-user-focus: normal; -moz-user-input: enabled; }
-.stable td {font: menu; white-space: nowrap; padding: 1px}
-.stable-head {position: absolute; background: #F5F5F5; overflow: hidden; -moz-user-select: none; border: 1px solid; border-color: #FFFFFF #D0D0D0 #D0D0D0 #FFFFFF; border-bottom: 0; z-index: 10}
-.stable-head table {table-layout: fixed; width: 0}
-.stable-head table tr {background: transparent url(../images/header.gif) repeat-x scroll center top}
-.stable-head table tr td {height: 14px; font-size: 11px; font-family: Tahoma, Arial, Helvetica, sans-serif; border: 1px solid; border-color: #FFFFFF #D0D0D0 #D0D0D0 #FFFFFF; background: transparent url(../images/blank.gif) no-repeat scroll right center; line-height: 14px; overflow: hidden; white-space: nowrap; vertical-align: top}
-.stable-head td div {padding: 0 12px 0 4px}
-.stable-head div.resz {border: 1px solid #FF0000; width: 5px; height: 14px; padding: 0 !important; float: right; background: transparent url(../images/s.gif) no-repeat scroll left center; cursor: e-resize}
-.stable-body {background: window; overflow: auto}
-.stable-body table {table-layout: fixed; width: 0; }
-.stable-body tr {cursor: pointer}
-.stable-body td {height: 16px; border-bottom: 1px solid #E0E0E0; border-width: 0px 1px 1px 0px; overflow: hidden; vertical-align: top}
-.stable-icon {width: 16px; height: 16px; margin-right: -6px; margin: 0 5px; padding: 0 !important; float: left}
-.stable-lpad {width: 5px; height: 16px; margin: 0; padding: 0; float: left; }
-.stable-body td div {font-size: 11px; font-family: Tahoma, Arial, Helvetica, sans-serif; overflow: hidden; height: 16px !important;}
-.stable-body td div { margin: 0 2px 0 2px !important}
-.stable-body {background: #F5F5F5}
-.stable-body tr.selected td {background: #CFDEEF}
-.stable-body tr.odd td {background: #F3F3F3}
-.stable-body tr.even td {background: #FFFFFF}
-.stable-move-header {position: absolute; background: transparent url(../images/header_move.gif) repeat-x scroll center top rgba(255,255,255,0.7); top: 0px; font: menu; padding: 2px 12px 2px 4px; line-height: 12px; -moz-user-select: none; visibility: visible; border: 1px solid #0099FF; overflow: hidden; }
+// Requirements:
+// * Table scrolls if there are too many rows to view
+// * Header scrolls horizontally together with the table content
+// * Header is always visible no matter how far down the content we scroll
+// We're going to use position sticky as it's the only sane way to achieve all
+// of our requirements. We still need to use two separate tables at the moment
+// because Firefox supports position sticky but not on thead.
+//
+// Other browsers will need to rely on a javascript polyfill in stable.js
+//
+// Tracking bugs:
+// https://bugzilla.mozilla.org/show_bug.cgi?id=975644
+// https://code.google.com/p/chromium/issues/detail?id=231752
+// https://dev.modern.ie/platform/status/positionsticky/
+.stable {
+  overflow: scroll;
+
+  > .stable-head {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+  }
+}
+
+.stable {
+  border: 1px solid;
+  border-color: #d0d0d0 #fff #fff #d0d0d0;
+  table {
+    width: 0;
+
+    th, td {
+      padding: 1px;
+      white-space: nowrap;
+    }
+  }
+}
+
+thead {
+  background: #f5f5f5;
+  border: 1px solid;
+  border-color: #fff #d0d0d0 #d0d0d0 #fff;
+  border-bottom: 0;
+
+  tr {
+    background: transparent url('../images/header.gif') repeat-x scroll center top;
+
+    td {
+      height: 14px;
+      border: 1px solid;
+      border-color: #fff #d0d0d0 #d0d0d0 #fff;
+
+      // Get the properties ready for an image to be added (when sorting)
+      background-repeat: no-repeat;
+      background-attachment: scroll;
+      background-position: right center;
+
+      line-height: 14px;
+      overflow: hidden;
+      white-space: nowrap;
+      vertical-align: top;
+
+      div {
+        padding: 0 12px 0 4px;
+      }
+    }
+  }
+}
+.stable-head {
+  // The rearranging column shiloutte is positioned absolutely, so we need to
+  // tell it that that absolute is relative to stable-head
+  position: relative;
+
+  .resz {
+    border: 1px solid #f00;
+    width: 5px;
+    height: 14px;
+    float: right;
+    background: transparent url('../images/s.gif') no-repeat scroll left center;
+    cursor: e-resize;
+  }
+}
+
+.stable-body {
+  background: #f5f5f5;
+
+  tr {
+    background: #fff;
+    cursor: pointer;;
+
+    &.selected {
+      background: #cfdeef;
+    }
+  }
+}
+.stable-body td {height: 16px; border-bottom: 1px solid #e0e0e0;}
+.stable-icon {width: 16px; height: 16px; margin-right: -6px; margin: 0 5px; float: left}
+.stable-lpad {width: 5px; height: 16px; float: left; }
+.stable-body td div {overflow: hidden; height: 16px !important;}
+.stable-body td div { margin: 0 2px !important}
+.stable-move-header {position: absolute; background: transparent url('../images/header_move.gif') repeat-x scroll center top rgba(255, 255, 255, .7); top: 0; padding: 2px 12px 2px 4px; line-height: 12px; visibility: visible; border: 1px solid #0099FF; overflow: hidden; }
 .stable-active-header {border-color: threedface !important}
-.stable-separator-header {position: absolute; top: 0px; left: 0px; font: menu; height: 1em; width: 1px; overflow: hidden; background: #0099FF; padding: 3px 0px}
-.stable-virtpad {width: 10px; height: 0px}
-.stable-scrollpos {width: 80%; height: 16px; left: 10%; top: 50%; position: absolute; padding: 0 5px; margin-top: -8px; background: #FFFFFF; color: #AAAAAA; font-size: 11px; font-family: Tahoma, Arial, Helvetica, sans-serif; font-weight: bold; text-align: center; overflow: hidden; display: none; white-space: nowrap}
-.stable-resize-header {	position: absolute; background-color: #A0A0A0; width: 1px; top: 0px; font: menu; -moz-user-select: none; visibility: hidden; overflow: hidden; z-index: 100; }
+.stable-separator-header {position: absolute; top: 0px; left: 0px; height: 1em; width: 1px; overflow: hidden; background: #0099FF; padding: 3px 0px}
+.stable-virtpad {width: 10px; height: 0}
+.stable-scrollpos {width: 80%; height: 16px; left: 10%; top: 50%; position: absolute; padding: 0 5px; margin-top: -8px; background: #FFFFFF; color: #AAAAAA; font-weight: bold; text-align: center; overflow: hidden; display: none; white-space: nowrap}
+.stable-resize-header {	position: absolute; background-color: #A0A0A0; width: 1px; top: 0px; visibility: hidden; overflow: hidden; z-index: 100; }
 
 .stable-head .rowcover { position: absolute; left: 0; top: 0; height: 20px; width: 1000px; background: transparent; display: none; }
 
-.meter-value { float: left; background-color: #99D699; border: 1px inset #BBBBBB; border-bottom: none;}
-.meter-text { position: relative; text-align: left; float: left; width: 0px; height: 0px; overflow: visible; left: 40%; font-size: 11px; font-family: Tahoma, Arial, Helvetica, sans-serif;	z-index: 1; }
+.meter-value { float: left; background-color: #99d699; border: 1px inset #bbb; border-bottom: 0;}
+.meter-text { position: relative; text-align: left; float: left; width: 0; height: 0; overflow: visible; left: 40%; z-index: 1; }
 
-.meter-value-start-color { background-color: #FFFF00 }
-.meter-value-end-color { background-color: #99D699 }
+.meter-value-start-color { background-color: #ff0 }
+.meter-value-end-color { background-color: #99d699 }

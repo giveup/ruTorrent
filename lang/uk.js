@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Ukrainian language file.
  *
  * Initial Author: Artem Lopata (mod-s@yandex.ru)
@@ -75,7 +75,7 @@ var theUILang =
  Remove_and			: "Видалити і",
  Details			: "Деталі…",
  Properties			: "Властивості…",
- of				: "із", //this two creates line 
+ of				: "із", //this two creates line
  connected			: "з’єднано", //  XX of YY connected
  High_priority			: "Високий",
  Normal_priority		: "Нормальний",
@@ -90,7 +90,6 @@ var theUILang =
  GB				: "Гб",
  TB				: "Тб",
  PB				: "Пб",
- Loading			: "Триває завантаження…",
  Torrent_file			: "Файл торента",
  Torrent_URL			: "URL торента",
  Torrent_properties		: "Властивості торента",
@@ -163,7 +162,7 @@ var theUILang =
  GetTrackerMessage		: "Запитувати повідомлення трекера",
  Help				: "Довідка",
  Speed				: "Швидкість",
- Dont_add_tname 		: "Не додавати назву торента до шляху", 
+ Dont_add_tname 		: "Не додавати назву торента до шляху",
  Free_Disk_Space		: "Вільно на диску",
  badXMLRPCVersion		: "rTorrent скомпільовано з некоректною версією бібліотеки xmlrpc-c, без підтримки 8-розрядних цілих. Версія бібліотеки повинна бути >= 1.11. Деякі функції будуть недоступні.",
  badLinkTorTorrent		: "Немає зв’язку із rTorrent. Перевірте, чи його запущено. Переконайтеся, що параметри $scgi_port і $scgi_host у файлі config.php збігаються зі значенням змінної scgi_port у файлі конфігурації rTorrent.",
@@ -232,7 +231,6 @@ var theUILang =
  peerDetails			: "Деталі",
  peerUnsnub			: "Дозволити вивантаження",
  peerAddLabel			: "Введіть IP/вузол[:порт]",
- noTorrentList			: "Список завантажень недоступний, оскільки із rTorrent не встановлено зв’язок.",
  yes				: "так",
  no				: "ні",
  DateFormat			: "Формат дати",

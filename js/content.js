@@ -19,9 +19,9 @@ function makeContent()
 	$("#mnu_go").attr("title",theUILang.mnu_go);
 	$("#mnu_help").attr("title",theUILang.mnu_help+"...");
 
-	$("#query").keydown( function(e) 
+	$("#query").keydown( function(e)
 	{
-		if(e.keyCode == 13) 
+		if(e.keyCode == 13)
 			theSearchEngines.run();
 	});
 
@@ -33,16 +33,13 @@ function makeContent()
 		maskId : "dividerDrag",
 		onStart : function(e) { return(theWebUI.settings["webui.show_cats"]); },
 		onRun : function(e) { $(document.body).css( "cursor", "e-resize" ); },
-		onFinish : function(e) 
+		onFinish : function(e)
 		{
-		        var self = e.data;
+	        var self = e.data;
 			var w = self.mask.offset().left-2;
-			theWebUI.resizeLeft(w,null);	
-			w = $(window).width()-w-11;
-			theWebUI.resizeTop(w,null);
-      		        theWebUI.resizeBottom(w,null);
+			$("#CatList").width( w );
 			theWebUI.setHSplitter();
-			$(document.body).css( "cursor", "default" );
+			$(document.body).css( "cursor", "" );
 		}
 	});
 
@@ -54,28 +51,26 @@ function makeContent()
 		maskId : "dividerDrag",
 		onStart : function(e) { return(theWebUI.settings["webui.show_dets"]); },
 		onRun : function(e) { $(document.body).css( "cursor", "n-resize" ); },
-		onFinish : function(e) 
+		onFinish : function(e)
 		{
-		        var self = e.data;
-		        var offs = self.mask.offset();
-      		        theWebUI.resizeTop(null,offs.top-($("#t").is(":visible") ?  $("#t").height() : -1)-8);
-      		        theWebUI.resizeBottom(null,$(window).height()-offs.top-$("#StatusBar").height()-14);
-      		        theWebUI.setVSplitter();
-			$(document.body).css( "cursor", "default" );
+			var self = e.data;
+			var h = self.mask.offset().top+2;
+			$('#tdetails').height($('#maincont').height() - h);
+	        theWebUI.setVSplitter();
+			$(document.body).css( "cursor", "" );
 		}
 	});
 
-	$(document.body).append($("<iframe name='uploadfrm'/>").css({visibility: "hidden"}).attr( { name: "uploadfrm" } ).width(0).height(0).load(function()
+	$(document.body).append($("<iframe name='uploadfrm'/>").css({visibility: "hidden"}).attr( { name: "uploadfrm" } ).width(0).height(0).on('load', function()
 	{
 		$("#torrent_file").val("");
 		$("#add_button").prop("disabled",false);
 		var d = (this.contentDocument || this.contentWindow.document);
-		if(d && (d.location.href != "about:blank"))
-		{
+		if(d && (d.location.href != "about:blank")) {
 			try { var txt = d.body.textContent ? d.body.textContent : d.body.innerText; eval(txt); } catch(e) {}
 		}
 	}));
-	$(document.body).append($("<iframe name='uploadfrmurl'/>").css({visibility: "hidden"}).attr( { name: "uploadfrmurl" } ).width(0).height(0).load(function()
+	$(document.body).append($("<iframe name='uploadfrmurl'/>").css({visibility: "hidden"}).attr( { name: "uploadfrmurl" } ).width(0).height(0).on('load', function()
 	{
 		$("#url").val("");
 		var d = (this.contentDocument || this.contentWindow.document);
@@ -110,7 +105,7 @@ function makeContent()
 	$("#tadd_label_select").change( function(e)
 	{
 		var index = this.selectedIndex;
-		switch (index) 
+		switch (index)
 		{
 			case 1:
 			{
@@ -121,13 +116,13 @@ function makeContent()
 			{
 				$("#tadd_label").val("");
 				break;
-			}				
+			}
 			default:
 			{
 				$("#tadd_label").val(this.options[index].value);
 				break;
 			}
-		}			
+		}
 	});
 
 	theDialogManager.setHandler('tadd','beforeShow',function()
@@ -166,7 +161,7 @@ function makeContent()
 	}
 	$("#addtorrent").submit(function()
 	{
-		if(!$("#torrent_file").val().match(/\.torrent$/i)) 
+		if(!$("#torrent_file").val().match(/\.torrent$/i))
 		{
 			alert(theUILang.Not_torrent_file);
 	   		return(false);
@@ -241,27 +236,27 @@ function makeContent()
 	for (var i in theUILang.retryOnErrorList)
 		retries+="<option value='"+i+"'>"+theUILang.retryOnErrorList[i]+"</option>";
 	theDialogManager.make("stg",theUILang.ruTorrent_settings,
-		'<div id="stg_c" class="fxcaret">'+
-			"<div class=\"lm\">"+
-				"<ul>"+
-					"<li class=\"first\"><a id=\"mnu_st_gl\" href=\"javascript://void();\" onclick=\"theOptionsSwitcher.run(\'st_gl\'); return(false);\" class=\"focus\">"+
-						theUILang.General+
-					"</a></li>"+
-					"<li id='hld_st_dl'><a id=\"mnu_st_dl\" href=\"javascript://void();\" onclick=\"theOptionsSwitcher.run(\'st_dl\'); return(false);\">"+
-						theUILang.Downloads+
-					"</a></li>"+
-					"<li id='hld_st_con'><a id=\"mnu_st_con\" href=\"javascript://void();\" onclick=\"theOptionsSwitcher.run(\'st_con\'); return(false);\">"+
-						theUILang.Connection+
-					"</a></li>"+
-					"<li id='hld_st_bt'><a id=\"mnu_st_bt\" href=\"javascript://void();\" onclick=\"theOptionsSwitcher.run(\'st_bt\'); return(false);\">"+
-						theUILang.BitTorrent+
-					"</a></li>"+
-					"<li  id='hld_st_ao' class=\"last\"><a id=\"mnu_st_ao\" href=\"javascript://void();\" onclick=\"theOptionsSwitcher.run(\'st_ao\'); return(false);\">"+
-						theUILang.Advanced+
-					"</a></li>"+
-				"</ul>"+
-			"</div>"+
-			"<div id=\"st_gl\" class=\"stg_con\">"+
+		"<div class=\"lm\">"+
+			"<ul>"+
+				"<li class=\"first\"><a id=\"mnu_st_gl\" href=\"javascript://void();\" onclick=\"theOptionsSwitcher.run(\'st_gl\'); return(false);\" class=\"focus\">"+
+					theUILang.General+
+				"</a></li>"+
+				"<li id='hld_st_dl'><a id=\"mnu_st_dl\" href=\"javascript://void();\" onclick=\"theOptionsSwitcher.run(\'st_dl\'); return(false);\">"+
+					theUILang.Downloads+
+				"</a></li>"+
+				"<li id='hld_st_con'><a id=\"mnu_st_con\" href=\"javascript://void();\" onclick=\"theOptionsSwitcher.run(\'st_con\'); return(false);\">"+
+					theUILang.Connection+
+				"</a></li>"+
+				"<li id='hld_st_bt'><a id=\"mnu_st_bt\" href=\"javascript://void();\" onclick=\"theOptionsSwitcher.run(\'st_bt\'); return(false);\">"+
+					theUILang.BitTorrent+
+				"</a></li>"+
+				"<li  id='hld_st_ao' class=\"last\"><a id=\"mnu_st_ao\" href=\"javascript://void();\" onclick=\"theOptionsSwitcher.run(\'st_ao\'); return(false);\">"+
+					theUILang.Advanced+
+				"</a></li>"+
+			"</ul>"+
+		"</div>"+
+		'<div id="stg_c" class="col">'+
+			"<div id=\"st_gl\" class=\"stg_con auto\">"+
 				"<fieldset>"+
 					"<legend>"+theUILang.User_Interface+"</legend>"+
 					"<div class=\"op50l\">"+
@@ -311,7 +306,7 @@ function makeContent()
 
 					"<div class=\"op50l algnright\"><input type=\"checkbox\" id=\"webui.speedintitle\"/>"+
 						"<label for=\"webui.speedintitle\">"+theUILang.showSpeedInTitle+"</label>"+
-					"</div>"+					
+					"</div>"+
 
 					"<div class=\"op100l\"><input type=\"checkbox\" id=\"webui.no_delaying_draw\"/>"+
 						"<label for=\"webui.no_delaying_draw\" id=\"lbl_webui.no_delaying_draw\" >"+theUILang.showScrollTables+"</label>"+
@@ -346,7 +341,7 @@ function makeContent()
 					"</table>"+
 				"</fieldset>"+
 			"</div>"+
-			"<div id=\"st_dl\" class=\"stg_con\">"+
+			"<div id=\"st_dl\" class=\"stg_con auto\">"+
 				"<fieldset>"+
 					"<legend>"+theUILang.Bandwidth_sett+"</legend>"+
 					"<table>"+
@@ -391,7 +386,7 @@ function makeContent()
 					"</table>"+
 				"</fieldset>"+
 			"</div>"+
-			"<div id=\"st_con\" class=\"stg_con\">"+
+			"<div id=\"st_con\" class=\"stg_con auto\">"+
 				"<div>"+
 					"<input id=\"port_open\" type=\"checkbox\" onchange=\"linked(this, 0, ['port_range', 'port_random']);\" />"+
 					"<label for=\"port_open\">"+
@@ -454,7 +449,7 @@ function makeContent()
 					"</table>"+
 				"</fieldset>"+
 			"</div>"+
-			"<div id=\"st_bt\" class=\"stg_con\">"+
+			"<div id=\"st_bt\" class=\"stg_con auto\">"+
 				"<fieldset>"+
 					"<legend>"+theUILang.Add_bittor_featrs+"</legend>"+
 					"<table>"+
@@ -477,11 +472,11 @@ function makeContent()
 					"</table>"+
 				"</fieldset>"+
 			"</div>"+
-			"<div id=\"st_ao\" class=\"stg_con\">"+
+			"<div id=\"st_ao\" class=\"stg_con auto\">"+
 				"<fieldset>"+
 					"<legend>"+theUILang.Advanced+"</legend>"+
 					"<div id=\"st_ao_h\">"+
-						"<table width=\"99%\" cellpadding=\"0\" cellspacing=\"0\">"+
+						"<table width=\"99%\">"+
 							"<tr>"+
 								"<td>hash_interval</td>"+
 								"<td class=\"alr\"><input type=\"text\" id=\"hash_interval\" class=\"Textbox num\" maxlength=\"20\" /></td>"+
@@ -605,7 +600,7 @@ function makeContent()
 
 function correctContent()
 {
-	var showEnum = 
+	var showEnum =
 	{
 		showDownloadsPage:	0x0001,
 		showConnectionPage:	0x0002,
@@ -651,7 +646,7 @@ function correctContent()
 		$("#prop-superseed").remove();
 		$("#lbl_prop-superseed").remove();
 		$("#dlgProps .OK").remove();
-        }		
+        }
 	if(!theWebUI.systemInfo.rTorrent.started)
 	{
 		rPlugin.prototype.removePageFromTabs("TrackerList");
@@ -673,12 +668,12 @@ function correctContent()
 	{
 		if(theWebUI.systemInfo.rTorrent.iVersion>=0x809)
 		{
-			theRequestManager.addRequest("fls","f.prioritize_first=",function(hash, fls, value) 
+			theRequestManager.addRequest("fls","f.prioritize_first=",function(hash, fls, value)
 			{
 				if(value=='1')
 					fls.prioritize = 1;
 			});
-			theRequestManager.addRequest("fls","f.prioritize_last=",function(hash, fls, value) 
+			theRequestManager.addRequest("fls","f.prioritize_last=",function(hash, fls, value)
 			{
 				if(value=='1')
 					fls.prioritize = 2;
@@ -689,7 +684,7 @@ function correctContent()
 			$('#st_ao_h table tr:first').remove();
 			$('#st_ao_h table tr:first').remove();
 			$('#st_ao_h table tr:first').remove();
-			$.extend(theRequestManager.aliases, 
+			$.extend(theRequestManager.aliases,
 			{
 				"get_hash_interval"		: { name: "cat", prm: 0 },
 				"get_hash_max_tries"		: { name: "cat", prm: 0 },
@@ -703,15 +698,15 @@ function correctContent()
 	if(theWebUI.systemInfo.rTorrent.iVersion>=0x806)
 	{
 		theRequestManager.aliases[""] = { name: "", prm: 0 };
-		$.extend(theRequestManager.aliases, 
+		$.extend(theRequestManager.aliases,
 		{
 			"d.set_peer_exchange" 		: { name: "d.peer_exchange.set", prm: 0 },
 			"d.set_connection_seed"		: { name: "d.connection_seed.set", prm: 0 }
 		});
 	}
-	if(theWebUI.systemInfo.rTorrent.iVersion>=0x904)	
+	if(theWebUI.systemInfo.rTorrent.iVersion>=0x904)
 	{
-		$.extend(theRequestManager.aliases, 
+		$.extend(theRequestManager.aliases,
 		{
 			"create_link"		:	{ name: "d.create_link", prm: 0 },
 			"d.get_base_filename"	:	{ name: "d.base_filename", prm: 0 },

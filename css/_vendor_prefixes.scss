@@ -1,0 +1,11 @@
+@mixin user-select($mode) {
+	@if $mode == none {
+		-moz-user-select: -moz-none;
+	} @else {
+		-moz-user-select: $mode;
+	}
+
+	-ms-user-select: $mode;
+	-webkit-user-select: $mode;
+	user-select: $mode;
+}

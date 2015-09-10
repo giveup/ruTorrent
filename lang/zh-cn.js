@@ -1,9 +1,9 @@
-﻿/*
+/*
  * Chinese Simplified language file.
  *
  * Initial Author: skevin (skevin@china.com)
  *
- * Author: 
+ * Author:
  */
 
 var theUILang =
@@ -75,7 +75,7 @@ var theUILang =
  Remove_and			: "移除并",
  Details			: "详情...",
  Properties			: "属性...",
- of				: "的", //this two creates line 
+ of				: "的", //this two creates line
  connected			: "已连接", //  XX of YY connected
  High_priority			: "较高优先级",
  Normal_priority		: "正常优先级",
@@ -90,7 +90,6 @@ var theUILang =
  GB				: "GB",
  TB				: "TB",
  PB				: "PB",
- Loading			: "加载中...",
  Torrent_file			: "Torrent 文件",
  Torrent_URL			: "Torrent 链接",
  Torrent_properties		: "Torrent 属性",
@@ -163,7 +162,7 @@ var theUILang =
  GetTrackerMessage		: "从 Tracker 接收信息",
  Help				: "帮助",
  Speed				: "速度",
- Dont_add_tname 		: "不要添加 Torrent 的名称到目录", 
+ Dont_add_tname 		: "不要添加 Torrent 的名称到目录",
  Free_Disk_Space		: "可用磁盘空间",
  badXMLRPCVersion		: "rTorrent is compiled with incorrect version of xmlrpc-c library, without i8 support. Version must be >= 1.11. Some functionality will be unavailable.",
  badLinkTorTorrent		: "No connection to rTorrent. Check if it is really running. Check $scgi_port and $scgi_host settings in config.php and scgi_port in rTorrent configuration file.",
@@ -232,7 +231,6 @@ var theUILang =
  peerDetails			: "Details",
  peerUnsnub			: "Unsnub",
  peerAddLabel			: "Enter IP/Hostname[:port]",
- noTorrentList			: "Torrent list not yet available, connection to rTorrent not established.",
  yes				: "yes",
  no				: "no",
  DateFormat			: "Date format",

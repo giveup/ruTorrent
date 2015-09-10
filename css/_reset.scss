@@ -1,0 +1,12 @@
+* {
+    box-sizing: border-box;
+
+    margin: 0;
+    padding: 0;
+}
+
+// Because iframes are appended to the body by various plugins, we need to ensure they have a size of 0
+// iframe's generally have a border from the default UA styling
+iframe {
+    border: 0;
+}

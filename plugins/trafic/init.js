@@ -1,7 +1,6 @@
 theWebUI.ratiosStat = {};
 
-if(plugin.canChangeTabs())
-{
+if (plugin.canChangeTabs()) {
 
 	function rTraficGraph()
 	{
@@ -29,10 +28,9 @@ if(plugin.canChangeTabs())
 
 	rTraficGraph.prototype.getDataSets = function()
 	{
-		var ret = new Array();		
-		for( var i in this.checked )
-		{
-			if(this.checked[i])
+		var ret = new Array();
+		for( var i in this.checked ) {
+			if (this.checked[i])
 				ret.push(this.datasets[i]);
 			else
 			{
@@ -47,18 +45,17 @@ if(plugin.canChangeTabs())
 	rTraficGraph.prototype.draw = function()
 	{
 		var self = this;
-		$(function() 
+		$(function()
 		{
-			if(self.owner.height() && self.owner.width())
-			{
+			if (self.owner.height() && self.owner.width()) {
 				clearCanvas( self.owner[0] );
 				self.owner.empty();
 
 				$.plot(self.owner,  self.getDataSets(),
-				{ 
+				{
 					colors: [ self.down.color, self.up.color, self.oldDown.color, self.oldUp.color ],
-					xaxis: 
-					{ 
+					xaxis:
+					{
 						ticks: self.ticks
 				 	},
 					grid:
@@ -67,10 +64,10 @@ if(plugin.canChangeTabs())
 						color: self.gridColor,
 						hoverable: true
 					},
-				  	yaxis: 
-				  	{ 
+				  	yaxis:
+				  	{
 				  		min: 0,
-	  					tickFormatter: function(n) { return(theConverter.bytes(n)) } 
+	  					tickFormatter: function(n) { return(theConverter.bytes(n)) }
 		  			}
 				});
 				function showTooltip(x, y, contents)
@@ -92,22 +89,18 @@ if(plugin.canChangeTabs())
 				}
 
 				self.owner.off("plothover");
-				self.owner.on("plothover", 
-					function (event, pos, item) 
-					{ 
-						if(item)
-						{
-							if(self.previousPoint != item.datapoint)
-							{
+				self.owner.on("plothover",
+					function (event, pos, item)
+					{
+						if (item) {
+							if (self.previousPoint != item.datapoint) {
 								self.previousPoint = item.datapoint;
 								$("#tooltip").remove();
 								var y = item.datapoint[1];
 								showTooltip(item.pageX, item.pageY,
 									item.series.label + " = " + theConverter.bytes(y));
 							}
-						}
-						else
-						{
+						} else {
 							$("#tooltip").remove();
 							self.previousPoint = null;
 						}
@@ -117,7 +110,7 @@ if(plugin.canChangeTabs())
 				$('#'+self.owner.attr('id')+' .legendColorBox').before("<td class='legendCheckBox'><input type='checkbox'></td>");
 				$.each($('#'+self.owner.attr('id')+' .legendCheckBox input'),function(ndx,element)
 				{
-					$(element).click( function() 
+					$(element).click( function()
 					{
 						self.checked[ndx] = !self.checked[ndx];
 						self.draw();
@@ -129,12 +122,11 @@ if(plugin.canChangeTabs())
 
 	rTraficGraph.prototype.resize = function( newWidth, newHeight )
 	{
-		if(newWidth)
+		if (newWidth)
 			this.owner.width(newWidth-8);
-		if(newHeight)
-		{
+		if (newHeight) {
 			newHeight-=(iv($$(this.owner.attr("id")+'_ctrl').style.height)+$("#tabbar").height());
-			if(newHeight>0)
+			if (newHeight>0)
 				this.owner.height(newHeight);
 		}
 		this.draw();
@@ -147,10 +139,8 @@ if(plugin.canChangeTabs())
 		this.oldDown.data = new Array();
 		this.oldUp.data = new Array();
 		this.ticks = new Array();
-		for(var i=0; i<arr.up.length; i++)
-		{
-			if(arr.labels[i]!=0)
-			{       	
+		for(var i=0; i<arr.up.length; i++) {
+			if (arr.labels[i]!=0) {
 				var dt = new Date(arr.labels[i]*1000);
 				var month = dt.getMonth()+1;
 				month = (month < 10) ? ("0" + month) : month;
@@ -161,9 +151,8 @@ if(plugin.canChangeTabs())
 				var now = new Date();
 				now.setTime(now.getTime()-theWebUI.deltaTime);
 				var actualData = true;
-			
-			        switch(arr.mode)
-			        {
+
+		        switch(arr.mode) {
 					case 'day':
 						this.ticks.push([i,h+":00"]);
 						actualData = (now.getDate()==dt.getDate());
@@ -178,23 +167,18 @@ if(plugin.canChangeTabs())
 						break;
 				}
 
-				if(actualData)
-				{
+				if (actualData) {
 					this.down.data.push([i,arr.down[i]]);
 					this.up.data.push([i,arr.up[i]]);
 					this.oldDown.data.push([i,null]);
 					this.oldUp.data.push([i,null]);
-				}
-				else
-				{
+				} else {
 					this.oldDown.data.push([i,arr.down[i]]);
 					this.oldUp.data.push([i,arr.up[i]]);
 					this.down.data.push([i,null]);
 					this.up.data.push([i,null]);
 				}
-			}
-			else
-			{
+			} else {
 				this.down.data.push([i,null]);
 				this.up.data.push([i,null]);
 				this.oldDown.data.push([i,null]);
@@ -207,7 +191,7 @@ if(plugin.canChangeTabs())
 
 	theWebUI.clearStats = function()
 	{
-		if(theWebUI.settings["webui.confirm_when_deleting"])
+		if (theWebUI.settings["webui.confirm_when_deleting"])
 			askYesNo( theUILang.ClearButton, theUILang.ClearQuest, "theWebUI.reqForTraficGraph(true)" );
 		else
 			theWebUI.reqForTraficGraph(true);
@@ -216,31 +200,15 @@ if(plugin.canChangeTabs())
 	theWebUI.reqForTraficGraph = function(isClear)
 	{
 		var sel = $('#traf_mode');
-		if(sel.length)
-		{
+		if (sel.length) {
 			var v = isClear ? "clear" : sel.val();
 			this.request("?action=gettrafic&v="+v+"&s="+$('#tracker_mode').val(),[this.showTrafic, this]);
 		}
 	}
 
-	plugin.resizeBottom = theWebUI.resizeBottom;
-	theWebUI.resizeBottom = function( w, h )
-	{
-		if(plugin.enabled) 
-		{
-	        if(plugin.allStuffLoaded) {
-				this.trafGraph.resize(w,h);
-	        } else {
-				setTimeout( 'theWebUI.resize()', 1000 );
-	        }
-		}
-		plugin.resizeBottom.call(this,w,h);
-	}
-
 	theWebUI.showTrafic = function(d)
 	{
-		if( $type(d) )
-		{
+		if ( $type(d) ) {
 			var s = $('#tracker_mode').val();
 			$('#tracker_mode option').remove();
 			var tMode = plugin.collectStatForTorrents ? "<option value='none'>"+theUILang.selectedTorrent+"</option>" : "";
@@ -248,11 +216,11 @@ if(plugin.canChangeTabs())
 			for(var i=0; i<d.trackers.length; i++)
 				$('#tracker_mode').append("<option value='"+d.trackers[i]+"'>"+d.trackers[i]+"</option>");
 			$('#tracker_mode').val(s);
-			if(s!=$('#tracker_mode').val())
+			if (s!=$('#tracker_mode').val())
 				$('#tracker_mode').val('global');
 			$('#traf_mode').val(d.mode);
 			this.trafGraph.setData(d);
-		}			
+		}
 	}
 
 	rTorrentStub.prototype.gettrafic = function()
@@ -263,20 +231,18 @@ if(plugin.canChangeTabs())
 		this.dataType = "json";
 	}
 
-	if(plugin.collectStatForTorrents)
-	{
+	if (plugin.collectStatForTorrents) {
 		plugin.trtSelect = theWebUI.trtSelect;
-		theWebUI.trtSelect = function(e, id) 
+		theWebUI.trtSelect = function(e, id)
 		{
 			plugin.trtSelect.call(this,e,id);
-			if( (this.activeView == 'traf') && ($('#tracker_mode').val()=='none'))
+			if ( (this.activeView == 'traf') && ($('#tracker_mode').val()=='none'))
 				theWebUI.reqForTraficGraph();
 	   	}
 	}
 }
 
-if(plugin.canChangeColumns() && plugin.collectStatForTorrents)
-{
+if (plugin.canChangeColumns() && plugin.collectStatForTorrents) {
 	plugin.config = theWebUI.config;
 	theWebUI.config = function(data)
 	{
@@ -286,10 +252,9 @@ if(plugin.canChangeColumns() && plugin.collectStatForTorrents)
 		plugin.trtFormat = this.tables.trt.format;
 		this.tables.trt.format = function(table,arr)
 		{
-			for(var i in arr)
-			{
+			for (var i in arr) {
 			        var s = table.getIdByCol(i);
-				if((s=="ratioday") || (s=="ratiomonth") || (s=="ratioweek"))
+				if ((s=="ratioday") || (s=="ratiomonth") || (s=="ratioweek"))
 					arr[i] = (arr[i]!=null) ? theConverter.round(arr[i], 3) : "";
 		        }
 			return(plugin.trtFormat(table,arr));
@@ -297,8 +262,7 @@ if(plugin.canChangeColumns() && plugin.collectStatForTorrents)
 		plugin.config.call(this,data);
 		plugin.reqId = theRequestManager.addRequest("trt", null, function(hash,torrent,value)
 		{
-			if($type(theWebUI.ratiosStat[hash]) && torrent.size)
-			{
+			if ($type(theWebUI.ratiosStat[hash]) && torrent.size) {
 				torrent.ratioday = theWebUI.ratiosStat[hash][0]/torrent.size;
 				torrent.ratioweek = theWebUI.ratiosStat[hash][1]/torrent.size;
 				torrent.ratiomonth = theWebUI.ratiosStat[hash][2]/torrent.size;
@@ -309,23 +273,23 @@ if(plugin.canChangeColumns() && plugin.collectStatForTorrents)
 
 	plugin.trtRenameColumn = function()
 	{
-		if(plugin.allStuffLoaded)
+		if (plugin.allStuffLoaded)
 		{
 			theWebUI.getTable("trt").renameColumnById("ratioday",theUILang.ratioDay);
 			theWebUI.getTable("trt").renameColumnById("ratioweek",theUILang.ratioWeek);
 			theWebUI.getTable("trt").renameColumnById("ratiomonth",theUILang.ratioMonth);
-			if(thePlugins.isInstalled("rss"))
+			if (thePlugins.isInstalled("rss"))
 				plugin.rssRenameColumn();
-			if(thePlugins.isInstalled("extsearch"))
+			if (thePlugins.isInstalled("extsearch"))
 				plugin.tegRenameColumn();
 		}
 		else
 			setTimeout(arguments.callee,1000);
 	}
-        
+
 	plugin.rssRenameColumn = function()
 	{
-		if(theWebUI.getTable("rss").created)
+		if (theWebUI.getTable("rss").created)
 		{
 			theWebUI.getTable("rss").renameColumnById("ratioday",theUILang.ratioDay);
 			theWebUI.getTable("rss").renameColumnById("ratioweek",theUILang.ratioWeek);
@@ -337,7 +301,7 @@ if(plugin.canChangeColumns() && plugin.collectStatForTorrents)
 
 	plugin.tegRenameColumn = function()
 	{
-		if(theWebUI.getTable("teg").created)
+		if (theWebUI.getTable("teg").created)
 		{
 			theWebUI.getTable("teg").renameColumnById("ratioday",theUILang.ratioDay);
 			theWebUI.getTable("teg").renameColumnById("ratioweek",theUILang.ratioWeek);
@@ -349,7 +313,7 @@ if(plugin.canChangeColumns() && plugin.collectStatForTorrents)
 
 	plugin.startRatios = function()
 	{
-		theWebUI.request("?action=getratios",[plugin.updateRatios, this]);	
+		theWebUI.request("?action=getratios",[plugin.updateRatios, this]);
 	}
 
 	plugin.updateRatios = function( d )
@@ -369,8 +333,7 @@ if(plugin.canChangeColumns() && plugin.collectStatForTorrents)
 
 plugin.onLangLoaded = function()
 {
-	if(this.canChangeTabs())
-	{
+	if (this.canChangeTabs()) {
 	 	this.attachPageToTabs(
 			$('<div>').attr("id","traf").html(
 				"<div id='traf_graph_ctrl' class='graph_tab' align=right style='height:30px;'>"+
@@ -389,36 +352,33 @@ plugin.onLangLoaded = function()
 		plugin.onShow = theTabs.onShow;
 		theTabs.onShow = function(id)
 		{
-			if(id=="traf")
-			{
-				if(theWebUI.activeView!="traf")
+			if (id=="traf") {
+				if (theWebUI.activeView!="traf") {
 					theWebUI.reqForTraficGraph();
-				else
-					theWebUI.trafGraph.resize();
-			}
-			else
+				}
+			} else {
 				plugin.onShow.call(this,id);
+			}
 		};
-       		theWebUI.resize();
 	}
 };
 
 plugin.onRemove = function()
 {
 	this.removePageFromTabs("traf");
-	if(plugin.canChangeColumns() && plugin.collectStatForTorrents)
+	if (plugin.canChangeColumns() && plugin.collectStatForTorrents)
 	{
 		theRequestManager.removeRequest( "trt", plugin.reqId );
 		theWebUI.getTable("trt").removeColumnById("ratioday");
 		theWebUI.getTable("trt").removeColumnById("ratioweek");
 		theWebUI.getTable("trt").removeColumnById("ratiomonth");
 
-		if(thePlugins.isInstalled("rss"))
+		if (thePlugins.isInstalled("rss"))
 		{
 			theWebUI.getTable("rss").removeColumnById("ratioday");
 			theWebUI.getTable("rss").removeColumnById("ratioweek");
 			theWebUI.getTable("rss").removeColumnById("ratiomonth");
-		}		
+		}
 	}
 }
 

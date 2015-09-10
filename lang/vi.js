@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Vietnamese language file.
  *
  * Author: Ta Xuan Truong (truongtx8 AT gmail DOT com)
@@ -88,7 +88,6 @@ var theUILang =
  GB				: "GB",
  TB				: "TB",
  PB				: "PB",
- Loading			: "Đang tải...",
  Torrent_file			: "Tập tin Torrent",
  Torrent_URL			: "Torrent URL",
  Torrent_properties		: "Thuộc tính Torrent",
@@ -230,7 +229,6 @@ var theUILang =
  peerDetails			: "Chi tiết",
  peerUnsnub			: "Trở lại",
  peerAddLabel			: "Nhập IP/Tên máy[:cổng]",
- noTorrentList			: "Không có danh sách torrent, chưa xác lập kết nối đến rTorrent.",
  yes				: "có",
  no				: "không",
  DateFormat			: "Định dạng ngày",

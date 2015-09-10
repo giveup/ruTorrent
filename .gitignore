@@ -1,5 +1,6 @@
 .sass-cache/
-css/
+css/*.css
+css/*.css.map
 plugins/theme/themes/*/*.css
 plugins/theme/themes/*/*.css.map
 

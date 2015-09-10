@@ -24,10 +24,10 @@ header {
 
 ul.CMenu li a:hover {background-color: #D9E8FB}
 ul.CMenu li:hover ul li a:hover {background-color: #D9E8FB}
-div#CatList ul li.sel {background-color: #D9E8FB; border-color: #D9E8FB }
-div#CatList { border-color: #99BBE8 }
+#CatList ul li.sel {background-color: #D9E8FB; border-color: #D9E8FB }
+#CatList { border-color: #99BBE8 }
 
-div#tdetails {background: transparent url(./images/tab-strip-bg.gif) repeat-x 0px center;} 
+div#tdetails {background: transparent url(./images/tab-strip-bg.gif) repeat-x 0px center;}
 
 .tabbar li a { border: 1px solid #8DB2E3; border-bottom: none; background: transparent url(./images/tabs-bg.png) repeat-x 0 -4px; color: #15428B }
 .tabbar li a:hover {border-top: 1px solid #8DB2E3}
@@ -64,7 +64,7 @@ ul.CMenu li ul li a.dis {color: #808080}
 ul.CMenu li ul li a.dis:hover {background-color: #F0F0F0; color: #808080}
 
 div.dlg-window { color: #000000; border: 0 }
-div.dlg-header { background: #D9E8FB url(../../images/blank.gif) no-repeat scroll 4px center; border: 0; color: #15428B; font-weight: bold}
+div.dlg-header { background-color: #D9E8FB; background-image: none; border: 0; color: #15428B; font-weight: bold}
 
 .stg_con { background-color: #FFFFFF }
 div#stg .lm { background-color: #FAFAFA; border: 1px solid #D0D0D0; }

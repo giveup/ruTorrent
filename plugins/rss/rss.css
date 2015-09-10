@@ -1,6 +1,5 @@
-div#RSSList {border: 1px solid #A0A0A0; background-color: #FFFFFF; overflow: hidden; display: block; -moz-user-select: none; -moz-user-focus: normal; -moz-user-input: enabled}
+div#RSSList {border: 1px solid #A0A0A0; background-color: #FFFFFF; overflow: hidden; display: block;}
 
-div#dlgAddRSS {width: 355px; height: 132px}
 div#dlgAddRSS div.dlg-header {background-image: url(./images/rss.gif)}
 div#dlgAddRSS div.content {width: 330px; margin: 5px; padding: 5px; line-height: 16px}
 div#dlgAddRSS div.content input {margin-top: 5px}
@@ -32,7 +31,7 @@ div#dlgEditFilters div.dlg-header {background-image: url(./images/rss.gif)}
 .lfc {float: left; }
 .lf {width: 245px; height: 230px; margin: 5px; margin-right: 0; padding: 5px; background-color: #FFFFFF; border: 1px solid #D0D0D0; overflow: auto}
 .lf ul {width: 100%; margin: 2px; padding: 0; list-style-position: inside; list-style: none; white-space: nowrap}
-.lf li input { margin: 0 5px 0 0; padding: 4px; } 
+.lf li input { margin: 0 5px 0 0; padding: 4px; }
 .lf li {margin: 0 ; padding: 0}
 .lf li input.TextboxFocus { width: 85%; background-color: #CFDEEF; }
 .lf li input.TextboxNormal { width: 85%; background-color: #FFFFFF }
@@ -59,6 +58,6 @@ div#FLT_buttons {clear: both}
 div#dlgAddRSSGroup div.content {width: 302px; margin: 5px; padding: 5px; line-height: 16px}
 #rssGroupSet { overflow: auto; width: 275px; height: 160px }
 
-div#CatList ul li.RSSGroup {background-image: url(../../images/tstatus.png); background-position: 4px -239px}
+#CatList ul li.RSSGroup {background-image: url(../../images/tstatus.png); background-position: 4px -239px}
 
 #rsstimer { float: right; font-weight: normal; margin-right: -18px; }

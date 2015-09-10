@@ -1,4 +1,4 @@
-﻿/*
+/*
  * French language file.
  *
  * Initial Authors: Platoon21 (charlesprost@gmail.com) and Zempashi
@@ -90,7 +90,6 @@ var theUILang =
  GB				: "Go",
  TB				: "To",
  PB				: "Po",
- Loading			: "Chargement...",
  Torrent_file			: "Fichier torrent",
  Torrent_URL			: "URL du torrent",
  Torrent_properties		: "Propriétés du torrent",
@@ -163,7 +162,7 @@ var theUILang =
  GetTrackerMessage		: "Message reçu du tracker",
  Help				: "Aide",
  Speed				: "Vitesse",
- Dont_add_tname 		: "Ne pas ajouter le nom du torrent au répertoire", 
+ Dont_add_tname 		: "Ne pas ajouter le nom du torrent au répertoire",
  Free_Disk_Space		: "Espace disponible",
  badXMLRPCVersion		: "rTorrent est compilé avec une version incorrecte de la librairie xmlrpc-c, sans le support i8. La version doit être >= 1.11. Certaines fonctionnalités ne seront pas disponibles.",
  badLinkTorTorrent		: "Lien incorrect avec rTorrent. Vérifier qu'il est bien en cours d'exécution. Vérifier la configuration de $scgi_port et de $scgi_host dans config.php et scgi_port dans le fichier de configuration de rTorrent.",
@@ -232,7 +231,6 @@ var theUILang =
  peerDetails			: "Détails",
  peerUnsnub			: "Désnuber",
  peerAddLabel			: "Entrer IP/Hostname[:port]",
- noTorrentList			: "La liste des torrents n'est pas encore disponible, la connexion à rTorrent n'a pas été établie.",
  yes				: "oui",
  no				: "non",
  DateFormat			: "Format de la date",

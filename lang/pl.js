@@ -3,7 +3,7 @@
  *
  * Initial Author: Penknife (penknife1@gmail.com)
  *
- * Author: Dare (piczok@gmail.com) 
+ * Author: Dare (piczok@gmail.com)
  * Author: Kolor (kolor@superseedbox.co.uk)
  */
 
@@ -76,7 +76,7 @@ var theUILang =
  Remove_and			: "Usuń...",
  Details			: "Szczegóły...",
  Properties			: "Właściwości...",
- of				: "z", //this two creates line 
+ of				: "z", //this two creates line
  connected			: "połączonych", //  XX of YY connected
  High_priority			: "Wysoki",
  Normal_priority		: "Normalny",
@@ -91,7 +91,6 @@ var theUILang =
  GB				: "GB",
  TB				: "TB",
  PB				: "PB",
- Loading			: "Wczytywanie...",
  Torrent_file			: "Plik Torrent",
  Torrent_URL			: "Adres pliku Torrent",
  Torrent_properties		: "Właściwości Torrent",
@@ -164,7 +163,7 @@ var theUILang =
  GetTrackerMessage		: "Odbierz wiadomości z trackera",
  Help				: "Pomoc",
  Speed				: "Szybkość",
- Dont_add_tname 		: "Nie dodawaj nazwy torrenta do ścieżki", 
+ Dont_add_tname 		: "Nie dodawaj nazwy torrenta do ścieżki",
  Free_Disk_Space		: "Wolna przestrzeń dyskowa",
  badXMLRPCVersion		: "rTorrent został skompilowany ze złą wersją biblioteki xmlrpc-c , bez wsparcia i8 . Wersja musi być większa lub równa: 1.11. Pewne funkcjonalności będą niedostepne.",
  badLinkTorTorrent		: "Zła ścieżka do rTorrenta. Sprawdź, czy jest uruchomiony. Sprawdź też ustawienia $scgi_port oraz $scgi_host settings w config.php oraz scgi_port w pliku konfiguracyjnym rTorrent.",
@@ -233,7 +232,6 @@ var theUILang =
  peerDetails			: "Szczegóły",
  peerUnsnub			: "Nie ignoruj",
  peerAddLabel			: "Wprowadź IP/Host[:port]",
- noTorrentList			: "Lista torrentów niedostępna, nie można połączyć z rTorrentem.",
  yes				: "tak",
  no				: "nie",
  DateFormat			: "Format Daty",
@@ -260,7 +258,7 @@ var theUILang =
  Developers			: "Deweloperzy",
  Check_new_version		: "Sprawdz nową wersję",
  here				: "Tutaj",
- Num_No 			: "Nr", 
+ Num_No 			: "Nr",
  This_screen			: "Ten ekran",
  About_program			: "O ruTorrent",
  Toggle_menu			: "Menu przełączania",

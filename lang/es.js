@@ -1,9 +1,9 @@
-﻿/*
+/*
  * Spanish language file.
  *
  * Initial Author: Carlos López (the_spide21@yahoo.com)
  *
- * Author: 
+ * Author:
  */
 
 var theUILang =
@@ -88,7 +88,6 @@ var theUILang =
  GB				: "GB",
  TB				: "TB",
  PB				: "PB",
- Loading			: "Cargando...",
  Torrent_file			: "Archivo Torrent",
  Torrent_URL			: "URL del Torrent",
  Torrent_properties		: "Propiedades del Torrent",
@@ -161,7 +160,7 @@ var theUILang =
  GetTrackerMessage		: "Recibir mensajes del tracker",
  Help				: "Ayuda",
  Speed				: "Velocidad",
- Dont_add_tname 		: "No agregar el nombre del torrent a la ruta", 
+ Dont_add_tname 		: "No agregar el nombre del torrent a la ruta",
  Free_Disk_Space		: "Espacio libre en disco",
  badXMLRPCVersion		: "rTorrent fué compilado con una versión incorrecta de xmlrpc-c, sin soporte i8. La versión debe ser >= 1.11. Algunas funcionalidades no estarán disponibles.",
  badLinkTorTorrent		: "Sin conexión a rTorrent. Compruebe si se encuentra ejecutado. Verifique $scgi_port y $scgi_host en config.php y scgi_port en el archivo de configuración de rTorrent.",
@@ -230,7 +229,6 @@ var theUILang =
  peerDetails			: "Detalless",
  peerUnsnub			: "Unsnub",
  peerAddLabel			: "IP/Hostname[:puerto]",
- noTorrentList			: "La lista de Torrents no está disponible, no se puede conectar con rTorrent.",
  yes				: "si",
  no				: "no",
  DateFormat			: "Formato de Fecha",

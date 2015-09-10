@@ -5,7 +5,7 @@ theWebUI.config = function(data)
 {
 	plugin.config.call(this,data);
 	var oldDblClick = this.getTable("fls").ondblclick;
-	this.getTable("fls").ondblclick = function(obj) 
+	this.getTable("fls").ondblclick = function(obj)
 	{
 		if(plugin.enabled && (theWebUI.dID!="") && (theWebUI.dID.length==40))
 		{
@@ -59,8 +59,8 @@ if(plugin.canChangeMenu())
 					else
 						if(!this.dirs[this.dID].isDirectory(fid))
 							fno = fid.substr(3);
-					if( 
-//						((fno!=null) && (this.files[this.dID][fno].size>=2147483647) && !theWebUI.systemInfo.php.canHandleBigFiles) || 
+					if(
+//						((fno!=null) && (this.files[this.dID][fno].size>=2147483647) && !theWebUI.systemInfo.php.canHandleBigFiles) ||
 						(theWebUI.dID.length>40))
 						fno = null;
 				}
@@ -74,7 +74,7 @@ if(plugin.canChangeMenu())
 
 plugin.onLangLoaded = function()
 {
-	$(document.body).append($("<iframe name='datafrm'/>").css({visibility: "hidden"}).attr( { name: "datafrm", id: "datafrm" } ).width(0).height(0).load(function()
+	$(document.body).append($("<iframe name='datafrm'/>").css({visibility: "hidden"}).attr( { name: "datafrm", id: "datafrm" } ).width(0).height(0).on('load', function()
 	{
 	        $("#datahash").val('');
 	        $("#datano").val('');
@@ -83,7 +83,7 @@ plugin.onLangLoaded = function()
 			try { eval(d.body.textContent ? d.body.textContent : d.body.innerText); } catch(e) {}
 	}));
 	$(document.body).append(
-		// TODO: don't hide the download in an iframe, we're very likely to run into browser security restrictions by downloading 
+		// TODO: don't hide the download in an iframe, we're very likely to run into browser security restrictions by downloading
 		// stuff through iframes. This has already been seen in the wild with iOS Safari with PDFs.
 		$('<form action="plugins/data/action.php" id="getdata" method="get" target="datafrm">'+
 			'<input type="hidden" name="hash" id="datahash" value="">'+

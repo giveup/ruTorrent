@@ -72,7 +72,7 @@ if ($dh) {
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru" lang="ru">
 <head>
 <style>
-body { background-color: window; color: windowtext; border: 0px; margin: 0px; padding: 0px; -moz-user-select:none; }
+body { background-color: window; color: windowtext; border: 0px; margin: 0px; padding: 0px; }
 td { padding-top: 1px; padding-bottom: 1px; padding-left: 0px; padding-right: 0px; cursor:default; font-size: 11px; font-family: Tahoma, Arial, Helvetica, sans-serif; }
 .rmenuobj { border-width: 0; }
 .rmenuitem { color: windowtext; }
@@ -100,17 +100,13 @@ function keyHandler(e)
 			menuClick(el);
 			!el.scrollIntoView || el.scrollIntoView(false);
 			e.preventDefault ? e.preventDefault() : (e.returnValue = false);
-		}			
+		}
 	}
 }
 
 function init()
 {
 	menuClick(document.getElementById('root'));
-	if(/WebKit/i.test(navigator.userAgent))
-	{
-		var _timer=setInterval(function(){ scrollBy(1,1); clearInterval(_timer); },10);
-	}
 	window.onkeypress = keyHandler;
 }
 
@@ -160,7 +156,7 @@ function menuDblClickAndExit(obj)
 </head>
 <body onLoad='init()'>
 
-<table class='rmenuobj' cellpadding=0 cellspacing=0 width=100%>
+<table class='rmenuobj' width=100%>
 <?php
 function ordutf8($s)
 {

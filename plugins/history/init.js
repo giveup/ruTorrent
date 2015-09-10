@@ -9,11 +9,11 @@ plugin.showNotification = function(item)
 	if(plugin.allStuffLoaded)
 	{
 		var notification = notify.createNotification( plugin.actionNames[item.action], { body: item.name, icon: { x16: 'images/favicon.ico', x32: 'images/favicon-32x32.png' } } );
-		setTimeout(function () 
+		setTimeout(function ()
 		{
                		notification.close();
                 }, theWebUI.history.closeinterval*1000);
-	}	                
+	}
 }
 
 plugin.isNotificationsSupported = function()
@@ -30,18 +30,18 @@ plugin.rebuildNotificationsPage = function()
 		switch(state)
 		{
 			case notify.PERMISSION_DENIED:
-			case false: 
+			case false:
 			{
 				$('#notifPerms, #notifParam').hide();
 				break;
 			}
-			case notify.PERMISSION_GRANTED: 
+			case notify.PERMISSION_GRANTED:
 			{
 				$('#notifPerms').hide();
 				break;
 			}
 		}
-	}		
+	}
 }
 
 if(plugin.canChangeOptions())
@@ -100,15 +100,15 @@ if(plugin.canChangeTabs())
 	theWebUI.config = function(data)
 	{
         	plugin.attachPageToTabs($('<div>').attr("id","history").addClass("table_tab stable").get(0),"History","lcont");
-		theWebUI.tables["hst"] =  
+		theWebUI.tables["hst"] =
 		{
 	        	obj:		new dxSTable(),
 			container:	"history",
-			columns:	
+			columns:
 			[
-				{ text: theUILang.Name, 		width: "200px", id: "name",		type: TYPE_STRING }, 
+				{ text: theUILang.Name, 		width: "200px", id: "name",		type: TYPE_STRING },
 		      		{ text: theUILang.Status, 		width: "100px",	id: "status",		type: TYPE_STRING },
-				{ text: 'Time',	 			width: "100px", id: "time",		type: TYPE_NUMBER }, 
+				{ text: 'Time',	 			width: "100px", id: "time",		type: TYPE_NUMBER },
 		   		{ text: theUILang.Size, 		width: "60px",	id: "size", 		type: TYPE_NUMBER },
 				{ text: theUILang.Downloaded, 		width: "100px",	id: "downloaded",	type: TYPE_NUMBER },
 				{ text: theUILang.Uploaded, 		width: "100px",	id: "uploaded",		type: TYPE_NUMBER },
@@ -126,12 +126,12 @@ if(plugin.canChangeTabs())
 					if(arr[i]==null)
 						arr[i] = '';
 					else
-						switch(table.getIdByCol(i)) 
+						switch(table.getIdByCol(i))
 						{
 							case "seedingtime" :
 							case "time":
 							case "addtime":
-							case 'created' : 
+							case 'created' :
 								arr[i] = arr[i] ? theConverter.date(iv(arr[i])+theWebUI.deltaTime/1000) : '';
 								break;
 							case 'downloaded' :
@@ -139,7 +139,7 @@ if(plugin.canChangeTabs())
 							case 'size' :
 	      							arr[i] = theConverter.bytes(arr[i]);
 								break;
-							case 'ratio' : 
+							case 'ratio' :
 								arr[i] = (arr[i] ==- 1) ? "\u221e" : theConverter.round(arr[i] / 1000, 3);
 								break;
 							case 'status' :
@@ -173,8 +173,8 @@ if(plugin.canChangeTabs())
 
 	plugin.historyRefresh = function()
 	{
-		theWebUI.requestWithoutTimeout("?action=gethistory",[plugin.onGetHistory, plugin]);	
-	}	
+		theWebUI.requestWithoutTimeout("?action=gethistory",[plugin.onGetHistory, plugin]);
+	}
 
 	rTorrentStub.prototype.gethistory = function()
 	{
@@ -314,25 +314,6 @@ if(plugin.canChangeTabs())
 			plugin.onShow.call(this,id);
 	}
 
-	plugin.resizeBottom = theWebUI.resizeBottom;
-	theWebUI.resizeBottom = function( w, h )
-	{
-		plugin.resizeBottom.call(theWebUI,w,h);
-        	if(w!==null)
-			w-=8;
-		if(h!==null)
-        	{
-			h-=($("#tabbar").height());
-			h-=2;
-        	}
-        	if(theWebUI.configured)
-        	{
-			var table = this.getTable("hst");
-			if(table)
-				table.resize(w,h);
-		}
-	}
-
 	if(plugin.canChangeMenu())
 	{
 		dxSTable.prototype.historySelect = function(e,id)
@@ -346,7 +327,7 @@ if(plugin.canChangeTabs())
 			}
 		}
 	}
-}       
+}
 
 plugin.onLangLoaded = function()
 {
@@ -386,15 +367,15 @@ plugin.onLangLoaded = function()
 			)[0], theUILang.history );
 		$('#notifPerms').click( function()
 		{
-			notify.requestPermission(function() 
-			{ 
+			notify.requestPermission(function()
+			{
 				plugin.rebuildNotificationsPage();
 				plugin.historyRefresh();
 			});
 		});
 		plugin.actionNames = ['', theUILang.Added, theUILang.Finished, theUILang.Deleted];
 		plugin.markLoaded();
-	});		
+	});
 }
 
 plugin.onRemove = function()
@@ -402,7 +383,7 @@ plugin.onRemove = function()
 	plugin.removePageFromOptions("st_history");
 }
 
-plugin.langLoaded = function() 
+plugin.langLoaded = function()
 {
 	if(plugin.enabled)
 		plugin.onLangLoaded();

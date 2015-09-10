@@ -1,0 +1,33 @@
+.col {
+	-ms-flex-direction: column; // IE 10
+	-webkit-flex-direction: column; // Safari 7-8
+	flex-direction: column;
+}
+
+.col, .row {
+	display: -ms-flexbox; // IE 10
+    display: -webkit-flex; // Safari 7-8
+	display: flex;
+
+	> * {
+		-ms-flex-shrink: 0; // IE 10
+	    -webkit-flex-shrink: 0; // Safari 7-8
+		flex-shrink: 0;
+	}
+
+	> .auto {
+		-ms-flex: 1; // IE 10
+	    -webkit-flex: 1; // Safari 7-8
+		flex: 1;
+	}
+}
+
+.row > .auto {
+	// Tell the browser it should shrink this bellow it's intrinsic width if necessary
+	min-width: 0;
+}
+
+.col > .auto {
+	// Tell the browser it should shrink this bellow it's intrinsic height if necessary
+	min-height: 0;
+}

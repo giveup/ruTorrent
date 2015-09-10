@@ -1,9 +1,9 @@
-﻿/*
+/*
  * Russian language file.
  *
  * Initial Author: Artem Lopata (mod-s@yandex.ru)
  *
- * Author: 
+ * Author:
  */
 
 var theUILang =
@@ -75,7 +75,7 @@ var theUILang =
  Remove_and			: "Удалить и",
  Details			: "Детали...",
  Properties			: "Свойства...",
- of				: "из", //this two creates line 
+ of				: "из", //this two creates line
  connected			: "соединено", //  XX of YY connected
  High_priority			: "Высокий",
  Normal_priority		: "Нормальный",
@@ -90,7 +90,6 @@ var theUILang =
  GB				: "ГБ",
  TB				: "ТБ",
  PB				: "ПБ",
- Loading			: "Загрузка...",
  Torrent_file			: "Торрент файл",
  Torrent_URL			: "Торрент URL",
  Torrent_properties		: "Свойства торрента",
@@ -163,7 +162,7 @@ var theUILang =
  GetTrackerMessage		: "Запрашивать сообщения трекера",
  Help				: "Помощь",
  Speed				: "Скорость",
- Dont_add_tname 		: "Не добавлять имя торрента к пути", 
+ Dont_add_tname 		: "Не добавлять имя торрента к пути",
  Free_Disk_Space		: "Свободно на диске",
  badXMLRPCVersion		: "rTorrent скомпилирован с некорректной версией библиотеки xmlrpc-c, без поддержки 8-байтовых целых. Версия библиотеки должна быть >= 1.11. Часть функциональности будет недоступна.",
  badLinkTorTorrent		: "Нет связи с rTorrent. Проверьте, запущен ли он. Проверьте, что параметры $scgi_port и $scgi_host в файле config.php совпадают со значением переменной scgi_port в файле конфигурации rTorrent.",
@@ -232,7 +231,6 @@ var theUILang =
  peerDetails			: "Детали",
  peerUnsnub			: "Разрешить отгрузку",
  peerAddLabel			: "Введите IP/хост[:порт]",
- noTorrentList			: "Список закачек недоступен, так как связь с rTorrent не установлена.",
  yes				: "да",
  no				: "нет",
  DateFormat			: "Формат даты",

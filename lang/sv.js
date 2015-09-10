@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Swedish language file.
  *
  * Author: Magnus Holm (holmen@brasse.se)
@@ -88,7 +88,6 @@ var theUILang =
  GB				: "GB",
  TB				: "TB",
  PB				: "PB",
- Loading			: "Laddar...",
  Torrent_file			: "Torrent-fil",
  Torrent_URL			: "Torrent-address",
  Torrent_properties		: "Torrentegenskaper",
@@ -161,7 +160,7 @@ var theUILang =
  GetTrackerMessage		: "Motta meddelanden från tracker",
  Help				: "Hjälp",
  Speed				: "Hastighet",
- Dont_add_tname 		: "Lägg inte till torrent-namn till sökväg", 
+ Dont_add_tname 		: "Lägg inte till torrent-namn till sökväg",
  Free_Disk_Space		: "Ledigt utrymme",
  badXMLRPCVersion		: "rTorrent är kompilerad med fel version av xmlrpc-C-biblioteket, utan i8-stöd. Version måste vara > = 1.11. Vissa funktioner kommer att vara otillgängliga.",
  badLinkTorTorrent		: "Ingen anslutning till rTorrent. Kontrollera om det verkligen körs. Kontrollera $scgi_port- och $scgi_host-inställningarna i config.php och scgi_port i rTorrent's konfigurationsfil.",
@@ -230,7 +229,6 @@ var theUILang =
  peerDetails			: "Detaljer",
  peerUnsnub			: "Ta bort nonchalering",
  peerAddLabel			: "Ange IP/Värdnamn[:port]",
- noTorrentList			: "Torrentlista ännu inte tillgänglig, anslutning till rTorrent ej etablerad.",
  yes				: "ja",
  no				: "nej",
  DateFormat			: "Datumformat",

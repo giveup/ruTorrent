@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Greek language file.
  *
  * Author: Chris Kanatas (ckanatas@gmail.com)
@@ -88,7 +88,6 @@ var theUILang =
  GB				: "GB",
  TB				: "TB",
  PB				: "PB",
- Loading			: "Φόρτωση...",
  Torrent_file			: "Αρχείο Torrent",
  Torrent_URL			: "URL του Torrent",
  Torrent_properties		: "Ιδιότητες του Torrent",
@@ -161,7 +160,7 @@ var theUILang =
  GetTrackerMessage		: "Λήψη μηνυμάτων από τον tracker",
  Help				: "Βοήθεια",
  Speed				: "Ταχύτητα",
- Dont_add_tname 		: "Μην προσθέσεις το όνομα του torrent στη διαδρομή", 
+ Dont_add_tname 		: "Μην προσθέσεις το όνομα του torrent στη διαδρομή",
  Free_Disk_Space		: "Ελεύθερος χώρος στο δίσκο",
  badXMLRPCVersion		: " Το rTorrent δημιουργήθηκε με λάθος έκδοση της βιβλιοθήκης xmlrpc-c, χωρίς υποστήριξη i8. Η έκδοση πρέπει να είναι >= 1.11. Ορισμένες λειτουργίες δεν θα είναι διαθέσιμες.",
  badLinkTorTorrent		: "Δεν υπάρχει σύνδεση με το rTorrent. Ελέγξτε αν όντως είναι ενεργό. Ελέγξτε τις ρυθμίσεις για $scgi_port και $scgi_host στο αρχείο config.php και τη ρύθμιση για scgi_port στο αρχείο παραμετροποίησης του rTorrent.",
@@ -230,7 +229,6 @@ var theUILang =
  peerDetails			: "Λεπτομέρειες",
  peerUnsnub			: "Άρση αγνόησης",
  peerAddLabel			: "Εισάγετε IP/Όνομα διακομιστή[:θύρα]",
- noTorrentList			: "Η λίστα των torrent δεν είναι διαθέσιμη, απέτυχε η σύνδεση με το rTorrent.",
  yes				: "ναι",
  no				: "όχι",
  DateFormat			: "Μορφή ημερομηνίας",

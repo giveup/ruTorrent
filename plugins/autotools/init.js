@@ -25,7 +25,7 @@ if(plugin.canChangeOptions())
 				plugin.DirBrowser2.hide();
 			$$('automove_filter').value = theWebUI.autotools.MoveFilter;
 			$$('auto_add_label').checked = ( theWebUI.autotools.AddLabel == 1 );
-			$$('auto_add_name').checked = ( theWebUI.autotools.AddName == 1 );			
+			$$('auto_add_name').checked = ( theWebUI.autotools.AddName == 1 );
 		}
 		plugin.addAndShowSettings.call(theWebUI,arg);
 	}
@@ -76,7 +76,7 @@ if(plugin.canChangeOptions())
 			"&add_label=" + ( $$('auto_add_label').checked  ? '1' : '0' ) +
 			"&add_name=" + ( $$('auto_add_name').checked  ? '1' : '0' ) +
 			"&path_to_watch=" + $$('path_to_watch').value +
-			"&automove_filter=" + $$('automove_filter').value +			
+			"&automove_filter=" + $$('automove_filter').value +
 			"&watch_start=" + ( $$('watch_start').checked  ? '1' : '0' );
 		this.contentType = "application/x-www-form-urlencoded";
 		this.mountPoint = "plugins/autotools/action.php";
@@ -94,9 +94,9 @@ plugin.onLangLoaded = function()
 			"<table>"+
 			"<tr>"+
 				"<td>"+
-					"<input type='checkbox' id='enable_label' checked='false' "+
+					"<label><input type='checkbox' id='enable_label' checked='false' "+
 					"onchange='linked(this, 0, [\"label_template\"]);' />"+
-						"<label for='enable_label'>"+ theUILang.autotoolsEnableLabel +"</label>"+
+						" "+ theUILang.autotoolsEnableLabel +"</label>"+
 				"</td>"+
 				"<td class='alr'>"+
 					"<input type='text' id='label_template' class='TextboxNormal' maxlength='100' />"+
@@ -104,12 +104,12 @@ plugin.onLangLoaded = function()
 			"</tr>"+
 			"<tr>"+
 				"<td>"+
-					"<input type='checkbox' id='enable_move' checked='false' "+
+					"<label><input type='checkbox' id='enable_move' checked='false' "+
 					"onchange='linked(this, 0, [\"automove_filter\", \"path_to_finished\", \"automove_browse_btn\", \"fileop_type\", \"auto_add_label\", \"auto_add_name\" ]);' />"+
-						"<label for='enable_move'>"+ theUILang.autotoolsEnableMove +"</label>"+
+						" "+ theUILang.autotoolsEnableMove +"</label>"+
 				"</td>"+
 				"<td class='alr'>"+
-					"<input type='text' id='automove_filter' class='TextboxNormal' maxlength='200'/>" +				
+					"<input type='text' id='automove_filter' class='TextboxNormal' maxlength='200'/>" +
 				"</td>"+
 			"</tr>"+
 			"<tr>"+

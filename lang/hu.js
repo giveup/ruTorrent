@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Hungarian language file.
  *
  * Initial Author: smici (smici@mail.datanet.hu)
@@ -75,7 +75,7 @@ var theUILang =
  Remove_and			: "Eltávolítás és",
  Details			: "Részletek...",
  Properties			: "Tulajdonságok...",
- of				: " / ", //this two creates line 
+ of				: " / ", //this two creates line
  connected			: "Csatlakoztatott", //  XX of YY connected
  High_priority			: "Magas",
  Normal_priority		: "Normál",
@@ -90,7 +90,6 @@ var theUILang =
  GB				: "GB",
  TB				: "TB",
  PB				: "PB",
- Loading			: "Betöltés...",
  Torrent_file			: "Torrent fájl",
  Torrent_URL			: "Torrent URL",
  Torrent_properties		: "Torrent tulajdonságok",
@@ -163,7 +162,7 @@ var theUILang =
  GetTrackerMessage		: "Receive messages from tracker",
  Help				: "Segítség",
  Speed				: "Sebesség",
- Dont_add_tname 		: "Ne adja hozzá a torrent nevének útját", 
+ Dont_add_tname 		: "Ne adja hozzá a torrent nevének útját",
  Free_Disk_Space		: "Szabad disk terület",
  badXMLRPCVersion		: "rTorrent is compiled with incorrect version of xmlrpc-c library, without i8 support. Version must be >= 1.11. Some functionality will be unavailable.",
  badLinkTorTorrent		: "Nem kapcsolódik az rtorrenthez! Kérlek ellenőrízd, hogy helyesen van-e megadva az $scgi_port és $scgi_host beállításait a config.php-ban!",
@@ -232,7 +231,6 @@ var theUILang =
  peerDetails			: "Részletek",
  peerUnsnub			: "Unsnub",
  peerAddLabel			: "Peer hozzáadás, add meg IP/hostnév[:port]",
- noTorrentList			: "Torrent lista nincs létrehozva, nincs rtorrent kapcsolat.",
  yes				: "Igen",
  no				: "Nem",
  DateFormat			: "Dátum formátum",
@@ -268,7 +266,7 @@ var theUILang =
  Delete_current_torrents	: "Kiválasztott torrent(ek) törlése",
  Select_all			: "Összes kijelölés",
  Deselect_all			: "Kijelölés törlése",
- showSpeedInTitle		: "Sebesség megjelenítése a címben", 
+ showSpeedInTitle		: "Sebesség megjelenítése a címben",
  badTempPath 			: "Webserver user doesn't have read/write/execute access to the tmp directory. ruTorrent will not work.",
  badTempPath2			: "rTorrent user must have read/execute access to the tmp directory. ruTorrent will not work.",
  doRandomizeHash		: "Randomize info hashes for cross-seeding",

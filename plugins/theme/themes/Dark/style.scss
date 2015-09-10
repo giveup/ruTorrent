@@ -1,7 +1,4 @@
 html, body {background-color: #181818; color: #999999; }
-div#preload {width: 0px; height: 0px; display: none; background-image: url(./images/toolbar.png); background-image: url(./images/tstatus.png); background-image: url(./images/t_bg.png); background-image: url(./images/r_bg.gif); background-image: url(./images/i_bg.gif); background-image: url(./images/asc.gif); background-image: url(./images/desc.gif); background-image: url(./images/pnl_open.gif); background-image: url(./images/pnl_close.gif)}
-div#cover {background: #181818}
-div#msg {background: #181818; border-top: 1px solid #333333; border-bottom: 1px solid #333333}
 div#sc {border: 1px solid #333333; background-color: #181818}
 div#sc li.se_act div {background-color: #333333; color: #888888}
 div#lng {background-color:#181818; border:1px solid #333333}
@@ -54,12 +51,12 @@ Input.TextboxVShort {border: 1px solid #333333}
 input.Button {background-color: #999999}
 a {color: #686868}
 
-div#CatList {border: 1px solid #333333; background-color: #181818}
-div#CatList ul li {border-color: #181818}
-div#CatList ul li.sel {background-color: #888888; color:#111111; border-color: #888888 }
+#CatList {border: 1px solid #333333; background-color: #181818}
+#CatList ul li {border-color: #181818}
+#CatList ul li.sel {background-color: #888888; color:#111111; border-color: #888888 }
 #-_-_-all-_-_-, #-_-_-dls-_-_-, #-_-_-com-_-_-, #-_-_-act-_-_-, #-_-_-iac-_-_-, #-_-_-err-_-_- {background-image: url(./images/tstatus.png)}
-div#CatList ul li.RSS {background-image: url(./images/tstatus.png); }
-div#CatList ul li.disRSS {background-image: url(./images/tstatus.png); }
+#CatList ul li.RSS {background-image: url(./images/tstatus.png); }
+#CatList ul li.disRSS {background-image: url(./images/tstatus.png); }
 .stable-icon {background-image: url(./images/tstatus.png); }
 .Icon_File {background: transparent url(./images/file.gif) no-repeat left center}
 .Icon_Dir {background: transparent url(./images/dir.gif) no-repeat left center}
@@ -109,8 +106,6 @@ div.dlg-window {background-color: #181818; color: #888888; border: 1px solid #33
 div.dlg-header { background-color: #181818; border-bottom: 1px solid #333333}
 
 div.tab {background-color: #181818}
-
-span#loadimg {background: transparent url(./images/ajax-loader.gif) no-repeat center center; }
 
 .catpanel { background: url(./images/pnl_open.gif) 2px no-repeat; background-color: #111111; border-bottom: 1px solid #333333; border-top: 1px solid #333333;  }
 

@@ -1,11 +1,6 @@
 html, body {font-family: "Lucida Sans Unicode", "Lucida Grande", Tahoma, Arial, Helvetica, sans-serif;background-color: #000;color: #ffffff;text-shadow:0px -1px 0px #000;scrollbar-base-color:#181818; }
 
-div#preload {width: 0px; height: 0px; display: none; background-image: url(./images/menus.png);background-image: url(./images/toolbar.png); background-image: url(./images/status_icons.png);  background-image: url(./images/r_bg.gif); background-image: url(./images/asc.gif); background-image: url(./images/desc.gif); background-image: url(./images/pnl_open.gif); background-image: url(./images/pnl_close.gif);background-image: url(./images/headers.png);}
-
-
 hr {background-color:#000;height:1px;border-width: 0px;border-bottom:1px solid #333333;}
-div#cover {background: #181818}
-div#msg {background: #151515; border-top: 1px solid #333333; border-bottom: 1px solid #333333;font-size: 11px; font-weight: bold;text-shadow:0px -3px 0px #000}
 div#sc {border: 1px solid #333333; background-color: #181818}
 div#sc li.se_act div {background-color: #333333; color: #888888}
 div#lng {background-color:#181818; border:1px solid #333333}
@@ -79,12 +74,12 @@ input[type="file"] {-moz-border-radius: 5px; -webkit-border-radius: 5px; border-
 input[type="text"][disabled], input[type="password"][disabled], input[type="file"][disabled], select[disabled] {color: black; border: 1px solid #000;background: #888888 url(./images/headers.png) repeat-x 0px -138px;-moz-border-radius: 5px; -webkit-border-radius: 5px; border-radius: 5px;}
 input.Button {border: 1px solid #000;background: #000 url(./images/headers.png) repeat-x 0px 0px;color:#AACF27;cursor: pointer;font-weight: bold;text-shadow:0px -1px 0px #000;-moz-border-radius: 5px; -webkit-border-radius: 5px;border-radius: 5px;}
 
-div#CatList {border:none;background-color: #212121;border-right: 1px solid #1b1b1b;border-left: 1px solid #070707;}
-div#CatList ul {}
-div#CatList ul li span {color:#D4D6C9}
-div#CatList ul li.sel span {color:#AACF27}
-div#CatList ul li {border-color: #212121;font-family: inherit;}
-div#CatList ul li.sel {background-color: transparent; color:#009DDD;text-shadow:0px -1px 0px #000;border:1px solid #212121; }
+#CatList {border:none;background-color: #212121;border-right: 1px solid #1b1b1b;border-left: 1px solid #070707;}
+#CatList ul {}
+#CatList ul li span {color:#D4D6C9}
+#CatList ul li.sel span {color:#AACF27}
+#CatList ul li {border-color: #212121;font-family: inherit;}
+#CatList ul li.sel {background-color: transparent; color:#009DDD;text-shadow:0px -1px 0px #000;border:1px solid #212121; }
 #-_-_-all-_-_-, #-_-_-dls-_-_-, #-_-_-com-_-_-, #-_-_-act-_-_-, #-_-_-iac-_-_-, #-_-_-err-_-_- {background-image: url(./images/status_icons.png)}
 .catpanel { font-size:12px;font-family:inherit;padding: 2px 24px; height:25px; line-height:25px;background: url(./images/pnl_open.gif) 0px 0px no-repeat; background-color: #232323;   font-weight: bold;color:#DCDCDC;text-shadow: 0px -1px 0px #000;border-top:1px solid #333;   border-bottom: none;border-right: none;}
 #-_-_-all-_-_- {background-position: 4px -175px;}
@@ -93,8 +88,8 @@ div#CatList ul li.sel {background-color: transparent; color:#009DDD;text-shadow:
 #-_-_-act-_-_- {background-position: 4px -159px;}
 #-_-_-iac-_-_- {background-position: 4px -31px;}
 #-_-_-err-_-_- {background-position: 4px -95px;}
-div#CatList ul li.RSS {background-image: url(./images/status_icons.png);background-position: 4px -207px; }
-div#CatList ul li.disRSS {background-image: url(./images/status_icons.png); }
+#CatList ul li.RSS {background-image: url(./images/status_icons.png);background-position: 4px -207px; }
+#CatList ul li.disRSS {background-image: url(./images/status_icons.png); }
 .stable-icon {background-image: url(./images/status_icons.png); }
 .Icon_File {background: transparent url(./images/file.gif) no-repeat left center}
 .Icon_Dir {background: transparent url(./images/dir.gif) no-repeat left center}
@@ -157,8 +152,6 @@ div#tadd-header {background: #181818 url(./images/dlg-toolbars.gif) no-repeat 0p
 
 
 div.tab {background-color: #181818}
-
-span#loadimg {background: transparent url(./images/ajax-loader.gif) no-repeat center center; }
 /*Scrollbars*/
 
 ::-webkit-scrollbar-button:start:decrement{

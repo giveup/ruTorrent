@@ -1,9 +1,9 @@
-﻿/*
+/*
  * Norwegian language file.
  *
  * Initial Author: xerc (iamxerc@gmail.com)
  *
- * Author: 
+ * Author:
  */
 
 var theUILang =
@@ -90,7 +90,6 @@ var theUILang =
  GB                  : "GB",
  TB                  : "TB",
  PB                  : "PB",
- Loading             : "Laster inn...",
  Torrent_file        : "Torrent fil",
  Torrent_URL         : "Torrent lenke",
  Torrent_properties  : "Torrent egenskaper",
@@ -163,7 +162,7 @@ var theUILang =
  GetTrackerMessage   : "Motta meldinger fra tracker",
  Help                : "Hjelp",
  Speed               : "Hastighet",
- Dont_add_tname      : "Ikke legg til torrentnavn til filbane", 
+ Dont_add_tname      : "Ikke legg til torrentnavn til filbane",
  Free_Disk_Space     : "Ledig diskplass",
  badXMLRPCVersion    : "rTorrent er kompilert med feil versjon av xmlrpc-c biblotek, uten i8 støtte. Noe funksjonalitet vil ikke være tilgjengelig.",
  badLinkTorTorrent   : "Ingen tilkobling til rTorrent. Sjekk at den virkelig kjører. Sjekk $scgi_port og $scgi_host innstillinger i config.php og scgi_port i rTorrent sin konfigurasjonfil.",
@@ -232,7 +231,6 @@ var theUILang =
  peerDetails                    : "Detaljer",
  peerUnsnub                     : "Fjern struping",
  peerAddLabel                   : "Skriv IP/Vertsnavn[:port]",
- noTorrentList                  : "Torrentliste er ikke tilgjengelig enda, tilkobling til rTorrent er ikke etablert.",
  yes                            : "Ja",
  no                             : "Nei",
  DateFormat                     : "Datoformat",
