@@ -279,7 +279,11 @@ fieldset {margin: 4px;}
 input.num {text-align: right; width: 50px;}
 input.str {text-align: left; width: 130px;}
 td label, div label {cursor: pointer;}
-input.disabled {background-color: #fafafa; color: #c0c0c0; border: 1px solid #c0c0c0;}
+input[disabled] {
+  background-color: #fafafa;
+  color: #c0c0c0;
+  border: 1px solid #c0c0c0;
+}
 td.disabled, label.disabled, span.disabled, .disabled {color: #c0c0c0; cursor: default;}
 fieldset div {padding: 2px;}
 div input, div select {margin: 0 4px; font-size: 11px; padding: 1px 4px;}

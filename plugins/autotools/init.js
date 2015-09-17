@@ -114,12 +114,12 @@ plugin.onLangLoaded = function()
 			"</tr>"+
 			"<tr>"+
 				"<td class='ctrls_level2' colspan=2>"+
-					"<label id='lbl_path_to_finished' for='path_to_finished' class='disabled' disabled='true'>"+
+					"<label id='lbl_path_to_finished' for='path_to_finished'>"+
 					theUILang.autotoolsPathToFinished +":</label><br>"+
 					"<input type='text' id='path_to_finished' class='TextboxLarge' maxlength='100' />"+
 					"<input type='button' id='automove_browse_btn' class='Button' value='...' />"+
-					"<br><label id='lbl_fileop_type' for='fileop_type' class='disabled' disabled='true'>"+theUILang.autotoolsFileOpType+":</label>"+
- 					"<select id='fileop_type' class='disabled' disabled='true'>"+
+					"<br><label id='lbl_fileop_type' for='fileop_type'>"+theUILang.autotoolsFileOpType+":</label>"+
+ 					"<select id='fileop_type' disabled='disabled'>"+
  					"<option value='Move'>"+theUILang.autotoolsFileOpMove+"</option>"+
  					"<option value='HardLink'>"+theUILang.autotoolsFileOpHardLink+"</option>"+
  					"<option value='Copy'>"+theUILang.autotoolsFileOpCopy+"</option>"+
@@ -144,12 +144,12 @@ plugin.onLangLoaded = function()
 			"</tr>"+
 			"<tr>"+
 				"<td class='ctrls_level2' colspan=2>"+
-					"<label id='lbl_path_to_watch' for='path_to_watch' class='disabled' disabled='true'>"+
+					"<label id='lbl_path_to_watch' for='path_to_watch'>"+
 					theUILang.autotoolsPathToWatch +":</label><br>"+
 				"<input type='text' id='path_to_watch' class='TextboxLarge' maxlength='100' />"+
 				"<input type='button' id='autowatch_browse_btn' class='Button' value='...' />"+
-				"<br><input type='checkbox' id='watch_start' checked='false' disabled='true'/>"+
-				"<label id='lbl_watch_start' for='watch_start' class='disabled'>"+ theUILang.autotoolsWatchStart +"</label>"+
+				"<br><input type='checkbox' id='watch_start' checked='false' disabled='disabled'/>"+
+				"<label id='lbl_watch_start' for='watch_start'>"+ theUILang.autotoolsWatchStart +"</label>"+
 				"</td>"+
 			"</tr>"+
 			"</table>"+

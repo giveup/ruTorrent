@@ -107,10 +107,10 @@ plugin.onLangLoaded = function()
 			"</tr>"+
 			"<tr>"+
 				"<td class='ctrls_level2' colspan=2>"+
-					"<label id='lbl_jabberHost' for='jabberHost' class='disabled' disabled='true'>"+
+					"<label id='lbl_jabberHost' for='jabberHost' disabled='disabled'>"+
 					theUILang.xmppJabberHost +":</label>"+
 					"<br><input type='text' id='jabberHost' class='TextboxNormal' maxlength='100' />"+
-					"<br><label id='lbl_jabberPort' for='jabberPort' class='disabled' disabled='true'>"+theUILang.xmppJabberPort+":</label>"+
+					"<br><label id='lbl_jabberPort' for='jabberPort' disabled='disabled'>"+theUILang.xmppJabberPort+":</label>"+
 					"<br><input type='text' id='jabberPort' class='TextboxNormal' maxlength='100' />"+
 					"<div class='checkbox'>" +
 						"<input type='checkbox' id='useEncryption'/>"+
