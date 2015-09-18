@@ -700,14 +700,13 @@ dxSTable.prototype.assignEvents = function()
 	this.scOdd = null;
 	this.isScrolling = false;
 
-	$(this.dBody).on( "scroll",
+	$(this.dCont).on( "scroll",
 		function(e) {
-			self.dHead.scrollLeft = self.dBody.scrollLeft;
 			var maxRows = self.getMaxRows();
-			if (self.scrollTop != self.dBody.scrollTop) {
+			if (self.scrollTop != self.dCont.scrollTop) {
 				self.scOdd = null;
-				self.scrollDiff = self.scrollTop - self.dBody.scrollTop;
-				self.scrollTop = self.dBody.scrollTop;
+				self.scrollDiff = self.scrollTop - self.dCont.scrollTop;
+				self.scrollTop = self.dCont.scrollTop;
 				if (self.noDelayingDraw || (Math.abs(self.scrollDiff) <= TR_HEIGHT*3) || (self.viewRows <= maxRows)) {
 					handleScroll.apply(self);
 					return;
@@ -808,7 +807,7 @@ dxSTable.prototype.colDragEnd = function(e)
 dxSTable.prototype.scrollPos = function()
 {
 	this.scp.style.display = "block";
-	var mni = Math.floor(this.dBody.scrollTop / TR_HEIGHT);
+	var mni = Math.floor(this.dCont.scrollTop / TR_HEIGHT);
 	var mxi = mni + Math.floor(this.dBody.clientHeight / TR_HEIGHT);
 	var mid = Math.floor(((mni + mxi) / 2));
 	if (mid > this.viewRows)
@@ -851,7 +850,7 @@ dxSTable.prototype.refreshRows = function( height, fromScroll )
 	}
 
 	var maxRows = height ? height/TR_HEIGHT : this.getMaxRows();
-	var mni = Math.floor(this.dBody.scrollTop / TR_HEIGHT);
+	var mni = Math.floor(this.dCont.scrollTop / TR_HEIGHT);
 	if (mni + maxRows > this.viewRows) {
 		mni = this.viewRows - maxRows;
 	}
@@ -1149,7 +1148,7 @@ dxSTable.prototype.clearRows = function()
 		this.rowIDs = new Array(0);
 		this.bpad.style.height = "0px";
 		this.tpad.style.height = "0px";
-		this.dBody.scrollTop = 0;
+		this.dCont.scrollTop = 0;
 	}
 }
 
@@ -1474,7 +1473,7 @@ dxSTable.prototype.getFirstSelected = function()
 
 dxSTable.prototype.scrollTo = function(value)
 {
-	var old = this.dBody.scrollTop;
-	this.dBody.scrollTop = value;
+	var old = this.dCont.scrollTop;
+	this.dCont.scrollTop = value;
 	return(old);
 }
