@@ -916,7 +916,7 @@ var theWebUI =
 						table.setAttr(sId,trk[i].attr);
 					}
 					trk[i]._updated = true;
-					$('#'+sId+" > .stable-TrackerList-col-0").css( "font-weight",
+					$('#'+sId+" td:first-child").css( "font-weight",
 						($type(theWebUI.torrents[hash]) && (i==theWebUI.torrents[hash].tracker_focus)) ? "bold" : "normal" );
 				}
 			}

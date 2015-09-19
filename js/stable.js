@@ -1085,7 +1085,7 @@ dxSTable.prototype.createRow = function(cols, sId, icon, attr)
 	var ret;
 	for (var i = 0; i < this.cols; i++) {
 		var ind = this.colOrder[i];
-		s+="<td class='stable-"+this.dCont.id+"-col-"+ind+"'";
+		s+="<td";
 		var span1 = "";
 		var span2 = "";
 		if (this.colsdata[i].type==TYPE_PROGRESS) {
@@ -1183,40 +1183,6 @@ dxSTable.prototype.setAlignment = function()
 		}
 		aAlign.push(align);
 		this.tHeadCols[i].style.textAlign = align;
-	}
-	var col = this.tBody.getElementsByTagName("colgroup")[0].getElementsByTagName("col");
-	if (document.all) {
-		for (var i = 0; i < col.length; i++)
-			col[i].align = aAlign[i];
-	} else {
-		var ss = null, rules = null;
-		for (var n = 0, l = document.styleSheets.length; n < l; n++) {
-			if (!document.styleSheets[n].href || (document.styleSheets[n].href.indexOf("stable.css") ==- 1))
-				continue;
-			try {
-				ss = document.styleSheets[n];
-				rules = ss.cssRules;
-			} catch(e) { return; }
-		}
-		if (rules == null)
-			return;
-		if (!$type(this.colRules))
-			this.colRules = new Array();
-		for (var j = 0; j < col.length; j++) {
-			var k = this.colOrder[j];
-			if (!this.colRules[k]) {
-				for (var i = 0, l = rules.length; i < l; i++) {
-					if ((rules[i].type == CSSRule.STYLE_RULE) && (rules[i].selectorText == ".stable-" + this.dCont.id + "-col-" + k)) {
-						this.colRules[k] = rules[i];
-						break;
-					}
-				}
-			}
-			if ($type(this.colRules[k]))
-				this.colRules[k].style.textAlign = aAlign[j];
-			else
-				this.colRules[k] = ss.cssRules[ss.insertRule(".stable-" + this.dCont.id + "-col-" + k + " div { text-align: " + aAlign[j] + "; }", 0)];
-		}
 	}
 }
 
