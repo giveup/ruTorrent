@@ -700,6 +700,21 @@ dxSTable.prototype.assignEvents = function()
 	this.scOdd = null;
 	this.isScrolling = false;
 
+	$(this.tBody).on('contextmenu', 'tr', function(e){
+		return self.selectRow(e, this);
+	});
+
+	$(this.tBody).on('mousedown', 'tr', function(e){
+		if (e.which === 3) return;
+		return self.selectRow(e, this);
+	});
+
+	if (typeof this.ondblclick === "function") {
+		$(this.tBody).on('dblclick', 'tr', function(e){
+			return (self.ondblclick(this));
+		});
+	}
+
 	$(this.dCont).on( "scroll",
 		function(e) {
 			var maxRows = self.getMaxRows();
@@ -1061,11 +1076,6 @@ dxSTable.prototype.createRow = function(cols, sId, icon, attr)
 	if (sId != null)
 		tr.attr("id",sId);
 	var self = this;
-
-	tr.mouseclick( function(e) { return(self.selectRow(e, this)); });
-
-	if ($type(this.ondblclick) == "function")
-		tr.dblclick( function(e) { return(self.ondblclick(this)); });
 
 	for (var k in attr)
 		tr.attr(k, attr[k]);
