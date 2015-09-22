@@ -3,7 +3,7 @@
  *
  */
 
-// Drag & Drop object 
+// Drag & Drop object
 function DnD( id, options )
 {
 	this.obj = $('#'+id);
@@ -46,9 +46,9 @@ DnD.prototype.start = function( e )
 			self.mask.show();
 		}
 		self.delta = { x: e.clientX-offs.left, y: e.clientY-offs.top };
-		$(document).on("mousemove",self,self.run); 
+		$(document).on("mousemove",self,self.run);
 		$(document).on("mouseup",self,self.finish);
-	}	
+	}
 	return(false);
 }
 
@@ -56,7 +56,7 @@ DnD.prototype.run = function( e )
 {
 	var self = e.data;
 	if(!self.options.restrictX)
-		self.mask.css( { left: Math.min(Math.max(self.options.left(), e.clientX),self.options.right())-self.delta.x } ); 
+		self.mask.css( { left: Math.min(Math.max(self.options.left(), e.clientX),self.options.right())-self.delta.x } );
 	if(!self.options.restrictY)
 		self.mask.css( { top: Math.min(Math.max(self.options.top(), e.clientY),self.options.bottom())-self.delta.y } );
 	self.options.onRun(e);
@@ -73,13 +73,13 @@ DnD.prototype.finish = function( e )
 		self.mask.hide();
 		self.obj.css( { left: offs.left, top: offs.top } );
 	}
-	$(document).off("mousemove",self.run); 
+	$(document).off("mousemove",self.run);
 	$(document).off("mouseup",self.finish);
 	return(false);
 }
 
 // Dialog manager
-var theDialogManager = 
+var theDialogManager =
 {
 	maxZ: 2000,
 	visible : [],
@@ -99,7 +99,7 @@ var theDialogManager =
 	        var obj = $('#'+id);
 	        if(!isModal)
 		        isModal = false;
-		obj.css( { position: "absolute", display: "none", outline: "0px solid transparent" } ).
+		obj.css( { position: "absolute", display: "none" } ).
 	        	data("modal",isModal).data("nokeyclose",noClose);
 	        if(!noClose)
 		        obj.find(".dlg-close").attr("href","javascript:theDialogManager.hide('"+id+"');");
@@ -120,7 +120,7 @@ var theDialogManager =
 			var c = $(obj).offset();
 			return((obj.scrollHeight > obj.clientHeight) && (x>obj.clientWidth+c.left));
 		};
-		obj.mousedown( function(e) 
+		obj.mousedown( function(e)
 		{
 			self.bringToTop(this.id);
 		}).attr("tabindex","0").keypress( function (e)
@@ -170,7 +170,7 @@ var theDialogManager =
 	      	if($type(this.items[id]) && ($type(this.items[id].beforeShow)=="function"))
 	        	this.items[id].beforeShow(id);
 		this.center(id);
-		obj.show(obj.data("modal") ? null : this.divider,callback); 
+		obj.show(obj.data("modal") ? null : this.divider,callback);
         	if($type(this.items[id]) && ($type(this.items[id].afterShow)=="function"))
 	        	this.items[id].afterShow(id);
 		this.bringToTop(id);
@@ -231,7 +231,7 @@ var CMENU_SEP =	" 0";
 var CMENU_CHILD = " 1";
 var CMENU_SEL = " 2";
 
-var theContextMenu = 
+var theContextMenu =
 {
 	mouse: { x: 0, y: 0 },
 	noHide: false,
@@ -243,7 +243,7 @@ var theContextMenu =
 		$(document).mouseup( function(e)
 		{
 			var ele = $(e.target);
-			if(e.which == 3) 
+			if(e.which == 3)
 			{
 				if(!e.fromTextCtrl)
 					e.stopPropagation();
@@ -260,7 +260,7 @@ var theContextMenu =
 					if(ele.hasClass("menu-cmd") && self.noHide)
 						ele.toggleClass("sel");
 					else
-		   				window.setTimeout("theContextMenu.hide()", 50); 
+		   				window.setTimeout("theContextMenu.hide()", 50);
 				}
 			}
 		});
@@ -270,8 +270,8 @@ var theContextMenu =
 	get: function( label )
 	{
 	        var ret = null;
-		$("a",this.obj).each( function(ndx,val) 
-		{ 
+		$("a",this.obj).each( function(ndx,val)
+		{
 			if($(val).text()==label)
 			{
 				ret = $(val).parent();
@@ -285,20 +285,20 @@ var theContextMenu =
 		var args = new Array();
 		$.each(arguments, function(ndx,val) { args.push(val); });
         	var aft = null;
-		if(($type(args[0]) == "object") && args[0].hasClass && args[0].hasClass("CMenu")) 
+		if(($type(args[0]) == "object") && args[0].hasClass && args[0].hasClass("CMenu"))
 		{
 			var o = args[0];
 			args.splice(0, 1);
 		}
-		else 
+		else
 			var o = this.obj;
-		if(($type(args[0]) == "object") && args[0].hasClass && args[0].hasClass("menuitem")) 
+		if(($type(args[0]) == "object") && args[0].hasClass && args[0].hasClass("menuitem"))
 		{
 			aft = args[0];
-			args.splice(0, 1);		
+			args.splice(0, 1);
 		}
 		var self = this;
-		$.each(args, function(ndx,val) 
+		$.each(args, function(ndx,val)
 		{
 		        if($type(val))
 			{
@@ -310,14 +310,14 @@ var theContextMenu =
 				{
 					li.append( $("<a></a>").addClass("exp").text(val[1]) );
 					var ul = $("<ul>").addClass("CMenu");
-					for(var j = 0, len = val[2].length; j < len; j++) 
+					for(var j = 0, len = val[2].length; j < len; j++)
 					{
 						self.add(ul, val[2][j]);
 					}
 					li.append(ul);
 				}
 				else
-			       	if(val[0] == CMENU_SEL) 
+			       	if(val[0] == CMENU_SEL)
 		 		{
 		 	        	var a = $("<a></a>").addClass("sel menu-cmd").text(val[1]);
 			 	        switch($type(val[2]))
@@ -363,19 +363,19 @@ var theContextMenu =
 			x = this.mouse.x;
 		if(y==null)
 			y = this.mouse.y;
-		if(x + obj.width() > $(window).width()) 
+		if(x + obj.width() > $(window).width())
 			x -= obj.width();
-		if(y + this.obj.height() > $(window).height()) 
+		if(y + this.obj.height() > $(window).height())
 			y -= obj.height();
 		if(y<0)
 			y = 0;
 		obj.css( { left: x, top: y, "z-index": ++theDialogManager.maxZ } );
-                $("ul.CMenu a.exp").hover( function() 
-                { 
+                $("ul.CMenu a.exp").hover( function()
+                {
                 	var submenu = $(this).next();
-                	if(submenu.offset().left + submenu.width() > $(window).width()) 
+                	if(submenu.offset().left + submenu.width() > $(window).width())
 	                	submenu.css( "left", -150 );
-                	if(submenu.offset().top + submenu.height() > $(window).height()) 
+                	if(submenu.offset().top + submenu.height() > $(window).height())
 	                	submenu.css( "top", -submenu.height()+20 );
 	                if(submenu.offset().top<0)
 				submenu.css( "top", -submenu.height()+20-submenu.offset().top );
@@ -394,4 +394,3 @@ var theContextMenu =
 		return(false);
 	}
 }
-

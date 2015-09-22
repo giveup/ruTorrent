@@ -27,7 +27,7 @@ plugin.allDone = function()
 	{
 		plugin.correctCheckboxes();
 
-		if(thePlugins.isInstalled('rss'))	
+		if(thePlugins.isInstalled('rss'))
 		{
 			plugin.loadFilters = theWebUI.loadFilters;
 			theWebUI.loadFilters = function( flt, additions )
@@ -57,7 +57,7 @@ plugin.allDone = function()
 				plugin.correctCheckboxes();
 			}
 		}
-		if(thePlugins.isInstalled('rssurlrewrite'))	
+		if(thePlugins.isInstalled('rssurlrewrite'))
 		{
 			plugin.loadRules = theWebUI.loadRules;
 			theWebUI.loadRules = function( rle )
@@ -68,52 +68,6 @@ plugin.allDone = function()
 		}
 	});
 
-	$('.dlg-header').each( function()
-	{
-		var hdr = $(this).css( { "background-color": "transparent", "background-position": "0px"
-//			, cursor: "move"
-			 } );
-		var parent = hdr.parent();
-		var close = hdr.prev();	
-		parent.width(parent.width()+12);
-		var content = hdr.next().css( { margin: 0, "background": "none repeat scroll 0 0 #FFFFFF", border: "1px solid #99BBE8", "padding-left": 3, "padding-right": 3, width: parent.width()-16 } );
-		var newBottom = $("<div>").addClass("x-window-br");
-		var oldBottom = content.next();
-		if(oldBottom.hasClass("buttons-list"))
-			newBottom.append(oldBottom);
-		else
-			newBottom.html("&nbsp;")
-		parent.prepend( $("<div>").addClass("x-window-tl").append(
-			$("<div>").addClass("x-window-tr").append(
-			$("<div>").addClass("x-window-tc").append(close).append(hdr) ) ) ).
-			append( 
-				$("<div>").addClass("x-window-ml").append(
-				$("<div>").addClass("x-window-mr").append(content))).
-			append( $("<div>").addClass("x-window-bl").append(
-				$("<div>").addClass("x-window-bc").append( newBottom )) );
-		parent.height("auto");
-		
-		$("<div>").addClass("x-shadow").attr("id",parent.attr("id")+"-shadow").
-			append($("<div>").addClass("xst").
-				append($("<div>").addClass("xstl")).
-				append($("<div>").addClass("xstc")).
-				append($("<div>").addClass("xstr"))).
-			append($("<div>").addClass("xsc").
-				append($("<div>").addClass("xsml")).
-				append($("<div>").addClass("xsmc")).
-				append($("<div>").addClass("xsmr"))).
-			append($("<div>").addClass("xsb").
-				append($("<div>").addClass("xsbl")).
-				append($("<div>").addClass("xsbc")).
-				append($("<div>").addClass("xsbr"))).insertAfter(parent);
-
-		var dnd = parent.data("dnd");
-		dnd.options.onFinish = function(e)
-		{
-			var offs = dnd.mask.offset();
-			$("#"+parent.attr("id")+"-shadow").css({ left: offs.left-4, top: offs.top+4 });
-		}
-	});
 
 	$('input[type="text"],input[type="password"],input[type="file"],select,textarea').each( function()
 	{
@@ -131,7 +85,7 @@ plugin.allDone = function()
 	theDialogManager.show = function( id, callback )
 	{
 		if(this.divider && !$('#'+id).data("modal"))
-			plugin.show.call(theDialogManager,id, function() 
+			plugin.show.call(theDialogManager,id, function()
 			{
 				plugin.showShadow(id,callback);
 			});
@@ -159,7 +113,7 @@ plugin.allDone = function()
 		{
 			shadow.css("z-index",theDialogManager.maxZ);
 			p.css("z-index",++theDialogManager.maxZ);
-		}		
+		}
 	}
 
 }
