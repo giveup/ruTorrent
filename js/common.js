@@ -13,7 +13,7 @@ function $type(obj)
 	return( (obj == undefined) ? false : (obj.constructor == Array) ? "array" : typeof obj );
 }
 
-$(document).ready(function() 
+$(document).ready(function()
 {
 	var i = document.createElement('p');
 	i.style.width = '100%';
@@ -45,7 +45,7 @@ $.event.fix = function(e)
 {
 	e = $.event.inheritedfix(e);
 	e.fromTextCtrl = (e.target && e.target.tagName && (/^input|textarea|a$/i).test(e.target.tagName));
-	if(!e.metaKey) {
+	if (!e.metaKey) {
 		e.metaKey = e.ctrlKey;
 	}
 	return(e);
@@ -57,10 +57,8 @@ $.fn.extend(
 		var contextMenuPresent = ("oncontextmenu" in document.createElement("foo")) || $.support.touchable;
 			return( this.each( function()
 			{
-				if($type(handler)=="function")
-				{
-				if(contextMenuPresent)
-				{
+				if ($type(handler)=="function") {
+				if (contextMenuPresent) {
 					$(this).on( "contextmenu", function(e)
 					{
 						e.which = 3;
@@ -71,18 +69,15 @@ $.fn.extend(
 					});
 					$(this).mousedown(function(e)
 					{
-						if(e.which != 3) {
+						if (e.which != 3) {
 							return(handler.apply(this,arguments));
 						}
 					});
-				}
-				else {
+				} else {
 					$(this).mousedown( handler );
 				}
-			}
-			else
-			{
-				if(contextMenuPresent) {
+			} else {
+				if (contextMenuPresent) {
 					$(this).off( "contextmenu" );
 				}
 				$(this).off( "mousedown" );
@@ -98,13 +93,9 @@ $.fn.extend(
 
 	setCursorPosition: function(pos)
 	{
-		if($(this).get(0).setSelectionRange) 
-		{
+		if ($(this).get(0).setSelectionRange) {
 			$(this).get(0).setSelectionRange(pos, pos);
-		} 
-		else
-			if($(this).get(0).createTextRange) 
-			{
+		} else if ($(this).get(0).createTextRange) {
 				var range = $(this).get(0).createTextRange();
 				range.collapse(true);
 				range.moveEnd('character', pos);
@@ -115,43 +106,40 @@ $.fn.extend(
 	}
 });
 
-function addslashes(str) 
+function addslashes(str)
 {
 	return( (str + '').replace(/[\\"']/g, '\\$&').replace(/\u0000/g, '\\0').replace(/\u000A/g, '\\n').replace(/\u000D/g, '\\r') );
 }
 
-function iv(val) 
+function iv(val)
 {
 	var v = (val==null) ? 0 : parseInt(val + "");
 	return(isNaN(v) ? 0 : v);
 }
 
-function ir(val) 
+function ir(val)
 {
 	var v = (val==null) ? 0 : parseFloat(val + "");
 	return(isNaN(v) ? 0 : v);
 }
 
-function linked(obj, _33, lst) 
+function linked(obj, _33, lst)
 {
 	var tn = obj.tagName.toLowerCase();
-	if((tn == "input") && (obj.type == "checkbox")) 
+	if ((tn == "input") && (obj.type == "checkbox")) {
 		var d = _33 ? obj.checked : !obj.checked;
-	else 
-		if(tn == "select") 
-		{
-			var v = obj.options[obj.selectedIndex].value;
-			var d = (v == _33) ? true : false;
-		}
-	for(var i = 0; i < lst.length; i++) 
-	{
+	} else if (tn == "select") {
+		var v = obj.options[obj.selectedIndex].value;
+		var d = (v == _33) ? true : false;
+	}
+	for (var i = 0; i < lst.length; i++) {
 		var o = $$(lst[i]);
-		if(o) 
-		{
+		if (o) {
 			o.disabled = d;
 			o = $$("lbl_" + lst[i]);
-			if(o) 
+			if (o) {
 				o.className = (d) ? "disabled" : "";
+			}
 		}
 	}
 }
@@ -173,23 +161,18 @@ function askYesNo( title, content, funcYesName )
 
 function cloneObject( srcObj )
 {
-	if( srcObj == null ) return(srcObj);
+	if ( srcObj == null ) return(srcObj);
 	var newObject;
-	switch( typeof(srcObj) )
-	{
+	switch ( typeof(srcObj) ) {
 		case "object":
-		{
 			newObject = new srcObj.constructor();
-			for( var property in srcObj )
-				if( srcObj.hasOwnProperty(property) || typeof( srcObj[property] ) === 'object' )
+			for ( var property in srcObj )
+				if ( srcObj.hasOwnProperty(property) || typeof( srcObj[property] ) === 'object' )
 					newObject[property]= cloneObject( srcObj[property] );
 			break;
-			}
 		default:
-		{
 			newObject = srcObj;
 			break;
-		}
 	}
 	return newObject;
 }
@@ -198,11 +181,11 @@ function propsCount(obj)
 {
 	var count = "__count__";
 	var hasOwnProp = Object.prototype.hasOwnProperty;
-	if(typeof obj[count] === "number" && !hasOwnProp.call(obj, count))
+	if (typeof obj[count] === "number" && !hasOwnProp.call(obj, count))
 		return obj[count];
 	count = 0;
 	for (var prop in obj)
-		if(hasOwnProp.call(obj, prop))
+		if (hasOwnProp.call(obj, prop))
 			++count;
 	return(count);
 }
@@ -224,15 +207,15 @@ var theOptionsSwitcher =
 
 	run: function(id)
 	{
-			$('#'+theOptionsSwitcher.current).hide();
+		$('#'+theOptionsSwitcher.current).hide();
 		$("#mnu_" + theOptionsSwitcher.current).toggleClass("focus");
 		theOptionsSwitcher.current = id;
-			$('#'+theOptionsSwitcher.current).show();
+		$('#'+theOptionsSwitcher.current).show();
 		$("#mnu_" + theOptionsSwitcher.current).toggleClass("focus");
 	}
 };
 
-var theConverter = 
+var theConverter =
 {
 	round: function(num, p)
 	{
@@ -240,28 +223,25 @@ var theConverter =
 		var s = v + "";
 		var d = s.indexOf(".");
 		var n = 0;
-		if(d >- 1)
-		{
+		if (d >- 1) {
 			var ind = s.length - d;
 			p++;
-			if(ind < p)
+			if (ind < p) {
 				n = p - ind;
-		}
-		else
-		{
-			if(p > 0)
-			{
+			}
+		} else {
+			if (p > 0) {
 				n = p;
 				s = s + ".";
 			}
 		}
-		for(var i = 0; i < n; i++)
+		for (var i = 0; i < n; i++)
 			s += "0";
 		return(s);
 	},
 	time: function(tm,noRound)
 	{
-		if((noRound==null) && (tm >= 2419200))
+		if ((noRound==null) && (tm >= 2419200))
 			return "\u221e";
 //		var val = tm % (604800 * 52);
 		var val = tm;
@@ -275,27 +255,27 @@ var theConverter =
 		val = iv(val % 60);
 		var v = 0;
 		var ret = "";
-		if(w > 0)
-		{	
+		if (w > 0)
+		{
 			ret = w + theUILang.time_w;
 			v++;
 		}
-		if(d > 0)
+		if (d > 0)
 		{
 			ret += d + theUILang.time_d;
 			v++;
 		}
-		if((h > 0) && (v < 2))
+		if ((h > 0) && (v < 2))
 		{
 			ret += h + theUILang.time_h;
 				v++;
 		}
-		if((m > 0) && (v < 2))
-		{	
+		if ((m > 0) && (v < 2))
+		{
 			ret += m + theUILang.time_m;
 			v++;
 		}
-		if(v < 2)
+		if (v < 2)
 			ret += val + theUILang.time_s;
 		return( ret.substring(0,ret.length-1) );
 	},
@@ -304,11 +284,11 @@ var theConverter =
 		p = (p == null) ? 1 : p;
 		var a = new Array(theUILang.bytes, theUILang.KB, theUILang.MB, theUILang.GB, theUILang.TB, theUILang.PB);
 		var ndx = 0;
-		if(bt == 0)
+		if (bt == 0)
 			ndx = 1;
 		else
 		{
-			if(bt < 1024)
+			if (bt < 1024)
 			{
 				bt /= 1024;
 				ndx = 1;
@@ -330,7 +310,7 @@ var theConverter =
 	},
 	date: function(dt,timeOnly)
 	{
-			if(dt>3600*24*365)
+			if (dt>3600*24*365)
 			{
 			var today = new Date();
 			today.setTime(dt*1000);
@@ -343,9 +323,9 @@ var theConverter =
 			var s = today.getSeconds();
 			var am = "";
 
-			if(iv(theWebUI.settings["webui.timeformat"]))
+			if (iv(theWebUI.settings["webui.timeformat"]))
 			{
-				if(h>12)
+				if (h>12)
 				{
 					h = h-12;
 					am = " PM";
@@ -358,9 +338,9 @@ var theConverter =
 			s = (s < 10) ? ("0" + s) : s;
 			var tm = h+":"+m+":"+s+am;
 			dt = '';
-			if(!timeOnly)
+			if (!timeOnly)
 			{
-				switch(iv(theWebUI.settings["webui.dateformat"]))
+				switch (iv(theWebUI.settings["webui.dateformat"]))
 				{
 					case 1:
 					{
@@ -385,55 +365,55 @@ var theConverter =
 	}
 };
 
-var theFormatter = 
+var theFormatter =
 {
 	torrents: function(table,arr)
 	{
-		for(var i in arr)
+		for (var i in arr)
 		{
-			if(arr[i]==null)
+			if (arr[i]==null)
 				arr[i] = '';
 			else
-			switch(iv(i))
+			switch (iv(i))
 			{
-				case 3: 
+				case 3:
 					arr[i] = (arr[i] / 10) + "%";
 					break;
 				case 2:
-				case 4: 
-				case 5: 
-				case 15: 
+				case 4:
+				case 5:
+				case 15:
 					arr[i] = theConverter.bytes(arr[i], 2);
 					break;
-				case 6: 
+				case 6:
 					arr[i] = (arr[i] ==- 1) ? "\u221e" : theConverter.round(arr[i] / 1000, 3);
 					break;
-				case 7: 
-				case 8: 
+				case 7:
+				case 8:
 					arr[i] = theConverter.speed(arr[i]);
 					break;
-				case 9: 
+				case 9:
 					arr[i] = (arr[i] <=- 1) ? "\u221e" : theConverter.time(arr[i]);
 					break;
-				case 13: 
+				case 13:
 					arr[i] = theFormatter.tPriority(arr[i]);
 					break;
-				case 14: 
+				case 14:
 					arr[i] = theConverter.date(iv(arr[i])+theWebUI.deltaTime/1000);
 					break;
 			}
 		}
 		return(arr);
 	},
-	tPriority: function(no) 
+	tPriority: function(no)
 	{
 		var ret = "";
-		switch(iv(no))
+		switch (iv(no))
 		{
 			case 0:
 				ret = theUILang.Dont_download;
 				break;
-			case 1: 
+			case 1:
 				ret = theUILang.Low_priority;
 				break;
 			case 2:
@@ -448,7 +428,7 @@ var theFormatter =
 	fPriority: function(no)
 	{
 		var ret = "";
-		switch(iv(no))
+		switch (iv(no))
 		{
 			case -1:
 				ret = "?";
@@ -468,7 +448,7 @@ var theFormatter =
 	yesNo: function(no)
 	{
 		var ret = "";
-		switch(iv(no))
+		switch (iv(no))
 		{
 			case 0:
 				ret = theUILang.no;
@@ -482,8 +462,7 @@ var theFormatter =
 	trackerType: function(no)
 	{
 		var ret = "";
-		switch(iv(no))
-		{
+		switch (iv(no)) {
 			case 1:
 				ret = "http";
 				break;
@@ -499,8 +478,7 @@ var theFormatter =
 	pluginStatus: function(no)
 	{
 		var ret = "";
-		switch(iv(no))
-		{
+		switch (iv(no)) {
 			case 0:
 				ret = theUILang.plgDisabled;
 				break;
@@ -513,8 +491,7 @@ var theFormatter =
 	pluginLaunch: function(no)
 	{
 		var ret = "";
-		switch(iv(no))
-		{
+		switch (iv(no)) {
 			case 0:
 				ret = theUILang.Disabled;
 				break;
@@ -529,104 +506,100 @@ var theFormatter =
 	},
 	peers: function(table,arr)
 	{
-		for(var i in arr)
-		{
-			if(arr[i]==null)
+		for (var i in arr) {
+			if (arr[i]==null) {
 				arr[i] = '';
-			else
-			switch(table.getIdByCol(i)) 
-			{
+			} else {
+				switch (table.getIdByCol(i)) {
 					case 'done' :
 						arr[i] = arr[i]+"%";
 						break;
-				case 'downloaded' :
-				case 'uploaded' :
+					case 'downloaded' :
+					case 'uploaded' :
 					case 'peerdownloaded' :
 						arr[i] = theConverter.bytes(arr[i]);
 						break;
 					case 'dl' :
 					case 'ul' :
 					case 'peerdl' :
-					arr[i] = theConverter.speed(arr[i]);
+						arr[i] = theConverter.speed(arr[i]);
 						break;
 				}
+			}
 		}
 		return(arr);
 	},
 	trackers: function(table,arr)
 	{
-		for(var i in arr)
-		{
-			if(arr[i]==null)
+		for (var i in arr) {
+			if (arr[i]==null) {
 				arr[i] = '';
-			else
-				switch(table.getIdByCol(i))
-			{
-					case 'type' : 
+			} else {
+				switch (table.getIdByCol(i)) {
+					case 'type' :
 						arr[i] = theFormatter.trackerType(arr[i]);
 						break;
-					case 'enabled' : 
-					case 'private' : 
+					case 'enabled' :
+					case 'private' :
 						arr[i] = theFormatter.yesNo(arr[i]);
 						break;
-					case 'interval' : 
+					case 'interval' :
 						arr[i] = theConverter.time(arr[i]);
 						break;
-					case 'last' : 
-						arr[i] = iv(arr[i]) ? theConverter.time( $.now()/1000 - iv(arr[i]) - theWebUI.deltaTime/1000,true) : '';	
+					case 'last' :
+						arr[i] = iv(arr[i]) ? theConverter.time( $.now()/1000 - iv(arr[i]) - theWebUI.deltaTime/1000,true) : '';
 						break;
 				}
+			}
 		}
 		return(arr);
 	},
 	plugins: function(table,arr)
 	{
-		for(var i in arr)
-		{
-			if(arr[i]==null)
+		for (var i in arr) {
+			if (arr[i]==null) {
 				arr[i] = '';
-			else
-				switch(table.getIdByCol(i))
-			{
-					case 'status' : 
+			} else {
+				switch (table.getIdByCol(i)) {
+					case 'status' :
 						arr[i] = theFormatter.pluginStatus(arr[i]);
 						break;
-					case 'launch' : 
+					case 'launch' :
 						arr[i] = theFormatter.pluginLaunch(arr[i]);
 						break;
-					case 'version' : 
+					case 'version' :
 						arr[i] = new Number(arr[i]).toFixed(2);
 						break;
 				}
+			}
 		}
 		return(arr);
 	},
 	files: function(table,arr)
 	{
-		for(var i in arr)
-		{
-			if(arr[i]==null)
+		for (var i in arr) {
+			if (arr[i]==null) {
 				arr[i] = '';
-			else
-			switch(table.getIdByCol(i))
-			{
-					case 'size' : 
-					case 'done' : 
+			} else {
+				switch (table.getIdByCol(i)) {
+					case 'size' :
+					case 'done' :
 						arr[i] = theConverter.bytes(arr[i], 2);
 						break;
-					case 'percent' : 
+					case 'percent' :
 						arr[i] = arr[i] + "%";
 						break;
-					case 'priority' : 
+					case 'priority' :
 						arr[i] = theFormatter.fPriority(arr[i]);
 						break;
 				}
+			}
 		}
 		return(arr);
 	}
 };
-					
-var theSearchEngines = 
+
+var theSearchEngines =
 {
 	sites:
 	[
@@ -640,38 +613,41 @@ var theSearchEngines =
 
 	run: function()
 	{
-			if(theSearchEngines.current>=0)
+		if (theSearchEngines.current>=0) {
 			window.open(theSearchEngines.sites[theSearchEngines.current].url + $("#query").val(), "_blank");
-		else
+		} else {
 			theWebUI.setTeg($("#query").val());
+		}
 	},
 	set: function( no, noSave )
 	{
 		theSearchEngines.current = no;
-		if(!noSave)
+		if (!noSave) {
 			theWebUI.save();
+		}
 	},
 	show: function()
 	{
 		theContextMenu.clear();
 		$.each(this.sites,function(ndx,val)
 		{
-			if(val.name=="")
+			if (val.name=="") {
 				theContextMenu.add([CMENU_SEP]);
-			else
-			if(theSearchEngines.current==ndx)
+			} else if (theSearchEngines.current==ndx) {
 				theContextMenu.add([CMENU_SEL, val.name, "theSearchEngines.set("+ndx+")"]);
-			else
+			} else {
 				theContextMenu.add([val.name, "theSearchEngines.set("+ndx+")"]);
+			}
 		});
 		theContextMenu.add([CMENU_SEP]);
-		if(theSearchEngines.current==-1)
+		if (theSearchEngines.current==-1) {
 			theContextMenu.add([CMENU_SEL, theUILang.innerSearch, "theSearchEngines.set(-1)"]);
-		else
+		} else {
 			theContextMenu.add([theUILang.innerSearch, "theSearchEngines.set(-1)"]);
+		}
 		var offs = $("#search").offset();
 		theContextMenu.show(offs.left-5,offs.top+5+$("#search").height());
-		}
+	}
 };
 
 var Timer = function()
@@ -690,24 +666,25 @@ Timer.prototype.stop = function()
 	this.interval = (new Date()).getTime() - this.initial;
 };
 
-var theTabs = 
+var theTabs =
 {
-	tabs: 
+	tabs:
 	{
-		gcont : theUILang.General, 
-		FileList : theUILang.Files, 
-		TrackerList : theUILang.Trackers, 
+		gcont : theUILang.General,
+		FileList : theUILang.Files,
+		TrackerList : theUILang.Trackers,
 		PeerList : theUILang.Peers,
 		Speed : theUILang.Speed,
 		PluginList : theUILang.Plugins,
 		lcont : theUILang.Logger
-	}, 
+	},
 
-	init: function() 
+	init: function()
 	{
 		var s = "";
-		for(var n in this.tabs) 
-				s += "<li id=\"tab_" + n + "\"><a href=\"javascript://void();\" onmousedown=\"theTabs.show('" + n + "'); return(false);\" onfocus=\"this.blur();\">" + this.tabs[n] + "</a></li>";
+		for (var n in this.tabs) {
+			s += "<li id=\"tab_" + n + "\"><a href=\"javascript://void();\" onmousedown=\"theTabs.show('" + n + "'); return(false);\" onfocus=\"this.blur();\">" + this.tabs[n] + "</a></li>";
+		}
 		$("#tabbar").html(s);
 		$("#tab_lcont").append( $("<input type='button'>").attr("id","clear_log").addClass('Button').val(theUILang.ClearButton).hide().click( function()
 		{
@@ -718,116 +695,109 @@ var theTabs =
 		}));
 		this.show("gcont");
 		$('#gcont,#lcont').enableSysMenu();
-	}, 
+	},
 	onShow : function(id)
 	{
 	},
-	show : function(id) 
+	show : function(id)
 	{
 		var p = null, l = null;
-		for(var n in this.tabs) 
-		{
-				if((l = $("#tab_" + n)).length && (p = $('#'+n)).length) 
-				{
-					if(n == id) 
-					{
-							p.show();
-							var prefix = null;
-							switch(n)
-							{
-								case "FileList":
-							if(theWebUI.dID!="")
-								theWebUI.updateFiles(theWebUI.dID);
-							prefix = "fls";
-							break;
-								case "TrackerList":
-							prefix = "trk";
-							break;
-								case "PeerList":
-									theWebUI.setActiveView(id);
-							theWebUI.updatePeers();
-							prefix = "prs";
-							break;
-						case "PluginList":
-							prefix = "plg";
-							break;
-								case "Speed":
-									theWebUI.setActiveView(id);
-									theWebUI.speedGraph.resize(); 
-									break;
-						default:
-							this.onShow(n);
-							}
-							if(prefix)
-									theWebUI.getTable(prefix).refreshRows();
-							theWebUI.setActiveView(id);
-							l.addClass("selected").css("z-index",1);
-							if(n=="lcont")
-								$("#clear_log").css("display","inline");
+		for (var n in this.tabs) {
+				if ((l = $("#tab_" + n)).length && (p = $('#'+n)).length) {
+					if (n == id) {
+						p.show();
+						var prefix = null;
+						switch (n) {
+							case "FileList":
+								if (theWebUI.dID!="")
+									theWebUI.updateFiles(theWebUI.dID);
+								prefix = "fls";
+								break;
+							case "TrackerList":
+								prefix = "trk";
+								break;
+							case "PeerList":
+								theWebUI.setActiveView(id);
+								theWebUI.updatePeers();
+								prefix = "prs";
+								break;
+							case "PluginList":
+								prefix = "plg";
+								break;
+							case "Speed":
+								theWebUI.setActiveView(id);
+								theWebUI.speedGraph.resize();
+								break;
+							default:
+								this.onShow(n);
 						}
-					else 
-					{
-							p.hide();
-							l.removeClass("selected").css("z-index",0);
-							if(n=="lcont")
-								$("#clear_log").hide();
+
+						if (prefix) {
+							theWebUI.getTable(prefix).refreshRows();
 						}
+						theWebUI.setActiveView(id);
+						l.addClass("selected").css("z-index",1);
+						if (n=="lcont") {
+							$("#clear_log").css("display","inline");
+						}
+					} else {
+						p.hide();
+						l.removeClass("selected").css("z-index",0);
+						if (n=="lcont")
+							$("#clear_log").hide();
+					}
 				}
 			}
 	}
 };
 
-function log(text,noTime,divClass,force) 
+function log(text,noTime,divClass,force)
 {
 	var tm = '';
-	if(!noTime)
+	if (!noTime)
 		tm = "[" + theConverter.date(new Date().getTime()/1000) + "]";
-	if(!divClass)
+	if (!divClass)
 		divClass = 'std';
 	var obj = $("#lcont");
-	if(obj.length)
-	{
+	if (obj.length) {
 		obj.append( $("<div>").addClass(divClass).text(tm + " " + text).show() );
 		obj[0].scrollTop = obj[0].scrollHeight;
-		if(iv(theWebUI.settings["webui.log_autoswitch"]) || force)
+		if (iv(theWebUI.settings["webui.log_autoswitch"]) || force)
 			theTabs.show("lcont");
 	}
 }
 
-function logHTML(text,divClass,force) 
+function logHTML(text,divClass,force)
 {
 	var obj = $("#lcont");
-	if(!divClass)
+	if (!divClass)
 		divClass = 'std';
-	if(obj.length)
-	{
+	if (obj.length) {
 		obj.append( $("<div>").addClass(divClass).html(text).show() );
 		obj[0].scrollTop = obj[0].scrollHeight;
-		if(iv(theWebUI.settings["webui.log_autoswitch"]) || force)
+		if (iv(theWebUI.settings["webui.log_autoswitch"]) || force)
 			theTabs.show("lcont");
 	}
 }
 
-function noty(msg,status,noTime) 
+function noty(msg,status,noTime)
 {
-	if($.noty)
-	{
+	if ($.noty) {
 		$.noty(
 		{
-			text: escapeHTML(msg), 
+			text: escapeHTML(msg),
 			layout : 'bottomRight',
 			type: status
 		});
 	}
 	var obj = $("#lcont");
-	if(obj.length)
-	{
+	if (obj.length) {
 		var tm = '';
-		if(!noTime)
+		if (!noTime)
 			tm = "[" + theConverter.date(new Date().getTime()/1000) + "]";
 		obj.append( $("<div>").addClass('std').text(tm + " " + msg).show() );
 		obj[0].scrollTop = obj[0].scrollHeight;
-		if(iv(theWebUI.settings["webui.log_autoswitch"]) && !$.noty)
+		if (iv(theWebUI.settings["webui.log_autoswitch"]) && !$.noty)
 			theTabs.show("lcont");
 	}
 }
@@ -843,41 +813,35 @@ rDirectory.prototype.addFile = function(aData,no)
 {
 	var name = aData.name;
 	var fileAdded = false;
-	while(name.length)
-	{
+	while(name.length) {
 		var file = splitName(name);
-		if(!this.dirs[file.path])
-		{
+		if (!this.dirs[file.path]) {
 			this.dirs[file.path] = {};
 			var up = splitName(file.path).path;
 			this.dirs[file.path]["_d_"+up] = { data: { name: "..", size: null, done: null, percent: null, priority: -2, prioritize: -2 }, icon: "Icon_Dir", link: up };
 		}
-		if(!fileAdded)
-		{
+		if (!fileAdded) {
 			var sId = "_f_"+no;
 			var data = cloneObject( aData );
 			data.name = file.name;
-				if(this.dirs[file.path][sId])
+				if (this.dirs[file.path][sId])
 				this.dirs[file.path][sId].data = data;
 			else
 				this.dirs[file.path][sId] = { "data": data, icon: "Icon_File", link: null };
 			fileAdded = true;
-		}
-		else
-		{
+		} else {
 			var sId = "_d_"+name;
-			if(!this.dirs[file.path][sId])
+			if (!this.dirs[file.path][sId])
 				this.dirs[file.path][sId] = { data: { name: file.name, size: 0, done: 0, percent: 0.0, priority: -1, prioritize: -1 }, icon: "Icon_Dir", link: name };
 		}
 		name = file.path;
-	} 
+	}
 
 	function splitName(name)
 	{
 		var ret = { "path": "", "name": name };
 		var loc = name.lastIndexOf('/');
-		if(loc>=0)
-		{
+		if (loc>=0) {
 			ret.path = name.substr(0,loc);
 			ret.name = name.substr(loc+1);
 		}
@@ -890,33 +854,32 @@ rDirectory.prototype.updateDirs = function(name)
 	var dir = this.dirs[name];
 	var allStat = { size: 0, done: 0, priority: -2, prioritize: -2 };
 	var stat;
-	for(var i in dir) 
-	{
-		if(dir[i].data.name!="..")
-		{
-			if(dir[i].link!=null)
-			{
+	for (var i in dir) {
+		if (dir[i].data.name!="..") {
+			if (dir[i].link!=null) {
 				stat = this.updateDirs(dir[i].link)
 				dir[i].data.size = stat.size;
 				dir[i].data.done = stat.done;
 				dir[i].data.percent = ((dir[i].data.size > 0) ? theConverter.round((dir[i].data.done/dir[i].data.size)*100,1): "100.0");
 				dir[i].data.priority = stat.priority;
 				dir[i].data.prioritize = stat.prioritize;
-			}
-			else
+			} else {
 				stat = dir[i].data;
+			}
 			allStat.size+=stat.size;
 			allStat.done+=stat.done;
-			if(allStat.priority==-2)
+
+			if (allStat.priority==-2) {
 				allStat.priority = stat.priority;
-			else
-				if(allStat.priority!=stat.priority) 
+			} else if (allStat.priority!=stat.priority) {
 					allStat.priority = -1;
-			if(allStat.prioritize==-2)
+			}
+
+			if (allStat.prioritize==-2) {
 				allStat.prioritize = stat.prioritize;
-			else
-				if(allStat.prioritize!=stat.prioritize) 
-					allStat.prioritize = -1;
+			} else if (allStat.prioritize!=stat.prioritize) {
+				allStat.prioritize = -1;
+			}
 		}
 	}
 	return(allStat);
@@ -937,16 +900,14 @@ rDirectory.prototype.isDirectory = function(k)
 rDirectory.prototype.getFilesIds = function(arr,current,k,prt,property)
 {
 	var entry = this.dirs[current][k];
-	if(entry.data.name!="..")
-	{
-		if(entry.link!=null)
-		{
-				for(var i in this.dirs[entry.link])
+	if (entry.data.name!="..") {
+		if (entry.link!=null) {
+			for (var i in this.dirs[entry.link]) {
 				this.getFilesIds(arr,entry.link,i,prt,property);
+			}
+		} else if (!property || (entry.data[property]!=prt)) {
+			arr.push(k.substr(3));
 		}
-		else
-			if(!property || (entry.data[property]!=prt))
-				arr.push(k.substr(3));
 	}
 }
 
@@ -964,9 +925,9 @@ rDirectory.prototype.setDirectory = function(name)
 // -FL10%FF%86-
 // -SM1310-
 
-var theBTClientVersion = 
+var theBTClientVersion =
 {
-	azLikeClients4:   
+	azLikeClients4:
 	{
 		"AR" : "Ares", "AT" : "Artemis", "AV" : "Avicora",
 		"BG" : "BTGetit", "BM" : "BitMagnet", "BP" : "BitTorrent Pro (Azureus + Spyware)",
@@ -982,35 +943,35 @@ var theBTClientVersion =
 		"S~" : "Shareaza beta", "st" : "SharkTorrent", "TN" : "Torrent .NET",
 		"TS" : "TorrentStorm", "UL" : "uLeecher!", "VG" : "Vagaa",
 		"WY" : "Wyzo", "XL" : "Xunlei",
-		"XT" : "XanTorrent", "ZT" : "Zip Torrent", 
-		'GS' : "GSTorrent", 'KG' : "KGet", 'ST' : "SymTorrent", 
+		"XT" : "XanTorrent", "ZT" : "Zip Torrent",
+		'GS' : "GSTorrent", 'KG' : "KGet", 'ST' : "SymTorrent",
 		'BE' : "BitTorrent SDK", "TB" : "Torch"
 	 },
 	azLikeClients3:
 	{
-			"AG" : "Ares", "A~" : "Ares", "ES" : "Electric Sheep",
-			"HL" : "Halite", "LT" : "libtorrent (Rasterbar)", "lt" : "libTorrent (Rakshasa)",
-			"MP" : "MooPolice", "TT" : "TuoTu", "qB" : "qBittorrent",
-			'MG' : "MediaGet",	// ? -MG1Cr0-
-			"IL" : "iLivid" 
+		"AG" : "Ares", "A~" : "Ares", "ES" : "Electric Sheep",
+		"HL" : "Halite", "LT" : "libtorrent (Rasterbar)", "lt" : "libTorrent (Rakshasa)",
+		"MP" : "MooPolice", "TT" : "TuoTu", "qB" : "qBittorrent",
+		'MG' : "MediaGet",	// ? -MG1Cr0-
+		"IL" : "iLivid"
 	},
 	azLikeClients2x2:
 	{
-			"AX" : "BitPump", "BC" : "BitComet", "CD" : "Enhanced CTorrent", "FX" : "Freebox BitTorrent"
+		"AX" : "BitPump", "BC" : "BitComet", "CD" : "Enhanced CTorrent", "FX" : "Freebox BitTorrent"
 	},
 	azLikeClientsSpec:
 	{
 		'UM' : "uTorrent for Mac", 'UT' : "uTorrent", 'BT' : "BitTorrent", 'TR' : "Transmission",
 		'AZ' : "Azureus", 'KT' : "KTorrent", "BF" : "BitFlu",
-			'LW' : "LimeWire", "BB" : "BitBuddy", "BR" : "BitRocket",
+		'LW' : "LimeWire", "BB" : "BitBuddy", "BR" : "BitRocket",
 		"CT" : "CTorrent", 'XX' : "Xtorrent", 'LP' : "Lphant",
 		"SK" : "Spark"
 	},
 	shLikeClients:
 	{
-		'O' : "Osprey ", 'Q' : "BTQueue", 
-			'A' : "ABC", 'R' : "Tribler", 'S' : "Shad0w",
-			'T': "BitTornado", 'U': "UPnP NAT Bit Torrent"
+		'O' : "Osprey ", 'Q' : "BTQueue",
+		'A' : "ABC", 'R' : "Tribler", 'S' : "Shad0w",
+		'T': "BitTornado", 'U': "UPnP NAT Bit Torrent"
 	},
 	get: function( origStr )
 	{
@@ -1019,15 +980,14 @@ var theBTClientVersion =
 		{
 			var codes = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz.-";
 			var loc = codes.indexOf(ch);
-			if(loc<0) loc = 0;
+			if (loc<0) loc = 0;
 			return(String(loc));
 		}
 
 		function getMnemonicEnd( ch )
 		{
-			switch( ch )
-				{
-					case 'b': case 'B': return " (Beta)";
+			switch ( ch ) {
+				case 'b': case 'B': return " (Beta)";
 				case 'd': return " (Debug)";
 				case 'x': case 'X': case 'Z': return " (Dev)";
 			}
@@ -1036,14 +996,11 @@ var theBTClientVersion =
 
 		var ret = null;
 		var str = unescape(origStr);
-		if(str.match(/^-[A-Z~][A-Z~][A-Z0-9][A-Z0-9]..-/i))
-		{
-				var sign = str.substr(1,2);
+		if (str.match(/^-[A-Z~][A-Z~][A-Z0-9][A-Z0-9]..-/i)) {
+			var sign = str.substr(1,2);
 			var cli = this.azLikeClientsSpec[sign];
-			if(cli)
-			{
-					switch(sign)
-					{
+			if (cli) {
+				switch (sign) {
 					case 'BF':
 					case 'LW':
 						ret = cli;
@@ -1054,32 +1011,31 @@ var theBTClientVersion =
 						ret = cli+" "+str.charAt(3)+"."+str.charAt(4)+"."+str.charAt(5)+getMnemonicEnd(str.charAt(6));
 						break;
 					case 'TR':
-						if(str.substr(3,2)=='00')
-						{
-							if(str.charAt(5)=='0')
+						if (str.substr(3,2)=='00') {
+							if (str.charAt(5)=='0') {
 								ret = cli+" 0."+str.charAt(6);
-							else
+							} else {
 								ret = cli+" 0."+parseInt(str.substr(5,2),10);
-						}
-						else
-						{
+							}
+						} else {
 							var type = str.substr(6,1);
 							ret = cli+" "+parseInt(str.substr(3,1),10)+"."+parseInt(str.substr(4,2),10)+(((type=='Z') || (type=='X')) ? '+' : '');
 						}
 						break;
 					case 'KT':
 						var ch = str.charAt(5);
-										if( ch == 'D' )
+						if ( ch == 'D' ) {
 							ret = cli+" "+shChar(str.charAt(3))+"."+shChar(str.charAt(4))+" Dev "+shChar(str.charAt(6));
-							else
-							if( ch == 'R' )
-								ret = cli+" "+shChar(str.charAt(3))+"."+shChar(str.charAt(4))+" RC "+shChar(str.charAt(6));
-						else
-						ret = cli+" "+shChar(str.charAt(3))+"."+shChar(str.charAt(4))+"."+shChar(str.charAt(5));
+						} else if ( ch == 'R' ) {
+							ret = cli+" "+shChar(str.charAt(3))+"."+shChar(str.charAt(4))+" RC "+shChar(str.charAt(6));
+						} else {
+							ret = cli+" "+shChar(str.charAt(3))+"."+shChar(str.charAt(4))+"."+shChar(str.charAt(5));
+						}
 						break;
 					case 'AZ':
-						if(str.charAt(3) > '3' || ( str.charAt(3) == '3' && str.charAt(4) >= '1' ))
+						if (str.charAt(3) > '3' || ( str.charAt(3) == '3' && str.charAt(4) >= '1' )) {
 							cli = "Vuze";
+						}
 						ret = cli+" "+shChar(str.charAt(3))+"."+shChar(str.charAt(4))+"."+shChar(str.charAt(5))+"."+shChar(str.charAt(6));
 						break;
 					case 'BB':
@@ -1095,165 +1051,130 @@ var theBTClientVersion =
 						ret = cli+" "+shChar(str.charAt(3))+"."+shChar(str.charAt(4))+" ("+parseInt(str.substr(5,2),10)+")";
 						break;
 					case 'LP':
-												ret = cli+" "+parseInt(str.substr(3,1),10)+"."+parseInt(str.substr(5,2),10);
+						ret = cli+" "+parseInt(str.substr(3,1),10)+"."+parseInt(str.substr(5,2),10);
 						break;
 					default:
 						var ch = str.charAt(6);
 						ret = cli+" "+str.charAt(3)+"."+parseInt(str.substr(4,2),10);
-						if((ch=='Z') || (ch=='X')) 
+						if ((ch=='Z') || (ch=='X'))
 							ret+='+';
 						break;
 				}
-			}
-			else
-			{
+			} else {
 				cli = this.azLikeClients4[sign];
-				if(cli)
+				if (cli) {
 					ret = cli+" "+shChar(str.charAt(3))+"."+shChar(str.charAt(4))+"."+shChar(str.charAt(5))+"."+shChar(str.charAt(6));
-				else
-				{
+				} else {
 					cli = this.azLikeClients3[sign];
-					if(cli)
+					if (cli) {
 						ret = cli+" "+shChar(str.charAt(3))+"."+shChar(str.charAt(4))+"."+shChar(str.charAt(5));
-					else
-					{
+					} else {
 						cli = this.azLikeClients2x2[sign];
-						if(cli)
+						if (cli) {
 							ret = cli+" "+parseInt(str.substr(3,2),10)+"."+parseInt(str.substr(5,2),10);
+						}
 					}
 				}
 			}
 		}
-		if(!ret)
-		{
-			if(str.match(/^[MQ]\d-\d[\-\d][\-\d][\-\d]-/))
-			{
+		if (!ret) {
+			if (str.match(/^[MQ]\d-\d[\-\d][\-\d][\-\d]-/)) {
 				ret = (str.charAt(0)=='Q') ? "Queen Bee " : "BitTorrent ";
-				if(str.charAt(4) == '-')
+				if (str.charAt(4) == '-') {
 					ret += (str.charAt(1)+"."+str.charAt(3)+"."+str.charAt(5));
-				else
+				} else {
 					ret += (str.charAt(1)+"."+str.charAt(3)+str.charAt(4)+"."+str.charAt(6));
+				}
 			}
 				else
-			if(str.match(/^-BOW/))
-			{
-				if( str.substr(4,4)=="A0B" ) 
+			if (str.match(/^-BOW/)) {
+				if ( str.substr(4,4)=="A0B" )
 						ret = "Bits on Wheels 1.0.5";
 				else
-				if( str.substr(4,4)=="A0C" ) 
+				if ( str.substr(4,4)=="A0C" )
 						ret = "Bits on Wheels 1.0.6";
 				else
 					ret = "Bits on Wheels "+str.charAt(4)+"."+str.charAt(5)+"."+str.charAt(6);
-			}
-			else
-			if(str.match(/^AZ2500BT/))
+			} else if (str.match(/^AZ2500BT/)) {
 				ret = "BitTyrant (Azureus Mod)";
-			else
-			if(str.match(/^-FG\d\d\d\d/))
+			} else if (str.match(/^-FG\d\d\d\d/)) {
 				ret = "FlashGet "+parseInt(str.substr(3,2),10)+"."+parseInt(str.substr(5,2),10);
-			else
-			if(str.match(/^-SP\d\d\d/))
+			} else if (str.match(/^-SP\d\d\d/)) {
 				ret = "BitSpirit "+str.charAt(3)+"."+str.charAt(4)+"."+str.charAt(5);
-			else
-			if(str.match(/^346-/))
+			} else if (str.match(/^346-/)) {
 				ret = "TorrenTopia";
-			else
-			if(str.match(/^-G3/))
+			} else if (str.match(/^-G3/)) {
 				ret = "G3 Torrent";
-			else
-			if(str.match(/^LIME/))
+			} else if (str.match(/^LIME/)) {
 				ret = "Limewire";
-			else
-			if(str.match(/^martini/))
+			} else if (str.match(/^martini/)) {
 				ret = "Martini Man";
-			else
-			if(str.match(/^Pando/))
+			} else if (str.match(/^Pando/)) {
 				ret = "Pando";
-			else
-			if(str.match(/^a0[02]---0/))
+			} else if (str.match(/^a0[02]---0/)) {
 				ret = "Swarmy";
-			else
-			if(str.match(/^10-------/))
+			} else if (str.match(/^10-------/)) {
 				ret = "JVtorrent";
-			else
-			if(str.match(/^eX/))
+			} else if (str.match(/^eX/)) {
 				ret = "eXeem";
-			else
-			if(str.match(/^-aria2-/))
+			} else if (str.match(/^-aria2-/)) {
 				ret = "aria2";
-			else
-			if(str.match(/^S3-.-.-./))
+			} else if (str.match(/^S3-.-.-./)) {
 				ret = "Amazon S3 "+str.charAt(3)+"."+str.charAt(5)+"."+str.charAt(7);
-			else
-			if(str.match(/^OP/))
+			} else if (str.match(/^OP/)) {
 				ret = "Opera (build "+str.substr(2,4)+")";
-			else
-			if(str.match(/^-ML/))
+			} else if (str.match(/^-ML/)) {
 				ret = "MLDonkey "+str.substr(3,5);
-			else
-			if(str.match(/^AP/))
+			} else if (str.match(/^AP/)) {
 				ret = "AllPeers "+str.substr(2,4);
-			else
-			if(str.match(/^DNA\d\d\d\d\d\d/))
+			} else if (str.match(/^DNA\d\d\d\d\d\d/)) {
 				ret = "BitTorrent DNA "+parseInt(str.substr(3,2),10)+"."+parseInt(str.substr(5,2),10)+"."+parseInt(str.substr(7,2),10);
-			else
-			if(str.match(/^Plus/))
+			} else if (str.match(/^Plus/)) {
 				ret = "Plus! v2 "+str.charAt(4)+"."+str.charAt(5)+str.charAt(6);
-			else
-			if(str.match(/^XBT\d\d\d/))
+			} else if (str.match(/^XBT\d\d\d/)) {
 				ret = "XBT Client "+str.charAt(3)+"."+str.charAt(4)+"."+str.charAt(5)+getMnemonicEnd(str.charAt(6));
-			else
-			if(str.match(/^Mbrst/))
+			} else if (str.match(/^Mbrst/)) {
 				ret = "burst! "+str.charAt(5)+"."+str.charAt(7)+"."+str.charAt(9);
-			else
-			if(str.match(/^btpd/))
+			} else if (str.match(/^btpd/)) {
 				ret = "BT Protocol Daemon "+str.charAt(5)+str.charAt(6)+str.charAt(7);
-			else
-			if(str.match(/^BLZ/))
+			} else if (str.match(/^BLZ/)) {
 				ret = "Blizzard Downloader "+(str.charCodeAt(3)+1)+"."+str.charCodeAt(4);
-			else
-			if(str.match(/.*UDP0$/))
+			} else if (str.match(/.*UDP0$/)) {
 				ret = "BitSpirit";
-			else
-			if(str.match(/^QVOD/))
+			} else if (str.match(/^QVOD/)) {
 				ret = "QVOD "+str.charAt(4)+"."+str.charAt(5)+"."+str.charAt(6)+"."+str.charAt(7);
-			else
-			if(str.match(/^-NE/))
+			} else if (str.match(/^-NE/)) {
 				ret = "BT Next Evolution "+str.charAt(3)+"."+str.charAt(4)+"."+str.charAt(5)+"."+str.charAt(6);
-			else
-			if(str.match(/^-WT-/))
+			} else if (str.match(/^-WT-/)) {
 				ret = "BitLet "+str.charAt(4)+"."+str.charAt(5)+"."+str.charAt(6)+"."+str.charAt(7);
-			else
-			{
+			} else {
 				var mod = null;
-				if(str.match(/^exbc/))
+				if (str.match(/^exbc/)) {
 					mod = '';
-				else
-				if(str.match(/^FUTB/))
+				} else if (str.match(/^FUTB/)) {
 					mod = '(Solidox Mod) ';
-				else
-				if(str.match(/^xUTB/))
+				} else if (str.match(/^xUTB/)) {
 					mod = '(Mod 2) ';
-				if(mod!=null)
-				{
+				}
+
+				if (mod!=null) {
 					var isBitlord = (str.substr(6,4)=="LORD");
 					var name = isBitlord ? "BitLord " : "BitComet ";
 					var major = str.charCodeAt(4);
 					var minor = str.charCodeAt(5);
 					var sep = ".";
-					if(!(isBitlord && major>0) && (minor<10))
+					if (!(isBitlord && major>0) && (minor<10))
 						sep+="0";
 					ret = name+mod+major+sep+minor;
 				}
 			}
 		}
-		if(!ret)
-		{
-			if(str.match(/^[A-Z]([A-Z0-9\-\.]{1,5})/i))
-			{
+		if (!ret) {
+			if (str.match(/^[A-Z]([A-Z0-9\-\.]{1,5})/i)) {
 				var cli = this.shLikeClients[str.charAt(0)];
-				if(cli)
+				if (cli) {
 					ret = cli+" "+shChar(str.charAt(1))+"."+shChar(str.charAt(2))+"."+shChar(str.charAt(3));
+				}
 			}
 		}
 		return(ret ? ret : "Unknown ("+origStr+")");
@@ -1266,10 +1187,10 @@ function getCSSRule( selectorText )
 	{
 		var crossrule = null;
 		try {
-		if(document.styleSheets[i].cssRules)
+		if (document.styleSheets[i].cssRules)
 			crossrule=document.styleSheets[i].cssRules;
-		else 
-			if(document.styleSheets[i].rules)
+		else
+			if (document.styleSheets[i].rules)
 				crossrule=document.styleSheets[i].rules;
 		} catch(e) {}
 		return(crossrule);
@@ -1277,15 +1198,12 @@ function getCSSRule( selectorText )
 
 	var selectorText1 = selectorText.toLowerCase();
 	var selectorText2 = selectorText1.replace('.','\\.');
-	for( var j=document.styleSheets.length-1; j>=0; j-- )
-	{
+	for ( var j=document.styleSheets.length-1; j>=0; j-- ) {
 		var rules = getRulesArray(j);
-		for( var i=0; rules && i<rules.length; i++ )
-		{
-			if(rules[i].selectorText)
-			{
+		for ( var i=0; rules && i<rules.length; i++ ) {
+			if (rules[i].selectorText) {
 				var lo = rules[i].selectorText.toLowerCase();
-				if((lo==selectorText1) || (lo==selectorText2))
+				if ((lo==selectorText1) || (lo==selectorText2))
 					return(rules[i]);
 			}
 		}
@@ -1295,24 +1213,25 @@ function getCSSRule( selectorText )
 
 function RGBackground( selector )
 {
-		this.channels = [0,0,0];
-		if(selector)
-		{
+	this.channels = [0,0,0];
+	if (selector) {
 		var cs;
-				var rule = getCSSRule(selector);
-		if(rule)
+		var rule = getCSSRule(selector);
+		if (rule) {
 			var cs = rule.style.backgroundColor;
-		else
-			cs = selector;	
-		if(cs.charAt(0) == '#')
-				cs = cs.substr(1);
+		} else {
+			cs = selector;
+		}
+		if (cs.charAt(0) == '#') {
+			cs = cs.substr(1);
+		}
 		cs = cs.replace(/ /g,'').toLowerCase();
 		var colorDefs =
 		[
-				{
+			{
 				re: /^rgb\((\d{1,3}),\s*(\d{1,3}),\s*(\d{1,3})\)$/,
-					process: function(bits)
-					{
+				process: function(bits)
+				{
 					return([iv(bits[1]),iv(bits[2]),iv(bits[3])]);
 				}
 			},
@@ -1320,7 +1239,7 @@ function RGBackground( selector )
 				re: /^(\w{2})(\w{2})(\w{2})$/,
 				process: function(bits)
 				{
-							return([parseInt(bits[1], 16),parseInt(bits[2], 16),parseInt(bits[3], 16)]);
+					return([parseInt(bits[1], 16),parseInt(bits[2], 16),parseInt(bits[3], 16)]);
 				}
 			},
 			{
@@ -1331,11 +1250,9 @@ function RGBackground( selector )
 				}
 			}
 		];
-		for(var i = 0; i < colorDefs.length; i++)
-		{
+		for (var i = 0; i < colorDefs.length; i++) {
 			var bits = colorDefs[i].re.exec(cs);
-			if(bits)
-			{
+			if (bits) {
 				this.channels = colorDefs[i].process(bits);
 				break;
 			}
@@ -1349,9 +1266,9 @@ RGBackground.prototype.getColor = function()
 	var r = this.channels[0].toString(16);
 	var g = this.channels[1].toString(16);
 	var b = this.channels[2].toString(16);
-	if(r.length == 1) r = '0' + r;
-	if(g.length == 1) g = '0' + g;
-	if(b.length == 1) b = '0' + b;
+	if (r.length == 1) r = '0' + r;
+	if (g.length == 1) g = '0' + g;
+	if (b.length == 1) b = '0' + b;
 	return('#' + r + g + b);
 }
 
@@ -1388,15 +1305,14 @@ function getCRC( str, crc )
 		0x9FF8,0x6E17,0x7E36,0x4E55,0x5E74,0x2E93,0x3EB2,0x0ED1,0x1EF0);
 
 		crc = iv(crc);
-	for(var i=0; i<str.length; i++)
+	for (var i=0; i<str.length; i++)
 		crc = crc16Tab[((crc>>8)^str.charCodeAt(i))&0xFF]^((crc<<8)&0xFFFF);
 	return(crc);
 }
 
 function json_encode(obj)
 {
-	switch($type(obj))
-	{
+	switch ($type(obj)) {
 		case "number":
 			return(String(obj));
 		case "boolean":
@@ -1404,27 +1320,24 @@ function json_encode(obj)
 		case "string":
 			return('"'+addslashes(obj)+'"');
 		case "array":
-		{
-				var s = '';
-				$.each(obj,function(key,item)
-				{
-						if(s.length)
-							s+=",";
-					s += json_encode(item);
-				});
+			var s = '';
+			$.each(obj,function(key,item)
+			{
+					if (s.length)
+						s+=",";
+				s += json_encode(item);
+			});
 			return("["+s+"]");
-		}
 		case "object":
-		{
-				var s = '';
-				$.each(obj,function(key,item)
-				{
-						if(s.length)
-							s+=",";
-					s += ('"'+key+'":'+json_encode(item));
-				});
+			var s = '';
+			$.each(obj,function(key,item)
+			{
+					if (s.length)
+						s+=",";
+				s += ('"'+key+'":'+json_encode(item));
+			});
 			return("{"+s+"}");
-		}
 	}
+
 	return("null");
 }
