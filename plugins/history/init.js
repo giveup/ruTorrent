@@ -140,7 +140,7 @@ if(plugin.canChangeTabs())
 	      							arr[i] = theConverter.bytes(arr[i]);
 								break;
 							case 'ratio' :
-								arr[i] = (arr[i] ==- 1) ? "\u221e" : theConverter.round(arr[i] / 1000, 3);
+								arr[i] = (arr[i] ==- 1) ? "\u221e" : (arr[i] / 1000).toFixed(3);
 								break;
 							case 'status' :
 								arr[i] = plugin.actionNames[arr[i]];

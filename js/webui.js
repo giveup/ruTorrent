@@ -1018,7 +1018,7 @@ var theWebUI =
 			for (var i in this.files[hash]) {
 				var sId = hash + "_f_" + i;
 				var file = this.files[hash][i];
-				file.percent = (file.size > 0) ? theConverter.round((file.done/file.size)*100,1): "100.0";
+				file.percent = (file.size > 0) ? ((file.done/file.size)*100).toFixed(1) : "100.0";
 				if (this.settings["webui.fls.view"]) {
 					if (!$type(table.rowdata[sId])) {
 						table.addRowById(file, sId, file.icon, file.attr);
@@ -2025,7 +2025,7 @@ var theWebUI =
 			var d = this.torrents[this.dID];
 			$("#dl").text(theConverter.bytes(d.downloaded,2));
 			$("#ul").text(theConverter.bytes(d.uploaded,2));
-			$("#ra").html( (d.ratio ==- 1) ? "&#8734;" : theConverter.round(d.ratio/1000,3));
+			$("#ra").html( (d.ratio ==- 1) ? "&#8734;" : (d.ratio/1000).toFixed(3));
 			$("#us").text(theConverter.speed(d.ul));
 			$("#ds").text(theConverter.speed(d.dl));
 			$("#rm").html((d.eta ==- 1) ? "&#8734;" : theConverter.time(d.eta));

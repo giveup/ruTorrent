@@ -72,7 +72,7 @@ plugin.drawChunks = function( d )
 			}
 		}
 		if(mode)
-			$('#cinfo').text( theConverter.round((sumBitAvail==d.tsize) ? sumAvail/d.tsize : sumBitAvail/d.tsize,2) );
+			$('#cinfo').text( ((sumBitAvail==d.tsize) ? sumAvail/d.tsize : sumBitAvail/d.tsize).toFixed(2) );
 		plugin.cellsCount = cellsCount;
 		plugin.numCols = numCols;
 

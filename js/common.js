@@ -217,28 +217,7 @@ var theOptionsSwitcher =
 
 var theConverter =
 {
-	round: function(num, p)
-	{
-		var v = Math.floor(num * Math.pow(10, p)) / Math.pow(10, p);
-		var s = v + "";
-		var d = s.indexOf(".");
-		var n = 0;
-		if (d >- 1) {
-			var ind = s.length - d;
-			p++;
-			if (ind < p) {
-				n = p - ind;
-			}
-		} else {
-			if (p > 0) {
-				n = p;
-				s = s + ".";
-			}
-		}
-		for (var i = 0; i < n; i++)
-			s += "0";
-		return(s);
-	},
+
 	time: function(tm,noRound)
 	{
 		if ((noRound==null) && (tm >= 2419200))
@@ -302,7 +281,7 @@ var theConverter =
 						}
 				}
 		}
-		return(this.round(bt, p) + " " + a[ndx]);
+		return(iv(bt).toFixed(p) + " " + a[ndx]);
 	},
 	speed: function(bt)
 	{
@@ -386,7 +365,7 @@ var theFormatter =
 					arr[i] = theConverter.bytes(arr[i], 2);
 					break;
 				case 6:
-					arr[i] = (arr[i] ==- 1) ? "\u221e" : theConverter.round(arr[i] / 1000, 3);
+					arr[i] = (arr[i] ==- 1) ? "\u221e" : (arr[i] / 1000).toFixed(3);
 					break;
 				case 7:
 				case 8:
@@ -860,7 +839,7 @@ rDirectory.prototype.updateDirs = function(name)
 				stat = this.updateDirs(dir[i].link)
 				dir[i].data.size = stat.size;
 				dir[i].data.done = stat.done;
-				dir[i].data.percent = ((dir[i].data.size > 0) ? theConverter.round((dir[i].data.done/dir[i].data.size)*100,1): "100.0");
+				dir[i].data.percent = ((dir[i].data.size > 0) ? ((dir[i].data.done/dir[i].data.size)*100).toFixed(1): "100.0");
 				dir[i].data.priority = stat.priority;
 				dir[i].data.prioritize = stat.prioritize;
 			} else {

@@ -255,7 +255,7 @@ if (plugin.canChangeColumns() && plugin.collectStatForTorrents) {
 			for (var i in arr) {
 			        var s = table.getIdByCol(i);
 				if ((s=="ratioday") || (s=="ratiomonth") || (s=="ratioweek"))
-					arr[i] = (arr[i]!=null) ? theConverter.round(arr[i], 3) : "";
+					arr[i] = (arr[i]!=null) ? arr[i].toFixed(3) : "";
 		        }
 			return(plugin.trtFormat(table,arr));
 		}
