@@ -195,7 +195,6 @@ function makeContent()
 			'<center>'+
 				'<table width=100% border=0>'+
 					'<tr><td><strong>F1</strong></td><td>'+theUILang.This_screen+'</td></tr>'+
-					'<tr><td><strong><strong>Ctrl-F1</strong></td><td><a href="javascript://void();" onclick="theDialogManager.toggle(\'dlgAbout\'); return(false);">'+theUILang.About_program+'</a></td></tr>'+
 					'<tr><td><strong><strong>F4</strong></td><td><a href="javascript://void();" onclick="theWebUI.toggleMenu(); return(false);">'+theUILang.Toggle_menu+'</a></td></tr>'+
 					'<tr><td><strong><strong>F6</strong></td><td><a href="javascript://void();" onclick="theWebUI.toggleDetails(); return(false);">'+theUILang.Toggle_details+'</a></td></tr>'+
 					'<tr><td><strong><strong>F7</strong></td><td><a href="javascript://void();" onclick="theWebUI.toggleCategories(); return(false);">'+theUILang.Toggle_categories+'</a></td></tr>'+
@@ -206,17 +205,6 @@ function makeContent()
 					'<tr><td><strong><strong>Ctrl-Z</strong></td><td>'+theUILang.Deselect_all+'</td></tr>'+
 				'</table>'+
 			'</center>'+
-		'</div>');
-	theDialogManager.make("dlgAbout","ruTorrent",
-		'<div class="content"> <strong>'+theUILang.Developers+'</strong>:<br/><br/>'+
-			'&nbsp;&nbsp;&nbsp;Original &micro;Torrent WebUI:<br/>'+
-			'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Carsten Niebuhr (Directrix)<br/><br/>'+
-			'&nbsp;&nbsp;&nbsp;rTorrent adaptation (ruTorrent):<br/>'+
-			'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Moskalets Alexander (<a href="mailto:novik65@gmail.com">Novik</a>)<br/>'+
-			'<br/>'+
-			'<strong>'+theUILang.Check_new_version+'&nbsp;<a href="https://github.com/Novik/ruTorrent" target=_blank>'+theUILang.here+'</a></strong><br/>'+
-			'<br/>'+
-			'<center><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=2KEV2MSBTF99U" target=_blank><img src="images/btn_donate.gif" border=0/></a></center>'+
 		'</div>');
 	theDialogManager.make("dlgLabel",theUILang.enterLabel,
 		'<div class="content fxcaret">'+theUILang.Enter_label_prom+':<br/>'+

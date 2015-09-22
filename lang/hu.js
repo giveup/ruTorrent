@@ -254,12 +254,8 @@ var theUILang =
  dontSet			: "Ne állítsa",
  webBadSessionError		: "Plugin will not work. Webserver user must have execute access to the rtorrent session directory",
  webBadSessionWarning		: "Some functionality will be unavailable. Webserver user must have execute access to the rtorrent session directory",
- Developers			: "Fejlesztő",
- Check_new_version		: "Új verzió ellenörzése",
- here				: "Ide",
  Num_No 			: "No.", // This means "Number". To be used as header for number count, e.g.: throttle/ratio plugin
  This_screen			: "A képernyő",
- About_program			: "ruTorrent névjegy",
  Toggle_menu			: "Menü megjelenítése",
  Toggle_details 		: "Részletek megjelenítése",
  Toggle_categories		: "Kategória megjelenítése",

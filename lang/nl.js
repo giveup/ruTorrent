@@ -254,12 +254,8 @@ var theUILang =
  dontSet			: "Don't set",
  webBadSessionError		: "Plugin zal niet functioneren. Webserver-gebruiker moet uitvoerrechten hebben op de sessiemap van rTorrent.",
  webBadSessionWarning		: "Sommige functionaliteiten niet beschikbaar. Webserver-gebruiker moet uitvoerrechten hebben op de sessiemap van rTorrent.",
- Developers			: "Ontwikkelaars",
- Check_new_version		: "Controleer voor nieuwe versie",
- here				: "hier",
  Num_No 			: "Nr.", // This means "Number". To be used as header for number count, e.g.: throttle/ratio plugin
  This_screen			: "Dit scherm",
- About_program			: "Over ruTorrent",
  Toggle_menu			: "Toggle menu",
  Toggle_details 		: "Toggle details",
  Toggle_categories		: "Toggle categories",

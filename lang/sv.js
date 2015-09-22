@@ -252,12 +252,8 @@ var theUILang =
  dontSet			: "Ställ inte in",
  webBadSessionError		: "Insticksprogrammet kommer inte att fungera. Webbserveranvändaren måste ha exekveringsåtkomst till rTorrent's session-katalog",
  webBadSessionWarning		: "Vissa funktioner kommer att vara otillgängliga. Webbserveranvändaren måste ha exekveringsåtkomst till rTorrent's session-katalog",
- Developers			: "Utvecklare",
- Check_new_version		: "Kolla efter ny version",
- here				: "här",
  Num_No 			: "nr.", // This means "Number". To be used as header for number count, e.g.: throttle/ratio plugin
  This_screen			: "Detta fönster",
- About_program			: "Om ruTorrent",
  Toggle_menu			: "Visa/dölj meny",
  Toggle_details 		: "Visa/dölj detaljer",
  Toggle_categories		: "Visa/dölj ketegorier",

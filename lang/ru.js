@@ -254,12 +254,8 @@ var theUILang =
  dontSet			: "Не устанавливать",
  webBadSessionError		: "Плагин не будет работать. Веб сервер должен иметь доступ на выполнение к директории session rtorrent",
  webBadSessionWarning		: "Часть функциональности плагина будет недоступна. Веб сервер должен иметь доступ на выполнение к директории session rtorrent",
- Developers			: "Разработчики",
- Check_new_version		: "Проверка наличия новых версий",
- here				: "здесь",
  Num_No 			: "№", // This means "Number". To be used as header for number count, e.g.: throttle/ratio plugin
  This_screen			: "Это окно",
- About_program			: "О программе",
  Toggle_menu			: "Показать/скрыть меню",
  Toggle_details 		: "Показать/скрыть детали",
  Toggle_categories		: "Показать/скрыть категории",

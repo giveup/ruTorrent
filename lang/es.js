@@ -252,12 +252,8 @@ var theUILang =
  dontSet			: "No marcar",
  webBadSessionError		: "El Plugin no funcionará. El Webserver debe poder ejecutar dentro de la carpeta de sesión",
  webBadSessionWarning		: "Algunas funcionalidades no estarán disponibles. El Webserver debe poder ejecutar dentro de la carpeta de sesión",
- Developers			: "Developers",
- Check_new_version		: "Comprobar versiones nuevas",
- here				: "aqui",
  Num_No 			: "Nº", // This means "Number". To be used as header for number count, e.g.: throttle/ratio plugin
  This_screen			: "Esta pantalla",
- About_program			: "Acerca de ruTorrent",
  Toggle_menu			: "Alternar menu",
  Toggle_details 		: "Alternar detalles",
  Toggle_categories		: "Alternar categorias",

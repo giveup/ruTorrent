@@ -252,12 +252,8 @@ var theUILang =
  dontSet			: "Να μην οριστεί",
  webBadSessionError		: "Το πρόσθετο δεν θα λειτουργήσει. Ο χρήστης του διακομιστή Web πρέπει να έχει δικαιώματα εκτέλεσης στον φάκελο session του rtorrent",
  webBadSessionWarning		: "Ορισμένες λειτουργίες δεν θα είναι διαθέσιμες. Ο χρήστης του διακομιστή Web πρέπει να έχει δικαιώματα εκτέλεσης στον φάκελο session του rtorrent",
- Developers			: "Ανάπτυξη λογισμικού",
- Check_new_version		: "Έλεγχος για νέα έκδοση",
- here				: "εδώ",
  Num_No 			: "Α/Α", // This means "Number". To be used as header for number count, e.g.: throttle/ratio plugin
  This_screen			: "Αυτή η οθόνη",
- About_program			: "Σχετικά",
  Toggle_menu			: "Εμφάνιση/Απόκρυψη μενού",
  Toggle_details 		: "Εμφάνιση/Απόκρυψη λεπτομερειών",
  Toggle_categories		: "Εμφάνιση/Απόκρυψη κατηγοριών",

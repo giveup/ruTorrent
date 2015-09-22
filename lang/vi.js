@@ -252,12 +252,8 @@ var theUILang =
  dontSet			: "Không đặt",
  webBadSessionError		: "Trình bổ sung sẽ không chạy. Người chạy máy chủ Web phải có quyền thực thi trong thư mục quản lý phiên rtorrent",
  webBadSessionWarning		: "Một số tính năng sẽ không có. Người chạy máy chủ Web phải có quyền thực thi trong thư mục quản lý phiên rtorrent",
- Developers			: "Phát triển",
- Check_new_version		: "Kiểm tra phiên bản mới",
- here				: "ở đây",
  Num_No 			: "STT", // This means "Number". To be used as header for number count, e.g.: throttle/ratio plugin
  This_screen			: "This screen",
- About_program			: "About ruTorrent",
  Toggle_menu			: "Bật tắt trình đơn",
  Toggle_details 		: "Bật tắt chi tiết",
  Toggle_categories		: "Bật tắt danh mục",

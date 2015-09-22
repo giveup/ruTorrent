@@ -284,7 +284,7 @@ var theWebUI =
 					break;
 				case 112:				// F1
 					if (!theDialogManager.isModalState()) {
-						theDialogManager.show(e.metaKey ? "dlgAbout" : "dlgHelp");
+						theDialogManager.show("dlgHelp");
 						return(false);
 					}
 					break;

@@ -254,12 +254,8 @@ var theUILang =
  dontSet			: "Sæt ikke",
  webBadSessionError		: "Plugin virker ikke. Webserverens bruger skal have execute adgang til rtorrents session mappe",
  webBadSessionWarning		: "Noget funktionalitet vil ikke være tilgængelig. Webserverens bruger skal have execute adgang til rtorrents session mappe",
- Developers			: "Udviklere",
- Check_new_version		: "Check for ny version",
- here				: "her",
  Num_No 			: "Nr.", // This means "Number". To be used as header for number count, e.g.: throttle/ratio plugin
  This_screen			: "Denne skærm",
- About_program			: "Om ruTorrent",
  Toggle_menu			: "Toggle menu",
  Toggle_details 		: "Toggle details",
  Toggle_categories		: "Toggle categories",

@@ -254,12 +254,8 @@ var theUILang =
  dontSet                        : "Ikke sett",
  webBadSessionError             : "Tilleggsmodul vil ikke fungere. Webserver-bruker må ha kjøretilgang til rTorrent's sessionmappe.",
  webBadSessionWarning           : "Noe funksjonalitet vil ikke være tilgjengelig. Webserver-bruker må ha kjøretilgang til rTorrent's sessionmappe.",
- Developers                     : "Utviklere",
- Check_new_version              : "Sjekk etter ny versjon",
- here                           : "her",
  Num_No                         : "No.", // This means "Number". To be used as header for number count, e.g.: throttle/ratio plugin
  This_screen                    : "Denne skjermen",
- About_program                  : "Om ruTorrent",
  Toggle_menu                    : "Vis/Skjul meny",
  Toggle_details                 : "Vis/Skjul detaljer",
  Toggle_categories              : "Vis/Skjul kategorier",
