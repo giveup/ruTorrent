@@ -137,7 +137,7 @@ header {
   a:hover {background: transparent url('../images/tb_bg.gif') no-repeat scroll center center;}
   a:active {padding: 4px 2px 2px 4px;}
   div {width: 24px; height: 24px; float: left; cursor: pointer;}
-  .TB_Separator {width: 1px; height: 22px; margin: 7px 0 0 5px; border: 0; background-color: #a0a0a0;}
+  .TB_Separator {width: 1px; height: 24px; margin: 5px 0 0 5px; border: 0; background-color: #a0a0a0;}
 
   #add {background: transparent url('../images/toolbar.png') no-repeat -24px center;}
   #create {background: transparent url('../images/toolbar.png') no-repeat -48px center;}
@@ -181,6 +181,7 @@ input.Button {padding: 1px 10px; background: #f0f0f0 url('../images/h.gif') repe
 select {
   margin-top: 5px;
 }
+
 a {
   color: #686868;
 }
@@ -269,8 +270,11 @@ a {
 .lm li a {color: #000; padding: 1px 2px;}
 .lm li a.focus {background-color: #e0e0e0;}
 .stg_con {float: right; position: relative; height: 400px; margin: 4px; background-color: #fafafa;}
-fieldset {margin: 4px;}
-* > fieldset {border: 1px solid #d0d0d0; border-radius: 6px;}
+fieldset {
+  border: 1px solid #d0d0d0;
+  border-radius: 6px;
+  margin: 4px;
+}
 .stg_con table {width: 100%;}
 .stg_con td {font-weight: normal; height: 19px;}
 .stg_con td.alr {text-align: right;}
@@ -298,7 +302,6 @@ a {text-decoration: none;}
 #st_ao_h table {width: 400px;}
 select.cols {border: 1px solid #808080; padding: 2px; width: 120px;}
 #dragmask {width: 10px; height: 10px; left: 0; top: 0; position: absolute; z-index: 5000; display: none; border: 1px dotted #a0a0a0;}
-#tdetails {padding: 0 5px 0 0; background-color: #f5f5f5;}
 
 // Make sure the details divs inherit the height from their parent so overflow: scroll can do it's job
 #tdcont {
@@ -389,26 +392,45 @@ textarea { overflow: auto; }
 #tadd select { width: 220px; }
 
 #StatusBar {
-  border-top: 1px solid #a0a0a0;
   background-color: #fff;
-  height: 24px;
-  color: #000;
-  white-space: nowrap;
-  overflow: hidden;
+  border-top: 1px solid #a0a0a0;
 
-  table {
-    line-height: 24px;
+  line-height: 18px;
+
+  overflow: hidden;
+  white-space: nowrap;
+
+  > * {
+    border-right: 1px solid #a0a0a0;
   }
 }
-#st_up { background: url('../images/status_up.gif') 6px no-repeat; }
-#st_down { background: url('../images/status_down.gif') 6px no-repeat; }
-#st_up td:first-child .sthdr { margin-left: 25px; }
-#st_down td:first-child .sthdr { margin-left: 25px; }
-.statuscell {height: 20px; line-height: 20px; border-right: 1px solid #a0a0a0;}
-.sthdr { font-weight: bold; padding-right: 3px; text-align: right; }
-.stval { padding-right: 3px; overflow: hidden; width: 65px; }
-.speedEdit { width: 320px; }
-#st_system .sthdr { padding-left: 8px; }
+
+#st_up,
+#st_down,
+#st_system {
+  padding-left: (16px + 6px*2);
+
+  > strong,
+  > span {
+    padding-right: 6px;
+  }
+}
+
+#st_up {
+  background: url('../images/status_up.gif') 6px no-repeat;
+}
+
+#st_down {
+  background: url('../images/status_down.gif') 6px no-repeat;
+}
+
+#st_system {
+  padding-left: 6px*2;
+}
+
+.speedEdit {
+  width: 320px;
+}
 
 .buttons-list {
   margin-bottom: 5px;

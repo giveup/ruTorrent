@@ -1,21 +1,21 @@
-html, body { background-color: #1e2124; color: #BDDBDB }
-div.dlg-window { background-color: #1e2124; color: #BDDBDB }
+html, body { background-color: #1e2124; color: #bddbdb }
+div.dlg-window { background-color: #1e2124; color: #bddbdb }
 
 div#modalbg {background-color: #181818;}
 
 ul.CMenu { background-color: #1e2124; }
-ul.CMenu li { background: #272E36;}
+ul.CMenu li { background: #272e36;}
 ul.CMenu li a.exp {background: transparent url(./images/menuexp.gif) no-repeat scroll 140px center; }
 ul.CMenu li a.sel {background: transparent url(./images/menusel.gif) no-repeat scroll 4px center}
-ul.CMenu li a:hover {background-color: #BDDBDB; color: #272E36;}
+ul.CMenu li a:hover {background-color: #bddbdb; color: #272e36;}
 
 ul.CMenu li a.dis {color: #333333}
 ul.CMenu li a.dis:hover {background-color: #181818; color: #333333}
 
-ul.CMenu li:hover ul li a {background-color: #272E36; color: #00FF00}
-ul.CMenu li:hover ul li a:hover {background-color: #BDDBDB; color: #272E36;}
+ul.CMenu li:hover ul li a {background-color: #272e36; color: #0f0}
+ul.CMenu li:hover ul li a:hover {background-color: #bddbdb; color: #272e36;}
 
-div.graph_tab {background-color: #272E36; color: #BDDBDB; font-weight: bold;}
+div.graph_tab {background-color: #272e36; color: #bddbdb; font-weight: bold;}
 
 header {
 	background: #252525 url(./images/t_bg.png) repeat-x center center;
@@ -42,9 +42,9 @@ header {
 
 input.Button { background: #D7D7D7 url(./images/h.gif) repeat-x center bottom; }
 
-#CatList { background-color: #272E36; color: #BDDBDB;}
-#CatList ul li { border: 1px solid #272E36; font-weight: bold; }
-#CatList ul li.sel {background-color: #BDDBDB; border-color: #BDDBDB; color: #272E36;}
+#CatList { background-color: #272e36; color: #bddbdb;}
+#CatList ul li { border: 1px solid #272e36; font-weight: bold; }
+#CatList ul li.sel {background-color: #bddbdb; border-color: #bddbdb; color: #272e36;}
 #-_-_-all-_-_-, #-_-_-dls-_-_-, #-_-_-com-_-_-, #-_-_-act-_-_-, #-_-_-iac-_-_-, #-_-_-err-_-_- {background-image: url(./images/tstatus.png)}
 #-_-_-all-_-_- {background-position: 4px -174px;}
 #-_-_-dls-_-_- {background-position: 4px 2px;}
@@ -57,41 +57,41 @@ input.Button { background: #D7D7D7 url(./images/h.gif) repeat-x center bottom; }
 
 .stable-icon {background-image: url(./images/tstatus.png); }
 
-div#stg { background-color: #1E2124; color: #BDDBDB; border: 2px solid #909090; }
-div#stg-header { background: #1e2124 url(./images/settings.gif) no-repeat scroll 4px center; color: #00ff00;}
-div#stg .lm { background-color: #272E36; border: 1px solid #D0D0D0; }
+div#stg { background-color: #1E2124; color: #bddbdb; border: 2px solid #909090; }
+div#stg-header { background: #1e2124 url(./images/settings.gif) no-repeat scroll 4px center; color: #0f0;}
+div#stg .lm { background-color: #272e36; border: 1px solid #D0D0D0; }
 
 .lm li { background: transparent url(./images/bul.gif) no-repeat scroll left center}
 .lm li.first {background: transparent url(./images/bul_f.gif) no-repeat scroll left bottom}
 .lm li.last {background: transparent url(./images/bul_l.gif) no-repeat scroll left top}
 .lm li div.toggle { background: transparent url(./images/exp.gif) no-repeat scroll center center; }
-.lm li a {color: #BDDBDB; }
-.lm li a.focus {background-color: #BDDBDB; color: #272E36;}
-.stg_con {background-color: #272E36}
+.lm li a {color: #bddbdb; }
+.lm li a.focus {background-color: #bddbdb; color: #272e36;}
+.stg_con {background-color: #272e36}
 
-input[disabled] {background-color: #272E36; }
-legend {color: #00FF00; font-weight: bold}
+input[disabled] {background-color: #272e36; }
+legend {color: #0f0; font-weight: bold}
 
-#st_gl {background: #272E36; color: #BDDBDB;}
-#st_dl, #st_con, #st_bt, #st_que, #st_sch, #st_ao, #st_dc { color: #BDDBDB;}
-#st_autotools, #st_retrackers, #st_starter, #st_ratio, #st_throttle, #st_unpack, #st_scheduler {color: #BDDBDB;}
+#st_gl {background: #272e36; color: #bddbdb;}
+#st_dl, #st_con, #st_bt, #st_que, #st_sch, #st_ao, #st_dc { color: #bddbdb;}
+#st_autotools, #st_retrackers, #st_starter, #st_ratio, #st_throttle, #st_unpack, #st_scheduler {color: #bddbdb;}
 
-a { color: #00ff00; font-weight: bold;}
+a { color: #0f0; font-weight: bold;}
 
 div#tdetails {background-color: #1E2124}
-div#tdcont {background: #272E36; }
-div.tab { background: #272E36; }
-div#lcont { background: #272E36; font-weight: bold; color: #BDDBDB;}
+div#tdcont {background: #272e36; }
+div.tab { background: #272e36; }
+div#lcont { background: #272e36; font-weight: bold; color: #bddbdb;}
 
-div#gcont table {color: #BDDBDB; font-weight: bold;}
-div#gcont table td.Header {background: #323A46;}
+div#gcont table {color: #bddbdb; font-weight: bold;}
+div#gcont table td.Header {background: #323a46;}
 
 .tabbar {background-color: #1e2124;}
-.tabbar li a:hover {border-top: 2px solid #00FF00;}
-.tabbar li.selected a { border-top: 2px solid #BDDBDB; background: #272E36; color: #BDDBDB; font-weight: bold;}
+.tabbar li a:hover {border-top: 2px solid #0f0;}
+.tabbar li.selected a { border-top: 2px solid #bddbdb; background: #272e36; color: #bddbdb; font-weight: bold;}
 
-div.dlg-header { background-color: #1e2124; color: #00FF00;}
-div.content {color: #BDDBDB;}
+div.dlg-header { background-color: #1e2124; color: #0f0;}
+div.content {color: #bddbdb;}
 div#dlgLabel div.dlg-header {background-image: url(./images/label.gif); }
 div#dlgHelp div.dlg-header {background-image: url(./images/about.gif); }
 div#dlgProps div.dlg-header {background-image: url(./images/props.gif); }
@@ -101,14 +101,11 @@ div#yesnoDlg div.dlg-header {background-image: url(./images/error.gif); }
 .Icon_Dir {background: transparent url(./images/dir.gif) no-repeat left center}
 .Icon_Share {background: transparent url(./images/dir.gif) no-repeat left center}
 
-.catpanel { background: url(./images/pnl_open.gif) 2px no-repeat; background-color: #1e2124; color: #00ff00; font-weight: bold;}
+.catpanel { background: url(./images/pnl_open.gif) 2px no-repeat; background-color: #1e2124; color: #0f0; font-weight: bold;}
 
 div#tadd-header {background-image: url(./images/world.gif); }
-div#tadd { background-color: #1e2124; border: 2px solid #909090; color: #BDDBDB;}
+div#tadd { background-color: #1e2124; border: 2px solid #909090; color: #bddbdb;}
 
 #StatusBar { background-color: #1e2124; color: #ffffff; font-weight: bold }
-#st_up { background:url(./images/status_up.gif) 6px no-repeat; color: #BDDBDB; }
-#st_down { background:url(./images/status_down.gif) 6px no-repeat; color: #BDDBDB;}
-
-.sthdr { color: #00FF00;}
-.stval { color: #BDDBDB;}
+#st_up { background:url(./images/status_up.gif) 6px no-repeat; color: #bddbdb; }
+#st_down { background:url(./images/status_down.gif) 6px no-repeat; color: #bddbdb;}

@@ -124,23 +124,26 @@ plugin.onLangLoaded = function()
 		$("<div>").attr("id","Chunks").append(
 			$("<div>").attr("id","cHeader").html(
 				"<table width='100%'><tr>"+
-				"<td class='sthdr'>"+theUILang.chunksCount+":</td>"+
-				"<td class='stval' id='ccount'>&nbsp;</td>"+
-				"<td class='sthdr'>"+theUILang.chunkSize+":</td>"+
-				"<td class='stval' id='csize'>&nbsp;</td>"+
-				"<td class='sthdr' id='cinfohdr'>"+theUILang.cDownloaded+":</td>"+
-				"<td class='stval' id='cinfo'>&nbsp;</td>"+
-				"<td class='sthdr'>"+theUILang.cLegend+":</td>"+
-				"<td class='stval' id='clegend'>&nbsp;</td>"+
-				"<td align='right' id='cmode_cont' class='sthdr'>"+
+				"<th>"+theUILang.chunksCount+":</th>"+
+				"<td id='ccount'>&nbsp;</td>"+
+				"<th>"+theUILang.chunkSize+":</th>"+
+				"<td id='csize'>&nbsp;</td>"+
+				"<th' id='cinfohdr'>"+theUILang.cDownloaded+":</th>"+
+				"<td id='cinfo'>&nbsp;</td>"+
+				"<th>"+theUILang.cLegend+":</th>"+
+				"<td id='clegend'>&nbsp;</td>"+
+				"<td align='right' id='cmode_cont'>"+
 					theUILang.cMode+":&nbsp;"+
 					"<select name='chunks_mode' id='chunks_mode' onchange='theWebUI.updateDetails()'>"+
 						"<option value='0' selected>"+theUILang.cDownloaded+"</option>"+
 						"<option value='1'>"+theUILang.cAvail+"</option>"+
 					"</select>"+
-				"</td></tr></table>").append(
+				"</td></tr></table>")
+		).append(
 			$("<div>").attr("id","cCont").append(
-				$("<table>").attr("id","cTable")))).get(0), theUILang.Chunks,"lcont");
+				$("<table>").attr("id","cTable")
+			)
+		).get(0), theUILang.Chunks,"lcont");
 	if(theWebUI.systemInfo.rTorrent.apiVersion<4)
 		$('#cmode_cont').empty();
 }

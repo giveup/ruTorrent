@@ -193,7 +193,7 @@ div#lcont div.std:nth-child(2n+1) {background: #181818 url(./images/headers.png)
 #StatusBar table tr td:last-child {border-top:red;}
 #st_up { background:url(./images/status.png) no-repeat 6px 2px; }
 #st_down { background:url(./images/status.png) no-repeat 6px -18px; }
-.statuscell {padding-right:5px;border:none;}
+#StatusBar > * {padding-right:5px;border:none;}
 #stup_speed{color:#AACF27;}
 #stdown_speed {color: #178FD1;}
 #stup_total,#stdown_total{color:#fff;}

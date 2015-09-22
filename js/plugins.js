@@ -374,7 +374,7 @@ rPlugin.prototype.addPaneToStatusbar = function(id,div,no)
         if(this.canChangeStatusBar()) {
 		var row = $("#StatusBar");
 		var container = $('<div/>');
-		container.attr("id",id).addClass("statuscell").append( $(div) );
+		container.attr("id",id).append( $(div) );
 
 		row.prepend(container);
 	}

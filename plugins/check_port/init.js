@@ -3,13 +3,13 @@ plugin.loadMainCSS();
 
 plugin.update = function()
 {
-	$$("port-td").className = "statuscell pstatus0";
+	$$("port-td").className = "pstatus0";
 	theWebUI.request("?action=portcheck", [plugin.getPortStatus, plugin]);
 }
 
 plugin.getPortStatus = function(d)
 {
-	$("#port-td").prop("title",d.port+": "+theUILang.portStatus[d.status]).get(0).className = "statuscell pstatus"+d.status;
+	$("#port-td").prop("title",d.port+": "+theUILang.portStatus[d.status]).get(0).className = "pstatus"+d.status;
 }
 
 rTorrentStub.prototype.portcheck = function()

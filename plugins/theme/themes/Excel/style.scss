@@ -7,8 +7,8 @@ div#HDivider { width: 5px }
 
 div.table_tab { border: none }
 
-div#StatusBar { background: transparent url(./images/statbg.png) repeat-x 0 0; border-top: none; color: #034084 }
-.statuscell { border-color: #9EB6CE }
+#StatusBar { background: transparent url(./images/statbg.png) repeat-x 0 0; border-top: none; color: #034084 }
+#StatusBar > * { border-color: #9EB6CE; }
 
 header {
 	background-color: #B5D5FB;

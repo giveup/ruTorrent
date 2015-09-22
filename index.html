@@ -206,25 +206,19 @@
 	</main>
 
 	<footer id="StatusBar" class="row">
-		<table id="st_up" class="statuscell">
-			<tr>
-			<td><div class="sthdr"><script type="text/javascript"> document.write(theUILang.Speed); </script>:</div></td><td><div class="stval" id="stup_speed"></div></td>
-			<td><div class="sthdr"><script type="text/javascript"> document.write(theUILang.limit); </script>:</div></td><td><div class="stval" id="stup_limit"></div></td>
-			<td><div class="sthdr"><script type="text/javascript"> document.write(theUILang.Total); </script>:</div></td><td><div class="stval" id="stup_total"></div></td>
-		</tr>
-		</table>
-		<table id="st_down" class="statuscell">
-			<tr>
-				<td><div class="sthdr"><script type="text/javascript"> document.write(theUILang.Speed); </script>:</div></td><td><div class="stval" id="stdown_speed"></div></td>
-				<td><div class="sthdr"><script type="text/javascript"> document.write(theUILang.limit); </script>:</div></td><td><div class="stval" id="stdown_limit"></div></td>
-				<td><div class="sthdr"><script type="text/javascript"> document.write(theUILang.Total); </script>:</div></td><td><div class="stval" id="stdown_total"></div></td>
-			</tr>
-		</table>
-		<table id="st_system" class="statuscell">
-			<tr>
-				<td><div class="sthdr">rTorrent:</div></td><td><div class="stval" id="rtorrentv"></div></td>
-			</tr>
-		</table>
+		<div id="st_up">
+			<strong><script type="text/javascript"> document.write(theUILang.Speed); </script>:</strong> <span id="stup_speed"></span>
+			<strong><script type="text/javascript"> document.write(theUILang.limit); </script>:</strong> <span id="stup_limit"></span>
+			<strong><script type="text/javascript"> document.write(theUILang.Total); </script>:</strong> <span id="stup_total"></span>
+		</div>
+		<div id="st_down">
+				<strong><script type="text/javascript"> document.write(theUILang.Speed); </script>:</strong> <span id="stdown_speed"></span>
+				<strong><script type="text/javascript"> document.write(theUILang.limit); </script>:</strong> <span id="stdown_limit"></span>
+				<strong><script type="text/javascript"> document.write(theUILang.Total); </script>:</strong> <span id="stdown_total"></span>
+		</div>
+		<div id="st_system">
+			<strong>rTorrent:</strong> <span id="rtorrentv"></span>
+		</div>
 	</footer>
 
 	<!-- Misc -->
