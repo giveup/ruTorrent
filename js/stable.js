@@ -731,7 +731,6 @@ dxSTable.prototype.assignEvents = function()
 				self.scrollTimeout = window.setTimeout(
 					function() { self.isScrolling = false; handleScroll.apply(self); }
 						, 500);
-				self.scrollPos();
 			}
 		});
 	this.tHead.onmousedown = function(e)
@@ -815,28 +814,6 @@ dxSTable.prototype.colDragEnd = function(e)
 	self.cancelMove = false;
 	document.body.style.cursor = "default";
 	return(false);
-}
-
-dxSTable.prototype.scrollPos = function()
-{
-	var mni = Math.floor(this.dCont.scrollTop / TR_HEIGHT);
-	var mxi = mni + Math.floor(this.dBody.clientHeight / TR_HEIGHT);
-	var mid = Math.floor(((mni + mxi) / 2));
-	if (mid > this.viewRows)
-		mid = this.viewRows - 1;
-	var vr =- 1;
-	var str = "";
-	for (var i = 0; i < this.rows; i++) {
-		var id = this.rowIDs[i];
-		var r = this.rowdata[id];
-		if ($type(r) && r.enabled) {
-			vr++;
-			if (vr == mid) {
-				str = r.data[0];
-				break;
-			}
-		}
-	}
 }
 
 function handleScroll()
