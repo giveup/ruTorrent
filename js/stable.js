@@ -855,7 +855,12 @@ function handleScroll()
 
 dxSTable.prototype.getMaxRows = function()
 {
-	return((this.maxRows || this.viewRows<this.maxViewRows) ? 1000000 : Math.ceil(Math.min(this.dBody.clientHeight,this.dCont.clientHeight) / TR_HEIGHT));
+	// Checking the height of elements can thrash the layout, by hardcoding the
+	// number of elements to a number larger than is generally seen, we can
+	// trade drawing a few rows we didn't need to for avoiding that trashing.
+	// The number is largely arbitrary. I selected it because 19*60 is just
+	// over 1080px.
+	return 60;
 }
 
 dxSTable.prototype.refreshRows = function( height, fromScroll )
