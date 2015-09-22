@@ -5,7 +5,6 @@
 
 var theWebUI =
 {
-	version: "3.7",
 	tables:
 	{
 		trt:
@@ -2068,7 +2067,7 @@ var theWebUI =
 				newTitle+=('↓'+dl+' ');
 			}
 		}
-		newTitle+="ruTorrent v"+self.version;
+		newTitle+="ruTorrent";
 		if (document.title!=newTitle) {
 			document.title = newTitle;
 		}

@@ -207,7 +207,7 @@ function makeContent()
 				'</table>'+
 			'</center>'+
 		'</div>');
-	theDialogManager.make("dlgAbout","ruTorrent v"+theWebUI.version,
+	theDialogManager.make("dlgAbout","ruTorrent",
 		'<div class="content"> <strong>'+theUILang.Developers+'</strong>:<br/><br/>'+
 			'&nbsp;&nbsp;&nbsp;Original &micro;Torrent WebUI:<br/>'+
 			'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Carsten Niebuhr (Directrix)<br/><br/>'+
