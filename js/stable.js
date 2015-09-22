@@ -207,8 +207,6 @@ dxSTable.prototype.create = function(ele, styles, aName)
 	this.tBody.tb = $("<tbody>").get(0);
 	this.tBody.appendChild(this.tBody.tb);
 
-	this.scp = $("<span></span>").addClass("stable-scrollpos").get(0);
-	this.dCont.appendChild(this.scp);
 	this.init();
 	this.resizeColumn();
 
@@ -821,7 +819,6 @@ dxSTable.prototype.colDragEnd = function(e)
 
 dxSTable.prototype.scrollPos = function()
 {
-	this.scp.style.display = "block";
 	var mni = Math.floor(this.dCont.scrollTop / TR_HEIGHT);
 	var mxi = mni + Math.floor(this.dBody.clientHeight / TR_HEIGHT);
 	var mid = Math.floor(((mni + mxi) / 2));
@@ -840,7 +837,6 @@ dxSTable.prototype.scrollPos = function()
 			}
 		}
 	}
-	this.scp.innerHTML = escapeHTML("Current Row: " + str);
 }
 
 function handleScroll()
@@ -850,7 +846,6 @@ function handleScroll()
 	this.scrollTimeout = null;
 	this.refreshRows(null, true);
 	this.setBodyState("visible");
-	this.scp.style.display = "none";
 }
 
 dxSTable.prototype.getMaxRows = function()
