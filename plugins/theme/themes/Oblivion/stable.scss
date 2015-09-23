@@ -16,7 +16,7 @@ div#tdcont .stable {border:none;}
         background: #191919;
         height: 22px;
 
-        :nth-child(2n+1) td{
+        &:nth-child(2n+1) td{
             color: #fff;
             background: #181818 url(./images/headers.png) repeat-x 0px -64px;
         }

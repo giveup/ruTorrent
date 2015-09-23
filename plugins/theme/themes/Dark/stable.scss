@@ -12,7 +12,7 @@
     tr {
         background: #191919;
 
-        :nth-child(odd) {
+        &:nth-child(odd) {
             background: #333333;
         }
 

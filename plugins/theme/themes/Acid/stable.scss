@@ -1,36 +1,34 @@
-.stable-head { background: #272E36; border-color: #A0A0A0 #A0A0A0 #A0A0A0 #A0A0A0; }
+.stable-head { background: #272e36; border-color: #a0a0a0 #a0a0a0 #a0a0a0 #a0a0a0; }
 .stable-head table tr {background: transparent url(./images/header.gif) repeat-x scroll center top}
-.stable-head table tr td { border-color: #A0A0A0 #A0A0A0 #A0A0A0 #A0A0A0; background-color: transparent; background-image: none; color: #00ff00; font-weight: bold;}
+.stable-head table tr td { border-color: #a0a0a0 #a0a0a0 #a0a0a0 #a0a0a0; background-color: transparent; background-image: none; color: #0f0; font-weight: bold;}
 .stable-head div.resz {background: transparent url(./images/s.gif) no-repeat scroll left center; }
-.stable-body td { border-bottom: 1px solid #E0E0E0; color: #BDDBDB; font-weight: bold;}
+.stable-body td { border-bottom: 1px solid #e0e0e0; color: #bddbdb; font-weight: bold;}
 
 .stable-body {
-    background: #272E36;
+    background: #272e36;
 
     tr {
         cursor: pointer;;
-        background: #FFFFFF;
-
-        :nth-child(odd) {
-            background: #323A46;
+        &:nth-child(odd) {
+            background: #323a46;
         }
 
-        :nth-child(even) {
-            background: #272E36;
+        &:nth-child(even) {
+            background: #272e36;
         }
 
         &.selected {
-            background: #BDDBDB;
-            color: #272E36;
+            background: #bddbdb;
+            color: #272e36;
         }
     }
 }
 .stable-move-header {position: absolute; background: transparent url(./images/header_move.gif) repeat-x scroll center top rgba(255,255,255,0.7); border: 1px solid #0099FF; }
 
-.stable-separator-header { background: #0099FF; }
+.stable-separator-header { background: #09f; }
 
-.meter-value { float: left; background-color: #ffffff; border: 1px inset #BBBBBB; border-bottom: none;}
-.meter-text { color: #ffffff;}
+.meter-value { float: left; background-color: #fff; border: 1px inset #bbb; border-bottom: none;}
+.meter-text { color: #fff;}
 
-.meter-value-start-color { background-color: #FFFF00 }
-.meter-value-end-color { background-color: #31cf31 }
+.meter-value-start-color { background-color: #ff0; }
+.meter-value-end-color { background-color: #31cf31; }
