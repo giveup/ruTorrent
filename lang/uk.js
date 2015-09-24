@@ -264,7 +264,7 @@ var theUILang =
  showSpeedInTitle		: "Показувати швидкість у заголовку",
  badTempPath 			: "Веб-сервер не має повного доступу до каталогу tmp. ruTorrent не зможе працювати.",
  badTempPath2			: "rTorrent не має повного доступу до каталогу tmp. ruTorrent не зможе працювати.",
- doRandomizeHash		: "Randomize info hashes for cross-seeding",
- Recreate_files			: "Queue files recreation",
- Address			: "Address"
+ doRandomizeHash		: "Зробити хеш унікальним",
+ Recreate_files			: "Виконати повторне створення файлів у черзі",
+ Address			: "Адреса"
 };
