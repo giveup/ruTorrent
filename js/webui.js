@@ -196,7 +196,6 @@ var theWebUI =
 	delmode:	"remove",
 	tegs:		{},
 	lastTeg:	0,
-	deltaTime:	0,
 
 //
 // init
@@ -2031,10 +2030,10 @@ var theWebUI =
 			$("#rm").html((d.eta ==- 1) ? "&#8734;" : theConverter.time(d.eta));
 			$("#se").text(d.seeds_actual + " " + theUILang.of + " " + d.seeds_all + " " + theUILang.connected);
 			$("#pe").text(d.peers_actual + " " + theUILang.of + " " + d.peers_all + " " + theUILang.connected);
-			$("#et").text(theConverter.time(Math.floor((new Date().getTime()-theWebUI.deltaTime)/1000-iv(d.state_changed)),true));
+			$("#et").text(theConverter.time(Math.floor(new Date().getTime()/1000-iv(d.state_changed)),true));
 			$("#wa").text(theConverter.bytes(d.skip_total,2));
 			$("#bf").text(d.base_path);
-			$("#co").text(theConverter.date(iv(d.created)+theWebUI.deltaTime/1000));
+			$("#co").text(theConverter.date(iv(d.created)));
 			$("#tu").text(	$type(this.trackers[this.dID]) && $type(this.trackers[this.dID][d.tracker_focus]) ? this.trackers[this.dID][d.tracker_focus].name : '');
 			$("#hs").text(this.dID.substring(0,40));
 			$("#ts").text(d.msg);

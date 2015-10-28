@@ -11,13 +11,13 @@ if(plugin.canChangeMenu())
 			var el = theContextMenu.get( theUILang.Force_recheck );
 			if( el )
 			{
-				theContextMenu.add( el, [theUILang.checkTorrent, 
+				theContextMenu.add( el, [theUILang.checkTorrent,
 					((this.getTable("trt").selCount>1) && this.getHashes('checktorrent')) ||
 					this.isTorrentCommandEnabled("checktorrent",id) ? "theWebUI.perform( 'checktorrent' )" : null] );
 			}
 		}
 	}
-		
+
 	rTorrentStub.prototype.checktorrent = function()
 	{
 		this.content = "cmd=check";
@@ -46,7 +46,7 @@ theWebUI.config = function(data)
 }
 
 plugin.isTorrentCommandEnabled = theWebUI.isTorrentCommandEnabled;
-theWebUI.isTorrentCommandEnabled = function(act,hash) 
+theWebUI.isTorrentCommandEnabled = function(act,hash)
 {
 	if(act=="checktorrent")
 	{
@@ -63,7 +63,7 @@ return(true);
 }
 
 plugin.getStatusIcon = theWebUI.getStatusIcon;
-theWebUI.getStatusIcon = function(torrent) 
+theWebUI.getStatusIcon = function(torrent)
 {
 	if(plugin.allStuffLoaded && (torrent.chkstate==4))	// STE_DELETED
 		return(["Status_Error", theUILang.chkResults[torrent.chkstate-1]]);
@@ -77,14 +77,14 @@ theWebUI.updateDetails = function()
 	if(plugin.enabled && (this.dID != "") && this.torrents[this.dID])
 	{
 		var torrent = this.torrents[this.dID];
-		$("#chktime").text( torrent.chktime ? theConverter.time(new Date().getTime()/1000-(iv(torrent.chktime)+theWebUI.deltaTime/1000),true) : '' );
+		$("#chktime").text( torrent.chktime ? theConverter.time(new Date().getTime()/1000-(iv(torrent.chktime)),true) : '' );
 		$("#chkresult").text( torrent.chkstate ? theUILang.chkResults[iv(torrent.chkstate-1)] : '' );
 	}
 }
 
 plugin.onLangLoaded = function()
 {
-	$("#mainlayout").append( 
+	$("#mainlayout").append(
 		"<tr id='chkinfo1'><td colspan='6' class='Header'>"+theUILang.chkHdr+"</td></tr>"+
 		"<tr id='chkinfo2'><td nowrap>"+theUILang.checkedAt+":</td>"+
 			"<td><span id='chktime' class='det'></span></td>"+

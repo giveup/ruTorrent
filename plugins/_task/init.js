@@ -345,7 +345,7 @@ if(plugin.canChangeTabs())
 						case 'finish':
 						case 'start':
 						{
-							arr[i] = (arr[i]>3600*24*365) ? theConverter.date(iv(arr[i])+theWebUI.deltaTime/1000) : "";
+							arr[i] = (arr[i]>3600*24*365) ? theConverter.date(iv(arr[i])) : "";
 							break;
 						}
 						case 'elapsed':
@@ -500,7 +500,7 @@ plugin.onGetTasks = function(d)
 					plugin: item.requester,
 					arg: item.params ? item.params['arg'] : '',
 					start: item.start,
-					elapsed: item.finish ? iv(item.finish)-iv(item.start) : (new Date().getTime()/1000-(iv(item.start)+theWebUI.deltaTime/1000)),
+					elapsed: item.finish ? iv(item.finish)-iv(item.start) : (new Date().getTime()/1000-(iv(item.start))),
 					finish: item.finish
 				}, "tasks_"+id, (item.status<0) ? "Status_Down" : (item.status==0) ? "Status_Completed" : "Status_Error" );
 				updated = true;
@@ -514,7 +514,7 @@ plugin.onGetTasks = function(d)
 					plugin: item.requester,
 					arg: item.params ? item.params['arg'] : '',
 					start: item.start,
-					elapsed: item.finish ? iv(item.finish)-iv(item.start) : (new Date().getTime()/1000-(iv(item.start)+theWebUI.deltaTime/1000)),
+					elapsed: item.finish ? iv(item.finish)-iv(item.start) : (new Date().getTime()/1000-(iv(item.start))),
 					finish: item.finish
 				},true) || updated;
 				updated = table.setIcon("tasks_"+id,(item.status<0) ? "Status_Down" : (item.status==0) ? "Status_Completed" : "Status_Error") || updated;

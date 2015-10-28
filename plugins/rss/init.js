@@ -734,7 +734,7 @@ theWebUI.showErrors = function(d)
 	{
 		var s = '';
 		if(d.errors[i].time)
-			s =  "["+theConverter.date(iv(d.errors[i].time)+theWebUI.deltaTime/1000)+"] ";
+			s =  "["+theConverter.date(iv(d.errors[i].time))+"] ";
 		s += eval(d.errors[i].desc);
 		if(d.errors[i].prm)
 			s = s + " ("+d.errors[i].prm+")";

@@ -154,7 +154,6 @@ function testRemoteRequests($remoteRequests)
     return($ret);
 }
 
-$jResult = "theWebUI.deltaTime = 0;\n";
 $access = getConfFile('access.ini');
 if (!$access) {
     $access = "../conf/access.ini";

@@ -149,7 +149,7 @@ if (plugin.canChangeTabs()) {
 				var h = dt.getHours();
 				h = (h < 10) ? ("0" + h) : h;
 				var now = new Date();
-				now.setTime(now.getTime()-theWebUI.deltaTime);
+				now.setTime(now.getTime());
 				var actualData = true;
 
 		        switch(arr.mode) {

@@ -5,13 +5,13 @@
 
 var dStatus = { started : 1, paused : 2, checking : 4, hashing : 8, error : 16 };
 
-var theRequestManager = 
+var theRequestManager =
 {
 	aliases: {},
         trt:
         {
 		commands:
-		[ 
+		[
 			"d.get_hash=", "d.is_open=", "d.is_hash_checking=", "d.is_hash_checked=", "d.get_state=",
 			"d.get_name=", "d.get_size_bytes=", "d.get_completed_chunks=", "d.get_size_chunks=", "d.get_bytes_done=",
 			"d.get_up_total=", "d.get_ratio=", "d.get_up_rate=", "d.get_down_rate=", "d.get_chunk_size=",
@@ -22,46 +22,46 @@ var theRequestManager =
 		],
 		handlers: []
 	},
-	trk: 
+	trk:
 	{
-		commands: 
+		commands:
 		[
-		        "t.get_url=", "t.get_type=", "t.is_enabled=", "t.get_group=", "t.get_scrape_complete=", 
+		        "t.get_url=", "t.get_type=", "t.is_enabled=", "t.get_group=", "t.get_scrape_complete=",
 			"t.get_scrape_incomplete=", "t.get_scrape_downloaded=",
 			"t.get_normal_interval=", "t.get_scrape_time_last="
 		],
 		handlers: []
 	},
-	fls: 
+	fls:
 	{
-		commands: 
+		commands:
 		[
 			"f.get_path=", "f.get_completed_chunks=", "f.get_size_chunks=", "f.get_size_bytes=", "f.get_priority="
 		],
 		handlers: []
 	},
-	prs: 
+	prs:
 	{
-		commands: 
-		[ 
+		commands:
+		[
 			"p.get_id=", "p.get_address=", "p.get_client_version=", "p.is_incoming=", "p.is_encrypted=",
 			"p.is_snubbed=", "p.get_completed_percent=", "p.get_down_total=", "p.get_up_total=", "p.get_down_rate=",
 			"p.get_up_rate=", "p.get_id_html=", "p.get_peer_rate=", "p.get_peer_total=", "p.get_port="
 		],
 		handlers: []
 	},
-	ttl: 
+	ttl:
 	{
-		commands: 
+		commands:
 		[
 			"get_up_total", "get_down_total", "get_upload_rate", "get_download_rate"
 		],
 		handlers: []
 	},
-	prp: 
+	prp:
 	{
-		commands: 
-		[ 
+		commands:
+		[
 			"d.get_peer_exchange", "d.get_peers_max", "d.get_peers_min", "d.get_tracker_numwant", "d.get_uploads_max",
 			"d.is_private", "d.get_connection_seed"
 		],
@@ -71,7 +71,7 @@ var theRequestManager =
 	{
 		commands:
 		[
-			"bind", "check_hash", "dht_port", "directory", "download_rate", 
+			"bind", "check_hash", "dht_port", "directory", "download_rate",
 			"hash_interval", "hash_max_tries", "hash_read_ahead", "http_cacert", "http_capath",
 			"http_proxy", "ip", "max_downloads_div", "max_downloads_global", "max_file_size",
 			"max_memory_usage", "max_open_files", "max_open_http", "max_peers", "max_peers_seed",
@@ -114,7 +114,7 @@ var theRequestManager =
 				add = '=';
 			}
 			return(this.aliases[cmd] ? this.aliases[cmd].name+add : cmd+add);
-		}			
+		}
 		return( this.map(this[cmd].commands[no]) );
 	},
 	patchCommand: function( cmd, name )
@@ -136,8 +136,8 @@ var theRequestManager =
 			else
 			if(cmd.command.indexOf('f.') === 0)
 				prefix = ':f';
-			if(prefix && 
-				(cmd.params.length>1) && 
+			if(prefix &&
+				(cmd.params.length>1) &&
 				(cmd.command.indexOf('.multicall')<0) &&
 				(cmd.params[0].value.indexOf(':') < 0))
 			{
@@ -159,7 +159,7 @@ function rXMLRPCCommand( cmd )
 
 rXMLRPCCommand.prototype.addParameter = function(aType,aValue)
 {
-	this.params.push( {type : aType, value : aValue} );	
+	this.params.push( {type : aType, value : aValue} );
 }
 
 function rTorrentStub( URI )
@@ -675,7 +675,7 @@ rTorrentStub.prototype.makeMultiCall = function()
 	this.content += '</params></methodCall>';
 }
 
-rTorrentStub.prototype.getValue = function(values,i) 
+rTorrentStub.prototype.getValue = function(values,i)
 {
         var ret = "";
 	if(values && values.length && (values.length>i))
@@ -684,14 +684,14 @@ rTorrentStub.prototype.getValue = function(values,i)
 		var el = value.childNodes[0];
 		while(!el.tagName)
 			el = el.childNodes[0];
-		ret = $type(el.textContent) ? $.trim(el.textContent) : 
-			el.childNodes.length ? 
+		ret = $type(el.textContent) ? $.trim(el.textContent) :
+			el.childNodes.length ?
 			el.childNodes[0].data : "";
 	}
 	return((ret==null) ? "" : ret);
 }
 
-rTorrentStub.prototype.getResponse = function(data) 
+rTorrentStub.prototype.getResponse = function(data)
 {
 	var ret = "";
 	if(this.dataType=="xml")
@@ -702,7 +702,7 @@ rTorrentStub.prototype.getResponse = function(data)
 		if(fault && fault.length)
 		{
 			var names = data.getElementsByTagName('value');
-			this.faultString.push("XMLRPC Error: "+this.getValue(names,2)+" ["+this.action+"]"); 
+			this.faultString.push("XMLRPC Error: "+this.getValue(names,2)+" ["+this.action+"]");
 		}
 		else
 		{
@@ -743,7 +743,7 @@ rTorrentStub.prototype.getpropsResponse = function(xml)
 	var values = data.getElementsByTagName('value');
 	var ret = {};
 	var hash = this.hashes[0];
-	ret[hash] =  
+	ret[hash] =
 	{
 		pex: (this.getValue(values,11)!='0') ? -1 : this.getValue(values,1),
 		peers_max: this.getValue(values,3),
@@ -794,7 +794,7 @@ rTorrentStub.prototype.getsettingsResponse = function(xml)
 	if((dht=="auto") || (dht=="on"))
 		ret.dht = 1;
 	else
-		ret.dht = 0;				
+		ret.dht = 0;
 
 	for(;i<255; i++)
 	{
@@ -856,7 +856,7 @@ rTorrentStub.prototype.getfilesResponse = function(xml)
 				handler.response( hash, fls, (handler.ndx===null) ? null : self.getValue(values,handler.ndx) );
 		});
 
-                ret[hash].push(fls);	
+                ret[hash].push(fls);
 	}
 	return(ret);
 }
@@ -1083,7 +1083,7 @@ rTorrentStub.prototype.logErrorMessages = function()
 		noty(this.faultString[i],"error");
 }
 
-function Ajax(URI, isASync, onComplete, onTimeout, onError, reqTimeout) 
+function Ajax(URI, isASync, onComplete, onTimeout, onError, reqTimeout)
 {
     var stub = new rTorrentStub(URI);
 	$.ajax(
@@ -1103,14 +1103,6 @@ function Ajax(URI, isASync, onComplete, onTimeout, onError, reqTimeout)
 
 		complete: function(XMLHttpRequest, textStatus)
 		{
-			if(theWebUI.deltaTime==0)
-			{
-				var diff = 0;
-				try {
-				diff = new Date().getTime()-Date.parse(XMLHttpRequest.getResponseHeader("Date"));
-				} catch(e) { diff = 0; };
-				theWebUI.deltaTime = iv(diff);
-			}
 			stub = null;
 		},
 		error: function(XMLHttpRequest, textStatus, errorThrown)
@@ -1122,7 +1114,7 @@ function Ajax(URI, isASync, onComplete, onTimeout, onError, reqTimeout)
 			{
 			        var status = "Status unavailable";
 			        var response = "Response unavailable";
-				try { status = XMLHttpRequest.status; response = XMLHttpRequest.responseText; } catch(e) {};				
+				try { status = XMLHttpRequest.status; response = XMLHttpRequest.responseText; } catch(e) {};
 				if( stub.dataType=="script" )
 					response = errorThrown;
 				onError(status+" ["+textStatus+","+stub.action+"]",response);
@@ -1145,7 +1137,7 @@ function Ajax(URI, isASync, onComplete, onTimeout, onError, reqTimeout)
 							break;
 						case "array":
 						{
-							onComplete[0].apply(onComplete[1], 
+							onComplete[0].apply(onComplete[1],
 								new Array(responseText, onComplete[2]));
 							break;
 						}
@@ -1156,7 +1148,7 @@ function Ajax(URI, isASync, onComplete, onTimeout, onError, reqTimeout)
 	});
 }
 
-$(document).ready(function() 
+$(document).ready(function()
 {
 	var timer = null;
 
