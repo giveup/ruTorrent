@@ -69,7 +69,7 @@ if(plugin.canChangeOptions() && !explorerIsInstalled)
 			if($('#'+name).is(":checkbox"))
 				s+=("&"+name+"="+ ($('#'+name).prop('checked') ? 1 : 0) );
 			else
-				s+=("&"+name+"="+encodeURIComponent($.trim($('#'+name).val())));
+				s+=("&"+name+"="+encodeURIComponent($('#'+name).val().trim()));
 		});
 		this.content = "cmd=ffmpegset"+s;
 	        this.contentType = "application/x-www-form-urlencoded";
@@ -144,7 +144,7 @@ if(plugin.canChangeMenu())
 					$('.scframe').hide();
 				$('#'+id).append("<div class='scframe' id='scframe"+ndx+"'><img src='plugins/screenshots/action.php?cmd=ffmpeggetimage&no="+task.no+
 					"&fno="+line+"&file="+encodeURIComponent($('#scimgfile').val())+"' /></div>");
-				$('#scframe'+ndx+' img').on('load', function() 
+				$('#scframe'+ndx+' img').on('load', function()
 				{
 					plugin.centerFrame(ndx);
 				});

@@ -85,7 +85,7 @@ if(plugin.canChangeColumns())
 if(plugin.canChangeOptions())
 {
 	plugin.addAndShowSettings = theWebUI.addAndShowSettings;
-	theWebUI.addAndShowSettings = function(arg) 
+	theWebUI.addAndShowSettings = function(arg)
 	{
 		if(plugin.enabled)
 		{
@@ -103,7 +103,7 @@ if(plugin.canChangeOptions())
 		plugin.addAndShowSettings.call(theWebUI,arg);
 	}
 
-	theWebUI.ratioWasChanged = function() 
+	theWebUI.ratioWasChanged = function()
 	{
 		for(var i=0; i<theWebUI.maxRatio; i++)
 		{
@@ -119,7 +119,7 @@ if(plugin.canChangeOptions())
 	}
 
 	plugin.setSettings = theWebUI.setSettings;
-	theWebUI.setSettings = function() 
+	theWebUI.setSettings = function()
 	{
 		plugin.setSettings.call(this);
 		if(plugin.enabled && this.ratioWasChanged())
@@ -131,7 +131,7 @@ if(plugin.canChangeOptions())
 		this.content = "default="+iv($('#ratDefault').val());
 		for(var i=0; i<theWebUI.maxRatio; i++)
 		{
-			var name = $.trim($('#rat_name'+i).val());
+			var name = $('#rat_name'+i).val().trim();
 			var upload = iv($('#rat_upload'+i).val());
 			var min = $('#rat_min'+i).val();
 			var time = $('#rat_time'+i).val();
@@ -234,9 +234,9 @@ theWebUI.isCorrectRatio = function(i)
         	(theWebUI.ratios[i].name!=""));
 }
 
-plugin.onLangLoaded = function() 
+plugin.onLangLoaded = function()
 {
-	var s = 
+	var s =
 		"<fieldset>"+
 			"<legend>"+theUILang.ratios+"</legend>"+
 			"<div id='st_ratio_h'>"+

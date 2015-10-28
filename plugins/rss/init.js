@@ -571,8 +571,8 @@ theWebUI.loadRSS = function()
 
 theWebUI.processRSS = function(action,elURL,elLbl)
 {
-	var url = $.trim(elURL.val());
-	var lbl = $.trim(elLbl.val());
+	var url = elURL.val().trim();
+	var lbl = elLbl.val().trim();
 	var re = new RegExp();
 	re.compile("^[A-Za-z]+://[A-Za-z0-9-]+\.[A-Za-z0-9]+");
 	if(!re.test(url))
@@ -1223,10 +1223,10 @@ rTorrentStub.prototype.loadrsstorrents = function()
 		this.content = this.content + '&torrents_start_stopped=1';
 	if($("#RSSnot_add_path").prop("checked"))
 		this.content = this.content + '&not_add_path=1';
-	var dir = $.trim($("#RSSdir_edit").val());
+	var dir = $("#RSSdir_edit").val().trim();
 	if(dir.length)
 		this.content = this.content + '&dir_edit='+encodeURIComponent(dir);
-	var lbl = $.trim($("#RSS_label").val());
+	var lbl = $("#RSS_label").val().trim();
 	if(lbl.length)
 		this.content = this.content + '&label='+encodeURIComponent(lbl);
 	for(var i = 0; i<theWebUI.rssArray.length; i++)
@@ -1451,7 +1451,7 @@ plugin.onLangLoaded = function()
 	this.attachPageToOptions( $("<div>").attr("id","st_rss").html(
 		"<fieldset>"+
 			"<legend>"+theUILang.rssFeeds+"</legend>"+
-			"<label for='rss_interval'>"+ theUILang.rssUpdateInterval + ' (' + $.trim(theUILang.time_m) +")</label>"+
+			"<label for='rss_interval'>"+ theUILang.rssUpdateInterval + ' (' + theUILang.time_m.trim() +")</label>"+
 			"<input type='text' maxlength=4 id='rss_interval' class='TextboxShort'/>"+
 		"</fieldset>"
 		)[0], theUILang.rssFeeds );

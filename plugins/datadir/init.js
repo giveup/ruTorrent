@@ -6,7 +6,7 @@ theWebUI.EditDataDir = function()
 	var id = theWebUI.getTable("trt").getFirstSelected();
 	if( id && (id.length==40) && this.torrents[id] )
 	{
-	        var base_path = $.trim(this.torrents[id].base_path)
+        var base_path = this.torrents[id].base_path.trim();
 		if( !base_path.length ) // torrent is not open
 			this.request( "?action=getbasepath&hash=" + id, [this.showDataDirDlg, this] );
 		else
@@ -21,10 +21,10 @@ theWebUI.showDataDirDlg = function( d )
 	var is_multy = false;
 	if( id && (id.length==40) && this.torrents[id] )
 	{
-		is_done = $.trim(this.torrents[id].done) == 1000;
-		is_multy = $.trim(this.torrents[id].multi_file) != "0";
+		is_done = this.torrents[id].done.trim() == 1000;
+		is_multy = this.torrents[id].multi_file.trim() != "0";
 	}
-	$('#edit_datadir').val( $.trim(d.basepath).replace(/\/[^\/]+$/g, "") );
+	$('#edit_datadir').val( d.basepath.trim().replace(/\/[^\/]+$/g, "") );
 	$('#btn_datadir_ok').prop("disabled",false);
 	// can't ignore torrent's path if not multy
 	$('#move_not_add_path').prop("disabled",!is_multy).prop("checked",false);
@@ -64,10 +64,10 @@ if(plugin.canChangeMenu())
 		if(plugin.enabled && plugin.allStuffLoaded)
 		{
 			var table = this.getTable("trt");
-			
+
 			var el = theContextMenu.get( theUILang.Properties );
 			if( el )
-				theContextMenu.add( el, [theUILang.DataDir + "...", 
+				theContextMenu.add( el, [theUILang.DataDir + "...",
 					((table.selCount > 1) || (table.getFirstSelected().length==40)) ? "theWebUI.EditDataDir()" : null] );
 		}
 	}
@@ -147,7 +147,7 @@ plugin.onLangLoaded = function()
 				" onclick='theWebUI.sendDataDir(); return(false);' />" +
 			"<input type='button' value='"+ theUILang.Cancel + "' class='Cancel Button'/>" +
 		"</div><br/>" +
-		"<div />", 
+		"<div />",
 		true);
 	if(thePlugins.isInstalled("_getdir"))
 	{

@@ -3,19 +3,14 @@ plugin.loadLang();
 
 theWebUI.editTrackers = function(id)
 {
-	if(id)
-	{	
+	if (id) {
 		var trk = this.trackers[id];
 		var s = "";
-		if(trk.length)
-		{
+		if (trk.length) {
 			var lastGroup = trk[0].group;
-			for(var i=0; i<trk.length; i++)
-			{
-			        if(trk[i].name!="dht://")
-		        	{
-					if(lastGroup != trk[i].group)
-					{
+			for (var i=0; i<trk.length; i++) {
+		        if (trk[i].name!="dht://") {
+					if (lastGroup != trk[i].group) {
 						s+='\r\n';
 						lastGroup = trk[i].group;
 					}
@@ -24,31 +19,28 @@ theWebUI.editTrackers = function(id)
 				}
 			}
 		}
-		$('#etrackers').val($.trim(s));
-		$('#ecomment').val($.trim(this.torrents[id].comment));
+		$('#etrackers').val(s.trim());
+		$('#ecomment').val(this.torrents[id].comment.trim());
 		$('#eset_trackers, #eset_comment').prop('checked',true);
 		$('#eset_private').prop('checked',false);
 		$('#eprivate').val(this.torrents[id].private);
-	}
-	else
-	{
+	} else {
 		$('#etrackers').val('');
 		$('#ecomment').val('');
 		$('#eprivate').val('0');
 		$('input[type="checkbox"]').prop('checked',false);
-	}		
+	}
 	$('#editok').prop("disabled",false);
 	theDialogManager.show("tedit");
 }
 
-if(plugin.canChangeMenu())
+if (plugin.canChangeMenu())
 {
 	plugin.isTorrentCommandEnabled = theWebUI.isTorrentCommandEnabled;
-	theWebUI.isTorrentCommandEnabled = function(act,hash) 
+	theWebUI.isTorrentCommandEnabled = function(act,hash)
 	{
-		if(act=="edittorrent")
-		{
-			if(!plugin.isTorrentCommandEnabled.call(this,act,hash))
+		if (act=="edittorrent") {
+			if (!plugin.isTorrentCommandEnabled.call(this,act,hash))
 				return(false);
 			else
 				return(hash && (hash.length==40))
@@ -57,28 +49,25 @@ if(plugin.canChangeMenu())
 	}
 
 	plugin.createMenu = theWebUI.createMenu;
-	theWebUI.createMenu = function(e, id) 
+	theWebUI.createMenu = function(e, id)
 	{
 		plugin.createMenu.call(this,e,id);
-		if(plugin.enabled && plugin.allStuffLoaded)
-		{
+		if (plugin.enabled && plugin.allStuffLoaded) {
 			var el = theContextMenu.get(theUILang.Properties);
-			if(el)
-			{
-				theContextMenu.add([theUILang.EditTrackers,  
-					((this.getTable("trt").selCount>1) && this.getHashes('edittorrent')) || this.isTorrentCommandEnabled("edittorrent",id) ? 
-					"theWebUI.editTrackers('"+theWebUI.dID+"')" : null]);				
+			if (el) {
+				theContextMenu.add([theUILang.EditTrackers,
+					((this.getTable("trt").selCount>1) && this.getHashes('edittorrent')) || this.isTorrentCommandEnabled("edittorrent",id) ?
+					"theWebUI.editTrackers('"+theWebUI.dID+"')" : null]);
 			}
 		}
 	}
 
 	plugin.createTrackerMenu = theWebUI.createTrackerMenu;
-	theWebUI.createTrackerMenu = function(e, id) 
+	theWebUI.createTrackerMenu = function(e, id)
 	{
-		if(plugin.createTrackerMenu.call(theWebUI, e, id) && plugin.allStuffLoaded && plugin.enabled)
-		{
+		if (plugin.createTrackerMenu.call(theWebUI, e, id) && plugin.allStuffLoaded && plugin.enabled) {
 			theContextMenu.add([CMENU_SEP]);
-			theContextMenu.add([theUILang.EditTrackers,  
+			theContextMenu.add([theUILang.EditTrackers,
 				this.isTorrentCommandEnabled("edittorrent",theWebUI.dID) ? "theWebUI.editTrackers('"+theWebUI.dID+"')" : null]);
 			return(true);
 		}
@@ -86,7 +75,7 @@ if(plugin.canChangeMenu())
 	}
 }
 
-theWebUI.sendEdit = function() 
+theWebUI.sendEdit = function()
 {
 	$('#editok').prop("disabled",true);
 	this.requestWithTimeout("?action=edittorrent"+this.getHashes('edittorrent'),[this.receiveEdit, this], function()
@@ -99,30 +88,27 @@ theWebUI.sendEdit = function()
 theWebUI.receiveEdit = function(d)
 {
 	$('#editok').prop("disabled",false);
-	if(d.hash.length)
-	{
-		window.setTimeout( function() 
-		{ 
+	if (d.hash.length) {
+		window.setTimeout( function()
+		{
 			theWebUI.getTable("trt").clearSelection();
 			theWebUI.dID = "";
 			theWebUI.clearDetails();
-			theWebUI.getTorrents("list=1"); 
+			theWebUI.getTorrents("list=1");
 		}, 1000 );
 		theDialogManager.hide("tedit");
 	}
-	if(d.errors.length)
-	{
-		for( var i=0; i<d.errors.length; i++)
-		{
+	if (d.errors.length) {
+		for ( var i=0; i<d.errors.length; i++) {
 			var s = eval(d.errors[i].desc);
-			if(d.errors[i].prm)
+			if (d.errors[i].prm)
 				s = s + " ("+d.errors[i].prm+")";
 			noty(s,"error");
 		}
-	}			
+	}
 }
 
-plugin.onLangLoaded = function() 
+plugin.onLangLoaded = function()
 {
 	theDialogManager.make( "tedit", theUILang.EditTorrentProperties,
 		"<div class='cont fxcaret'>"+
@@ -134,7 +120,7 @@ plugin.onLangLoaded = function()
                                	"<input type='checkbox' name='eset_private' id='eset_private'/><label for='eset_private'>"+theUILang.trkPrivate+": </label>"+
                                	"<select id='eprivate'>"+
 	                               	"<option value='0'>"+theUILang.no+"</option>"+
-	                               	"<option value='1'>"+theUILang.yes+"</option>"+	                               	
+	                               	"<option value='1'>"+theUILang.yes+"</option>"+
                                	"</select>"+
 			"</fieldset>"+
 		"</div>"+
@@ -150,14 +136,13 @@ rTorrentStub.prototype.edittorrent = function()
 		"&set_private="+($('#eset_private').is(":checked")+0)+
 		"&private="+$('#eprivate').val();
 	var arr = $('#etrackers').val().split("\n");
-	for(var i = 0; i<arr.length; i++)	
-	{
+	for (var i = 0; i<arr.length; i++) {
 		var s = arr[i].replace(/(^\s+)|(\s+$)/g, "");
-		if(s.toLowerCase()!='dht://')
+		if (s.toLowerCase()!='dht://')
 			this.content += ("&tracker="+encodeURIComponent(s));
 	}
-	for( var i = 0; i < this.hashes.length; i++ )
-		this.content += ("&hash="+this.hashes[i]);	
+	for ( var i = 0; i < this.hashes.length; i++ )
+		this.content += ("&hash="+this.hashes[i]);
 	this.contentType = "application/x-www-form-urlencoded";
 	this.mountPoint = "plugins/edit/action.php";
 	this.dataType = "json";

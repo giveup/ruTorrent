@@ -4,7 +4,7 @@ plugin.loadMainCSS();
 if(plugin.canChangeOptions())
 {
 	plugin.accaddAndShowSettings = theWebUI.addAndShowSettings;
-	theWebUI.addAndShowSettings = function(arg) 
+	theWebUI.addAndShowSettings = function(arg)
 	{
 		if(plugin.enabled)
 		{
@@ -20,7 +20,7 @@ if(plugin.canChangeOptions())
 		plugin.accaddAndShowSettings.call(theWebUI,arg);
 	}
 
-	plugin.accWasChanged = function() 
+	plugin.accWasChanged = function()
 	{
 		var ret = false;
 		$.each( theWebUI.theAccounts, function(name,val)
@@ -38,7 +38,7 @@ if(plugin.canChangeOptions())
 	}
 
 	plugin.accSettings = theWebUI.setSettings;
-	theWebUI.setSettings = function() 
+	theWebUI.setSettings = function()
 	{
 		plugin.accSettings.call(this);
 		if(plugin.enabled && plugin.accWasChanged())
@@ -52,8 +52,8 @@ if(plugin.canChangeOptions())
 		{
 			s+=("&"+name+"_enabled="+($('#'+name+'_lmenabled').prop("checked") ? 1 : 0)+
 				"&"+name+"_auto="+$('#'+name+'_lmauto').val()+
-				"&"+name+"_login="+encodeURIComponent($.trim($('#'+name+'_lmlogin').val()))+
-				"&"+name+"_password="+encodeURIComponent($.trim($('#'+name+'_lmpassword').val())));
+				"&"+name+"_login="+encodeURIComponent($('#'+name+'_lmlogin').val().trim())+
+				"&"+name+"_password="+encodeURIComponent($('#'+name+'_lmpassword').val().trim()));
 		});
 		this.content = "mode=set"+s;
 	        this.contentType = "application/x-www-form-urlencoded";

@@ -1614,7 +1614,7 @@ var theWebUI =
 
 	setTeg: function(str)
 	{
-		str = $.trim(str);
+		str = str.trim();
 		if (str!="") {
 			for ( var id in this.tegs ) {
 				if (this.tegs[id].val==str) {
@@ -1854,7 +1854,7 @@ var theWebUI =
 
 	createLabel: function()
 	{
-		var lbl = $.trim($("#txtLabel").val());
+		var lbl = $("#txtLabel").val().trim();
 		lbl = lbl.replace(/\"/g, "'");
 		if (lbl != "") {
 			var sr = this.getTable("trt").rowSel;

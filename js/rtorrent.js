@@ -95,7 +95,7 @@ var theRequestManager =
 	addRequest: function( system, command, responseHandler )
 	{
 		this[system].handlers.push( { ndx: command ? this[system].commands.length : null, response: responseHandler } );
-		if(command)
+		if (command)
 		        this[system].commands.push(command);
 	        return(this[system].handlers.length-1);
 	},
@@ -105,10 +105,10 @@ var theRequestManager =
 	},
 	map: function(cmd,no)
 	{
-		if(!$type(no))
+		if (!$type(no))
 		{
 			var add = '';
-			if(cmd.length && (cmd[cmd.length-1]=='='))
+			if (cmd.length && (cmd[cmd.length-1]=='='))
 			{
 				cmd = cmd.substr(0,cmd.length-1);
 				add = '=';
@@ -119,24 +119,24 @@ var theRequestManager =
 	},
 	patchCommand: function( cmd, name )
 	{
-		if(this.aliases[name] && this.aliases[name].prm)
+		if (this.aliases[name] && this.aliases[name].prm)
 			cmd.addParameter("string","");
 	},
 	patchRequest: function( commands )
 	{
-		for( var i in commands )
+		for ( var i in commands )
 		{
 			var cmd = commands[i];
 			var prefix = '';
-			if(cmd.command.indexOf('t.') === 0)
+			if (cmd.command.indexOf('t.') === 0)
 				prefix = ':t';
 			else
-			if(cmd.command.indexOf('p.') === 0)
+			if (cmd.command.indexOf('p.') === 0)
 				prefix = ':p';
 			else
-			if(cmd.command.indexOf('f.') === 0)
+			if (cmd.command.indexOf('f.') === 0)
 				prefix = ':f';
-			if(prefix &&
+			if (prefix &&
 				(cmd.params.length>1) &&
 				(cmd.command.indexOf('.multicall')<0) &&
 				(cmd.params[0].value.indexOf(':') < 0))
@@ -179,39 +179,39 @@ function rTorrentStub( URI )
 	this.cache = false;
 
 	var loc = URI.indexOf("?");
-	if(loc>=0)
+	if (loc>=0)
 		URI = URI.substr(loc);
 	this.URI = URI;
-	if(URI.indexOf("?list=1")==0)
+	if (URI.indexOf("?list=1")==0)
 	{
 		this.action = "list";
 	}
 	else
 	{
 		var vars = URI.split("&");
-		for(var i=0; i<vars.length; i++)
+		for (var i=0; i<vars.length; i++)
 		{
 			var parts = vars[i].split("=");
-			if(parts[0]=="?action")
+			if (parts[0]=="?action")
 				this.action = parts[1];
 			else
-			if(parts[0]=="hash")
+			if (parts[0]=="hash")
 				this.hashes.push(parts[1]);
 			else
-			if(parts[0]=="s" || parts[0]=="p")
+			if (parts[0]=="s" || parts[0]=="p")
 				this.ss.push(parts[1]);
 			else
-			if(parts[0]=="v" || parts[0]=="f")
+			if (parts[0]=="v" || parts[0]=="f")
 				this.vs.push(parts[1]);
 			else
-			if(parts[0]=="list")
+			if (parts[0]=="list")
 				this.listRequired = true;
 		}
 	}
 	this.commands = new Array();
-	if(eval('typeof(this.'+this.action+') != "undefined"'))
+	if (eval('typeof(this.'+this.action+') != "undefined"'))
 		eval("this."+this.action+"()");
-	if(this.commands.length>0)
+	if (this.commands.length>0)
 		this.makeMultiCall();
 }
 
@@ -220,7 +220,7 @@ rTorrentStub.prototype.getfiles = function()
 	var cmd = new rXMLRPCCommand("f.multicall");
 	cmd.addParameter("string",this.hashes[0]);
 	cmd.addParameter("string","");
-	for( var i in theRequestManager.fls.commands )
+	for ( var i in theRequestManager.fls.commands )
 		cmd.addParameter("string",theRequestManager.map("fls",i));
 	this.commands.push( cmd );
 }
@@ -230,7 +230,7 @@ rTorrentStub.prototype.getpeers = function()
 	var cmd = new rXMLRPCCommand("p.multicall");
 	cmd.addParameter("string",this.hashes[0]);
 	cmd.addParameter("string","");
-	for( var i in theRequestManager.prs.commands )
+	for ( var i in theRequestManager.prs.commands )
 		cmd.addParameter("string",theRequestManager.map("prs",i));
 	this.commands.push( cmd );
 }
@@ -240,19 +240,19 @@ rTorrentStub.prototype.gettrackers = function()
 	var cmd = new rXMLRPCCommand("t.multicall");
 	cmd.addParameter("string",this.hashes[0]);
 	cmd.addParameter("string","");
-	for( var i in theRequestManager.trk.commands )
+	for ( var i in theRequestManager.trk.commands )
 		cmd.addParameter("string",theRequestManager.map("trk",i));
 	this.commands.push( cmd );
 }
 
 rTorrentStub.prototype.getalltrackers = function()
 {
-	for(var i=0; i<this.hashes.length; i++)
+	for (var i=0; i<this.hashes.length; i++)
 	{
 		var cmd = new rXMLRPCCommand("t.multicall");
 		cmd.addParameter("string",this.hashes[i]);
 		cmd.addParameter("string","");
-		for( var j in theRequestManager.trk.commands )
+		for ( var j in theRequestManager.trk.commands )
 			cmd.addParameter("string",theRequestManager.map("trk",j));
 		this.commands.push( cmd );
 	}
@@ -260,7 +260,7 @@ rTorrentStub.prototype.getalltrackers = function()
 
 rTorrentStub.prototype.settrackerstate = function()
 {
-	for(var i=0; i<this.vs.length; i++)
+	for (var i=0; i<this.vs.length; i++)
 	{
 		var cmd = new rXMLRPCCommand("t.set_enabled");
 		cmd.addParameter("string",this.hashes[0]);
@@ -274,9 +274,9 @@ rTorrentStub.prototype.list = function()
 {
 	var cmd = new rXMLRPCCommand("d.multicall");
 	cmd.addParameter("string","main");
-	for( var i in theRequestManager.trt.commands )
+	for ( var i in theRequestManager.trt.commands )
 	{
-		if(!theWebUI.settings["webui.needmessage"] && (theRequestManager.trt.commands[i]=="d.get_message="))
+		if (!theWebUI.settings["webui.needmessage"] && (theRequestManager.trt.commands[i]=="d.get_message="))
 			cmd.addParameter("string",theRequestManager.map("d.get_custom5="));
 		else
 			cmd.addParameter("string",theRequestManager.map("trt",i));
@@ -312,13 +312,13 @@ rTorrentStub.prototype.doneplugins = function()
 	this.dataType = "script";
 	this.content = "cmd="+this.ss[0];
 	this.contentType = "application/x-www-form-urlencoded";
-	for(var i=0; i<this.hashes.length; i++)
+	for (var i=0; i<this.hashes.length; i++)
 		this.content += ("&plg="+this.hashes[i]);
 }
 
 rTorrentStub.prototype.recheck = function()
 {
-	for(var i=0; i<this.hashes.length; i++)
+	for (var i=0; i<this.hashes.length; i++)
 	{
 		var cmd = new rXMLRPCCommand("d.check_hash");
 		cmd.addParameter("string",this.hashes[i]);
@@ -328,16 +328,16 @@ rTorrentStub.prototype.recheck = function()
 
 rTorrentStub.prototype.setsettings = function()
 {
-	for(var i=0; i<this.vs.length; i++)
+	for (var i=0; i<this.vs.length; i++)
 	{
 		var prmType = "string";
-		if(this.ss[i].charAt(0)=='n')
+		if (this.ss[i].charAt(0)=='n')
 			prmType = "i8";
 		var prm = this.vs[i];
 		var cmd = null;
-		if(this.ss[i]=="ndht")
+		if (this.ss[i]=="ndht")
 		{
-			if(prm==0)
+			if (prm==0)
 				prm = "disable";
 			else
 				prm = "auto";
@@ -354,13 +354,13 @@ rTorrentStub.prototype.setsettings = function()
 rTorrentStub.prototype.getsettings = function()
 {
 	this.commands.push(new rXMLRPCCommand("dht_statistics"));
-	for( var cmd in theRequestManager.stg.commands )
+	for ( var cmd in theRequestManager.stg.commands )
 		this.commands.push(new rXMLRPCCommand('get_'+theRequestManager.stg.commands[cmd]));
 }
 
 rTorrentStub.prototype.start = function()
 {
-	for(var i=0; i<this.hashes.length; i++)
+	for (var i=0; i<this.hashes.length; i++)
 	{
 		var cmd = new rXMLRPCCommand("d.open");
 		cmd.addParameter("string",this.hashes[i]);
@@ -373,7 +373,7 @@ rTorrentStub.prototype.start = function()
 
 rTorrentStub.prototype.stop = function()
 {
-	for(var i=0; i<this.hashes.length; i++)
+	for (var i=0; i<this.hashes.length; i++)
 	{
 		var cmd = new rXMLRPCCommand("d.stop");
 		cmd.addParameter("string",this.hashes[i]);
@@ -386,7 +386,7 @@ rTorrentStub.prototype.stop = function()
 
 rTorrentStub.prototype.updateTracker = function()
 {
-	for(var i=0; i<this.hashes.length; i++)
+	for (var i=0; i<this.hashes.length; i++)
 	{
 		var cmd = new rXMLRPCCommand("d.tracker_announce");
 		cmd.addParameter("string",this.hashes[i]);
@@ -396,7 +396,7 @@ rTorrentStub.prototype.updateTracker = function()
 
 rTorrentStub.prototype.pause = function()
 {
-	for(var i=0; i<this.hashes.length; i++)
+	for (var i=0; i<this.hashes.length; i++)
 	{
 		var cmd = new rXMLRPCCommand("d.stop");
 		cmd.addParameter("string",this.hashes[i]);
@@ -406,7 +406,7 @@ rTorrentStub.prototype.pause = function()
 
 rTorrentStub.prototype.unpause = function()
 {
-	for(var i=0; i<this.hashes.length; i++)
+	for (var i=0; i<this.hashes.length; i++)
 	{
 		var cmd = new rXMLRPCCommand("d.start");
 		cmd.addParameter("string",this.hashes[i]);
@@ -416,7 +416,7 @@ rTorrentStub.prototype.unpause = function()
 
 rTorrentStub.prototype.remove = function()
 {
-	for(var i=0; i<this.hashes.length; i++)
+	for (var i=0; i<this.hashes.length; i++)
 	{
 		var cmd = new rXMLRPCCommand("d.erase");
 		cmd.addParameter("string",this.hashes[i]);
@@ -426,7 +426,7 @@ rTorrentStub.prototype.remove = function()
 
 rTorrentStub.prototype.dsetprio = function()
 {
-	for(var i=0; i<this.hashes.length; i++)
+	for (var i=0; i<this.hashes.length; i++)
 	{
 		var cmd = new rXMLRPCCommand("d.set_priority");
 		cmd.addParameter("string",this.hashes[i]);
@@ -437,7 +437,7 @@ rTorrentStub.prototype.dsetprio = function()
 
 rTorrentStub.prototype.setprio = function()
 {
-	for(var i=0; i<this.vs.length; i++)
+	for (var i=0; i<this.vs.length; i++)
 	{
 		var cmd = new rXMLRPCCommand("f.set_priority");
 		cmd.addParameter("string",this.hashes[0]);
@@ -452,7 +452,7 @@ rTorrentStub.prototype.setprio = function()
 
 rTorrentStub.prototype.setprioritize = function()
 {
-	for(var i=0; i<this.vs.length; i++)
+	for (var i=0; i<this.vs.length; i++)
 	{
 		switch(this.ss[0])
 		{
@@ -495,7 +495,7 @@ rTorrentStub.prototype.setprioritize = function()
 
 rTorrentStub.prototype.setlabel = function()
 {
-	for(var i=0; i<this.hashes.length; i++)
+	for (var i=0; i<this.hashes.length; i++)
 	{
 		var cmd = new rXMLRPCCommand("d.set_custom1");
 		cmd.addParameter("string",this.hashes[i]);
@@ -506,13 +506,13 @@ rTorrentStub.prototype.setlabel = function()
 
 rTorrentStub.prototype.gettotal = function()
 {
-	for(var i in theRequestManager.ttl.commands)
+	for (var i in theRequestManager.ttl.commands)
 		this.commands.push( new rXMLRPCCommand(theRequestManager.ttl.commands[i]) );
 }
 
 rTorrentStub.prototype.getprops = function()
 {
-	for(var i in theRequestManager.prp.commands)
+	for (var i in theRequestManager.prp.commands)
 	{
 		var cmd = new rXMLRPCCommand(theRequestManager.prp.commands[i]);
 		cmd.addParameter("string",this.hashes[0]);
@@ -523,9 +523,9 @@ rTorrentStub.prototype.getprops = function()
 rTorrentStub.prototype.setprops = function()
 {
 	var cmd = null;
-	for(var i=0; i<this.ss.length; i++)
+	for (var i=0; i<this.ss.length; i++)
 	{
-		if(this.ss[i]=="superseed")
+		if (this.ss[i]=="superseed")
 		{
         		var conn = (this.vs[i]!=0) ? "initial_seed" : "seed";
 			cmd = new rXMLRPCCommand("branch");
@@ -541,10 +541,10 @@ rTorrentStub.prototype.setprops = function()
 		}
 		else
 		{
-			if(this.ss[i]=="ulslots")
+			if (this.ss[i]=="ulslots")
 				cmd = new rXMLRPCCommand("d.set_uploads_max");
 			else
-			if(this.ss[i]=="pex")
+			if (this.ss[i]=="pex")
 				cmd = new rXMLRPCCommand("d.set_peer_exchange");
 			else
 				cmd = new rXMLRPCCommand("d.set_"+this.ss[i]);
@@ -571,7 +571,7 @@ rTorrentStub.prototype.setdlrate = function()
 
 rTorrentStub.prototype.snub = function()
 {
-	for(var i=0; i<this.vs.length; i++)
+	for (var i=0; i<this.vs.length; i++)
 	{
 		var cmd = new rXMLRPCCommand("p.snubbed.set");
 		cmd.addParameter("string",this.hashes[0]+":p"+this.vs[i]);
@@ -582,7 +582,7 @@ rTorrentStub.prototype.snub = function()
 
 rTorrentStub.prototype.unsnub = function()
 {
-	for(var i=0; i<this.vs.length; i++)
+	for (var i=0; i<this.vs.length; i++)
 	{
 		var cmd = new rXMLRPCCommand("p.snubbed.set");
 		cmd.addParameter("string",this.hashes[0]+":p"+this.vs[i]);
@@ -593,7 +593,7 @@ rTorrentStub.prototype.unsnub = function()
 
 rTorrentStub.prototype.ban = function()
 {
-	for(var i=0; i<this.vs.length; i++)
+	for (var i=0; i<this.vs.length; i++)
 	{
 		var cmd = new rXMLRPCCommand("p.banned.set");
 		cmd.addParameter("string",this.hashes[0]+":p"+this.vs[i]);
@@ -607,7 +607,7 @@ rTorrentStub.prototype.ban = function()
 
 rTorrentStub.prototype.kick = function()
 {
-	for(var i=0; i<this.vs.length; i++)
+	for (var i=0; i<this.vs.length; i++)
 	{
 		var cmd = new rXMLRPCCommand("p.disconnect");
 		cmd.addParameter("string",this.hashes[0]+":p"+this.vs[i]);
@@ -625,7 +625,7 @@ rTorrentStub.prototype.addpeer = function()
 
 rTorrentStub.prototype.createqueued = function()
 {
-	for(var i=0; i<this.hashes.length; i++)
+	for (var i=0; i<this.hashes.length; i++)
 	{
 		var cmd = new rXMLRPCCommand("f.multicall");
 		cmd.addParameter("string",this.hashes[i]);
@@ -641,11 +641,11 @@ rTorrentStub.prototype.makeMultiCall = function()
 {
 	theRequestManager.patchRequest( this.commands );
 	this.content = '<?xml version="1.0" encoding="UTF-8"?><methodCall><methodName>';
-	if(this.commands.length==1)
+	if (this.commands.length==1)
 	{
 		var cmd = this.commands[0];
 	        this.content+=(cmd.command+'</methodName><params>');
-	        for(var i=0; i<cmd.params.length; i++)
+	        for (var i=0; i<cmd.params.length; i++)
 	        {
 	        	var prm = cmd.params[i];
 			this.content += ('<param><value><'+prm.type+'>'+prm.value+
@@ -656,12 +656,12 @@ rTorrentStub.prototype.makeMultiCall = function()
 	else
 	{
 		this.content+='system.multicall</methodName><params><param><value><array><data>';
-		for(var i=0; i<this.commands.length; i++)
+		for (var i=0; i<this.commands.length; i++)
 		{
 			var cmd = this.commands[i];
 			this.content+=('<value><struct><member><name>methodName</name><value><string>'+
 				cmd.command+'</string></value></member><member><name>params</name><value><array><data>');
-			for(var j=0; j<cmd.params.length; j++)
+			for (var j=0; j<cmd.params.length; j++)
 			{
 				var prm = cmd.params[j];
 				this.content += ('<value><'+prm.type+'>'+
@@ -677,14 +677,13 @@ rTorrentStub.prototype.makeMultiCall = function()
 
 rTorrentStub.prototype.getValue = function(values,i)
 {
-        var ret = "";
-	if(values && values.length && (values.length>i))
-	{
+    var ret = "";
+	if (values && values.length && (values.length>i)) {
 		var value = values[i];
 		var el = value.childNodes[0];
 		while(!el.tagName)
 			el = el.childNodes[0];
-		ret = $type(el.textContent) ? $.trim(el.textContent) :
+		ret = $type(el.textContent) ? el.textContent.trim() :
 			el.childNodes.length ?
 			el.childNodes[0].data : "";
 	}
@@ -694,12 +693,12 @@ rTorrentStub.prototype.getValue = function(values,i)
 rTorrentStub.prototype.getResponse = function(data)
 {
 	var ret = "";
-	if(this.dataType=="xml")
+	if (this.dataType=="xml")
 	{
-		if(!data)
+		if (!data)
 			return(ret);
 		var fault = data.getElementsByTagName('fault');
-		if(fault && fault.length)
+		if (fault && fault.length)
 		{
 			var names = data.getElementsByTagName('value');
 			this.faultString.push("XMLRPC Error: "+this.getValue(names,2)+" ["+this.action+"]");
@@ -707,18 +706,18 @@ rTorrentStub.prototype.getResponse = function(data)
 		else
 		{
 			var names = data.getElementsByTagName('name');
-			if(names)
-				for(var i=0; i<names.length; i++)
-					if(names[i].childNodes[0].data=="faultString")
+			if (names)
+				for (var i=0; i<names.length; i++)
+					if (names[i].childNodes[0].data=="faultString")
 					{
 						var values = names[i].parentNode.getElementsByTagName('value');
 						this.faultString.push("XMLRPC Error: "+this.getValue(values,0)+" ["+this.action+"]");
 					}
 		}
 	}
-	if(!this.isError())
+	if (!this.isError())
 	{
-		if(eval('typeof(this.'+this.action+'Response) != "undefined"'))
+		if (eval('typeof(this.'+this.action+'Response) != "undefined"'))
 			eval("ret = this."+this.action+"Response(data)");
 		else
 			ret = data;
@@ -755,7 +754,7 @@ rTorrentStub.prototype.getpropsResponse = function(xml)
 	var self = this;
 	$.each( theRequestManager.prp.handlers, function(i,handler)
 	{
-	        if(handler)
+	        if (handler)
 			handler.response( hash, ret, (handler.ndx===null) ? null : self.getValue(values,handler.ndx*2+1) );
 	});
 	return(ret);
@@ -770,7 +769,7 @@ rTorrentStub.prototype.gettotalResponse = function(xml)
 	var self = this;
 	$.each( theRequestManager.ttl.handlers, function(i,handler)
 	{
-	        if(handler)
+	        if (handler)
 			handler.response( ret, (handler.ndx===null) ? null : self.getValue(values,handler.ndx*2+1) );
 	});
 	return( ret );
@@ -786,24 +785,24 @@ rTorrentStub.prototype.getsettingsResponse = function(xml)
 	var i = 5;
 	var dht_active = this.getValue(values,2);
 	var dht = this.getValue(values,3);
-	if(dht_active!='0')
+	if (dht_active!='0')
 	{
 		i+=(values.length-101);
 		dht = this.getValue(values,7);
 	}
-	if((dht=="auto") || (dht=="on"))
+	if ((dht=="auto") || (dht=="on"))
 		ret.dht = 1;
 	else
 		ret.dht = 0;
 
-	for(;i<255; i++)
+	for (;i<255; i++)
 	{
 		var s = this.getValue(values,i).replace(/(^\s+)|(\s+$)/g, "");
-		if(s.length)
+		if (s.length)
 			break;
 	}
 
-	for( var cmd=0; cmd<theRequestManager.stg.count; cmd++ )
+	for ( var cmd=0; cmd<theRequestManager.stg.count; cmd++ )
 	{
 	        var v = this.getValue(values,i);
 		switch(theRequestManager.stg.commands[cmd])
@@ -821,7 +820,7 @@ rTorrentStub.prototype.getsettingsResponse = function(xml)
 	var self = this;
 	$.each( theRequestManager.stg.handlers, function(i,handler)
 	{
-	        if(handler)
+	        if (handler)
 			handler.response( ret, (handler.ndx===null) ? null : self.getValue(values,i) );
 		i+=2;
 	});
@@ -835,7 +834,7 @@ rTorrentStub.prototype.getfilesResponse = function(xml)
 	ret[hash] = [];
 	var datas = xml.getElementsByTagName('data');
 	var self = this;
-	for(var j=1;j<datas.length;j++)
+	for (var j=1;j<datas.length;j++)
 	{
 		var data = datas[j];
 		var values = data.getElementsByTagName('value');
@@ -844,7 +843,7 @@ rTorrentStub.prototype.getfilesResponse = function(xml)
 		fls.size = parseInt(this.getValue(values,3));
 		var get_size_chunks = parseInt(this.getValue(values,2));	// f.get_size_chunks
 		var get_completed_chunks = parseInt(this.getValue(values,1));	// f.get_completed_chunks
-		if(get_completed_chunks>get_size_chunks)
+		if (get_completed_chunks>get_size_chunks)
 			get_completed_chunks = get_size_chunks;
 		var get_completed_bytes = (get_size_chunks==0) ? 0 : fls.size/get_size_chunks*get_completed_chunks;
 		fls.done = get_completed_bytes;
@@ -852,7 +851,7 @@ rTorrentStub.prototype.getfilesResponse = function(xml)
 
 		$.each( theRequestManager.fls.handlers, function(i,handler)
 		{
-        	        if(handler)
+        	        if (handler)
 				handler.response( hash, fls, (handler.ndx===null) ? null : self.getValue(values,handler.ndx) );
 		});
 
@@ -866,7 +865,7 @@ rTorrentStub.prototype.getpeersResponse = function(xml)
 	var ret = {};
 	var datas = xml.getElementsByTagName('data');
 	var self = this;
-	for(var j=1;j<datas.length;j++)
+	for (var j=1;j<datas.length;j++)
 	{
 		var data = datas[j];
 		var values = data.getElementsByTagName('value');
@@ -875,16 +874,16 @@ rTorrentStub.prototype.getpeersResponse = function(xml)
 		peer.ip = peer.name;
 		var cv = this.getValue(values,2);
 		var mycv = theBTClientVersion.get(this.getValue(values,11));
-		if((mycv.indexOf("Unknown")>=0) && (cv.indexOf("Unknown")<0))
+		if ((mycv.indexOf("Unknown")>=0) && (cv.indexOf("Unknown")<0))
 			mycv = cv;
 		peer.version = mycv;
 		peer.flags = '';
-		if(this.getValue(values,3)==1)	//	p.is_incoming
+		if (this.getValue(values,3)==1)	//	p.is_incoming
 			peer.flags+='I';
-		if(this.getValue(values,4)==1)	//	p.is_encrypted
+		if (this.getValue(values,4)==1)	//	p.is_encrypted
 			peer.flags+='E';
 		peer.snubbed = 0;
-		if(this.getValue(values,5)==1)	//	p.is_snubbed
+		if (this.getValue(values,5)==1)	//	p.is_snubbed
 		{
 			peer.flags+='S';
 			peer.snubbed = 1;
@@ -900,7 +899,7 @@ rTorrentStub.prototype.getpeersResponse = function(xml)
 		var id = this.getValue(values,0);
 		$.each( theRequestManager.prs.handlers, function(i,handler)
 		{
-        	        if(handler)
+        	        if (handler)
 				handler.response( id, peer, (handler.ndx===null) ? null : self.getValue(values,handler.ndx) );
 		});
 
@@ -916,7 +915,7 @@ rTorrentStub.prototype.gettrackersResponse = function(xml)
 	ret[hash] = [];
 	var datas = xml.getElementsByTagName('data');
 	var self = this;
-	for(var j=1;j<datas.length;j++)
+	for (var j=1;j<datas.length;j++)
 	{
 		var data = datas[j];
 		var values = data.getElementsByTagName('value');
@@ -933,7 +932,7 @@ rTorrentStub.prototype.gettrackersResponse = function(xml)
 
 		$.each( theRequestManager.trk.handlers, function(i,handler)
 		{
-		        if(handler)
+		        if (handler)
 				handler.response( hash, trk, (handler.ndx===null) ? null : self.getValue(values,handler.ndx) );
 		});
 
@@ -944,18 +943,16 @@ rTorrentStub.prototype.gettrackersResponse = function(xml)
 
 rTorrentStub.prototype.getalltrackersResponse = function(xml)
 {
-        var allDatas = xml.getElementsByTagName('data');
+    var allDatas = xml.getElementsByTagName('data');
 	var ret = {};
 	var delta = (this.hashes.length>1) ? 1 : 0;
 	var cnt = delta;
 	var self = this;
-	for( var i=0; i<this.hashes.length; i++)
-	{
+	for ( var i=0; i<this.hashes.length; i++) {
 		var datas = allDatas[cnt].getElementsByTagName('data');
 		var hash = this.hashes[i];
 		ret[hash] = [];
-		for(var j=delta;j<datas.length;j++)
-		{
+		for (var j=delta;j<datas.length;j++) {
 			var data = datas[j];
 			var values = data.getElementsByTagName('value');
 		        var trk = {};
@@ -969,7 +966,7 @@ rTorrentStub.prototype.getalltrackersResponse = function(xml)
 
 			$.each( theRequestManager.trk.handlers, function(i,handler)
 			{
-	        	        if(handler)
+    	        if (handler)
 					handler.response( hash, trk, (handler.ndx===null) ? null : self.getValue(values,handler.ndx) );
 			});
 
@@ -982,13 +979,12 @@ rTorrentStub.prototype.getalltrackersResponse = function(xml)
 
 rTorrentStub.prototype.listResponse = function(xml)
 {
-        var ret = {};
-        ret.torrents = {};
-        ret.labels = {};
+    var ret = {};
+    ret.torrents = {};
+    ret.labels = {};
 	var datas = xml.getElementsByTagName('data');
 	var self = this;
-	for(var j=1;j<datas.length;j++)
-	{
+	for (var j=1;j<datas.length;j++) {
 		var data = datas[j];
 		var values = data.getElementsByTagName('value');
 		var torrent = {};
@@ -1000,17 +996,16 @@ rTorrentStub.prototype.listResponse = function(xml)
 		var get_hashing = this.getValue(values,24);
 		var is_active = this.getValue(values,29);
 		torrent.msg = this.getValue(values,30);
-		if(is_open!=0)
-		{
+		if (is_open!=0) {
 			state|=dStatus.started;
-			if((get_state==0) || (is_active==0))
+			if ((get_state==0) || (is_active==0))
 				state|=dStatus.paused;
 		}
-		if(get_hashing!=0)
+		if (get_hashing!=0)
 			state|=dStatus.hashing;
-		if(is_hash_checking!=0)
+		if (is_hash_checking!=0)
 			state|=dStatus.checking;
-		if(torrent.msg.length && torrent.msg!="Tracker: [Tried all trackers.]")
+		if (torrent.msg.length && torrent.msg!="Tracker: [Tried all trackers.]")
 			state|=dStatus.error;
 		torrent.state = state;
 		torrent.name = this.getValue(values,5);
@@ -1028,11 +1023,12 @@ rTorrentStub.prototype.listResponse = function(xml)
 		var get_chunk_size = parseInt(this.getValue(values,14));
 		torrent.eta = (torrent.dl>0) ? Math.floor((get_size_chunks-get_completed_chunks)*get_chunk_size/torrent.dl) : -1;
 		try {
-		torrent.label = $.trim(decodeURIComponent(this.getValue(values,15)));
-		} catch(e) { torrent.label = ''; }
-		if(torrent.label.length>0)
-		{
-			if(!$type(ret.labels[torrent.label]))
+			torrent.label = decodeURIComponent(this.getValue(values,15)).trim();
+		} catch(e) {
+			torrent.label = '';
+		}
+		if (torrent.label.length>0) {
+			if (!$type(ret.labels[torrent.label]))
 				ret.labels[torrent.label] = 1;
 			else
 				ret.labels[torrent.label]++;
@@ -1052,10 +1048,12 @@ rTorrentStub.prototype.listResponse = function(xml)
 		torrent.created = this.getValue(values,27);
 		torrent.tracker_focus = this.getValue(values,28);
 		try {
-		torrent.comment = this.getValue(values,31);
-		if(torrent.comment.search("VRS24mrker")==0)
-			torrent.comment = decodeURIComponent(torrent.comment.substr(10));
-		} catch(e) { torrent.comment = ''; }
+			torrent.comment = this.getValue(values,31);
+			if (torrent.comment.search("VRS24mrker")==0)
+				torrent.comment = decodeURIComponent(torrent.comment.substr(10));
+		} catch(e) {
+			torrent.comment = '';
+		}
 		torrent.free_diskspace = this.getValue(values,32);
 		torrent.private = this.getValue(values,33);
 		torrent.multi_file = iv(this.getValue(values,34));
@@ -1064,7 +1062,7 @@ rTorrentStub.prototype.listResponse = function(xml)
 		var hash = this.getValue(values,0);
 		$.each( theRequestManager.trt.handlers, function(i,handler)
 		{
-		        if(handler)
+	        if (handler)
 				handler.response( hash, torrent, (handler.ndx===null) ? null : self.getValue(values,handler.ndx) );
 		});
 		ret.torrents[hash] = torrent;
@@ -1079,7 +1077,7 @@ rTorrentStub.prototype.isError = function()
 
 rTorrentStub.prototype.logErrorMessages = function()
 {
-	for(var i in this.faultString)
+	for (var i in this.faultString)
 		noty(this.faultString[i],"error");
 }
 
@@ -1107,15 +1105,18 @@ function Ajax(URI, isASync, onComplete, onTimeout, onError, reqTimeout)
 		},
 		error: function(XMLHttpRequest, textStatus, errorThrown)
 		{
-			if((textStatus=="timeout") && ($type(onTimeout) == "function"))
+			if ((textStatus=="timeout") && ($type(onTimeout) == "function")) {
 				onTimeout();
-			else
-			if(($type(onError) == "function"))
-			{
-			        var status = "Status unavailable";
-			        var response = "Response unavailable";
-				try { status = XMLHttpRequest.status; response = XMLHttpRequest.responseText; } catch(e) {};
-				if( stub.dataType=="script" )
+			} else if (($type(onError) == "function")) {
+		        var status = "Status unavailable";
+		        var response = "Response unavailable";
+				try {
+					status = XMLHttpRequest.status;
+					response = XMLHttpRequest.responseText;
+				} catch(e) {
+					// Do nothing
+				}
+				if ( stub.dataType=="script" )
 					response = errorThrown;
 				onError(status+" ["+textStatus+","+stub.action+"]",response);
 			}
@@ -1124,23 +1125,18 @@ function Ajax(URI, isASync, onComplete, onTimeout, onError, reqTimeout)
 		{
 			var responseText = stub.getResponse(data);
 			stub.logErrorMessages();
-			if(stub.listRequired)
+			if (stub.listRequired) {
 				Ajax("?list=1", isASync, onComplete, onTimeout, onError, reqTimeout);
-			else
-	            	{
-	            		if(!stub.isError())
-	            		{
-	            			switch($type(onComplete))
-	            			{
+			} else {
+        		if (!stub.isError()) {
+        			switch($type(onComplete)) {
 						case "function":
 							onComplete(responseText);
 							break;
 						case "array":
-						{
 							onComplete[0].apply(onComplete[1],
 								new Array(responseText, onComplete[2]));
 							break;
-						}
 					}
 				}
 			}
@@ -1161,7 +1157,7 @@ $(document).ready(function()
 	});
 	$(document).ajaxStop( function()
 	{
-	        if(timer)
+	        if (timer)
         	{
         		window.clearTimeout(timer);
 	        	timer = null;

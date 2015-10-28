@@ -5,14 +5,14 @@ theURLs.XMLRPCMountPoint = "plugins/httprpc/action.php";
 plugin.origlist = rTorrentStub.prototype.list;
 rTorrentStub.prototype.list = function()
 {
-	if(plugin.enabled)
+	if (plugin.enabled)
 	{
 		this.dataType = "json";
 		this.contentType = "application/x-www-form-urlencoded";
 		this.content = "mode=list";
-		if(theRequestManager.cid)
+		if (theRequestManager.cid)
 			this.content+=("&cid="+theRequestManager.cid);
-		for(var i=theRequestManager.trt.count; i<theRequestManager.trt.commands.length; i++)
+		for (var i=theRequestManager.trt.count; i<theRequestManager.trt.commands.length; i++)
 			this.content+=("&cmd="+encodeURIComponent(theRequestManager.map("trt",i)));
 	}
 	else
@@ -22,19 +22,19 @@ rTorrentStub.prototype.list = function()
 plugin.origlistResponse = rTorrentStub.prototype.listResponse;
 rTorrentStub.prototype.listResponse = function(data)
 {
-        if(this.dataType == "json")
-        {
-	        var ret = { labels: {}, torrents: {} };
-        	theRequestManager.cid = data.cid;
-		if(data.d)
+    if (this.dataType == "json") {
+        var ret = { labels: {}, torrents: {} };
+    	theRequestManager.cid = data.cid;
+		if (data.d) {
 			$.each( data.d, function( ndx, hash )
 			{
 				delete theRequestManager.torrents[hash];
 			});
+		}
+
 		$.each( data.t, function( hash, values )
 		{
-			if($type(theRequestManager.torrents[hash]))
-			{
+			if ($type(theRequestManager.torrents[hash])) {
 				$.each( values, function( ndx, value )
 				{
 					theRequestManager.torrents[hash][ndx] = value;
@@ -54,17 +54,16 @@ rTorrentStub.prototype.listResponse = function(data)
 			var get_hashing = iv(values[23]);
 			var is_active = iv(values[28]);
 			torrent.msg = values[29];
-			if(is_open!=0)
-			{
+			if (is_open!=0) {
 				state|=dStatus.started;
-				if((get_state==0) || (is_active==0))
+				if ((get_state==0) || (is_active==0))
 					state|=dStatus.paused;
 			}
-			if(get_hashing!=0)
+			if (get_hashing!=0)
 				state|=dStatus.hashing;
-			if(is_hash_checking!=0)
+			if (is_hash_checking!=0)
 				state|=dStatus.checking;
-			if(torrent.msg.length && torrent.msg!="Tracker: [Tried all trackers.]")
+			if (torrent.msg.length && torrent.msg!="Tracker: [Tried all trackers.]")
 				state|=dStatus.error;
 			torrent.state = state;
 			torrent.name = values[4];
@@ -82,12 +81,13 @@ rTorrentStub.prototype.listResponse = function(data)
 			var get_chunk_size = iv(values[13]);
 			torrent.eta = (torrent.dl>0) ? Math.floor((get_size_chunks-get_completed_chunks)*get_chunk_size/torrent.dl) : -1;
 			try {
-			torrent.label = $.trim(decodeURIComponent(values[14]));
-			} catch(e) { torrent.label = ''; }
+				torrent.label = decodeURIComponent(values[14]).trim();
+			} catch(e) {
+				torrent.label = '';
+			}
 
-			if(torrent.label.length>0)
-			{
-				if(!$type(ret.labels[torrent.label]))
+			if (torrent.label.length>0) {
+				if (!$type(ret.labels[torrent.label]))
 					ret.labels[torrent.label] = 1;
 				else
 					ret.labels[torrent.label]++;
@@ -108,10 +108,12 @@ rTorrentStub.prototype.listResponse = function(data)
 			torrent.created = values[26];
 			torrent.tracker_focus = values[27];
 			try {
-			torrent.comment = values[30];
-			if(torrent.comment.search("VRS24mrker")==0)
-				torrent.comment = decodeURIComponent(torrent.comment.substr(10));
-			} catch(e) { torrent.comment = ''; }
+				torrent.comment = values[30];
+				if (torrent.comment.search("VRS24mrker") === 0)
+					torrent.comment = decodeURIComponent(torrent.comment.substr(10));
+			} catch(e) {
+				torrent.comment = '';
+			}
 			torrent.free_diskspace = values[31];
 			torrent.private = values[32];
 			torrent.multi_file = iv(values[33]);
@@ -119,7 +121,7 @@ rTorrentStub.prototype.listResponse = function(data)
 			torrent.peers = torrent.peers_actual + " (" + torrent.peers_all + ")";
 			$.each( theRequestManager.trt.handlers, function(i,handler)
 			{
-		        	if(handler)
+		        	if (handler)
 					handler.response( hash, torrent, (handler.ndx===null) ? null : values[handler.ndx-1] );
 			});
 			ret.torrents[hash] = torrent;
@@ -131,23 +133,22 @@ rTorrentStub.prototype.listResponse = function(data)
 
 rTorrentStub.prototype.getCommon = function(cmd)
 {
-        if(plugin.enabled)
-        {
+    if (plugin.enabled) {
 		this.dataType = "json";
 		this.contentType = "application/x-www-form-urlencoded";
 		this.content = "mode="+cmd;
-		for(var i=0; i<this.hashes.length; i++)
+		for (var i=0; i<this.hashes.length; i++)
 			this.content+=("&hash="+this.hashes[i]);
-		for(var i=0; i<this.vs.length; i++)
+		for (var i=0; i<this.vs.length; i++)
 		        this.content+=("&v="+encodeURIComponent(this.vs[i]));
-		for(var i=0; i<this.ss.length; i++)
+		for (var i=0; i<this.ss.length; i++)
 		        this.content+=("&s="+encodeURIComponent(this.ss[i]));
-		if($type(theRequestManager[cmd]))
-			for(var i=theRequestManager[cmd].count; i<theRequestManager[cmd].commands.length; i++)
+		if ($type(theRequestManager[cmd]))
+			for (var i=theRequestManager[cmd].count; i<theRequestManager[cmd].commands.length; i++)
 				this.content+=("&cmd="+encodeURIComponent(theRequestManager.map(cmd,i)));
-	}
-	else
+	} else {
 		plugin["orig"+cmd].call(this);
+	}
 }
 
 plugin.origfls = rTorrentStub.prototype.getfiles;
@@ -231,11 +232,11 @@ rTorrentStub.prototype.setlabel = function()
 plugin.origtrkall = rTorrentStub.prototype.getalltrackers;
 rTorrentStub.prototype.getalltrackers = function()
 {
-	if( this.hashes.length > 50 )
+	if ( this.hashes.length > 50 )
 		this.hashes = [];
 	this.getCommon("trkall");
-	if(plugin.enabled)
-		for(var i=theRequestManager.trk.count; i<theRequestManager.trk.commands.length; i++)
+	if (plugin.enabled)
+		for (var i=theRequestManager.trk.count; i<theRequestManager.trk.commands.length; i++)
 			this.content+=("&cmd="+encodeURIComponent(theRequestManager.map("trk",i)));
 }
 
@@ -312,7 +313,7 @@ rTorrentStub.prototype.addpeer = function()
 }
 
 plugin.origgetchunks = rTorrentStub.prototype.getchunks;
-rTorrentStub.prototype.getchunks = function() 
+rTorrentStub.prototype.getchunks = function()
 {
 	this.hashes[0] = theWebUI.dID;
         this.getCommon("getchunks");
@@ -321,7 +322,7 @@ rTorrentStub.prototype.getchunks = function()
 plugin.origgetchunksResponse = rTorrentStub.prototype.getchunksResponse;
 rTorrentStub.prototype.getchunksResponse = function(data)
 {
-	if(this.dataType == "json")
+	if (this.dataType == "json")
 		return(data);
 	return(plugin.origgetchunksResponse.call(this,data));
 }
@@ -329,11 +330,10 @@ rTorrentStub.prototype.getchunksResponse = function(data)
 plugin.origgetpropsResponse = rTorrentStub.prototype.getpropsResponse;
 rTorrentStub.prototype.getpropsResponse = function(values)
 {
-        if(this.dataType == "json")
-        {
+    if (this.dataType == "json") {
 		var ret = {};
 		var hash = this.hashes[0];
-		ret[hash] =  
+		ret[hash] =
 		{
 			pex: (values[5]!='0') ? -1 : values[0],
 			peers_max: values[1],
@@ -344,7 +344,7 @@ rTorrentStub.prototype.getpropsResponse = function(values)
 		};
 		$.each( theRequestManager.prp.handlers, function(i,handler)
 		{
-		        if(handler)
+	        if (handler)
 				handler.response( hash, ret, (handler.ndx===null) ? null : values[handler.ndx] );
 		});
 		return(ret);
@@ -355,12 +355,11 @@ rTorrentStub.prototype.getpropsResponse = function(values)
 plugin.origgettotalResponse = rTorrentStub.prototype.gettotalResponse;
 rTorrentStub.prototype.gettotalResponse = function(values)
 {
-        if(this.dataType == "json")
-        {
+    if (this.dataType == "json") {
 		var ret = { UL: iv(values[0]), DL: iv(values[1]), rateUL: iv(values[2]), rateDL: iv(values[3]) };
 		$.each( theRequestManager.ttl.handlers, function(i,handler)
 		{
-		        if(handler)
+	        if (handler)
 				handler.response( ret, (handler.ndx===null) ? null : values[handler.ndx] );
 		});
 		return( ret );
@@ -371,15 +370,12 @@ rTorrentStub.prototype.gettotalResponse = function(values)
 plugin.origgetsettingsResponse = rTorrentStub.prototype.getsettingsResponse;
 rTorrentStub.prototype.getsettingsResponse = function(values)
 {
-        if(this.dataType == "json")
-        {
+    if (this.dataType == "json") {
 		var ret = {};
 		ret.dht = values[0];
-		for( var cmd=0; cmd<theRequestManager.stg.count; cmd++ )
-		{
-	        	var v = values[cmd+1];
-			switch(theRequestManager.stg.commands[cmd])
-			{
+		for ( var cmd=0; cmd<theRequestManager.stg.count; cmd++ ) {
+        	var v = values[cmd+1];
+			switch(theRequestManager.stg.commands[cmd]) {
 				case "hash_interval":
 					v = iv(v)/1000;
 					break;
@@ -391,7 +387,7 @@ rTorrentStub.prototype.getsettingsResponse = function(values)
 		}
 		$.each( theRequestManager.stg.handlers, function(i,handler)
 		{
-        		if(handler)
+			if (handler)
 				handler.response( ret, (handler.ndx===null) ? null : values[handler.ndx+1] );
 		});
 		return(ret);
@@ -402,20 +398,18 @@ rTorrentStub.prototype.getsettingsResponse = function(values)
 plugin.origgetfilesResponse = rTorrentStub.prototype.getfilesResponse;
 rTorrentStub.prototype.getfilesResponse = function(values)
 {
-        if(this.dataType == "json")
-        {
+    if (this.dataType == "json") {
 		var ret = {};
 		var hash = this.hashes[0];
 		ret[hash] = [];
-		for(var j=0; j<values.length; j++)
-		{
+		for (var j=0; j<values.length; j++) {
 			var data = values[j];
 			var fls = {};
 			fls.name = data[0];
 			fls.size = iv(data[3]);
 			var get_size_chunks = iv(data[2]);	// f.get_size_chunks
 			var get_completed_chunks = iv(data[1]);	// f.get_completed_chunks
-			if(get_completed_chunks>get_size_chunks)
+			if (get_completed_chunks>get_size_chunks)
 				get_completed_chunks = get_size_chunks;
 			var get_completed_bytes = (get_size_chunks==0) ? 0 : fls.size/get_size_chunks*get_completed_chunks;
 			fls.done = get_completed_bytes;
@@ -423,10 +417,10 @@ rTorrentStub.prototype.getfilesResponse = function(values)
 
 			$.each( theRequestManager.fls.handlers, function(i,handler)
 			{
-        		        if(handler)
+		        if (handler)
 					handler.response( hash, fls, (handler.ndx===null) ? null : data[handler.ndx] );
 			});
-                        ret[hash].push(fls);	
+            ret[hash].push(fls);
 		}
 		return(ret);
 	}
@@ -436,28 +430,25 @@ rTorrentStub.prototype.getfilesResponse = function(values)
 plugin.origgetpeersResponse = rTorrentStub.prototype.getpeersResponse;
 rTorrentStub.prototype.getpeersResponse = function(values)
 {
-        if(this.dataType == "json")
-        {
+    if (this.dataType == "json") {
 		var ret = {};
-		for(var j=0;j<values.length;j++)
-		{
+		for (var j=0;j<values.length;j++) {
 			var data = values[j];
 			var peer = {};
 			peer.name = data[1];
 			peer.ip = peer.name;
 			var cv = data[2];
 			var mycv = theBTClientVersion.get(data[11]);
-			if((mycv.indexOf("Unknown")>=0) && (cv.indexOf("Unknown")<0))
+			if ((mycv.indexOf("Unknown")>=0) && (cv.indexOf("Unknown")<0))
 				mycv = cv;
 			peer.version = mycv;
 			peer.flags = '';
-			if(data[3]==1)			//	p.is_incoming
+			if (data[3]==1)			//	p.is_incoming
 				peer.flags+='I';
-			if(data[4]==1)			//	p.is_encrypted
+			if (data[4]==1)			//	p.is_encrypted
 				peer.flags+='E';
 			peer.snubbed = 0;
-			if(data[5]==1)			//	p.is_snubbed
-			{
+			if (data[5]==1) {			//	p.is_snubbed
 				peer.flags+='S';
 				peer.snubbed = 1;
 			}
@@ -467,17 +458,17 @@ rTorrentStub.prototype.getpeersResponse = function(values)
 			peer.dl = iv(data[9]);			//	p.get_down_rate
 			peer.ul = iv(data[10]);			//	p.get_up_rate
 			peer.peerdl = iv(data[12]);		//	p.get_peer_rate
-			peer.peerdownloaded = iv(data[13]);	//	p.get_peer_total			
+			peer.peerdownloaded = iv(data[13]);	//	p.get_peer_total
 			peer.port = iv(data[14]);		//	p.get_port
 
 			var id = data[0];
 
 			$.each( theRequestManager.prs.handlers, function(i,handler)
 			{
-        	        	if(handler)
+	        	if (handler)
 					handler.response( id, peer, (handler.ndx===null) ? null : data[handler.ndx] );
 			});
-        		ret[id] = peer;
+    		ret[id] = peer;
 		}
 		return(ret);
 	}
@@ -487,15 +478,13 @@ rTorrentStub.prototype.getpeersResponse = function(values)
 plugin.origgettrackersResponse = rTorrentStub.prototype.gettrackersResponse;
 rTorrentStub.prototype.gettrackersResponse = function(values)
 {
-        if(this.dataType == "json")
-        {
+    if (this.dataType == "json") {
 		var ret = {};
 		var hash = this.hashes[0];
 		ret[hash] = [];
-		for(var j=0;j<values.length;j++)
-		{
+		for (var j=0;j<values.length;j++) {
 			var data = values[j];
-	        	var trk = {};
+        	var trk = {};
 			trk.name = data[0];
 			trk.type = data[1];
 			trk.enabled = data[2];
@@ -508,7 +497,7 @@ rTorrentStub.prototype.gettrackersResponse = function(values)
 
 			$.each( theRequestManager.trk.handlers, function(i,handler)
 			{
-		        	if(handler)
+	        	if (handler)
 					handler.response( hash, trk, (handler.ndx===null) ? null : data[handler.ndx] );
 			});
 
@@ -522,15 +511,12 @@ rTorrentStub.prototype.gettrackersResponse = function(values)
 plugin.origgetalltrackersResponse = rTorrentStub.prototype.getalltrackersResponse;
 rTorrentStub.prototype.getalltrackersResponse = function(values)
 {
-        if(this.dataType == "json")
-        {
+    if (this.dataType == "json") {
 		var ret = {};
-		for( var hash in values )
-		{
+		for ( var hash in values ) {
 			ret[hash] = [];
 			var torrent = values[hash];
-			for(var j=0; j<torrent.length; j++)
-			{
+			for (var j=0; j<torrent.length; j++) {
 				var data = torrent[j];
 			        var trk = {};
 				trk.name = data[0];
@@ -540,16 +526,16 @@ rTorrentStub.prototype.getalltrackersResponse = function(values)
 				trk.seeds = data[4];
 				trk.peers = data[5];
 				trk.downloaded = data[6];
-			
+
 				$.each( theRequestManager.trk.handlers, function(i,handler)
 				{
-        			        if(handler)
+			        if (handler)
 						handler.response( hash, trk, (handler.ndx===null) ? null : data[handler.ndx] );
 				});
-	
+
 				ret[hash].push(trk);
 			}
-		}		
+		}
 		return(ret);
 	}
 	return(plugin.origgetalltrackersResponse.call(this,values));

@@ -4,19 +4,19 @@ plugin.loadLang();
 if(plugin.canChangeOptions())
 {
 	plugin.addAndShowSettings = theWebUI.addAndShowSettings;
-	theWebUI.addAndShowSettings = function(arg) 
+	theWebUI.addAndShowSettings = function(arg)
 	{
 		if(plugin.enabled)
 		{
 			var s = '';
 			for(var i in plugin.lookData)
 				s+=(i+'|'+plugin.lookData[i]+'\r\n');
-			$('#lookat').val($.trim(s));
+			$('#lookat').val(s.trim());
 		}
 		plugin.addAndShowSettings.call(theWebUI,arg);
 	}
 
-	theWebUI.lookatWasChanged = function() 
+	theWebUI.lookatWasChanged = function()
 	{
 		var arr = $('#lookat').val().split("\n");
 		var j = 0;
@@ -24,7 +24,7 @@ if(plugin.canChangeOptions())
 		{
 			if(j>=arr.length)
 				return(true);
-			if( i+'|'+plugin.lookData[i] != $.trim(arr[j++]) )
+			if( i+'|'+plugin.lookData[i] != arr[j++].trim() )
 				return(true);
 		}
 		return(j!=arr.length);
@@ -36,7 +36,7 @@ if(plugin.canChangeOptions())
 	}
 
 	plugin.setSettings = theWebUI.setSettings;
-	theWebUI.setSettings = function() 
+	theWebUI.setSettings = function()
 	{
 		plugin.setSettings.call(this);
 		if(plugin.enabled && this.lookatWasChanged())
@@ -94,7 +94,7 @@ if(plugin.canChangeMenu())
 	}
 }
 
-plugin.onLangLoaded = function() 
+plugin.onLangLoaded = function()
 {
 	this.attachPageToOptions($('<div>').attr("id","st_lookat").html(
 		"<fieldset>"+

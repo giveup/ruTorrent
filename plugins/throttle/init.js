@@ -67,7 +67,7 @@ if(plugin.canChangeColumns())
 if(plugin.canChangeOptions())
 {
 	plugin.addAndShowSettings = theWebUI.addAndShowSettings;
-	theWebUI.addAndShowSettings = function(arg) 
+	theWebUI.addAndShowSettings = function(arg)
 	{
 		if(plugin.enabled)
 		{
@@ -87,7 +87,7 @@ if(plugin.canChangeOptions())
 		plugin.addAndShowSettings.call(theWebUI,arg);
 	}
 
-	theWebUI.throttleWasChanged = function() 
+	theWebUI.throttleWasChanged = function()
 	{
 		for(var i=0; i<theWebUI.maxThrottle; i++)
 		{
@@ -100,7 +100,7 @@ if(plugin.canChangeOptions())
 	}
 
 	plugin.setSettings = theWebUI.setSettings;
-	theWebUI.setSettings = function() 
+	theWebUI.setSettings = function()
 	{
 		plugin.setSettings.call(this);
 		if(plugin.enabled && this.throttleWasChanged())
@@ -112,7 +112,7 @@ if(plugin.canChangeOptions())
 		this.content = "default="+iv($('#chDefault').val());
 		for(var i=0; i<theWebUI.maxThrottle; i++)
 		{
-			var name = $.trim($('#thr_name'+i).val());
+			var name = $('#thr_name'+i).val().trim();
 			var up = iv($('#thr_up'+i).val());
 			var down = iv($('#thr_down'+i).val());
         		if(name.length)
@@ -209,9 +209,9 @@ theWebUI.isCorrectThrottle = function(i)
 		(theWebUI.throttles[i].down>=0));
 }
 
-plugin.onLangLoaded = function() 
+plugin.onLangLoaded = function()
 {
-	var s = 
+	var s =
 		"<fieldset>"+
 			"<legend>"+theUILang.throttles+"</legend>"+
 			"<div id='st_throttle_h'>"+
