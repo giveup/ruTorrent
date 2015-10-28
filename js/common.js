@@ -526,7 +526,7 @@ var theFormatter =
 						arr[i] = theConverter.time(arr[i]);
 						break;
 					case 'last' :
-						arr[i] = iv(arr[i]) ? theConverter.time( $.now()/1000 - iv(arr[i]),true) : '';
+						arr[i] = iv(arr[i]) ? theConverter.time( Date.now()/1000 - iv(arr[i]),true) : '';
 						break;
 				}
 			}

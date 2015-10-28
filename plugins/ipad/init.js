@@ -46,7 +46,7 @@ plugin.startHold = function(touch)
 plugin.dispatchMouse = function(event,type)
 {
 	var touch = event.changedTouches[0];
-	touch.timeStamp = $.now();
+	touch.timeStamp = Date.now();
 	window.setTimeout( function() 
 	{
 		var mouseEvent = document.createEvent("MouseEvent");
@@ -88,7 +88,7 @@ plugin.touchStart = function(event)
 				plugin.dispatchMouse(event,"dblclick");
 			}
 		}
-		plugin.curMouse = { x: touch.screenX, y: touch.screenY, timeStamp: $.now() };
+		plugin.curMouse = { x: touch.screenX, y: touch.screenY, timeStamp: Date.now() };
 	}
 	event.preventDefault();
 	return(false);
@@ -185,7 +185,7 @@ plugin.touchMove = function(event)
 				}
 			}
 		}
-		plugin.curMouse = { x: touch.screenX, y: touch.screenY, timeStamp: $.now() };
+		plugin.curMouse = { x: touch.screenX, y: touch.screenY, timeStamp: Date.now() };
 
 	}
 	event.preventDefault();
