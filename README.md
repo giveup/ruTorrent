@@ -4,17 +4,24 @@ ruTorrent is a front-end for the popular Bittorrent client [rtorrent](http://rak
 
 Note: This is a pre-release fork of ruTorrent that has not yet had a stable release, we do not advise it's use in production at this time.
 
-* PHP code will adhere to the PSR-2 Coding Style Guide
-* PHP 7.0 will be the minimum targeted version
+## Runtime dependencies
 
+* PHP >= 7.0.0
+* rTorrent >= 0.9.4
+* libtorrent >= 0.13.4
 
-## Screenshots
+## Build dependencies
 
-[![](https://github.com/Novik/ruTorrent/wiki/images/scr1_small.jpg)](https://github.com/Novik/ruTorrent/wiki/images/scr1_big.jpg)
-[![](https://github.com/Novik/ruTorrent/wiki/images/scr2_small.jpg)](https://github.com/Novik/ruTorrent/wiki/images/scr2_big.jpg)
-[![](https://github.com/Novik/ruTorrent/wiki/images/scr3_small.jpg)](https://github.com/Novik/ruTorrent/wiki/images/scr3_big.jpg)
+* SASS >= 3.4.0
 
-## Getting started
+## Coding standards & linters
+
+All newly written and modified code should make a best effort to adhere to these standards.
+
+* PHP - [PSR-2](http://www.php-fig.org/psr/psr-2/)
+* SCSS - [scss-lint](https://github.com/brigade/scss-lint)
+
+## Building
 
 1. Compile the stylesheets
 ```
