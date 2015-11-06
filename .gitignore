@@ -13,6 +13,7 @@ node_modules/
 *.br
 
 
+# ruTorrent
 conf/users/*
 share/users/*
 share/torrents/*

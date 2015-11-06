@@ -307,19 +307,6 @@ function makeContent()
 						"</select>"+
 					"</div>"+
 				"</fieldset>"+
-				"<fieldset>"+
-					"<legend>"+theUILang.speedList+"</legend>"+
-					"<table>"+
-						"<tr>"+
-							"<td>"+theUILang.UL+":</td>"+
-							"<td class=\"alr\"><input type=\"text\" id=\"webui.speedlistul\" class=\"Textbox speedEdit\" maxlength=\"128\" /></td>"+
-						"</tr>"+
-						"<tr>"+
-							"<td>"+theUILang.DL+":</td>"+
-							"<td class=\"alr\"><input type=\"text\" id=\"webui.speedlistdl\" class=\"Textbox speedEdit\" maxlength=\"128\" /></td>"+
-						"</tr>"+
-					"</table>"+
-				"</fieldset>"+
 			"</div>"+
 			"<div id=\"st_dl\" class=\"stg_con auto\">"+
 				"<fieldset>"+
