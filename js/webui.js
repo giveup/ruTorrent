@@ -145,8 +145,6 @@ var theWebUI =
 		"webui.fullrows":		0,
 		"webui.no_delaying_draw":	1,
 		"webui.search":			-1,
-		"webui.speedlistdl":		"100,150,200,250,300,350,400,450,500,750,1000,1250",
-		"webui.speedlistul":		"100,150,200,250,300,350,400,450,500,750,1000,1250",
 		"webui.ignore_timeouts":	0,
 		"webui.retry_on_error":		120,
 		"webui.closed_panels":		{},
@@ -2077,64 +2075,6 @@ var theWebUI =
 		$("#stdown_speed").text(dl);
 		$("#stdown_limit").text((self.total.rateDL>0 && self.total.rateDL<100*1024*1024) ? theConverter.speed(self.total.rateDL) : theUILang.no);
 		$("#stdown_total").text(theConverter.bytes(self.total.DL));
-	},
-
-	setDLRate: function(spd)
-	{
-		this.request("?action=setdlrate&s="+spd,[this.getTotal, this]);
-	},
-
-	setULRate: function(spd)
-	{
-		this.request("?action=setulrate&s="+spd,[this.getTotal, this]);
-	},
-
-	downRateMenu: function(e)
-	{
-		if (e.which==3) {
-			theContextMenu.clear();
-			var speeds=theWebUI.settings["webui.speedlistdl"].split(",");
-			if (theWebUI.total.rateDL<=0 || theWebUI.total.rateDL>=100*1024*1024) {
-				theContextMenu.add([CMENU_SEL,theUILang.unlimited,"theWebUI.setDLRate(100*1024*1024)"]);
-			} else {
-				theContextMenu.add([theUILang.unlimited,"theWebUI.setDLRate(100*1024*1024)"]);
-			}
-			theContextMenu.add([CMENU_SEP]);
-			for (var i=0; i<speeds.length; i++) {
-				var spd = iv(speeds[i])*1024;
-				if (theWebUI.total.rateDL==spd) {
-					theContextMenu.add([CMENU_SEL,theConverter.speed(spd),"theWebUI.setDLRate("+spd+")"]);
-				} else {
-					theContextMenu.add([theConverter.speed(spd),"theWebUI.setDLRate("+spd+")"]);
-				}
-			}
-			theContextMenu.show(e.clientX,e.clientY);
-		}
-		return(false);
-	},
-
-	upRateMenu: function(e)
-	{
-		if (e.which==3) {
-			theContextMenu.clear();
-			var speeds=theWebUI.settings["webui.speedlistul"].split(",");
-			if (theWebUI.total.rateUL<=0 || theWebUI.total.rateUL>=100*1024*1024) {
-				theContextMenu.add([CMENU_SEL,theUILang.unlimited,"theWebUI.setULRate(100*1024*1024)"]);
-			} else {
-				theContextMenu.add([theUILang.unlimited,"theWebUI.setULRate(100*1024*1024)"]);
-			}
-			theContextMenu.add([CMENU_SEP]);
-			for (var i=0; i<speeds.length; i++) {
-				var spd = iv(speeds[i])*1024;
-				if (theWebUI.total.rateUL==spd) {
-					theContextMenu.add([CMENU_SEL,theConverter.speed(spd),"theWebUI.setULRate("+spd+")"]);
-				} else {
-					theContextMenu.add([theConverter.speed(spd),"theWebUI.setULRate("+spd+")"]);
-				}
-			}
-			theContextMenu.show(e.clientX,e.clientY);
-		}
-		return(false);
 	},
 
 	set_sizing_preferences: function()

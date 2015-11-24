@@ -6,8 +6,6 @@
 function makeContent()
 {
 	$(".cat").mouseclick(theWebUI.labelContextMenu);
-	$("#st_up").mouseclick(theWebUI.upRateMenu);
-	$("#st_down").mouseclick(theWebUI.downRateMenu);
 
 	$("#mnu_add").attr("title",theUILang.mnu_add+"...");
 	$("#mnu_remove").attr("title",theUILang.mnu_remove);
