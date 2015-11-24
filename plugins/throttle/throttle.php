@@ -3,8 +3,6 @@ require_once( dirname(__FILE__)."/../../php/xmlrpc.php" );
 require_once( $rootPath.'/php/cache.php');
 eval(getPluginConf('throttle'));
 
-@define('MAX_SPEED', 100*1024*1024);
-
 class rThrottle
 {
     public $hash = "throttle.dat";
@@ -118,10 +116,10 @@ class rThrottle
         if ($req->run() && !$req->fault) {
             $req1 = new rXMLRPCRequest();
             if ($req->val[0]==0) {
-                $req1->addCommand(new rXMLRPCCommand("set_upload_rate", MAX_SPEED));
+                $req1->addCommand(new rXMLRPCCommand("set_upload_rate", 0));
             }
             if ($req->val[1]==0) {
-                $req1->addCommand(new rXMLRPCCommand("set_download_rate", MAX_SPEED));
+                $req1->addCommand(new rXMLRPCCommand("set_download_rate", 0));
             }
             if ((($req->val[0]==0) || ($req->val[1]==0)) &&
                 (!$req1->run() || $req1->fault)) {
