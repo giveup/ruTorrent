@@ -162,7 +162,6 @@ var theUILang =
  Speed				: "速度",
  Dont_add_tname 		: "請勿將 torrent 名稱作為目錄名稱",
  Free_Disk_Space		: "磁碟可用空間",
- badXMLRPCVersion		: "rTorrent使用了錯誤的xmlrpc-c版本編譯, 該版本不含i8支援,版本必須大於或等於1.11版,某些功能將無法使用",
  badLinkTorTorrent		: "錯誤的rTorrent連結, 請檢查rTorrent是否已經正確執行, 請確認rTorrent設定檔與config.php中的 $scgi_port 與 $scgi_host 相符合",
  badUploadsPath 		: "網頁伺服器無法存取(讀/寫/執行) torrent 的存放目錄，您無法從 ruTorrent 新增 torrent",
  badSettingsPath		: "網頁伺服器無法存取(讀/寫/執行)設定檔存放目錄，ruTorrent 無法儲存設定",

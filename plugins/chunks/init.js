@@ -94,7 +94,7 @@ plugin.clearChunks = function()
 
 rTorrentStub.prototype.getchunks = function()
 {
-	var commands = ["d.get_bitfield", "d.get_chunk_size", "d.get_size_chunks"];
+	var commands = ["d.bitfield", "d.chunk_size", "d.size_chunks"];
 	if(theWebUI.systemInfo.rTorrent.apiVersion>=4)
 		commands.push("d.chunks_seen");
 	for(var i in commands)

@@ -64,7 +64,7 @@ class rThrottle
 
         if ($this->isCorrect($this->default-1)) {
             $req->addCommand(rTorrentSettings::get()->getOnInsertCommand(array('_throttle'.getUser(),
-                getCmd('branch').'=$'.getCmd('not').'=$'.getCmd("d.get_throttle_name").'=,'.getCmd('d.set_throttle_name').'=thr_'.($this->default-1))));
+                getCmd('branch').'=$'.getCmd('not').'=$'.getCmd("d.throttle_name").'=,'.getCmd('d.throttle_name.set').'=thr_'.($this->default-1))));
         } else {
             $req->addCommand(rTorrentSettings::get()->getOnInsertCommand(array('_throttle'.getUser(), getCmd('cat='))));
         }
@@ -76,10 +76,10 @@ class rThrottle
         $req = new rXMLRPCRequest(
             new rXMLRPCCommand("d.multicall", array(
                     "",
-                getCmd("d.get_hash="),
-                getCmd("d.get_throttle_name="),
-                getCmd('cat').'=$'.getCmd("get_throttle_up_max").'=$'.getCmd("d.get_throttle_name="),
-                getCmd('cat').'=$'.getCmd("get_throttle_down_max").'=$'.getCmd("d.get_throttle_name=")))
+                getCmd("d.hash="),
+                getCmd("d.throttle_name="),
+                getCmd('cat').'=$'.getCmd("get_throttle_up_max").'=$'.getCmd("d.throttle_name="),
+                getCmd('cat').'=$'.getCmd("get_throttle_down_max").'=$'.getCmd("d.throttle_name=")))
         );
         if ($req->run() && !$req->fault) {
             for ($i=0; $i<count($req->val); $i+=4) {
@@ -97,8 +97,8 @@ class rThrottle
                     $req->addCommand(new rXMLRPCCommand("branch", array(
                         $hash,
                         getCmd("d.is_active="),
-                        getCmd('cat').'=$'.getCmd("d.stop").'=,$'.getCmd("d.set_throttle_name=").$name.',$'.getCmd('d.start='),
-                        getCmd('d.set_throttle_name=').$name )));
+                        getCmd('cat').'=$'.getCmd("d.stop").'=,$'.getCmd("d.throttle_name.set=").$name.',$'.getCmd('d.start='),
+                        getCmd('d.throttle_name.set=').$name )));
                 }
                 if ($req->getCommandsCount()) {
                     return($req->run() && !$req->fault);

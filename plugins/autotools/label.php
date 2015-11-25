@@ -67,8 +67,8 @@ if ($is_ok) {
 // Get info from rTorrent
 if ($is_ok && strpos($label, "{DIR}") !== false) {
     $req = new rXMLRPCRequest(array (
-        new rXMLRPCCommand("d.get_directory", $hash),
-        new rXMLRPCCommand("d.get_custom3", $hash),
+        new rXMLRPCCommand("d.directory", $hash),
+        new rXMLRPCCommand("d.custom3", $hash),
         new rXMLRPCCommand("d.is_multi_file", $hash),
     ));
     if ($req->run() && !$req->fault) {
@@ -77,8 +77,8 @@ if ($is_ok && strpos($label, "{DIR}") !== false) {
         $torrent_dir = trim($req->val[0]);
         $custom3     = trim($req->val[1]);
         Debug("get_directory   : ".$default_dir);
-        Debug("d.get_directory : ".$torrent_dir);
-        Debug("d.get_custom3   : ".$custom3);
+        Debug("d.directory : ".$torrent_dir);
+        Debug("d.custom3   : ".$custom3);
         Debug("d.is_multy_file : ".$is_multy_file);
         if ($default_dir == '' || $torrent_dir == '') {
             Debug("base paths are not set");
@@ -107,7 +107,7 @@ if ($is_ok && strpos($label, "{TRACKER}") !== false) {
     $req = new rXMLRPCRequest(array(
         new rXMLRPCCommand(
             "t.multicall",
-            array( $hash, "", getCmd("t.is_enabled="), getCmd("t.get_type="), getCmd("t.get_group="), getCmd("t.get_url=") )
+            array( $hash, "", getCmd("t.is_enabled="), getCmd("t.type="), getCmd("t.group="), getCmd("t.url=") )
         )
     ));
     $req->setParseByTypes();
@@ -159,7 +159,7 @@ if ($is_ok &&
 // Set a label
 if ($is_ok) {
     Debug("label           : \"".$label."\"");
-    if (($label != "") && rtExec("d.set_custom1", array( $hash, rawurlencode($label) ), $autodebug_enabled)) {
+    if (($label != "") && rtExec("d.custom1.set", array( $hash, rawurlencode($label) ), $autodebug_enabled)) {
         rTorrentSettings::get()->pushEvent("LabelChanged", array( "hash"=>$hash, "label"=>$label ));
     }
 }

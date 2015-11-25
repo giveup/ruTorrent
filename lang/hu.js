@@ -164,7 +164,6 @@ var theUILang =
  Speed				: "Sebesség",
  Dont_add_tname 		: "Ne adja hozzá a torrent nevének útját",
  Free_Disk_Space		: "Szabad disk terület",
- badXMLRPCVersion		: "rTorrent is compiled with incorrect version of xmlrpc-c library, without i8 support. Version must be >= 1.11. Some functionality will be unavailable.",
  badLinkTorTorrent		: "Nem kapcsolódik az rtorrenthez! Kérlek ellenőrízd, hogy helyesen van-e megadva az $scgi_port és $scgi_host beállításait a config.php-ban!",
  badUploadsPath 		: "Websuerver felhasználó nem rendelkezik írási/olvasási joggal! Nem lehet torrentet hozzáadni!",
  badSettingsPath		: "Websuerver felhasználó nem rendelkezik írási/olvasási joggal! Nem lehet menteni a beállításokat!",

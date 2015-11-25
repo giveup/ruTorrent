@@ -37,7 +37,7 @@ if(plugin.canChangeMenu())
 	{
 		for( var i = 0; i < this.hashes.length; i++ )
 		{
-			var cmd = new rXMLRPCCommand( "d.set_custom5" );
+			var cmd = new rXMLRPCCommand( "d.custom5.set" );
 			cmd.addParameter( "string", this.hashes[i] );
 			cmd.addParameter( "string", (plugin.force_delete ? "2" : "1") );
 			this.commands.push( cmd );

@@ -12,13 +12,13 @@ var theRequestManager =
         {
 		commands:
 		[
-			"d.get_hash=", "d.is_open=", "d.is_hash_checking=", "d.is_hash_checked=", "d.get_state=",
-			"d.get_name=", "d.get_size_bytes=", "d.get_completed_chunks=", "d.get_size_chunks=", "d.get_bytes_done=",
-			"d.get_up_total=", "d.get_ratio=", "d.get_up_rate=", "d.get_down_rate=", "d.get_chunk_size=",
-			"d.get_custom1=", "d.get_peers_accounted=", "d.get_peers_not_connected=", "d.get_peers_connected=", "d.get_peers_complete=",
-			"d.get_left_bytes=", "d.get_priority=", "d.get_state_changed=", "d.get_skip_total=", "d.get_hashing=",
-			"d.get_chunks_hashed=", "d.get_base_path=", "d.get_creation_date=", "d.get_tracker_focus=", "d.is_active=",
-			"d.get_message=", "d.get_custom2=", "d.get_free_diskspace=", "d.is_private=", "d.is_multi_file="
+			"d.hash=", "d.is_open=", "d.is_hash_checking=", "d.is_hash_checked=", "d.state=",
+			"d.name=", "d.size_bytes=", "d.completed_chunks=", "d.size_chunks=", "d.bytes_done=",
+			"d.up.total=", "d.ratio=", "d.up.rate=", "d.down.rate=", "d.chunk_size=",
+			"d.custom1=", "d.peers_accounted=", "d.peers_not_connected=", "d.peers_connected=", "d.peers_complete=",
+			"d.left_bytes=", "d.priority=", "d.state_changed=", "d.skip.total=", "d.hashing=",
+			"d.chunks_hashed=", "d.base_path=", "d.creation_date=", "d.tracker_focus=", "d.is_active=",
+			"d.message=", "d.custom2=", "d.free_diskspace=", "d.is_private=", "d.is_multi_file="
 		],
 		handlers: []
 	},
@@ -26,9 +26,9 @@ var theRequestManager =
 	{
 		commands:
 		[
-		        "t.get_url=", "t.get_type=", "t.is_enabled=", "t.get_group=", "t.get_scrape_complete=",
-			"t.get_scrape_incomplete=", "t.get_scrape_downloaded=",
-			"t.get_normal_interval=", "t.get_scrape_time_last="
+		        "t.url=", "t.type=", "t.is_enabled=", "t.group=", "t.scrape_complete=",
+			"t.scrape_incomplete=", "t.scrape_downloaded=",
+			"t.normal_interval=", "t.scrape_time_last="
 		],
 		handlers: []
 	},
@@ -36,7 +36,7 @@ var theRequestManager =
 	{
 		commands:
 		[
-			"f.get_path=", "f.get_completed_chunks=", "f.get_size_chunks=", "f.get_size_bytes=", "f.get_priority="
+			"f.path=", "f.completed_chunks=", "f.size_chunks=", "f.size_bytes=", "f.priority="
 		],
 		handlers: []
 	},
@@ -44,9 +44,9 @@ var theRequestManager =
 	{
 		commands:
 		[
-			"p.get_id=", "p.get_address=", "p.get_client_version=", "p.is_incoming=", "p.is_encrypted=",
-			"p.is_snubbed=", "p.get_completed_percent=", "p.get_down_total=", "p.get_up_total=", "p.get_down_rate=",
-			"p.get_up_rate=", "p.get_id_html=", "p.get_peer_rate=", "p.get_peer_total=", "p.get_port="
+			"p.id=", "p.address=", "p.client_version=", "p.is_incoming=", "p.is_encrypted=",
+			"p.is_snubbed=", "p.completed_percent=", "p.down_total=", "p.up_total=", "p.down_rate=",
+			"p.up_rate=", "p.id_html=", "p.peer_rate=", "p.peer_total=", "p.port="
 		],
 		handlers: []
 	},
@@ -62,8 +62,8 @@ var theRequestManager =
 	{
 		commands:
 		[
-			"d.get_peer_exchange", "d.get_peers_max", "d.get_peers_min", "d.get_tracker_numwant", "d.get_uploads_max",
-			"d.is_private", "d.get_connection_seed"
+			"d.peer_exchange", "d.peers_max", "d.peers_min", "d.tracker_numwant", "d.uploads_max",
+			"d.is_private", "d.connection_seed"
 		],
 		handlers: []
 	},
@@ -276,8 +276,8 @@ rTorrentStub.prototype.list = function()
 	cmd.addParameter("string","main");
 	for ( var i in theRequestManager.trt.commands )
 	{
-		if (!theWebUI.settings["webui.needmessage"] && (theRequestManager.trt.commands[i]=="d.get_message="))
-			cmd.addParameter("string",theRequestManager.map("d.get_custom5="));
+		if (!theWebUI.settings["webui.needmessage"] && (theRequestManager.trt.commands[i]=="d.message="))
+			cmd.addParameter("string",theRequestManager.map("d.custom5="));
 		else
 			cmd.addParameter("string",theRequestManager.map("trt",i));
 	}
@@ -353,7 +353,7 @@ rTorrentStub.prototype.setsettings = function()
 
 rTorrentStub.prototype.getsettings = function()
 {
-	this.commands.push(new rXMLRPCCommand("dht_statistics"));
+	this.commands.push(new rXMLRPCCommand("dht.statistics"));
 	for ( var cmd in theRequestManager.stg.commands )
 		this.commands.push(new rXMLRPCCommand('get_'+theRequestManager.stg.commands[cmd]));
 }
@@ -428,7 +428,7 @@ rTorrentStub.prototype.dsetprio = function()
 {
 	for (var i=0; i<this.hashes.length; i++)
 	{
-		var cmd = new rXMLRPCCommand("d.set_priority");
+		var cmd = new rXMLRPCCommand("d.priority.set");
 		cmd.addParameter("string",this.hashes[i]);
 		cmd.addParameter("i4",this.vs[0]);
 		this.commands.push( cmd );
@@ -497,7 +497,7 @@ rTorrentStub.prototype.setlabel = function()
 {
 	for (var i=0; i<this.hashes.length; i++)
 	{
-		var cmd = new rXMLRPCCommand("d.set_custom1");
+		var cmd = new rXMLRPCCommand("d.custom1.set");
 		cmd.addParameter("string",this.hashes[i]);
 		cmd.addParameter("string",this.vs[0]);
 		this.commands.push( cmd );
@@ -534,18 +534,18 @@ rTorrentStub.prototype.setprops = function()
 			cmd.addParameter("string",theRequestManager.map("cat")+
 				'=$'+theRequestManager.map("d.stop=")+
 				',$'+theRequestManager.map("d.close=")+
-				',$'+theRequestManager.map("d.set_connection_seed=")+conn+
+				',$'+theRequestManager.map("d.connection_seed.set=")+conn+
 				',$'+theRequestManager.map("d.open=")+
 				',$'+theRequestManager.map("d.start="));
-			cmd.addParameter("string",theRequestManager.map("d.set_connection_seed=")+conn);
+			cmd.addParameter("string",theRequestManager.map("d.connection_seed.set=")+conn);
 		}
 		else
 		{
 			if (this.ss[i]=="ulslots")
-				cmd = new rXMLRPCCommand("d.set_uploads_max");
+				cmd = new rXMLRPCCommand("d.uploads_max.set");
 			else
 			if (this.ss[i]=="pex")
-				cmd = new rXMLRPCCommand("d.set_peer_exchange");
+				cmd = new rXMLRPCCommand("d.peer_exchange.set");
 			else
 				cmd = new rXMLRPCCommand("d.set_"+this.ss[i]);
 			cmd.addParameter("string",this.hashes[0]);

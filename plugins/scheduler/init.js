@@ -6,7 +6,7 @@ if(plugin.canChangeMenu() && (theWebUI.systemInfo.rTorrent.iVersion >= 0x805))
 	theWebUI.config = function(data)
 	{
 		plugin.config.call(this,data);
-		plugin.reqId = theRequestManager.addRequest("trt", theRequestManager.map("d.get_custom=")+"sch_ignore",function(hash,torrent,value)
+		plugin.reqId = theRequestManager.addRequest("trt", theRequestManager.map("d.custom=")+"sch_ignore",function(hash,torrent,value)
 		{
 			torrent.sch_ignore = iv(value);
 		});
@@ -61,7 +61,7 @@ if(plugin.canChangeMenu() && (theWebUI.systemInfo.rTorrent.iVersion >= 0x805))
 				cmd.addParameter("string",this.hashes[i]);
 				this.commands.push( cmd );
 			}
-			cmd = new rXMLRPCCommand('d.set_throttle_name');
+			cmd = new rXMLRPCCommand('d.throttle_name.set');
 			cmd.addParameter("string",this.hashes[i]);
 			cmd.addParameter("string",this.ss[i]=='' ? "" : "NULL");
 			this.commands.push( cmd );
@@ -71,7 +71,7 @@ if(plugin.canChangeMenu() && (theWebUI.systemInfo.rTorrent.iVersion >= 0x805))
 				cmd.addParameter("string",this.hashes[i]);
 				this.commands.push( cmd );
 			}
-			cmd = new rXMLRPCCommand( "d.set_custom" );
+			cmd = new rXMLRPCCommand( "d.custom.set" );
 			cmd.addParameter("string",this.hashes[i]);
 			cmd.addParameter("string","sch_ignore");
 			cmd.addParameter("string",this.ss[i]);

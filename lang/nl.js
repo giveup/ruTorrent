@@ -164,7 +164,6 @@ var theUILang =
  Speed				: "Snelheid",
  Dont_add_tname 		: "Torrentnaam niet toevoegen aan de downloadmap",
  Free_Disk_Space		: "Vrije HDD-ruimte",
- badXMLRPCVersion		: "rTorrent is geinstalleerd met een verkeerde versie van xmlrpc-c library, namelijk die zonder i8-ondersteuning. Benodigde versie: >= 1.11. Sommige functionaliteiten zullen niet werken.",
  badLinkTorTorrent		: "Geen verbinding met rTorrent. Controler of rTorrent werkt. Controleer de instellingen voor $scgi_port en $scgi_host in config.php en de scgi_port in het rTorrent-configuratiebestand.",
  badUploadsPath 		: "Webserver heeft geen lees-, schrijf- of uitvoerrechten op de map met torrents. Je kan geen torrent toevoegen via ruTorrent.",
  badSettingsPath		: "Webserver heeft geen lees-, schrijf- of uitvoerrechten op de map met instellingen. ruTorrent kan instellingen niet opslaan .",

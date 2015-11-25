@@ -124,8 +124,8 @@ class rAutoTools
 
         if ($this->enable_label) {
             $cmd =  $theSettings->getOnInsertCommand(array('_autolabel'.getUser(),
-                getCmd('branch').'=$'.getCmd('not').'=$'.getCmd("d.get_custom1").'=,"'.
-                getCmd('execute').'={'.getPHP().','.$pathToAutoTools.'/label.php,$'.getCmd("d.get_hash").'=,'.getUser().'}"'));
+                getCmd('branch').'=$'.getCmd('not').'=$'.getCmd("d.custom1").'=,"'.
+                getCmd('execute').'={'.getPHP().','.$pathToAutoTools.'/label.php,$'.getCmd("d.hash").'=,'.getUser().'}"'));
         } else {
             $cmd =  $theSettings->getOnInsertCommand(array('_autolabel'.getUser(), getCmd('cat=')));
         }
@@ -133,25 +133,25 @@ class rAutoTools
         if ($this->enable_move && (trim($this->path_to_finished)!='')) {
             if ($theSettings->iVersion<0x808) {
                 $cmd =  $theSettings->getOnFinishedCommand(array('automove'.getUser(),
-                        getCmd('d.set_custom').'=x-dest,"$'.getCmd('execute_capture').
-                        '={'.getPHP().','.$pathToAutoTools.'/move.php,$'.getCmd('d.get_hash').'=,$'.getCmd('d.get_base_path').'=,$'.
-                        getCmd('d.get_base_filename').'=,$'.getCmd('d.is_multi_file').'=,$'.getCmd('d.get_custom1').'=,$'.getCmd('d.get_name').'=,'.getUser().'}" ; '.
-                        getCmd('branch').'=$'.getCmd('not').'=$'.getCmd('d.get_custom').'=x-dest,,'.getCmd('d.set_directory_base').'=$'.getCmd('d.get_custom').'=x-dest'
+                        getCmd('d.custom.set').'=x-dest,"$'.getCmd('execute_capture').
+                        '={'.getPHP().','.$pathToAutoTools.'/move.php,$'.getCmd('d.hash').'=,$'.getCmd('d.base_path').'=,$'.
+                        getCmd('d.base_filename').'=,$'.getCmd('d.is_multi_file').'=,$'.getCmd('d.custom1').'=,$'.getCmd('d.name').'=,'.getUser().'}" ; '.
+                        getCmd('branch').'=$'.getCmd('not').'=$'.getCmd('d.custom').'=x-dest,,'.getCmd('d.directory_base.set').'=$'.getCmd('d.custom').'=x-dest'
                     ));
             } else {
                 if ($this->fileop_type=="Move") {
                     $cmd =  $theSettings->getOnFinishedCommand(array('automove'.getUser(),
-                            getCmd('d.set_directory_base').'="$'.getCmd('execute_capture').
-                            '={'.getPHP().','.$pathToAutoTools.'/check.php,$'.getCmd('d.get_base_path').'=,$'.
-                            getCmd('d.get_base_filename').'=,$'.getCmd('d.is_multi_file').'=,$'.getCmd('d.get_custom1').'=,$'.getCmd('d.get_name').'=,'.getUser().'}" ; '.
-                            getCmd('execute').'={'.getPHP().','.$pathToAutoTools.'/move.php,$'.getCmd('d.get_hash').'=,$'.getCmd('d.get_base_path').'=,$'.
-                            getCmd('d.get_base_filename').'=,$'.getCmd('d.is_multi_file').'=,$'.getCmd('d.get_custom1').'=,$'.getCmd('d.get_name').'=,'.getUser().'}'
+                            getCmd('d.directory_base.set').'="$'.getCmd('execute_capture').
+                            '={'.getPHP().','.$pathToAutoTools.'/check.php,$'.getCmd('d.base_path').'=,$'.
+                            getCmd('d.base_filename').'=,$'.getCmd('d.is_multi_file').'=,$'.getCmd('d.custom1').'=,$'.getCmd('d.name').'=,'.getUser().'}" ; '.
+                            getCmd('execute').'={'.getPHP().','.$pathToAutoTools.'/move.php,$'.getCmd('d.hash').'=,$'.getCmd('d.base_path').'=,$'.
+                            getCmd('d.base_filename').'=,$'.getCmd('d.is_multi_file').'=,$'.getCmd('d.custom1').'=,$'.getCmd('d.name').'=,'.getUser().'}'
                         ));
                 } else {
                     $cmd =  $theSettings->getOnFinishedCommand(array('automove'.getUser(),
-                            getCmd('d.set_custom').'=x-dest,"$'.getCmd('execute_capture').
-                            '={'.getPHP().','.$pathToAutoTools.'/move.php,$'.getCmd('d.get_hash').'=,$'.getCmd('d.get_base_path').'=,$'.
-                            getCmd('d.get_base_filename').'=,$'.getCmd('d.is_multi_file').'=,$'.getCmd('d.get_custom1').'=,$'.getCmd('d.get_name').'=,'.getUser().'}"'
+                            getCmd('d.custom.set').'=x-dest,"$'.getCmd('execute_capture').
+                            '={'.getPHP().','.$pathToAutoTools.'/move.php,$'.getCmd('d.hash').'=,$'.getCmd('d.base_path').'=,$'.
+                            getCmd('d.base_filename').'=,$'.getCmd('d.is_multi_file').'=,$'.getCmd('d.custom1').'=,$'.getCmd('d.name').'=,'.getUser().'}"'
                         ));
                 }
             }

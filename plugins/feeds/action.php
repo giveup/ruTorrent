@@ -135,30 +135,30 @@ switch($mode)
 
 $prm = [
     $view,
-    getCmd("d.get_hash="),
-    getCmd("d.get_name="),
-    getCmd("d.get_message="),
-    getCmd("d.get_up_rate="),
-    getCmd("d.get_down_rate="),
-    getCmd("d.get_custom1="),
-    (rTorrentSettings::get()->iVersion >= 0x806) ? getCmd('d.get_custom').'=seedingtime' : getCmd('cat=')
+    getCmd("d.hash="),
+    getCmd("d.name="),
+    getCmd("d.message="),
+    getCmd("d.up.rate="),
+    getCmd("d.down.rate="),
+    getCmd("d.custom1="),
+    (rTorrentSettings::get()->iVersion >= 0x806) ? getCmd('d.custom').'=seedingtime' : getCmd('cat=')
 ];
 if ($showItemDescription) {
     $prm = array_merge($prm, array(
-        getCmd("d.get_custom2="),
-        getCmd("d.get_completed_chunks="),
-        getCmd("d.get_size_chunks="),
-        getCmd("d.get_size_bytes="),
-        getCmd("d.get_bytes_done="),
-        getCmd("d.get_up_total="),
-        getCmd("d.get_ratio="),
-        getCmd("d.get_up_rate="),
-        getCmd("d.get_down_rate="),
-        getCmd("d.get_chunk_size="),
-        getCmd("d.get_peers_not_connected="),
-        getCmd("d.get_peers_connected="),
-        getCmd("d.get_peers_accounted="),
-        getCmd("d.get_peers_complete=")));
+        getCmd("d.custom2="),
+        getCmd("d.completed_chunks="),
+        getCmd("d.size_chunks="),
+        getCmd("d.size_bytes="),
+        getCmd("d.bytes_done="),
+        getCmd("d.up.total="),
+        getCmd("d.ratio="),
+        getCmd("d.up.rate="),
+        getCmd("d.down.rate="),
+        getCmd("d.chunk_size="),
+        getCmd("d.peers_not_connected="),
+        getCmd("d.peers_connected="),
+        getCmd("d.peers_accounted="),
+        getCmd("d.peers_complete=")));
 }
 $req = new rXMLRPCRequest(new rXMLRPCCommand("d.multicall", $prm));
 

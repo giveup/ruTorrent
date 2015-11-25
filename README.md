@@ -8,6 +8,7 @@ Note: This is a pre-release fork of ruTorrent that has not yet had a stable rele
 
 * PHP >= 7.0.0
 * rTorrent >= 0.9.4
+* xmlrpc-c >= 1.32.05
 * libtorrent >= 0.13.4
 
 ## Build dependencies

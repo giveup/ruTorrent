@@ -5,8 +5,8 @@ theWebUI.config = function(data)
 	plugin.reqId1 = theRequestManager.addRequest("trt", 
 		theRequestManager.map('cat=')+
 		'"$'+theRequestManager.map("t.multicall=")+
-		theRequestManager.map("d.get_hash=")+
-		','+theRequestManager.map("t.get_scrape_complete=")+
+		theRequestManager.map("d.hash=")+
+		','+theRequestManager.map("t.scrape_complete=")+
 		','+theRequestManager.map('cat=')+'{#}"',
 		function(hash,torrent,value)
 		{
@@ -20,8 +20,8 @@ theWebUI.config = function(data)
 	plugin.reqId2 = theRequestManager.addRequest("trt", 
 		theRequestManager.map('cat=')+
 		'"$'+theRequestManager.map("t.multicall=")+
-		theRequestManager.map("d.get_hash=")+
-		','+theRequestManager.map("t.get_scrape_incomplete=")+
+		theRequestManager.map("d.hash=")+
+		','+theRequestManager.map("t.scrape_incomplete=")+
 		','+theRequestManager.map('cat=')+'{#}"',
 		function(hash,torrent,value)
 		{

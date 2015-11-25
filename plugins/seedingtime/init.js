@@ -22,11 +22,11 @@ if(plugin.canChangeColumns())
 			return(plugin.trtFormat(table,arr));
 		}
 		plugin.config.call(this,data);
-		plugin.reqId1 = theRequestManager.addRequest("trt", theRequestManager.map("d.get_custom=")+"seedingtime",function(hash,torrent,value)
+		plugin.reqId1 = theRequestManager.addRequest("trt", theRequestManager.map("d.custom=")+"seedingtime",function(hash,torrent,value)
 		{
 			torrent.seedingtime = value;
 		});
-		plugin.reqId2 = theRequestManager.addRequest("trt", theRequestManager.map("d.get_custom=")+"addtime",function(hash,torrent,value)
+		plugin.reqId2 = theRequestManager.addRequest("trt", theRequestManager.map("d.custom=")+"addtime",function(hash,torrent,value)
 		{
 			torrent.addtime = value;
 		});

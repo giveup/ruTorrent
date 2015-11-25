@@ -164,7 +164,6 @@ var theUILang =
  Speed				: "速度",
  Dont_add_tname 		: "不要添加 Torrent 的名称到目录",
  Free_Disk_Space		: "可用磁盘空间",
- badXMLRPCVersion		: "rTorrent is compiled with incorrect version of xmlrpc-c library, without i8 support. Version must be >= 1.11. Some functionality will be unavailable.",
  badLinkTorTorrent		: "No connection to rTorrent. Check if it is really running. Check $scgi_port and $scgi_host settings in config.php and scgi_port in rTorrent configuration file.",
  badUploadsPath 		: "Webserver user doesn't have read/write/execute access to the torrents directory. You cannot add torrents via ruTorrent.",
  badSettingsPath		: "Webserver user doesn't have read/write/execute access to the settings directory. ruTorrent settings cannot be saved.",

@@ -54,7 +54,7 @@ function rtSetDataDir($hash, $dest_path, $add_path, $move_files, $fast_resume, $
         }
     }
 
-    // Open closed torrent to get d.get_base_path, d.get_base_filename
+    // Open closed torrent to get d.base_path, d.base_filename
     if ($is_ok && $move_files) {
         if (!$is_open && !rtExec("d.open", $hash, $dbg)) {
             $is_ok = false;
@@ -64,11 +64,11 @@ function rtSetDataDir($hash, $dest_path, $add_path, $move_files, $fast_resume, $
     // Ask info from rTorrent
     if ($is_ok && $move_files) {
         $req = rtExec(
-            array(  "d.get_name",
-                "d.get_base_path",
-                "d.get_base_filename",
+            array(  "d.name",
+                "d.base_path",
+                "d.base_filename",
                 "d.is_multi_file",
-                "d.get_complete" ),
+                "d.complete" ),
             $hash,
             $dbg
         );
@@ -83,19 +83,19 @@ function rtSetDataDir($hash, $dest_path, $add_path, $move_files, $fast_resume, $
                 $fast_resume = false;
             }
             if ($dbg) {
-                rtDbg(__FUNCTION__, "d.get_name          : ".$base_name);
+                rtDbg(__FUNCTION__, "d.name          : ".$base_name);
             }
             if ($dbg) {
-                rtDbg(__FUNCTION__, "d.get_base_path     : ".$base_path);
+                rtDbg(__FUNCTION__, "d.base_path     : ".$base_path);
             }
             if ($dbg) {
-                rtDbg(__FUNCTION__, "d.get_base_filename : ".$base_file);
+                rtDbg(__FUNCTION__, "d.base_filename : ".$base_file);
             }
             if ($dbg) {
                 rtDbg(__FUNCTION__, "d.is_multy_file     : ".$req->val[3]);
             }
             if ($dbg) {
-                rtDbg(__FUNCTION__, "d.get_complete      : ".$req->val[4]);
+                rtDbg(__FUNCTION__, "d.complete      : ".$req->val[4]);
             }
         }
     }
@@ -120,7 +120,7 @@ function rtSetDataDir($hash, $dest_path, $add_path, $move_files, $fast_resume, $
     // Get list of torrent data files
     $torrent_files = array();
     if ($is_ok && $move_files) {
-        $req = rtExec("f.multicall", array( $hash, "", getCmd("f.get_path=") ), $dbg);
+        $req = rtExec("f.multicall", array( $hash, "", getCmd("f.path=") ), $dbg);
         if (!$req) {
             $is_ok = false;
         } else {
@@ -196,10 +196,10 @@ function rtSetDataDir($hash, $dest_path, $add_path, $move_files, $fast_resume, $
             $req = rtExec(
                 array(
                     "get_session",
-                    "d.get_tied_to_file",
-                    "d.get_custom1",
-                    "d.get_connection_seed",
-                    "d.get_throttle_name",
+                    "d.tied_to_file",
+                    "d.custom1",
+                    "d.connection_seed",
+                    "d.throttle_name",
                     ),
                 $hash,
                 $dbg
@@ -212,10 +212,10 @@ function rtSetDataDir($hash, $dest_path, $add_path, $move_files, $fast_resume, $
                 $label        = rawurldecode($req->val[2]);
                 $addition     = array();
                 if (!empty( $req->val[3] )) {
-                    $addition[] = getCmd("d.set_connection_seed=").$req->val[3];
+                    $addition[] = getCmd("d.connection_seed.set=").$req->val[3];
                 }
                 if (!empty( $req->val[4] )) {
-                    $addition[] = getCmd("d.set_throttle_name=").$req->val[4];
+                    $addition[] = getCmd("d.throttle_name.set=").$req->val[4];
                 }
                 // build path to .torrent file
                 $fname = rtAddTailSlash($session).$hash.".torrent";
@@ -242,8 +242,8 @@ function rtSetDataDir($hash, $dest_path, $add_path, $move_files, $fast_resume, $
                     $fast_resume = false;
                 } else {
                     $is_ok = $add_path ?
-                        rtExec("d.set_directory", array( $hash, $dest_path ), $dbg) :
-                        rtExec("d.set_directory_base", array( $hash, $dest_path ), $dbg);     // for erasedata plugin
+                        rtExec("d.directory.set", array( $hash, $dest_path ), $dbg) :
+                        rtExec("d.directory_base.set", array( $hash, $dest_path ), $dbg);     // for erasedata plugin
 
                     if ($is_ok) {
                         if (!rtExec("d.erase", $hash, $dbg)) {
@@ -282,8 +282,8 @@ function rtSetDataDir($hash, $dest_path, $add_path, $move_files, $fast_resume, $
         if ($is_ok && !$fast_resume) {
         // Setup new directory for torrent (we need to stop it first)
             $is_ok = $add_path ?
-                rtExec("d.set_directory", array( $hash, $dest_path ), $dbg) :
-                rtExec("d.set_directory_base", array( $hash, $dest_path ), $dbg);
+                rtExec("d.directory.set", array( $hash, $dest_path ), $dbg) :
+                rtExec("d.directory_base.set", array( $hash, $dest_path ), $dbg);
                 
             if ($is_ok) {
             // Start torrent if need

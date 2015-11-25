@@ -102,31 +102,31 @@ class rHistory
 		global $rootPath;
 		if($this->log["addition"])
 			$addCmd = getCmd('execute').'={'.getPHP().','.$rootPath.'/plugins/history/update.php'.',1,$'.
-				getCmd('d.get_name').'=,$'.getCmd('d.get_size_bytes').'=,$'.getCmd('d.get_bytes_done').'=,$'.
-				getCmd('d.get_up_total').'=,$'.getCmd('d.get_ratio').'=,$'.getCmd('d.get_creation_date').'=,$'.
-				getCmd('d.get_custom').'=addtime,$'.getCmd('d.get_custom').'=seedingtime'.
-				',"$'.getCmd('t.multicall').'=$'.getCmd('d.get_hash').'=,'.getCmd('t.get_url').'=,'.getCmd('cat').'=#",$'.
-				getCmd('d.get_custom1')."=,".
+				getCmd('d.name').'=,$'.getCmd('d.size_bytes').'=,$'.getCmd('d.bytes_done').'=,$'.
+				getCmd('d.up.total').'=,$'.getCmd('d.ratio').'=,$'.getCmd('d.creation_date').'=,$'.
+				getCmd('d.custom').'=addtime,$'.getCmd('d.custom').'=seedingtime'.
+				',"$'.getCmd('t.multicall').'=$'.getCmd('d.hash').'=,'.getCmd('t.url').'=,'.getCmd('cat').'=#",$'.
+				getCmd('d.custom1')."=,".
 				getUser().'}';
 		else
 			$addCmd = getCmd('cat=');
 		if($this->log["finish"])
 			$finCmd = getCmd('execute').'={'.getPHP().','.$rootPath.'/plugins/history/update.php'.',2,$'.
-				getCmd('d.get_name').'=,$'.getCmd('d.get_size_bytes').'=,$'.getCmd('d.get_bytes_done').'=,$'.
-				getCmd('d.get_up_total').'=,$'.getCmd('d.get_ratio').'=,$'.getCmd('d.get_creation_date').'=,$'.
-				getCmd('d.get_custom').'=addtime,$'.getCmd('d.get_custom').'=seedingtime'.
-				',"$'.getCmd('t.multicall').'=$'.getCmd('d.get_hash').'=,'.getCmd('t.get_url').'=,'.getCmd('cat').'=#",$'.
-				getCmd('d.get_custom1')."=,".
+				getCmd('d.name').'=,$'.getCmd('d.size_bytes').'=,$'.getCmd('d.bytes_done').'=,$'.
+				getCmd('d.up.total').'=,$'.getCmd('d.ratio').'=,$'.getCmd('d.creation_date').'=,$'.
+				getCmd('d.custom').'=addtime,$'.getCmd('d.custom').'=seedingtime'.
+				',"$'.getCmd('t.multicall').'=$'.getCmd('d.hash').'=,'.getCmd('t.url').'=,'.getCmd('cat').'=#",$'.
+				getCmd('d.custom1')."=,".
 				getUser().'}';
 		else
 			$finCmd = getCmd('cat=');
 		if($this->log["deletion"])
 			$delCmd = getCmd('execute').'={'.getPHP().','.$rootPath.'/plugins/history/update.php'.',3,$'.
-				getCmd('d.get_name').'=,$'.getCmd('d.get_size_bytes').'=,$'.getCmd('d.get_bytes_done').'=,$'.
-				getCmd('d.get_up_total').'=,$'.getCmd('d.get_ratio').'=,$'.getCmd('d.get_creation_date').'=,$'.
-				getCmd('d.get_custom').'=addtime,$'.getCmd('d.get_custom').'=seedingtime'.
-				',"$'.getCmd('t.multicall').'=$'.getCmd('d.get_hash').'=,'.getCmd('t.get_url').'=,'.getCmd('cat').'=#",$'.
-				getCmd('d.get_custom1')."=,".
+				getCmd('d.name').'=,$'.getCmd('d.size_bytes').'=,$'.getCmd('d.bytes_done').'=,$'.
+				getCmd('d.up.total').'=,$'.getCmd('d.ratio').'=,$'.getCmd('d.creation_date').'=,$'.
+				getCmd('d.custom').'=addtime,$'.getCmd('d.custom').'=seedingtime'.
+				',"$'.getCmd('t.multicall').'=$'.getCmd('d.hash').'=,'.getCmd('t.url').'=,'.getCmd('cat').'=#",$'.
+				getCmd('d.custom1')."=,".
 				getUser().'}';
 		else
 			$delCmd = getCmd('cat=');

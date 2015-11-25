@@ -162,7 +162,6 @@ var theUILang =
  Speed				: "Hastighet",
  Dont_add_tname 		: "Lägg inte till torrent-namn till sökväg",
  Free_Disk_Space		: "Ledigt utrymme",
- badXMLRPCVersion		: "rTorrent är kompilerad med fel version av xmlrpc-C-biblioteket, utan i8-stöd. Version måste vara > = 1.11. Vissa funktioner kommer att vara otillgängliga.",
  badLinkTorTorrent		: "Ingen anslutning till rTorrent. Kontrollera om det verkligen körs. Kontrollera $scgi_port- och $scgi_host-inställningarna i config.php och scgi_port i rTorrent's konfigurationsfil.",
  badUploadsPath 		: "Webbserveranvändaren har inte läs-/skriv-/exekveringsåtkomst till torrent-katalogen. Du kan ej lägga till torrenter via ruTorrent.",
  badSettingsPath		: "Webbserveranvändaren har inte läs-/skriv-/exekveringsåtkomst till inställningskatalogen. Inställningarna i ruTorrent kan inte sparas.",

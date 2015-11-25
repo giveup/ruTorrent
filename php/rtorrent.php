@@ -40,7 +40,7 @@ class rTorrent
                 $cmd->addParameter($filename);
             }
             if (!is_null($filename) && (rTorrentSettings::get()->iVersion>=0x805)) {
-                $cmd->addParameter(getCmd("d.set_custom")."=x-filename,".rawurlencode(basename($filename)));
+                $cmd->addParameter(getCmd("d.custom.set")."=x-filename,".rawurlencode(basename($filename)));
             }
             $req = new rXMLRPCRequest();
             if ($directory && (strlen($directory)>0)) {
@@ -48,7 +48,7 @@ class rTorrent
                     return(false);
                 }
                 $req->addCommand(new rXMLRPCCommand('execute', array('mkdir','-p',$directory)));
-                $cmd->addParameter(($isAddPath ? getCmd("d.set_directory=")."\"" : getCmd("d.set_directory_base=")."\"").$directory."\"");
+                $cmd->addParameter(($isAddPath ? getCmd("d.directory.set=")."\"" : getCmd("d.directory_base.set=")."\"").$directory."\"");
             }
             $comment = $torrent->comment();
             if ($comment) {
@@ -58,14 +58,14 @@ class rTorrent
                 if (strlen($comment)>0) {
                     $comment = "VRS24mrker".rawurlencode($comment);
                     if (strlen($comment)<=4096) {
-                        $cmd->addParameter(getCmd("d.set_custom2=").$comment);
+                        $cmd->addParameter(getCmd("d.custom2.set=").$comment);
                     }
                 }
             }
             if ($label && (strlen($label)>0)) {
                 $label = rawurlencode($label);
                 if (strlen($label)<=4096) {
-                    $cmd->addParameter(getCmd("d.set_custom1=").$label);
+                    $cmd->addParameter(getCmd("d.custom1.set=").$label);
                 }
             }
             if (is_array($addition)) {
@@ -101,13 +101,13 @@ class rTorrent
                     if (!rTorrentSettings::get()->correctDirectory($directory)) {
                         return(false);
                     }
-                    $cmd->addParameter(($isAddPath ? getCmd("d.set_directory=")."\"" : getCmd("d.set_directory_base=")."\"").$directory."\"");
+                    $cmd->addParameter(($isAddPath ? getCmd("d.directory.set=")."\"" : getCmd("d.directory_base.set=")."\"").$directory."\"");
                     $req->addCommand(new rXMLRPCCommand('execute', array('mkdir','-p',$directory)));
                 }
                 if ($label && (strlen($label)>0)) {
                     $label = rawurlencode($label);
                     if (strlen($label)<=4096) {
-                        $cmd->addParameter(getCmd("d.set_custom1=").$label);
+                        $cmd->addParameter(getCmd("d.custom1.set=").$label);
                     }
                 }
                 if (is_array($addition)) {
@@ -127,7 +127,7 @@ class rTorrent
     {
         $req = new rXMLRPCRequest(array(
             new rXMLRPCCommand("get_session"),
-            new rXMLRPCCommand("d.get_tied_to_file", $hash)));
+            new rXMLRPCCommand("d.tied_to_file", $hash)));
         if ($req->run() && !$req->fault) {
             $fname = $req->val[0].$hash.".torrent";
             if (empty($req->val[0]) || !is_readable($fname)) {

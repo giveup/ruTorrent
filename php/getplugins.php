@@ -246,9 +246,6 @@ if ($handle = opendir('../plugins')) {
                         }
                     }
                 }
-                if ($theSettings->badXMLRPCVersion) {
-                    $jResult.="noty(theUILang.badXMLRPCVersion,'error');";
-                }
             }
         }
         $plg = getConfFile('plugins.ini');

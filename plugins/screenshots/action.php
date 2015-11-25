@@ -12,13 +12,13 @@ if (isset($_REQUEST['cmd'])) {
         case "ffmpeg":
             if (isset($_REQUEST['hash']) &&
                 isset($_REQUEST['no'])) {
-                $req = new rXMLRPCRequest(new rXMLRPCCommand("f.get_frozen_path", array($_REQUEST['hash'],intval($_REQUEST['no']))));
+                $req = new rXMLRPCRequest(new rXMLRPCCommand("f.frozen_path", array($_REQUEST['hash'],intval($_REQUEST['no']))));
                 if ($req->success()) {
                     $filename = $req->val[0];
                     if ($filename=='') {
                         $req = new rXMLRPCRequest(array(
                             new rXMLRPCCommand("d.open", $_REQUEST['hash']),
-                            new rXMLRPCCommand("f.get_frozen_path", array($_REQUEST['hash'],intval($_REQUEST['no']))),
+                            new rXMLRPCCommand("f.frozen_path", array($_REQUEST['hash'],intval($_REQUEST['no']))),
                             new rXMLRPCCommand("d.close", $_REQUEST['hash']) ));
                         if ($req->success()) {
                             $filename = $req->val[1];

@@ -164,7 +164,6 @@ var theUILang =
  Speed				: "Vitesse",
  Dont_add_tname 		: "Ne pas ajouter le nom du torrent au répertoire",
  Free_Disk_Space		: "Espace disponible",
- badXMLRPCVersion		: "rTorrent est compilé avec une version incorrecte de la librairie xmlrpc-c, sans le support i8. La version doit être >= 1.11. Certaines fonctionnalités ne seront pas disponibles.",
  badLinkTorTorrent		: "Lien incorrect avec rTorrent. Vérifier qu'il est bien en cours d'exécution. Vérifier la configuration de $scgi_port et de $scgi_host dans config.php et scgi_port dans le fichier de configuration de rTorrent.",
  badUploadsPath 		: "Le serveur Web ne peut pas accéder au dossier torrents en Lecture/Écriture/Execution. Vous ne pouvez pas ajouter de torrent via ruTorrent.",
  badSettingsPath		: "Le serveur Web ne peut pas accéder au dossier de configuration en Lecture/Écriture/Execution. ruTorrent ne peut pas enregistrer votre configuration.",

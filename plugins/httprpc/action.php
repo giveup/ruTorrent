@@ -23,7 +23,7 @@ if(isset($HTTP_RAW_POST_DATA))
 				$c = getCmd(rawurldecode($parts[1]));
 				if(strpos($c,"execute")===false)
 					$add[] = $c;
-				break;  	
+				break;
 			}
 			case "s":
 			{
@@ -76,7 +76,7 @@ function makeSimpleCall($cmds,$hash)
 {
 	$req = new rXMLRPCRequest();
 	foreach($hash as $h)
-		foreach($cmds as $cmd)	
+		foreach($cmds as $cmd)
 			$req->addCommand( new rXMLRPCCommand( $cmd, $h ) );
        	return($req->success() ? $req->val : false);
 }
@@ -88,13 +88,13 @@ switch($mode)
 	case "list":	/**/
 	{
 		$cmds = array(
-			"d.get_hash=", "d.is_open=", "d.is_hash_checking=", "d.is_hash_checked=", "d.get_state=",
-			"d.get_name=", "d.get_size_bytes=", "d.get_completed_chunks=", "d.get_size_chunks=", "d.get_bytes_done=",
-			"d.get_up_total=", "d.get_ratio=", "d.get_up_rate=", "d.get_down_rate=", "d.get_chunk_size=",
-			"d.get_custom1=", "d.get_peers_accounted=", "d.get_peers_not_connected=", "d.get_peers_connected=", "d.get_peers_complete=",
-			"d.get_left_bytes=", "d.get_priority=", "d.get_state_changed=", "d.get_skip_total=", "d.get_hashing=",
-			"d.get_chunks_hashed=", "d.get_base_path=", "d.get_creation_date=", "d.get_tracker_focus=", "d.is_active=",
-			"d.get_message=", "d.get_custom2=", "d.get_free_diskspace=", "d.is_private=", "d.is_multi_file="
+			"d.hash=", "d.is_open=", "d.is_hash_checking=", "d.is_hash_checked=", "d.state=",
+			"d.name=", "d.size_bytes=", "d.completed_chunks=", "d.size_chunks=", "d.bytes_done=",
+			"d.up.total=", "d.ratio=", "d.up.rate=", "d.down.rate=", "d.chunk_size=",
+			"d.custom1=", "d.peers_accounted=", "d.peers_not_connected=", "d.peers_connected=", "d.peers_complete=",
+			"d.left_bytes=", "d.priority=", "d.state_changed=", "d.skip.total=", "d.hashing=",
+			"d.chunks_hashed=", "d.base_path=", "d.creation_date=", "d.tracker_focus=", "d.is_active=",
+			"d.message=", "d.custom2=", "d.free_diskspace=", "d.is_private=", "d.is_multi_file="
 			);
 		$cmd = new rXMLRPCCommand( "d.multicall", "main" );
 		$cmd->addParameters( array_map("getCmd", $cmds) );
@@ -107,13 +107,13 @@ switch($mode)
 			$theCache = new rpcCache();
 			$dTorrents = array();
 			$torrents = array();
-			foreach($req->val as $index=>$value) 
+			foreach($req->val as $index=>$value)
 			{
-				if($index % $cnt == 0) 
+				if($index % $cnt == 0)
 				{
 					$current_index = $value;
 					$torrents[$current_index] = array();
-				} 
+				}
 				else
 					$torrents[$current_index][] = $value;
 			}
@@ -128,32 +128,32 @@ switch($mode)
 	case "fls":	/**/
 	{
 		$result = makeMulticall(array(
-			"f.get_path=", "f.get_completed_chunks=", "f.get_size_chunks=", "f.get_size_bytes=", "f.get_priority="
+			"f.path=", "f.completed_chunks=", "f.size_chunks=", "f.size_bytes=", "f.priority="
 			),$hash[0],$add,'f');
 		break;
 	}
 	case "prs":	/**/
 	{
 		$result = makeMulticall(array(
-			"p.get_id=", "p.get_address=", "p.get_client_version=", "p.is_incoming=", "p.is_encrypted=",
-			"p.is_snubbed=", "p.get_completed_percent=", "p.get_down_total=", "p.get_up_total=", "p.get_down_rate=",
-			"p.get_up_rate=", "p.get_id_html=", "p.get_peer_rate=", "p.get_peer_total=", "p.get_port="
+			"p.id=", "p.address=", "p.client_version=", "p.is_incoming=", "p.is_encrypted=",
+			"p.is_snubbed=", "p.completed_percent=", "p.down_total=", "p.up_total=", "p.down_rate=",
+			"p.up_rate=", "p.id_html=", "p.peer_rate=", "p.peer_total=", "p.port="
 			),$hash[0],$add,'p');
 		break;
 	}
 	case "trk":	/**/
 	{
 		$result = makeMulticall(array(
-		        "t.get_url=", "t.get_type=", "t.is_enabled=", "t.get_group=", "t.get_scrape_complete=", 
-			"t.get_scrape_incomplete=", "t.get_scrape_downloaded=",
-			"t.get_normal_interval=", "t.get_scrape_time_last="
+		        "t.url=", "t.type=", "t.is_enabled=", "t.group=", "t.scrape_complete=",
+			"t.scrape_incomplete=", "t.scrape_downloaded=",
+			"t.normal_interval=", "t.scrape_time_last="
 			),$hash[0],$add,'t');
 		break;
 	}
 	case "stg":	/**/
 	{
 		$cmds = array(
-			"get_bind", "get_check_hash", "get_dht_port", "get_directory", "get_download_rate", 
+			"get_bind", "get_check_hash", "get_dht_port", "get_directory", "get_download_rate",
 			"get_hash_interval", "get_hash_max_tries", "get_hash_read_ahead", "get_http_cacert", "get_http_capath",
 			"get_http_proxy", "get_ip", "get_max_downloads_div", "get_max_downloads_global", "get_max_file_size",
 			"get_max_memory_usage", "get_max_open_files", "get_max_open_http", "get_max_peers", "get_max_peers_seed",
@@ -166,11 +166,11 @@ switch($mode)
 			);
 		if(rTorrentSettings::get()->iVersion>=0x900)
 			$cmds[5] = $cmds[6] = $cmds[7] = "cat";
-		$req = new rXMLRPCRequest( new rXMLRPCCommand( "dht_statistics" ) );
+		$req = new rXMLRPCRequest( new rXMLRPCCommand( "dht.statistics" ) );
 		foreach( $cmds as $cmd )
-			$req->addCommand( new rXMLRPCCommand( $cmd ) );	
+			$req->addCommand( new rXMLRPCCommand( $cmd ) );
 		foreach( $add as $prm )
-			$req->addCommand( new rXMLRPCCommand( $prm ) );	
+			$req->addCommand( new rXMLRPCCommand( $prm ) );
 		if($req->success())
 		{
 	        	$result = array();
@@ -194,9 +194,9 @@ switch($mode)
 		        );
 		$req = new rXMLRPCRequest();
 		foreach( $cmds as $cmd )
-			$req->addCommand( new rXMLRPCCommand( $cmd ) );	
+			$req->addCommand( new rXMLRPCCommand( $cmd ) );
 		foreach( $add as $prm )
-			$req->addCommand( new rXMLRPCCommand( $prm ) );	
+			$req->addCommand( new rXMLRPCCommand( $prm ) );
 		if($req->success())
 	        	$result = $req->val;
 		break;
@@ -204,14 +204,14 @@ switch($mode)
 	case "prp":	/**/
 	{
 		$cmds = array(
-			"d.get_peer_exchange", "d.get_peers_max", "d.get_peers_min", "d.get_tracker_numwant", "d.get_uploads_max",
-			"d.is_private", "d.get_connection_seed"
+			"d.peer_exchange", "d.peers_max", "d.peers_min", "d.tracker_numwant", "d.uploads_max",
+			"d.is_private", "d.connection_seed"
 		        );
 		$req = new rXMLRPCRequest();
 		foreach( $cmds as $cmd )
-			$req->addCommand( new rXMLRPCCommand( $cmd, $hash[0] ) );	
+			$req->addCommand( new rXMLRPCCommand( $cmd, $hash[0] ) );
 		foreach( $add as $prm )
-			$req->addCommand( new rXMLRPCCommand( $prm, $hash[0] ) );	
+			$req->addCommand( new rXMLRPCCommand( $prm, $hash[0] ) );
 		if($req->success())
 	        	$result = $req->val;
 		break;
@@ -269,7 +269,7 @@ switch($mode)
 	{
 		$req = new rXMLRPCRequest();
 		foreach($hash as $ndx=>$h)
-			$req->addCommand( new rXMLRPCCommand( "d.set_priority", array($h, intval($vs[0])) ) );
+			$req->addCommand( new rXMLRPCCommand( "d.priority.set", array($h, intval($vs[0])) ) );
 		if($req->success())
 	        	$result = $req->val;
 		break;
@@ -278,7 +278,7 @@ switch($mode)
 	{
 		$req = new rXMLRPCRequest();
 		foreach($hash as $ndx=>$h)
-			$req->addCommand( new rXMLRPCCommand( "d.set_custom1", array($h, $vs[0]) ) );
+			$req->addCommand( new rXMLRPCCommand( "d.custom1.set", array($h, $vs[0]) ) );
 		if($req->success())
 	        	$result = $req->val;
 		break;
@@ -286,13 +286,13 @@ switch($mode)
 	case "trkall":	/**/
 	{
 		$cmds = array(
-		        "t.get_url=", "t.get_type=", "t.is_enabled=", "t.get_group=", "t.get_scrape_complete=", 
-			"t.get_scrape_incomplete=", "t.get_scrape_downloaded="
+		        "t.url=", "t.type=", "t.is_enabled=", "t.group=", "t.scrape_complete=",
+			"t.scrape_incomplete=", "t.scrape_downloaded="
 		        );
 		$result = array();
 		if(empty($hash))
 		{
-			$prm = getCmd("cat").'="$'.getCmd("t.multicall=").getCmd("d.get_hash=").",";
+			$prm = getCmd("cat").'="$'.getCmd("t.multicall=").getCmd("d.hash=").",";
 			foreach( $cmds as $tcmd )
 				$prm.=getCmd($tcmd).','.getCmd("cat=#").',';
 			foreach( $add as $tcmd )
@@ -301,11 +301,11 @@ switch($mode)
 			$cnt = count($cmds)+count($add);
 			$req = new rXMLRPCRequest();
 			$req->addCommand( new rXMLRPCCommand( "d.multicall", array
-			( 
+			(
 				"main",
-				getCmd("d.get_hash="),
+				getCmd("d.hash="),
 				$prm
-			) ) );						
+			) ) );
 	       		if($req->success())
 			{
 				for( $i = 0; $i< count($req->val); $i+=2 )
@@ -315,7 +315,7 @@ switch($mode)
 						unset( $tracker[ count($tracker)-1 ] );
 					$result[ $req->val[$i] ] = array_chunk( $tracker, $cnt );
 				}
-			}									
+			}
 		}
 		else
 		{
@@ -323,7 +323,7 @@ switch($mode)
 			{
 				$ret = makeMulticall($cmds,$h,$add,'t');
 				if($ret===false)
-					$result[$h] = array();				
+					$result[$h] = array();
 				else
 					$result[$h] = $ret;
 			}
@@ -365,17 +365,17 @@ switch($mode)
 				$cmd = new rXMLRPCCommand("branch", array(
 					$hash[0],
 					getCmd("d.is_active="),
-					getCmd("cat").'=$'.getCmd("d.stop=").',$'.getCmd("d.close=").',$'.getCmd("d.set_connection_seed=").$conn.',$'.getCmd("d.open=").',$'.getCmd("d.start="),
-					getCmd("d.set_connection_seed=").$conn
+					getCmd("cat").'=$'.getCmd("d.stop=").',$'.getCmd("d.close=").',$'.getCmd("d.connection_seed.set=").$conn.',$'.getCmd("d.open=").',$'.getCmd("d.start="),
+					getCmd("d.connection_seed.set=").$conn
 					));
 			}
 			else
 			{
 				if($s=="ulslots")
-					$cmd = new rXMLRPCCommand("d.set_uploads_max");
+					$cmd = new rXMLRPCCommand("d.uploads_max.set");
 				else
 				if($s=="pex")
-					$cmd = new rXMLRPCCommand("d.set_peer_exchange");
+					$cmd = new rXMLRPCCommand("d.peer_exchange.set");
 				else
 					$cmd = new rXMLRPCCommand("d.set_".$s);
 				$cmd->addParameters( array($hash[0], $vs[$ndx]) );
@@ -443,9 +443,9 @@ switch($mode)
 	case "getchunks":
 	{
 		$req = new rXMLRPCRequest( array(
-			new rXMLRPCCommand( "d.get_bitfield", $hash[0] ),
-			new rXMLRPCCommand( "d.get_chunk_size", $hash[0] ),
-			new rXMLRPCCommand( "d.get_size_chunks", $hash[0] ) ));
+			new rXMLRPCCommand( "d.bitfield", $hash[0] ),
+			new rXMLRPCCommand( "d.chunk_size", $hash[0] ),
+			new rXMLRPCCommand( "d.size_chunks", $hash[0] ) ));
 		if(rTorrentSettings::get()->apiVersion>=4)
 			$req->addCommand(new rXMLRPCCommand( "d.chunks_seen", $hash[0] ));
 		if($req->success())

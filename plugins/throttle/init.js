@@ -22,7 +22,7 @@ theWebUI.config = function(data)
 			return(plugin.trtFormat(table,arr));
 		};
 	}
-	plugin.reqId = theRequestManager.addRequest("trt", "d.get_throttle_name=",function(hash,torrent,value)
+	plugin.reqId = theRequestManager.addRequest("trt", "d.throttle_name=",function(hash,torrent,value)
 	{
 		torrent.throttle = value;
 	});
@@ -187,7 +187,7 @@ if(plugin.canChangeMenu())
 				cmd.addParameter("string",this.hashes[i]);
 				this.commands.push( cmd );
 			}
-			cmd = new rXMLRPCCommand('d.set_throttle_name');
+			cmd = new rXMLRPCCommand('d.throttle_name.set');
 			cmd.addParameter("string",this.hashes[i]);
 			cmd.addParameter("string",name);
 			this.commands.push( cmd );

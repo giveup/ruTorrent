@@ -46,12 +46,12 @@ if (count($argv)>1) {
     $hash = $argv[1];
     $req = new rXMLRPCRequest(array(
         new rXMLRPCCommand("get_session"),
-        new rXMLRPCCommand("d.get_custom4", $hash),
-        new rXMLRPCCommand("d.get_tied_to_file", $hash),
-        new rXMLRPCCommand("d.get_custom1", $hash),
-        new rXMLRPCCommand("d.get_directory_base", $hash),
+        new rXMLRPCCommand("d.custom4", $hash),
+        new rXMLRPCCommand("d.tied_to_file", $hash),
+        new rXMLRPCCommand("d.custom1", $hash),
+        new rXMLRPCCommand("d.directory_base", $hash),
         new rXMLRPCCommand("d.is_private", $hash),
-        new rXMLRPCCommand("d.get_name", $hash),
+        new rXMLRPCCommand("d.name", $hash),
         ));
     if ($req->success()) {
         $isStart = ($req->val[1]!=0);
@@ -120,7 +120,7 @@ if (count($argv)>1) {
                                 false,
                                 false,
                                 false,
-                                array(getCmd("d.set_custom3")."=1")
+                                array(getCmd("d.custom3.set")."=1")
                             );
                             $processed = true;
                         }

@@ -39,7 +39,7 @@ rTorrentStub.prototype.getbasepath = function()
 	var cmd = new rXMLRPCCommand( "d.open" );
 	cmd.addParameter( "string", this.hashes[0] );
 	this.commands.push( cmd );
-	cmd = new rXMLRPCCommand( "d.get_base_path" );
+	cmd = new rXMLRPCCommand( "d.base_path" );
 	cmd.addParameter( "string", this.hashes[0] );
 	this.commands.push( cmd );
 	cmd = new rXMLRPCCommand( "d.close" );

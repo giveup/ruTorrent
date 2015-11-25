@@ -165,7 +165,6 @@ var theUILang =
  Speed				: "Szybkość",
  Dont_add_tname 		: "Nie dodawaj nazwy torrenta do ścieżki",
  Free_Disk_Space		: "Wolna przestrzeń dyskowa",
- badXMLRPCVersion		: "rTorrent został skompilowany ze złą wersją biblioteki xmlrpc-c , bez wsparcia i8 . Wersja musi być większa lub równa: 1.11. Pewne funkcjonalności będą niedostepne.",
  badLinkTorTorrent		: "Zła ścieżka do rTorrenta. Sprawdź, czy jest uruchomiony. Sprawdź też ustawienia $scgi_port oraz $scgi_host settings w config.php oraz scgi_port w pliku konfiguracyjnym rTorrent.",
  badUploadsPath 		: "Serwer nie ma praw zezwalających na odczyt/zapis/wykonywanie operacji w katalogu torrentów. Nie możesz dodać torrenta przez ruTorrent.",
  badSettingsPath		: "Serwer nie ma praw zezwalających na odczyt/zapis/wykonywanie operacji w katalogu. ruTorrent nie może zapisać własnych ustawień.",

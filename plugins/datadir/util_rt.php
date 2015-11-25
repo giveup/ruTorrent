@@ -434,7 +434,7 @@ function rtAddTorrent($fname, $isStart, $directory, $label, $dbg = false)
     }
 
     if ($directory && strlen($directory) > 0) {
-        $directory = rtMakeStrParam("d.set_directory=\"".$directory."\"");
+        $directory = rtMakeStrParam("d.directory.set=\"".$directory."\"");
     } else {
         $directory = "";
     }
@@ -445,7 +445,7 @@ function rtAddTorrent($fname, $isStart, $directory, $label, $dbg = false)
             $comment = win2utf($comment);
         }
         if (strlen($comment) > 0) {
-            $comment = rtMakeStrParam("d.set_custom2=VRS24mrker".rawurlencode($comment));
+            $comment = rtMakeStrParam("d.custom2.set=VRS24mrker".rawurlencode($comment));
             if (strlen($comment)>4096) {
                 $comment = '';
             }
@@ -455,7 +455,7 @@ function rtAddTorrent($fname, $isStart, $directory, $label, $dbg = false)
     }
 
     if ($label && strlen($label) > 0) {
-        $label = rtMakeStrParam("d.set_custom1=\"".rawurlencode($label)."\"");
+        $label = rtMakeStrParam("d.custom1.set=\"".rawurlencode($label)."\"");
     } else {
         $label = "";
     }

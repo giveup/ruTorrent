@@ -18,11 +18,11 @@ class ruTrackerChecker
     protected static function setState($hash, $state)
     {
         $req = new rXMLRPCRequest(array(
-            new rXMLRPCCommand(getCmd("d.set_custom"), array($hash, "chk-state", $state."")),
-            new rXMLRPCCommand(getCmd("d.set_custom"), array($hash, "chk-time", time().""))
+            new rXMLRPCCommand(getCmd("d.custom.set"), array($hash, "chk-state", $state."")),
+            new rXMLRPCCommand(getCmd("d.custom.set"), array($hash, "chk-time", time().""))
             ));
         if ($state == self::STE_UPTODATE) {
-            $req->addCommand(new rXMLRPCCommand(getCmd("d.set_custom"), array($hash, "chk-stime", time()."")));
+            $req->addCommand(new rXMLRPCCommand(getCmd("d.custom.set"), array($hash, "chk-stime", time()."")));
         }
         return($req->success());
     }
@@ -30,9 +30,9 @@ class ruTrackerChecker
     protected static function getState($hash, &$state, &$time, &$successful_time)
     {
         $req = new rXMLRPCRequest(array(
-            new rXMLRPCCommand(getCmd("d.get_custom"), array($hash, "chk-state")),
-            new rXMLRPCCommand(getCmd("d.get_custom"), array($hash, "chk-time")),
-            new rXMLRPCCommand(getCmd("d.get_custom"), array($hash, "chk-stime"))
+            new rXMLRPCCommand(getCmd("d.custom"), array($hash, "chk-state")),
+            new rXMLRPCCommand(getCmd("d.custom"), array($hash, "chk-time")),
+            new rXMLRPCCommand(getCmd("d.custom"), array($hash, "chk-stime"))
             ));
         if ($req->success()) {
             $state = intval($req->val[0]);
@@ -121,26 +121,26 @@ class ruTrackerChecker
                             if (!$torrent->errors()) {
                                 if ($torrent->hash_info()!=$hash) {
                                     $req =  new rXMLRPCRequest(array(
-                                        new rXMLRPCCommand("d.get_directory_base", $hash),
-                                        new rXMLRPCCommand("d.get_custom1", $hash),
-                                        new rXMLRPCCommand("d.get_throttle_name", $hash),
-                                        new rXMLRPCCommand("d.get_connection_seed", $hash),
+                                        new rXMLRPCCommand("d.directory_base", $hash),
+                                        new rXMLRPCCommand("d.custom1", $hash),
+                                        new rXMLRPCCommand("d.throttle_name", $hash),
+                                        new rXMLRPCCommand("d.connection_seed", $hash),
                                         new rXMLRPCCommand("d.is_open", $hash),
                                         new rXMLRPCCommand("d.is_active", $hash),
-                                        new rXMLRPCCommand("d.get_state", $hash),
+                                        new rXMLRPCCommand("d.state", $hash),
                                         new rXMLRPCCommand("d.stop", $hash),
                                         new rXMLRPCCommand("d.close", $hash),
                                         ));
                                     if ($req->success()) {
                                         $addition = array(
-                                            getCmd("d.set_connection_seed=").$req->val[3],
-                                            getCmd("d.set_custom")."=chk-state,".self::STE_UPDATED,
-                                            getCmd("d.set_custom")."=chk-time,".time(),
-                                            getCmd("d.set_custom")."=chk-stime,".time()
+                                            getCmd("d.connection_seed.set=").$req->val[3],
+                                            getCmd("d.custom.set")."=chk-state,".self::STE_UPDATED,
+                                            getCmd("d.custom.set")."=chk-time,".time(),
+                                            getCmd("d.custom.set")."=chk-stime,".time()
                                             );
                                         $isStart = (($req->val[4]!=0) && ($req->val[5]!=0) && ($req->val[6]!=0));
                                         if (!empty($req->val[2])) {
-                                            $addition[] = getCmd("d.set_throttle_name=").$req->val[2];
+                                            $addition[] = getCmd("d.throttle_name.set=").$req->val[2];
                                         }
                                         if (preg_match('/rat_(\d+)/', $req->val[3], $ratio)) {
                                             $addition[] = getCmd("view.set_visible=")."rat_".$ratio;

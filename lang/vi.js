@@ -162,7 +162,6 @@ var theUILang =
  Speed				: "Tốc độ",
  Dont_add_tname 		: "Không thêm tên torrent vào đường dẫn",
  Free_Disk_Space		: "Dung lượng đĩa trống",
- badXMLRPCVersion		: "rTorrent được biên dịch với thư viện xmlrpc-c không hỗ trợ i8. Phiên bản phải mới hơn 1.11. Một số tính năng sẽ không sử dụng được.",
  badLinkTorTorrent		: "Không kết nối tới rTorrent. Kiểm tra xem rTorrent có chạy không. Đồng thời kiểm tra giá trị $scgi_port và $scgi_host trong tập tin config.php và giá trị scgi_port trong tập tin cấu hình rTorrent",
  badUploadsPath 		: "Máy chủ Web không có quyền đọc/ghi/thực thi thư mục torrent. Bạn không thể thêm torrent thông qua ruTorrent.",
  badSettingsPath		: "Máy chủ Web không có quyền đọc/ghi/thực thi thư mục cài đặt torrent. ruTorrent không thể lưu lại các cài dặt của bạn.",

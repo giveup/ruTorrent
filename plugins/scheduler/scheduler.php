@@ -111,9 +111,9 @@ class rScheduler
     public static function getActiveTorrents()
     {
         $delta = 2;
-        $cmd = new rXMLRPCCommand("d.multicall", array("started",getCmd("d.get_hash="),getCmd("d.get_connection_current=") ));
+        $cmd = new rXMLRPCCommand("d.multicall", array("started",getCmd("d.hash="),getCmd("d.connection_current=") ));
         if (rTorrentSettings::get()->iVersion>=0x805) {
-            $cmd->addParameter(getCmd("d.get_custom=")."sch_ignore");
+            $cmd->addParameter(getCmd("d.custom=")."sch_ignore");
             $delta = 3;
         }
         $req = new rXMLRPCRequest($cmd);

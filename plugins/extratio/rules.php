@@ -180,10 +180,10 @@ class rRatioRulesList
 		$req = new rXMLRPCRequest();
 		foreach( $hashes as $hash )
 		{
-			$req->addCommand( new rXMLRPCCommand( "d.get_custom1", $hash ) ); 
-			$req->addCommand( new rXMLRPCCommand( "d.get_state", $hash ) );
+			$req->addCommand( new rXMLRPCCommand( "d.custom1", $hash ) ); 
+			$req->addCommand( new rXMLRPCCommand( "d.state", $hash ) );
 			$req->addCommand( new rXMLRPCCommand( "d.views", $hash ) );
-			$req->addCommand( new rXMLRPCCommand( "d.get_throttle_name", $hash ) );
+			$req->addCommand( new rXMLRPCCommand( "d.throttle_name", $hash ) );
 		}
 		if($req->getCommandsCount() && $req->success())
 		{
@@ -200,7 +200,7 @@ class rRatioRulesList
 				$trackers = '';
 			        $req1 = new rXMLRPCRequest( array(
 					new rXMLRPCCommand("t.multicall", 
-						array($hash,"",getCmd("t.get_url=")))));
+						array($hash,"",getCmd("t.url=")))));
 				if($req1->success())
 					$trackers = implode( '#', $req1->val );
 				$rule = $this->getRule( $label, $trackers );
@@ -210,7 +210,7 @@ class rRatioRulesList
 					{
 						if($state)
 							$out->addCommand( new rXMLRPCCommand('d.stop', $hash) );
-						$out->addCommand( new rXMLRPCCommand('d.set_throttle_name', array($hash,$rule->channel)) );
+						$out->addCommand( new rXMLRPCCommand('d.throttle_name.set', array($hash,$rule->channel)) );
 						if($state)
 							$out->addCommand( new rXMLRPCCommand('d.start', $hash) );
 					}
@@ -249,19 +249,19 @@ class rRatioRulesList
 			for($i=0; $i<MAX_RATIO; $i++)
 				$insCmd .= (getCmd('d.views.has=').'rat_'.$i.',,');
 			$ratCmd = 
-                                getCmd('d.set_custom').'=x-extratio1,"$'.getCmd('execute_capture').
-                                '={'.getPHP().','.$rootPath.'/plugins/extratio/update.php,\"$'.getCmd('t.multicall').'=$'.getCmd('d.get_hash').'=,'.getCmd('t.get_url').'=,'.getCmd('cat').'=#\",$'.getCmd('d.get_custom1').'=,ratio,'.getUser().'}" ; '.
-                                getCmd('branch').'=$'.getCmd('not').'=$'.getCmd('d.get_custom').'=x-extratio1,,'.$insCmd.
-                                getCmd('view.set_visible').'=$'.getCmd('d.get_custom').'=x-extratio1';
+                                getCmd('d.custom.set').'=x-extratio1,"$'.getCmd('execute_capture').
+                                '={'.getPHP().','.$rootPath.'/plugins/extratio/update.php,\"$'.getCmd('t.multicall').'=$'.getCmd('d.hash').'=,'.getCmd('t.url').'=,'.getCmd('cat').'=#\",$'.getCmd('d.custom1').'=,ratio,'.getUser().'}" ; '.
+                                getCmd('branch').'=$'.getCmd('not').'=$'.getCmd('d.custom').'=x-extratio1,,'.$insCmd.
+                                getCmd('view.set_visible').'=$'.getCmd('d.custom').'=x-extratio1';
 		}
 		else
 			$ratCmd = getCmd('cat=');
 		if($throttleRulesExist)
 			$thrCmd = 
-                                getCmd('d.set_custom').'=x-extratio2,"$'.getCmd('execute_capture').
-                                '={'.getPHP().','.$rootPath.'/plugins/extratio/update.php,\"$'.getCmd('t.multicall').'=$'.getCmd('d.get_hash').'=,'.getCmd('t.get_url').'=,'.getCmd('cat').'=#\",$'.getCmd('d.get_custom1').'=,channel,'.getUser().'}" ; '.
-                                getCmd('branch').'=$'.getCmd('not').'=$'.getCmd('d.get_custom').'=x-extratio2,,'.
-                                getCmd('d.set_throttle_name').'=$'.getCmd('d.get_custom').'=x-extratio2';
+                                getCmd('d.custom.set').'=x-extratio2,"$'.getCmd('execute_capture').
+                                '={'.getPHP().','.$rootPath.'/plugins/extratio/update.php,\"$'.getCmd('t.multicall').'=$'.getCmd('d.hash').'=,'.getCmd('t.url').'=,'.getCmd('cat').'=#\",$'.getCmd('d.custom1').'=,channel,'.getUser().'}" ; '.
+                                getCmd('branch').'=$'.getCmd('not').'=$'.getCmd('d.custom').'=x-extratio2,,'.
+                                getCmd('d.throttle_name.set').'=$'.getCmd('d.custom').'=x-extratio2';
 		else
 			$thrCmd = getCmd('cat=');
 		$req = new rXMLRPCRequest( array(

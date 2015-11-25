@@ -69,16 +69,16 @@ if(isset($HTTP_RAW_POST_DATA))
 				new rXMLRPCCommand("get_session"),
 				new rXMLRPCCommand("d.is_open",$hash),
 				new rXMLRPCCommand("d.is_active",$hash),
-				new rXMLRPCCommand("d.get_state",$hash),
-				new rXMLRPCCommand("d.get_tied_to_file",$hash),
-				new rXMLRPCCommand("d.get_custom1",$hash),
-				new rXMLRPCCommand("d.get_directory_base",$hash),
-				new rXMLRPCCommand("d.get_connection_seed",$hash),
-				new rXMLRPCCommand("d.get_complete",$hash),
+				new rXMLRPCCommand("d.state",$hash),
+				new rXMLRPCCommand("d.tied_to_file",$hash),
+				new rXMLRPCCommand("d.custom1",$hash),
+				new rXMLRPCCommand("d.directory_base",$hash),
+				new rXMLRPCCommand("d.connection_seed",$hash),
+				new rXMLRPCCommand("d.complete",$hash),
 				) );
 			$throttle = null;
 			if(rTorrentSettings::get()->isPluginRegistered("throttle"))
-				$req->addCommand(new rXMLRPCCommand("d.get_throttle_name",$hash));
+				$req->addCommand(new rXMLRPCCommand("d.throttle_name",$hash));
 			if($req->run() && !$req->fault)
 			{
 				$isStart = (($req->val[1]!=0) && ($req->val[2]!=0) && ($req->val[3]!=0));
@@ -120,14 +120,14 @@ if(isset($HTTP_RAW_POST_DATA))
 						if(isset($torrent->{'rtorrent'}))
 							unset($torrent->{'rtorrent'});
 						if(count($req->val)>9)
-							$throttle = getCmd("d.set_throttle_name=").$req->val[9];
+							$throttle = getCmd("d.throttle_name.set=").$req->val[9];
 						$eReq = new rXMLRPCRequest( new rXMLRPCCommand("d.erase", $hash ) );
 						if($eReq->run() && !$eReq->fault)
 						{
 							$label = rawurldecode($req->val[5]);
 							if(!rTorrent::sendTorrent($torrent, $isStart, false, $req->val[6], $label, false, ($req->val[8]==1), false,
-							        array(	getCmd("d.set_custom3")."=1",
-									getCmd("d.set_connection_seed=").$req->val[7],
+							        array(	getCmd("d.custom3.set")."=1",
+									getCmd("d.connection_seed.set=").$req->val[7],
 									$throttle)))
 								$errors[] = array('desc'=>"theUILang.errorAddTorrent", 'prm'=>$fname);
 						}

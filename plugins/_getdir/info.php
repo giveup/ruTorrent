@@ -26,7 +26,7 @@ if (isset($_REQUEST['mode'])) {
     $modes = explode(';', $_REQUEST['mode']);
     $theSettings = rTorrentSettings::get();
     if (in_array("labels", $modes)) {
-        $req = new rXMLRPCRequest(new rXMLRPCCommand("d.multicall", array("",getCmd("d.get_custom1="))));
+        $req = new rXMLRPCRequest(new rXMLRPCCommand("d.multicall", array("",getCmd("d.custom1="))));
         $labels = array();
         if ($req->run() && !$req->fault) {
             for ($i=0; $i<count($req->val); $i++) {

@@ -164,7 +164,6 @@ var theUILang =
  Speed               : "Hastighet",
  Dont_add_tname      : "Ikke legg til torrentnavn til filbane",
  Free_Disk_Space     : "Ledig diskplass",
- badXMLRPCVersion    : "rTorrent er kompilert med feil versjon av xmlrpc-c biblotek, uten i8 støtte. Noe funksjonalitet vil ikke være tilgjengelig.",
  badLinkTorTorrent   : "Ingen tilkobling til rTorrent. Sjekk at den virkelig kjører. Sjekk $scgi_port og $scgi_host innstillinger i config.php og scgi_port i rTorrent sin konfigurasjonfil.",
  badUploadsPath      : "Webserver-bruker har ikke lese/skrive/kjøre tilgang til torrentfil-mappen. Du kan ikke legge til torrenter via ruTorrent.",
  badSettingsPath     : "Webserver-bruker har ikke lese/skrive/kjøre tilgang til konfigurasjonsmappen. ruTorrent sine innstillinger kan ikke lagres.",

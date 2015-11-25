@@ -1245,7 +1245,7 @@ class rRSSManager
 		{
 			$addition = array();
 			if(!empty($throttle))
-				$addition[] = getCmd("d.set_throttle_name=").$throttle;
+				$addition[] = getCmd("d.throttle_name.set=").$throttle;
 			if(!empty($ratio))
 				$addition[] = getCmd("view.set_visible=").$ratio;
 			global $saveUploadedTorrents;

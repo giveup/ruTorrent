@@ -71,7 +71,7 @@ class rRatio
         $times = $this->getTimes();
         $cnt = count($times);
         if ($cnt) {
-            $cmd = new rXMLRPCCommand("d.multicall", array("complete",getCmd("d.get_hash="),getCmd("d.get_custom=")."seedingtime",getCmd("d.is_active=") ));
+            $cmd = new rXMLRPCCommand("d.multicall", array("complete",getCmd("d.hash="),getCmd("d.custom=")."seedingtime",getCmd("d.is_active=") ));
             foreach ($times as $i) {
                 $cmd->addParameters(array( getCmd("cat")."=".$i, getCmd("d.views.has")."=rat_".$i));
             }
@@ -121,7 +121,7 @@ class rRatio
     }
     public function correct()
     {
-        $cmd = new rXMLRPCCommand("d.multicall", array("default",getCmd("d.get_hash=")));
+        $cmd = new rXMLRPCCommand("d.multicall", array("default",getCmd("d.hash=")));
         for ($i=0; $i<MAX_RATIO; $i++) {
             $cmd->addParameters(array( getCmd("d.views.has")."=rat_".$i, getCmd("view.set_not_visible")."=rat_".$i ));
         }
@@ -146,7 +146,7 @@ class rRatio
     }
     public function flush()
     {
-        $req1 = new rXMLRPCRequest(new rXMLRPCCommand("view_list"));
+        $req1 = new rXMLRPCRequest(new rXMLRPCCommand("view.list"));
         if ($req1->run() && !$req1->fault) {
             $insCmd = getCmd('branch=');
             $req = new rXMLRPCRequest();
@@ -184,20 +184,20 @@ class rRatio
                         case RAT_ERASEDATA:
                             {
                             $req->addCommand(new rXMLRPCCommand("system.method.set", array("group.rat_".$i.".ratio.command",
-                                getCmd("d.stop=")."; ".getCmd("d.close=")."; ".getCmd("d.set_custom5=")."1; ".getCmd("d.erase="))));
+                                getCmd("d.stop=")."; ".getCmd("d.close=")."; ".getCmd("d.custom5.set=")."1; ".getCmd("d.erase="))));
                             break;
                         }
                         case RAT_ERASEDATAALL:
                             {
                             $req->addCommand(new rXMLRPCCommand("system.method.set", array("group.rat_".$i.".ratio.command",
-                                getCmd("d.stop=")."; ".getCmd("d.close=")."; ".getCmd("d.set_custom5=")."2; ".getCmd("d.erase="))));
+                                getCmd("d.stop=")."; ".getCmd("d.close=")."; ".getCmd("d.custom5.set=")."2; ".getCmd("d.erase="))));
                             break;
                         }
                         default:
                             {
                             $thr = "thr_".($rat["action"]-RAT_FIRSTTHROTTLE);
                             $req->addCommand(new rXMLRPCCommand("system.method.set", array("group.rat_".$i.".ratio.command",
-                                getCmd('cat').'=$'.getCmd("d.stop").'=,$'.getCmd("d.set_throttle_name=").$thr.',$'.getCmd('d.start='))));
+                                getCmd('cat').'=$'.getCmd("d.stop").'=,$'.getCmd("d.throttle_name.set=").$thr.',$'.getCmd('d.start='))));
                             break;
                         }
                     }

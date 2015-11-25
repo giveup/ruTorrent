@@ -164,7 +164,6 @@ var theUILang =
  Speed				: "Geschwindigkeit",
  Dont_add_tname 		: "Torrentnamen nicht zum Pfad hinzufügen",
  Free_Disk_Space		: "Freier Speicherplatz",
- badXMLRPCVersion		: "rTorrent wurde mit einer falschen Version von xmlrpc-c ohne i8 Support kompiliert. Version muss >= 1.11 sein. Einige Funktionalitäten werden nicht zur Verfügung stehen.",
  badLinkTorTorrent		: "Keine Verbindung zu rTorrent. Überprüfe ob es wirklicht läuft. Überprüfe $scgi_port und $scgi_host Einstellungen in config.php und scgi_port in der rTorrent Konfigurationsdatei.",
  badUploadsPath 		: "Webserver Benutzer hat keine read/write/execute Berechtigungen auf das Torrentverzeichnis. Du kannst keine Torrents über ruTorrent hinzufügen.",
  badSettingsPath		: "Webserver Benutzer hat keine read/write/execute Berechtigungen auf das Settingsverzeichnis. ruTorrent Einstellungen können nicht gespeichert werden.",

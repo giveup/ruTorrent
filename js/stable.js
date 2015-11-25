@@ -790,7 +790,7 @@ dxSTable.prototype.colDrag = function(e)
 	nw+=4;
 	self.colReszObj.style.left = (o.offsetLeft+nw-self.dHead.scrollLeft) + "px";
 
-	nw = iv(self.dBody.style.height) + iv(self.dHead.offsetHeight);
+	nw = iv(self.dBody.style.height) + iv(self.dHead.set_ofHeight);
 	if (self.dBody.scrollWidth > self.dBody.clientWidth)
 		nw-=window.scrollbarHeight;
 	self.colReszObj.style.height = nw + "px";

@@ -328,14 +328,14 @@ class rUnpack
 
         if (!empty($mode)) {
             $req = new rXMLRPCRequest(
-                new rXMLRPCCommand("f.get_frozen_path", array($hash,intval($fileno)))
+                new rXMLRPCCommand("f.frozen_path", array($hash,intval($fileno)))
             );
             if ($req->success()) {
                 $filename = $req->val[0];
                 if ($filename=='') {
                     $req = new rXMLRPCRequest(array(
                         new rXMLRPCCommand("d.open", $hash),
-                        new rXMLRPCCommand("f.get_frozen_path", array($hash,intval($fileno))),
+                        new rXMLRPCCommand("f.frozen_path", array($hash,intval($fileno))),
                         new rXMLRPCCommand("d.close", $hash) ));
                     if ($req->success()) {
                         $filename = $req->val[1];
@@ -358,9 +358,9 @@ class rUnpack
             }
         } else {
             $req = new rXMLRPCRequest(array(
-                new rXMLRPCCommand("d.get_base_path", $hash),
-                new rXMLRPCCommand("d.get_custom1", $hash),
-                new rXMLRPCCommand("d.get_name", $hash) ));
+                new rXMLRPCCommand("d.base_path", $hash),
+                new rXMLRPCCommand("d.custom1", $hash),
+                new rXMLRPCCommand("d.name", $hash) ));
             if ($req->success()) {
                 $basename = $req->val[0];
                 $label = rawurldecode($req->val[1]);
@@ -368,14 +368,14 @@ class rUnpack
                 if ($basename=='') {
                     $req = new rXMLRPCRequest(array(
                         new rXMLRPCCommand("d.open", $hash),
-                        new rXMLRPCCommand("d.get_base_path", $hash),
+                        new rXMLRPCCommand("d.base_path", $hash),
                         new rXMLRPCCommand("d.close", $hash) ));
                     if ($req->success()) {
                         $basename = $req->val[1];
                     }
                 }
                 $req = new rXMLRPCRequest(
-                    new rXMLRPCCommand("f.multicall", array($hash,"",getCmd("f.get_path=")))
+                    new rXMLRPCCommand("f.multicall", array($hash,"",getCmd("f.path=")))
                 );
                 if ($req->success()) {
                     $rarPresent = false;
@@ -433,8 +433,8 @@ class rUnpack
         global $rootPath;
         if ($this->enabled) {
             $cmd =  rTorrentSettings::get()->getOnFinishedCommand(array('unpack'.getUser(),
-                    getCmd('execute').'={'.getPHP().','.$rootPath.'/plugins/unpack/update.php,$'.getCmd('d.get_directory').'=,$'.getCmd('d.get_base_filename').'=,$'.getCmd('d.is_multi_file').
-                    '=,$'.getCmd('d.get_custom1').'=,$'.getCmd('d.get_name').'=,$'.getCmd('d.get_hash').'=,$'.getCmd('d.get_custom').'=x-dest,'.getUser().'}'));
+                    getCmd('execute').'={'.getPHP().','.$rootPath.'/plugins/unpack/update.php,$'.getCmd('d.directory').'=,$'.getCmd('d.base_filename').'=,$'.getCmd('d.is_multi_file').
+                    '=,$'.getCmd('d.custom1').'=,$'.getCmd('d.name').'=,$'.getCmd('d.hash').'=,$'.getCmd('d.custom').'=x-dest,'.getUser().'}'));
         } else {
             $cmd = rTorrentSettings::get()->getOnFinishedCommand(array('unpack'.getUser(), getCmd('cat=')));
         }

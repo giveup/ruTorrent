@@ -162,7 +162,6 @@ var theUILang =
  Speed				: "Hız",
  Dont_add_tname 		: "Torrent ismiyle klasör ismi aynı olmasın",
  Free_Disk_Space		: "Boş disk alanı",
- badXMLRPCVersion		: "rTorrent, i8 desteği olmayan eski bir xmlrpc-c kütüphanesi versiyonuyla derlenmiş. Versiyon en az 1.11 olmalıdır. Bazı özellikler çalışmayacaktır.",
  badLinkTorTorrent		: "rTorrent bağlantısında hata. rTorrent'in çalıştığından emin olun. rTorrent ayar dosyası config.php'deki $scgi_port ve $scgi_host ayarlarını kontrol edin.",
  badUploadsPath 		: "Web sunucu 'torrents' klasörüne okuma/yazma/çalıştırma erişimi vermemektedir. Bu durumda ruTorrent'e torrent ekleyemezsiniz. Chomod ayarlarını kontrol ediniz.",
  badSettingsPath		: "Web sunucu 'settings' klasörüne okuma/yazma/çalıştırma erişimi vermemektedir. Bu durumda ruTorrent ayarlarını değiştiremezsiniz. Chmod ayarlarını kontrol ediniz.",

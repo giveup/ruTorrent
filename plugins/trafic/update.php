@@ -11,7 +11,7 @@ if (chdir($path)) {
     $req = new rXMLRPCRequest(array(
         new rXMLRPCCommand("get_up_total"),
         new rXMLRPCCommand("get_down_total"),
-        new rXMLRPCCommand("d.multicall", array("main",getCmd("d.get_hash="),getCmd("d.get_up_total="),getCmd("d.get_down_total=")))));
+        new rXMLRPCCommand("d.multicall", array("main",getCmd("d.hash="),getCmd("d.up.total="),getCmd("d.down.total=")))));
     $req->setParseByTypes();
     if ($req->run() && !$req->fault) {
         $dir = getSettingsPath().'/trafic/';
@@ -83,7 +83,7 @@ if (chdir($path)) {
                             $req = new rXMLRPCRequest(array(
                     new rXMLRPCCommand(
                         "t.multicall",
-                        array($key,"",getCmd("t.is_enabled="),getCmd("t.get_type="),getCmd("t.get_group="),getCmd("t.get_url="))
+                        array($key,"",getCmd("t.is_enabled="),getCmd("t.type="),getCmd("t.group="),getCmd("t.url="))
                     )));
                     $req->setParseByTypes();
                     if ($req->run() && !$req->fault) {
