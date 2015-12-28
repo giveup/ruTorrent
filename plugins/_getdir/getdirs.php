@@ -1,6 +1,7 @@
 <?php
-require_once( '../../php/util.php' );
-require_once( '../../php/settings.php' );
+require_once('../../php/util.php');
+require_once('../../php/settings.php');
+eval(getPluginConf("_getdir"));
 
 $dh = false;
 $theSettings = rTorrentSettings::get();
@@ -37,6 +38,7 @@ if (isset($_REQUEST['dir']) && strlen($_REQUEST['dir'])) {
     if ($dh &&
         ((strpos($dir, $topDirectory)!==0) ||
         (($theSettings->uid>=0) &&
+        $checkUserPermissions &&
         !isUserHavePermission($theSettings->uid, $theSettings->gid, $dir, 0x0007)))) {
         closedir($dh);
         $dh = false;
@@ -59,8 +61,8 @@ if ($dh) {
         }
         if (is_dir($path) &&
             (strpos(addslash($path), $topDirectory)===0) &&
-            ( $theSettings->uid<0 || isUserHavePermission($theSettings->uid, $theSettings->gid, $path, 0x0007))
-            ) {
+            ( $theSettings->uid<0 || !$checkUserPermissions || isUserHavePermission($theSettings->uid, $theSettings->gid, $path, 0x0007) )
+        ) {
             $files[$file." "] = addslash($path);
         }
     }
@@ -92,10 +94,10 @@ function keyHandler(e)
 {
 	e = e || window.event;
 	var charCode = (e.which == null) ? e.keyCode : ((e.which!=0 && e.charCode!=0) ? e.which : 0);
-	if(charCode>=32)
+	if (charCode>=32)
 	{
 		var el = document.getElementById('i'+e.charCode);
-		if( el )
+		if ( el )
 		{
 			menuClick(el);
 			!el.scrollIntoView || el.scrollIntoView(false);
@@ -114,12 +116,12 @@ selected = null;
 
 function menuClick(obj)
 {
-	if(selected)
+	if (selected)
 		selected.className = 'rmenuitem';
 	obj.className = 'rmenuitemselected';
 	selected = obj;
 	var code = obj.getAttribute('code');
-	if(code && window.frameElement)
+	if (code && window.frameElement)
 	{
 		var el = ownerDocument.getElementById(<?php echo $edit_id;?>);
 		el.value = decodeURIComponent(code);

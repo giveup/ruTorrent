@@ -1,6 +1,7 @@
 <?php
 require_once( '../../php/util.php' );
 require_once( '../../php/settings.php' );
+eval(getPluginConf("_getdir"));
 
 function compareEntries($a, $b)
 {
@@ -50,6 +51,7 @@ if (isset($_REQUEST['mode'])) {
             if ($dh &&
                 ((strpos($dir, $topDirectory)!==0) ||
                 (($theSettings->uid>=0) &&
+                $checkUserPermissions &&
                 !isUserHavePermission($theSettings->uid, $theSettings->gid, $dir, 0x0007)))) {
                 closedir($dh);
                 $dh = false;
@@ -72,7 +74,7 @@ if (isset($_REQUEST['mode'])) {
                 }
                 if (is_dir($path) && is_readable($path) &&
                     (strpos(addslash($path), $topDirectory)===0) &&
-                    ( $theSettings->uid<0 || isUserHavePermission($theSettings->uid, $theSettings->gid, $path, 0x0007))
+                    ( $theSettings->uid<0 || !$checkUserPermissions || isUserHavePermission($theSettings->uid, $theSettings->gid, $path, 0x0007))
                     ) {
                     $files[] = $file;
                 }
