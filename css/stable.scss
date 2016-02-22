@@ -15,11 +15,12 @@
 .stable {
   overflow: scroll;
 
-  > .stable-head {
-    position: -webkit-sticky;
-    position: sticky;
-    top: 0;
-  }
+  // See note in polyfillPositionSticky for details on why this is disabled
+  // > .stable-head {
+  //   position: -webkit-sticky;
+  //   position: sticky;
+  //   top: 0;
+  // }
 }
 
 .stable {
