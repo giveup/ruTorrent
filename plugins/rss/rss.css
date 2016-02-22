@@ -1,6 +1,9 @@
 div#RSSList {border: 1px solid #A0A0A0; background-color: #FFFFFF; overflow: hidden; display: block;}
 
-div#dlgAddRSS div.dlg-header {background-image: url(./images/rss.gif)}
+div#dlgAddRSS div.dlg-header {
+    background-image: url(./images/rss.svg);
+    background-size: 16px;
+}
 div#dlgAddRSS div.content {width: 330px; margin: 5px; padding: 5px; line-height: 16px}
 div#dlgAddRSS div.content input {margin-top: 5px}
 div#dlgAddRSS label {width: 70px; display: block; float: left; margin-top: 5px; margin-bottom: 5px; margin-left: 10px; }
@@ -9,7 +12,10 @@ div#dlgAddRSS input, select {margin-top: 5px; margin-bottom: 5px;}
 div#dlgAddRSS br {clear: left; line-height: 0}
 
 div#dlgEditRSS {width: 355px; height: 132px}
-div#dlgEditRSS div.dlg-header {background-image: url(./images/rss.gif)}
+div#dlgEditRSS div.dlg-header {
+    background-image: url(./images/rss.svg);
+    background-size: 16px;
+}
 div#dlgEditRSS div.content {width: 330px; margin: 5px; padding: 5px; line-height: 16px}
 div#dlgEditRSS div.content input {margin-top: 5px}
 div#dlgEditRSS label {width: 70px; display: block; float: left; margin-top: 5px; margin-bottom: 5px; margin-left: 10px; }
@@ -27,7 +33,10 @@ div#dlgLoadTorrents input, select {margin-top: 2px; margin-bottom: 2px;}
 div#dlgLoadTorrents br {clear: left; line-height: 0}
 
 div#dlgEditFilters {width: 690px; height: 360px; font-size: 11px; font-family: Tahoma, Arial, Helvetica, sans-serif; overflow: visible}
-div#dlgEditFilters div.dlg-header {background-image: url(./images/rss.gif)}
+div#dlgEditFilters div.dlg-header {
+    background-image: url(./images/rss.svg);
+    background-size: 16px;
+}
 .lfc {float: left; }
 .lf {width: 245px; height: 230px; margin: 5px; margin-right: 0; padding: 5px; background-color: #FFFFFF; border: 1px solid #D0D0D0; overflow: auto}
 .lf ul {width: 100%; margin: 2px; padding: 0; list-style-position: inside; list-style: none; white-space: nowrap}
@@ -54,7 +63,10 @@ div#FLT_buttons {clear: both}
 #rsslayout { border: 0; display: none; margin: 5px; }
 
 #dlgAddRSSGroup {width: 320px; height: 300px}
-#dlgAddRSSGroup div.dlg-header {background-image: url(./images/rss.gif)}
+#dlgAddRSSGroup div.dlg-header {
+    background-image: url(./images/rss.svg);
+    background-size: 16px;
+}
 div#dlgAddRSSGroup div.content {width: 302px; margin: 5px; padding: 5px; line-height: 16px}
 #rssGroupSet { overflow: auto; width: 275px; height: 160px }
 

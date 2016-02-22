@@ -1,9 +1,16 @@
+# SCSS compilation
 .sass-cache/
 css/*.css
 css/*.css.map
 plugins/theme/themes/*/*.css
 plugins/theme/themes/*/*.css.map
+
+# JS modules
 node_modules/
+
+# Compression
+*.gz
+*.br
 
 
 conf/users/*
