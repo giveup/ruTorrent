@@ -286,7 +286,7 @@ function makeContent()
 					"<div class=\"op50l algnright\"><input type=\"checkbox\" id=\"webui.effects\"/>"+
 						"<label for=\"webui.effects\">"+theUILang.UIEffects+"</label>"+
 					"</div>"+
-					"<div class=\"op50l\"><input type=\"checkbox\" id=\"webui.fullrows\"  onchange=\"linked(this, 1, ['webui.no_delaying_draw']);\"/>"+
+					"<div class=\"op50l\"><input type=\"checkbox\" id=\"webui.fullrows\"/>"+
 						"<label for=\"webui.fullrows\">"+theUILang.fullTableRender+"</label>"+
 					"</div>"+
 
@@ -294,9 +294,6 @@ function makeContent()
 						"<label for=\"webui.speedintitle\">"+theUILang.showSpeedInTitle+"</label>"+
 					"</div>"+
 
-					"<div class=\"op100l\"><input type=\"checkbox\" id=\"webui.no_delaying_draw\"/>"+
-						"<label for=\"webui.no_delaying_draw\" id=\"lbl_webui.no_delaying_draw\" >"+theUILang.showScrollTables+"</label>"+
-					"</div>"+
 					"<div class=\"op100l\"><input type=\"checkbox\" id=\"webui.log_autoswitch\"/>"+
 						"<label for=\"webui.log_autoswitch\" id=\"lbl_webui.log_autoswitch\" >"+theUILang.logAutoSwitch+"</label>"+
 					"</div>"+

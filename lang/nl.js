@@ -206,7 +206,6 @@ var theUILang =
  ClearButton			: "Verwijder",
  dontShowTimeouts		: "Negeer timeout-berichten",
  fullTableRender		: "Gebruik volledige tabellen",
- showScrollTables		: "Toon tabelinhoud tijdens scrollen",
  idNotFound			: "rTorrent-gebruiker heeft geen toegang tot het programma 'id'. Sommige functies zullen niet werken.",
  gzipNotFound			: "Web-server heeft geen toegang tot het programma 'gzip'. ruTorrent zal niet werken.",
  cantObtainUser 		: "ruTorrent kan de UID of rTorrent-gebruiker niet detecteren. Sommige functies zullen niet werken.",

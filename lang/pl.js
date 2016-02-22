@@ -207,7 +207,6 @@ var theUILang =
  ClearButton			: "Wyczyść",
  dontShowTimeouts		: "Ignoruj wiadomości o limitach czasu",
  fullTableRender		: "Pełne przetwarzanie dużych tabel",
- showScrollTables		: "Pokaż zawartość tabeli przy przewijaniu",
  idNotFound			: "User rTorrenta nie ma dostępu do programu 'id'. Niektóre funkcjonalności mogą być niedostępne.",
  gzipNotFound			: "User Webservera nie ma dostępu do programu 'gzip'. ruTorrent może mieć problemy z funkcjonalnością.",
  cantObtainUser 		: "ruTorrent nie może odczytać UID usera rTorrenta. Niektóre funkcjonalności mogą być niedostępne.",

@@ -206,7 +206,6 @@ var theUILang =
  ClearButton         : "Resett",
  dontShowTimeouts    : "Ignorer meldinger om tidsavbrudd",
  fullTableRender     : "Last inn meget store tabeller",
- showScrollTables    : "Vis tabellinnhold under scrolling",
  idNotFound          : "rTorrent-bruker kan ikke kjøre 'id'. Noe funksjonalitet vil ikke være tilgjengelig.",
  gzipNotFound        : "Webserver-bruker kan ikke kjøre 'gzip'. ruTorrent vil ikke fungere.",
  cantObtainUser      : "ruTorrent kan ikke fastslå UID av rTorrent-bruker. Noe funksjonalitet vil ikke være tilgjengelig.",

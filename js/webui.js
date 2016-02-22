@@ -143,7 +143,6 @@ var theWebUI =
 		"webui.vsplit":			0.5,
 		"webui.effects":		0,
 		"webui.fullrows":		0,
-		"webui.no_delaying_draw":	1,
 		"webui.search":			-1,
 		"webui.ignore_timeouts":	0,
 		"webui.retry_on_error":		120,
@@ -342,7 +341,6 @@ var theWebUI =
 			table.obj.ondelete = table.ondelete;
 			table.obj.colorEvenRows = theWebUI.settings["webui.alternate_color"];
 			table.obj.maxRows = iv(theWebUI.settings["webui.fullrows"]);
-			table.obj.noDelayingDraw = iv(theWebUI.settings["webui.no_delaying_draw"]);
 			if ($type(theWebUI.settings["webui."+ndx+".sindex"])) {
 				table.obj.sIndex = iv(theWebUI.settings["webui."+ndx+".sindex"]);
 			}
@@ -652,11 +650,6 @@ var theWebUI =
 								$.each(theWebUI.tables, function(ndx,table) {
 									table.obj.maxRows = iv(nv);
 									table.obj.refreshRows();
-								});
-								break;
-							case "webui.no_delaying_draw":
-								$.each(theWebUI.tables, function(ndx,table) {
-									table.obj.noDelayingDraw = iv(nv);
 								});
 								break;
 							case "webui.update_interval":

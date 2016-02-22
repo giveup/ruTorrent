@@ -206,7 +206,6 @@ var theUILang =
  ClearButton			: "Vider",
  dontShowTimeouts		: "Ignorer les messages d'échec",
  fullTableRender		: "Rendu complet de la liste des torrents",
- showScrollTables		: "Afficher la liste des torrents pendant le défilement",
  idNotFound			: "rTorrent ne peut pas accéder au programme 'id'. Certaines fonctionnalités ne seront pas disponibles.",
  gzipNotFound			: "Le serveur web n'a pas accès au programme 'gzip'. ruTorrent ne fonctionnera pas.",
  cantObtainUser 		: "ruTorrent ne détecte pas l'UID ou l'utilisateur de rTorrent. Certaines fonctionnalités ne seront pas disponibles.",

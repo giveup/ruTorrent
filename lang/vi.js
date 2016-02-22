@@ -204,7 +204,6 @@ var theUILang =
  ClearButton			: "Xóa",
  dontShowTimeouts		: "Bỏ qua các thông điệp về thời gian",
  fullTableRender		: "Vẽ lại đầy đủ các bảng lớn",
- showScrollTables		: "Hiện nội dung bảng khi cuộn",
  idNotFound			: "rTorrent's không thể truy cập chương trình 'id'. Một số tính năng sẽ không hoạt động.",
  gzipNotFound			: "Máy chủ Web không thể truy cập chương trình 'gzip'. ruTorrent sẽ không hoạt động.",
  cantObtainUser 		: "ruTorrent không thể xác định UID hoặc người dùng rTorrent. Một số tính năng sẽ không hoạt động.",
