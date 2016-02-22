@@ -3,6 +3,8 @@ css/*.css
 css/*.css.map
 plugins/theme/themes/*/*.css
 plugins/theme/themes/*/*.css.map
+node_modules/
+
 
 conf/users/*
 share/users/*

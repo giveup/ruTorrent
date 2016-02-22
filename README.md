@@ -14,6 +14,7 @@ Note: This is a pre-release fork of ruTorrent that has not yet had a stable rele
 ## Build dependencies
 
 * SASS >= 3.4.0
+* npm >= 2.11.0
 
 ## Coding standards & linters
 
@@ -27,4 +28,5 @@ All newly written and modified code should make a best effort to adhere to these
 1. Compile the stylesheets
 ```
 sass --scss --style compressed --update css/ --update plugins/theme/themes/
+npm install
 ```
