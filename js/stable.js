@@ -40,7 +40,6 @@ var dxSTable = function()
 	this.rowdata = new Object();
 	this.rowIDs = new Array();
 	this.rowSel = new Array();
-	this.maxRows = false;
 	this.viewRows = 0;
 	this.cols = 0;
 	this.colsdata = new Array();

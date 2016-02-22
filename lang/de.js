@@ -205,7 +205,6 @@ var theUILang =
  speedList			: "Speed Popup List (comma-separated)",
  ClearButton			: "Clear",
  dontShowTimeouts		: "Ignoriere Nachrichten über timeouts",
- fullTableRender		: "Full render of large tables",
  idNotFound			: "rTorrent Benutzer kann nicht auf 'id' programm Zugreifen. Einige Funktionalitäten werde nicht zur Verfügung stehen..",
  gzipNotFound			: "Webserver user can't access 'gzip' program. ruTorrent will not work.",
  cantObtainUser 		: "ruTorrent kann nicht die UID des rTorrent Benutzers herausfinden. Einige Funktionalitäten werde nicht zur Verfügung stehen..",

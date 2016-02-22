@@ -286,9 +286,6 @@ function makeContent()
 					"<div class=\"op50l algnright\"><input type=\"checkbox\" id=\"webui.effects\"/>"+
 						"<label for=\"webui.effects\">"+theUILang.UIEffects+"</label>"+
 					"</div>"+
-					"<div class=\"op50l\"><input type=\"checkbox\" id=\"webui.fullrows\"/>"+
-						"<label for=\"webui.fullrows\">"+theUILang.fullTableRender+"</label>"+
-					"</div>"+
 
 					"<div class=\"op50l algnright\"><input type=\"checkbox\" id=\"webui.speedintitle\"/>"+
 						"<label for=\"webui.speedintitle\">"+theUILang.showSpeedInTitle+"</label>"+

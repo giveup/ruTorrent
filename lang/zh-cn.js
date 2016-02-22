@@ -205,7 +205,6 @@ var theUILang =
  speedList			: "弹出列表速度 (逗号分隔)",
  ClearButton			: "清除",
  dontShowTimeouts		: "忽略有关超时消息",
- fullTableRender		: "全部呈现为大表",
  idNotFound			: "rTorrent user can't access 'id' program. Some functionality will be unavailable.",
  gzipNotFound			: "Webserver user can't access 'gzip' program. ruTorrent will not work.",
  cantObtainUser 		: "ruTorrent cannot determine the UID of rTorrent user. Some functionality will be unavailable.",

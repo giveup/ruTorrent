@@ -203,7 +203,6 @@ var theUILang =
  speedList			: "Hastighetslista (kommaseparerad)",
  ClearButton			: "Rensa",
  dontShowTimeouts		: "Ignorera meddelanden om tidsgränsöverskridning",
- fullTableRender		: "Full renderinga av stora tabeller",
  idNotFound			: "rTorrent-användaren kan inte komma åt 'id'. Vissa funktioner kommer att vara otillgängliga.",
  gzipNotFound			: "Webbserveranvändaren kan inte komma åt 'gzip'. ruTorrent kommer inte att fungera.",
  cantObtainUser 		: "ruTorrent kan inte fastställa användar-id för rTorrent-användare. Vissa funktioner kommer att vara otillgängliga.",
