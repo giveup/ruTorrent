@@ -1,0 +1,29 @@
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" height="512" width="512">
+	<filter style="color-interpolation-filters:sRGB;" id="inkscape-combined-lighting">
+		<feGaussianBlur stdDeviation="6" in="SourceGraphic" result="result0" />
+		<feDiffuseLighting diffuseConstant="1" surfaceScale="4" result="result5">
+			<feDistantLight elevation="45" azimuth="235" />
+		</feDiffuseLighting>
+		<feComposite k1="1.4" in2="SourceGraphic" in="result5" result="fbSourceGraphic" operator="arithmetic" />
+		<feGaussianBlur result="result0" in="fbSourceGraphic" stdDeviation="6" />
+			<feSpecularLighting specularExponent="25" specularConstant="1" surfaceScale="4" result="result1" in="result0">
+			<feDistantLight azimuth="235" elevation="45" />
+		</feSpecularLighting>
+		<feComposite k3="1" k2="1" operator="arithmetic" in="fbSourceGraphic" in2="result1" result="result4" />
+		<feComposite operator="in" in2="SourceGraphic" in="result4" />
+	</filter>
+
+	<filter id="drop-shadow" x="0" y="0" width="200%" height="200%">
+		<feOffset result="offOut" in="SourceAlpha" dx="8" dy="8" />
+        <feGaussianBlur result="blurOut" in="offOut" stdDeviation="10" />
+        <feBlend in="SourceGraphic" in2="blurOut" mode="normal" />
+    </filter>
+
+	<rect x="0" y="0" rx="32" ry="32" width="512" height="512" fill="#0707ff" filter="url(#inkscape-combined-lighting)"/>
+
+	<path
+		d="m 82,260 0,-52 c 0,-85 -53,-37 -53,-90 0,-68 203,-87 211,-87 33,0 33,8 37,38 0,10 0,30 14,30 20,0 33,-68 108,-68 58,0 96,43 96,100 0,58 -49,104 -106,104 -56,0 -72,-49 -94,-49 -24,0 -19,58 -19,73 0,26 2,62 6,95 5,38 71,14 71,66 0,54 -76,59 -171,59 -39,0 -158,1 -158,-58 0,-36 39,-36 49,-66 6,-21 9,-71 9,-95 z"
+		fill="#fff"
+		filter="url(#drop-shadow)"
+	/>
+</svg>

@@ -116,7 +116,7 @@ $ret = '<?xml version="1.0" encoding="UTF-8"?>'.
     '<rss version="2.0"><channel><description>*** rTorrent '.
     rTorrentSettings::get()->version.'/'.rTorrentSettings::get()->libVersion." - ".$server[0].' ***</description><link>'.
     $url.'</link><title>'.$server[0].': '.$theUILang[$mode].'</title>'.
-    '<image><url>'.$url.'images/logo.png</url><link>'.$url.'</link><title>ruTorrent</title></image>';
+    '<image><url>'.$url.'images/logo.svg</url><link>'.$url.'</link><title>ruTorrent</title></image>';
 
 $view = ''; // all, inactive
 switch($mode)
