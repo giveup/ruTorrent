@@ -11,7 +11,6 @@ class rTorrentSettings
     public $session = null;
     public $gid = array();
     public $uid = -1;
-    public $iVersion = null;
     public $version;
     public $libVersion;
     public $apiVersion = 0;
@@ -229,10 +228,6 @@ class rTorrentSettings
             $this->linkExist = true;
             $this->version = $req->val[0];
             $parts = explode('.', $this->version);
-            $this->iVersion = 0;
-            for ($i = 0; $i<count($parts); $i++) {
-                $this->iVersion = ($this->iVersion<<8) + $parts[$i];
-            }
 
             $this->apiVersion = 0;
             $req = new rXMLRPCRequest(new rXMLRPCCommand("system.api_version"));

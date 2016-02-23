@@ -141,7 +141,7 @@ $prm = [
     getCmd("d.up.rate="),
     getCmd("d.down.rate="),
     getCmd("d.custom1="),
-    (rTorrentSettings::get()->iVersion >= 0x806) ? getCmd('d.custom').'=seedingtime' : getCmd('cat=')
+    getCmd('d.custom').'=seedingtime'
 ];
 if ($showItemDescription) {
     $prm = array_merge($prm, array(

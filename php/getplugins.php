@@ -20,8 +20,6 @@ function getPluginInfo($name, $permissions)
         'plugin.description'=>'',
         'plugin.author'=>'unknown',
         'plugin.dependencies'=>[],
-        'php.version'=>0x50000,
-        'php.version.readable'=>'5.0.0',
         'php.extensions.warning'=>[],
         'php.extensions.error'=>[],
         'web.external.warning'=>[],
@@ -54,11 +52,6 @@ function getPluginInfo($name, $permissions)
                         $info[$field] = floatval($value);
                         break;
                     case "rtorrent.version":
-                    case "php.version":
-                        $version = explode('.', $value);
-                        $info[$field] = (intval($version[0])<<16) + (intval($version[1])<<8) + intval($version[2]);
-                        $info[$field.'.readable'] = $value;
-                        break;
                     case "plugin.dependencies":
                     case "rtorrent.external.warning":
                     case "rtorrent.external.error":
@@ -193,18 +186,18 @@ if ($handle = opendir('../plugins')) {
 
     if (!function_exists('preg_match_all')) {
         $jResult.="noty(theUILang.PCRENotFound,'error');";
-        $jResult.="theWebUI.systemInfo.rTorrent = { started: false, iVersion : 0, version : '?', libVersion : '?' };\n";
+        $jResult.="theWebUI.systemInfo.rTorrent = { started: false, version : '?', libVersion : '?' };\n";
     } else {
         $remoteRequests = [];
         $theSettings = rTorrentSettings::get(true);
         if (!$theSettings->linkExist) {
             $jResult.="noty(theUILang.badLinkTorTorrent,'error');";
-            $jResult.="theWebUI.systemInfo.rTorrent = { started: false, iVersion : 0, version : '?', libVersion : '?', apiVersion : 0 };\n";
+            $jResult.="theWebUI.systemInfo.rTorrent = { started: false, version : '?', libVersion : '?', apiVersion : 0 };\n";
         } else {
             if ($theSettings->idNotFound) {
                 $jResult.="noty(theUILang.idNotFound,'error');";
             }
-            $jResult.="theWebUI.systemInfo.rTorrent = { started: true, iVersion : ".$theSettings->iVersion.", version : '".
+            $jResult.="theWebUI.systemInfo.rTorrent = { started: true, version : '".
                 $theSettings->version."', libVersion : '".$theSettings->libVersion."', apiVersion : ".$theSettings->apiVersion." };\n";
             if ($do_diagnostic) {
                 $up = getUploadsPath();
@@ -260,8 +253,6 @@ if ($handle = opendir('../plugins')) {
         if (($pos=strpos($phpVersion, '-'))!==false) {
             $phpVersion = substr($phpVersion, 0, $pos);
         }
-        $phpIVersion = explode('.', $phpVersion);
-        $phpIVersion = (intval($phpIVersion[0])<<16) + (intval($phpIVersion[1])<<8) + intval($phpIVersion[2]);
         $phpRequired = false;
 
         $userPermissions = [ "__hash__"=>"plugins.dat" ];
@@ -298,11 +289,6 @@ if ($handle = opendir('../plugins')) {
                         $disabled[$file] = $info;
                         continue;
                     }
-                    if ($info['php.version']>$phpIVersion) {
-                        $jResult.="noty('".$file.": '+theUILang.badPHPVersion+' '+'".$info['php.version.readable']."'+'.','error');";
-                            $disabled[$file] = $info;
-                        continue;
-                    }
                     $extError = false;
 
                     foreach ($info['php.extensions.error'] as $extension) {
@@ -336,11 +322,6 @@ if ($handle = opendir('../plugins')) {
                         continue;
                     }
                     if ($theSettings->linkExist) {
-                        if ($info['rtorrent.version']>$theSettings->iVersion) {
-                            $jResult.="noty('".$file.": '+theUILang.badrTorrentVersion+' '+'".$info['rtorrent.version.readable']."'+'.','error');";
-                                $disabled[$file] = $info;
-                            continue;
-                        }
                         foreach ($info['rtorrent.external.error'] as $external) {
                                 findRemoteEXE($external, "noty('".$file.": '+theUILang.rTorrentExternalNotFoundError+' ('+'".$external."'+').','error'); thePlugins.get('".$file."').disable();", $remoteRequests);
                             if ($external=='php') {

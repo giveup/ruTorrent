@@ -27,7 +27,6 @@ function getPluginInfo($name, $permissions)
         'plugin.runlevel'=>10.0,
         'plugin.dependencies'=>array(),
         'php.extensions.error'=>array(),
-        'php.version'=>0x50000,
         'plugin.may_be_shutdowned'=>1,
         'plugin.may_be_launched'=>1,
         );
@@ -50,11 +49,6 @@ function getPluginInfo($name, $permissions)
                             $info[$field] = floatval($value);
                             break;
                         case "rtorrent.version":
-                        case "php.version":
-                            $version = explode('.', $value);
-                            $info[$field] = (intval($version[0])<<16) + (intval($version[1])<<8) + intval($version[2]);
-                            $info[$field.'.readable'] = $value;
-                            break;
                         case "rtorrent.script.error":
                         case "rtorrent.external.error":
                         case "rtorrent.php.error":
@@ -104,8 +98,6 @@ if ($theSettings->linkExist && ($handle = opendir('../plugins'))) {
     if (($pos=strpos($phpVersion, '-'))!==false) {
         $phpVersion = substr($phpVersion, 0, $pos);
     }
-    $phpIVersion = explode('.', $phpVersion);
-    $phpIVersion = (intval($phpIVersion[0])<<16) + (intval($phpIVersion[1])<<8) + intval($phpIVersion[2]);
 
     $userPermissions = array( "__hash__"=>"plugins.dat" );
     $cache = new rCache();
@@ -125,9 +117,7 @@ if ($theSettings->linkExist && ($handle = opendir('../plugins'))) {
                 !$userPermissions[$file]) {
                 $info = false;
             }
-            if (($info!==false) &&
-                ($info['php.version']<=$phpIVersion) &&
-                ($info['rtorrent.version']<=$theSettings->iVersion)) {
+            if (($info!==false)) {
                 if (count($info['rtorrent.external.error'])) {
                     eval( getPluginConf($file) );
                 }

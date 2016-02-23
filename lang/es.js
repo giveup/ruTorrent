@@ -211,7 +211,6 @@ var theUILang =
  statNotFound			: "rTorrent no puede acceder al programa 'stat'. Algunas funcionalidades no estarán disponibles.",
  statNotFoundW			: "El Webserver no puede acceder al programa 'stat'. Algunas funcionalidades no estarán disponibles.",
  badrTorrentVersion		: "El Plugin requiere rTorrent versión >=",
- badPHPVersion			: "El Plugin requiere PHP versión >=",
  rTorrentExternalNotFoundError	: "El Plugin no funcionará. rTorrent no puede acceder al programa externo",
  rTorrentExternalNotFoundWarning: "Algunas funcionalidades no estarán disponibles. rTorrent no puede acceder al programa externo",
  webExternalNotFoundError	: "El Plugin no funcionará. El Webserver no puede acceder al programa externo",

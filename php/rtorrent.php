@@ -39,9 +39,10 @@ class rTorrent
                 $cmd = new rXMLRPCCommand($isStart ? 'load_start' : 'load');
                 $cmd->addParameter($filename);
             }
-            if (!is_null($filename) && (rTorrentSettings::get()->iVersion>=0x805)) {
+            if (!is_null($filename)) {
                 $cmd->addParameter(getCmd("d.custom.set")."=x-filename,".rawurlencode(basename($filename)));
             }
+
             $req = new rXMLRPCRequest();
             if ($directory && (strlen($directory)>0)) {
                 if (!rTorrentSettings::get()->correctDirectory($directory)) {

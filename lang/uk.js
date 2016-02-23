@@ -213,7 +213,6 @@ var theUILang =
  statNotFound			: "Програма «stat» недоступна користувачу rTorrent. Деякі функції будуть недоступні.",
  statNotFoundW			: "Програма «stat» недоступна веб-серверу. Деякі функції будуть недоступні.",
  badrTorrentVersion		: "Для роботи плагіна необхідна версія програми rTorrent >=",
- badPHPVersion			: "Для роботи плагіна необхідна версія інтерпретатора PHP >=",
  rTorrentExternalNotFoundError	: "Зовнішня програма недоступна користувачу rTorrent. Плагін не працюватиме.",
  rTorrentExternalNotFoundWarning: "Зовнішня програма недоступна користувачу rTorrent. Деякі функції плагіна будуть недоступні.",
  webExternalNotFoundError	: "Зовнішня програма недоступна веб-серверу. Плагін не працюватиме.",

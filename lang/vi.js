@@ -211,7 +211,6 @@ var theUILang =
  statNotFound			: "rTorrent's không thể truy cập chương trình 'stat'. Một số tính năng sẽ không hoạt động.",
  statNotFoundW			: "Máy chủ Web không thể truy cập chương trình 'stat'. Một số tính năng sẽ không hoạt động.",
  badrTorrentVersion		: "Phiên bản rTorrent không hỗ trợ thành phần bổ sung này. Thành phần này sẽ không hoạt động. Phiên bản rTorrent tối thiếu là",
- badPHPVersion			: "Phiên bản PHP không hỗ trợ thành phần bổ sung này. Thành phần này sẽ không hoạt động. Phiên bản PHP tối thiếu là",
  rTorrentExternalNotFoundError	: "Thành phần bổ sung sẽ không hoạt động. rTorrent không thể truy cập chương trình mở rộng",
  rTorrentExternalNotFoundWarning: "Một số tính năng sẽ không hoạt động. rTorrent không thể truy cập chương trình mở rộng",
  webExternalNotFoundError	: "Thành phần bổ sung sẽ không hoạt động. Máy chủ Web không thể truy cập chương trình mở rộng",

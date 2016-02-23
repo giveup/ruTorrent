@@ -95,8 +95,7 @@ plugin.clearChunks = function()
 rTorrentStub.prototype.getchunks = function()
 {
 	var commands = ["d.bitfield", "d.chunk_size", "d.size_chunks"];
-	if(theWebUI.systemInfo.rTorrent.apiVersion>=4)
-		commands.push("d.chunks_seen");
+	commands.push("d.chunks_seen");
 	for(var i in commands)
 	{
 		var cmd = new rXMLRPCCommand( commands[i] );
@@ -113,8 +112,7 @@ rTorrentStub.prototype.getchunksResponse = function(xml)
 	var data = datas[0];
 	var values = data.getElementsByTagName('value');
 	var ret = { chunks: this.getValue(values,1), size: this.getValue(values,3), tsize: this.getValue(values,5) }
-	if(theWebUI.systemInfo.rTorrent.apiVersion>=4)
-		ret.seen = this.getValue(values,7);
+	ret.seen = this.getValue(values,7);
 	return(ret);
 }
 
@@ -144,8 +142,6 @@ plugin.onLangLoaded = function()
 				$("<table>").attr("id","cTable")
 			)
 		).get(0), theUILang.Chunks,"lcont");
-	if(theWebUI.systemInfo.rTorrent.apiVersion<4)
-		$('#cmode_cont').empty();
 }
 
 plugin.onRemove = function()

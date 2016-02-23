@@ -112,10 +112,8 @@ class rScheduler
     {
         $delta = 2;
         $cmd = new rXMLRPCCommand("d.multicall", array("started",getCmd("d.hash="),getCmd("d.connection_current=") ));
-        if (rTorrentSettings::get()->iVersion>=0x805) {
-            $cmd->addParameter(getCmd("d.custom=")."sch_ignore");
-            $delta = 3;
-        }
+        $cmd->addParameter(getCmd("d.custom=")."sch_ignore");
+        $delta = 3;
         $req = new rXMLRPCRequest($cmd);
         $seeds = array();
         $leeches = array();

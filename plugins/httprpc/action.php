@@ -164,8 +164,8 @@ switch($mode)
 			"get_split_file_size", "get_split_suffix", "get_timeout_safe_sync", "get_timeout_sync", "get_tracker_numwant",
 			"get_use_udp_trackers", "get_max_uploads_div", "get_max_open_sockets"
 			);
-		if(rTorrentSettings::get()->iVersion>=0x900)
-			$cmds[5] = $cmds[6] = $cmds[7] = "cat";
+
+		$cmds[5] = $cmds[6] = $cmds[7] = "cat";
 		$req = new rXMLRPCRequest( new rXMLRPCCommand( "dht.statistics" ) );
 		foreach( $cmds as $cmd )
 			$req->addCommand( new rXMLRPCCommand( $cmd ) );
@@ -446,14 +446,12 @@ switch($mode)
 			new rXMLRPCCommand( "d.bitfield", $hash[0] ),
 			new rXMLRPCCommand( "d.chunk_size", $hash[0] ),
 			new rXMLRPCCommand( "d.size_chunks", $hash[0] ) ));
-		if(rTorrentSettings::get()->apiVersion>=4)
-			$req->addCommand(new rXMLRPCCommand( "d.chunks_seen", $hash[0] ));
-		if($req->success())
-		{
-	        	$result = array( "chunks"=>$req->val[0], "size"=>$req->val[1], "tsize"=>$req->val[2] );
-			if(rTorrentSettings::get()->apiVersion>=4)
-				$result["seen"] = $req->val[3];
-	        }
+
+		$req->addCommand(new rXMLRPCCommand( "d.chunks_seen", $hash[0] ));
+		if($req->success()) {
+        	$result = array( "chunks"=>$req->val[0], "size"=>$req->val[1], "tsize"=>$req->val[2] );
+			$result["seen"] = $req->val[3];
+        }
 		break;
 	}
 	default:

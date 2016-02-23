@@ -16,7 +16,7 @@ class rTask
 	const FLG_RUN_AS_CMD	= 0x0040;
 	const FLG_STRIP_ERRS	= 0x0080;
 	const FLG_NO_LOG	= 0x0100;
-	const FLG_REMOVE_ASCII	= 0x0200;	
+	const FLG_REMOVE_ASCII	= 0x0200;
 
 	public $params = array();
 	public $id = 0;
@@ -37,7 +37,7 @@ class rTask
 	public function makeDirectory()
 	{
 		$dir = self::formatPath($this->id);
-		makeDirectory($dir);		
+		makeDirectory($dir);
 		return($dir);
 	}
 
@@ -116,9 +116,9 @@ class rTask
 	{
 		$subject = preg_replace('/\x1b(\[|\(|\))[;?0-9]*[0-9A-Za-z]/', "",$subject);
 		$subject = preg_replace('/\x1b(\[|\(|\))[;?0-9]*[0-9A-Za-z]/', "",$subject);
-		$subject = preg_replace('/[\x03|\x1a]/', "", $subject);  
+		$subject = preg_replace('/[\x03|\x1a]/', "", $subject);
 		return($subject);
-	}		
+	}
 
 	static protected function processLog( $dir, $logName, &$ret, $stripConsole, $removeASCII )
 	{
@@ -156,7 +156,7 @@ class rTask
 			}
 			if($stripConsole && (count($ret[$logName])>self::MAX_CONSOLE_SIZE))
 				array_splice($ret[$logName],0,count($ret[$logName])-self::MAX_CONSOLE_SIZE);
-		}		
+		}
 	}
 
 	static public function check( $taskNo, $flags = null )
@@ -175,7 +175,7 @@ class rTask
 				{
 					$ret["status"] = intval($status);
 					$ret["finish"] = filemtime($dir.'/status');
-				}					
+				}
 			}
 			if(is_file($dir.'/params') && is_readable($dir.'/params'))
 				$ret["params"] = unserialize(file_get_contents($dir.'/params'));
@@ -199,8 +199,8 @@ class rTask
 		}
 		else
 		{
-			$req = new rXMLRPCRequest( 
-				((rTorrentSettings::get()->iVersion>=0x900) && !($flags & self::FLG_WAIT)) ?
+			$req = new rXMLRPCRequest(
+				(!($flags & self::FLG_WAIT)) ?
 					new rXMLRPCCommand( "execute.nothrow.bg", array("","sh",$cmd) ) :
 					new rXMLRPCCommand( "execute_nothrow", array("sh","-c",$cmd.$params) )
 				);
@@ -228,7 +228,7 @@ class rTask
 					$flags = intval(file_get_contents($dir.'/flags'));
 				$pid = trim(file_get_contents($dir.'/pid'));
 				self::run("kill -9 `".getExternal("pgrep")." -P ".$pid."` ; kill -9 ".$pid, ($flags & self::FLG_RUN_AS_WEB) | self::FLG_WAIT | self::FLG_RUN_AS_CMD );
-			}				
+			}
 			self::clean($dir);
 		}
 		return(true);
@@ -253,12 +253,12 @@ class rTaskManager
 					unset($tasks[$file]["params"]["name"]);
 					unset($tasks[$file]["params"]["requester"]);
 				}
-			} 
-			closedir($handle);		
+			}
+			closedir($handle);
 	        }
 	        return($tasks);
 	}
-	
+
 	static public function isPIDExists( $pid )
 	{
 		return( function_exists( 'posix_getpgid' ) ? (posix_getpgid($pid)!==false) : file_exists( '/proc/'.$pid ) );
@@ -284,7 +284,7 @@ class rTaskManager
 			{
 				if($file != "." && $file != ".." && is_dir($dir.$file) && in_array($file,$list))
 					$tasks[] = $file;
-			} 
+			}
 			closedir($handle);
 			foreach( $tasks as $id )
 				rTask::kill( $id );

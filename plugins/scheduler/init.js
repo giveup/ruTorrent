@@ -1,6 +1,6 @@
 plugin.loadLang();
 
-if(plugin.canChangeMenu() && (theWebUI.systemInfo.rTorrent.iVersion >= 0x805))
+if(plugin.canChangeMenu())
 {
 	plugin.config = theWebUI.config;
 	theWebUI.config = function(data)
@@ -16,7 +16,7 @@ if(plugin.canChangeMenu() && (theWebUI.systemInfo.rTorrent.iVersion >= 0x805))
 	{
 		var h = "";
 		var sr = theWebUI.getTable("trt").rowSel;
-		for(var k in sr) 
+		for(var k in sr)
 			if((sr[k] == true) && (k.length==40))
 			{
 				var state = theWebUI.torrents[k].sch_ignore ? '' : 1;
@@ -85,7 +85,7 @@ if(plugin.canChangeOptions())
 	plugin.loadMainCSS();
 
 	plugin.addAndShowSettings = theWebUI.addAndShowSettings;
-	theWebUI.addAndShowSettings = function(arg) 
+	theWebUI.addAndShowSettings = function(arg)
 	{
 		if(plugin.enabled)
 		{
@@ -109,7 +109,7 @@ if(plugin.canChangeOptions())
 		plugin.addAndShowSettings.call(theWebUI,arg);
 	}
 
-	theWebUI.schedulerWasChanged = function() 
+	theWebUI.schedulerWasChanged = function()
 	{
 		if($$('sch_enable').checked != theWebUI.scheduleTable.enabled)
 			return(true);
@@ -126,7 +126,7 @@ if(plugin.canChangeOptions())
 	}
 
 	plugin.setSettings = theWebUI.setSettings;
-	theWebUI.setSettings = function() 
+	theWebUI.setSettings = function()
 	{
 		plugin.setSettings.call(this);
 		if(plugin.enabled && this.schedulerWasChanged())
@@ -187,7 +187,7 @@ if(plugin.canChangeOptions())
 		}
 	}
 
-	theWebUI.linkedSch = function(obj, lst) 
+	theWebUI.linkedSch = function(obj, lst)
 	{
 		linked(obj,0,lst);
 		var tbl = $$('sch_graph');
@@ -220,11 +220,11 @@ if(plugin.canChangeOptions())
 	}
 }
 
-plugin.onLangLoaded = function() 
+plugin.onLangLoaded = function()
 {
         if(this.canChangeOptions())
         {
-		var s = 
+		var s =
 			"<div>"+
 				"<input id='sch_enable' type='checkbox' onchange=\"theWebUI.linkedSch(this, ['restrictedUL1', 'restrictedDL1', 'restrictedUL2', 'restrictedDL2', 'restrictedUL3', 'restrictedDL3']);\" />"+
 				"<label for='sch_enable'>"+
@@ -301,7 +301,7 @@ plugin.onLangLoaded = function()
 	}
 }
 
-plugin.onRemove = function() 
+plugin.onRemove = function()
 {
 	plugin.removePageFromOptions("st_scheduler");
 	if($type(plugin.reqId))

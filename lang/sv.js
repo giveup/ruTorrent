@@ -211,7 +211,6 @@ var theUILang =
  statNotFound			: "rTorrent-användaren kan inte komma åt 'stat'. Vissa funktioner kommer att vara otillgängliga.",
  statNotFoundW			: "Webbserveranvändaren kan inte komm åt 'stat'. Vissa funktioner kommer att vara otillgängliga.",
  badrTorrentVersion		: "Insticksprogram kräver rTorrent-version >=",
- badPHPVersion			: "Insticksprogram kräver PHP-version >=",
  rTorrentExternalNotFoundError	: "Insticksprogrammet kommer inte att fungera. rTorrent-användaren kan inte komma åt externt program",
  rTorrentExternalNotFoundWarning: "Vissa funktioner kommer att vara otillgängliga. rTorrent-användaren kan inte komma åt externt program",
  webExternalNotFoundError	: "Insticksprogrammet kommer inte att fungera. Webbserveranvändaren kan inte komma åt externt program",

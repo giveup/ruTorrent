@@ -213,7 +213,6 @@ var theUILang =
  statNotFound			: "rTorrent brugeren kan ikke få adgang til 'stat' programet. Noget funktionalitet vil ikke være tilgængelig.",
  statNotFoundW			: "Webserverens bruger har ikke adgang til 'stat' programmet. Noget funktionalitet vil ikke være tilgængelig.",
  badrTorrentVersion		: "Plugin kræver rTorrent version >=",
- badPHPVersion			: "Plugin kræver PHP version >=",
  rTorrentExternalNotFoundError	: "Plugin virker ikke. rTorrent brugeren kan ikke få adgang til det eksterne program",
  rTorrentExternalNotFoundWarning: "Noget funktionalitet vil ikke være tilgængelig. rTorrent brugeren kan ikke få adgang til det eksterne program",
  webExternalNotFoundError	: "Plugin virker ikke. Webserverens bruger kan ikke få adgang til det eksterne program",
