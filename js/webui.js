@@ -231,22 +231,28 @@ var theWebUI =
 		// 	return;
 		// }
 
+		var container = document.getElementById('List'),
+			head = document.querySelector('#List .stable-head'),
+			body = document.querySelector('#List .stable-head');
+
+		// Scrolling up and down
+
+		$(head).css({
+			position: 'fixed',
+			top: $('#List').offset().top + 1,
+		});
+		$(body).css({
+			marginTop: head.outerHeight(),
+		});
+
 		var animationFrame = null;
-		document.querySelector('#List').addEventListener('scroll', function(e){
+		container.addEventListener('scroll', function(e){
 			cancelAnimationFrame(animationFrame);
 			animationFrame = requestAnimationFrame(function(){
-				// Scrolling up and down
-				$('#List .stable-head').css({
-					position: 'fixed',
-					top: $('#List').offset().top + 1,
-				});
-				$('#List .stable-body').css({
-					marginTop: $('#List .stable-head').outerHeight(),
-				});
 
 				// Scrolling left and right
-				$('#List .stable-head').css({
-					width: $('#List').width(),
+				$(head).css({
+					width: container.width(),
 					overflow: 'hidden',
 				}).scrollLeft(e.target.scrollLeft);
 			});
@@ -293,6 +299,12 @@ var theWebUI =
 					break;
 				case 115 : 				// F4
 					theWebUI.toggleMenu();
+					// For polyfillPositionSticky
+					$('#List .stable-head').css({
+						position: 'fixed',
+						top: $('#List').offset().top + 1,
+					});
+
 					return(false);
 				case 117 :                      	// F6
 					theWebUI.toggleDetails();

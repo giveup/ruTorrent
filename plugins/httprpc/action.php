@@ -154,7 +154,7 @@ switch($mode)
 	{
 		$cmds = array(
 			"get_bind", "get_check_hash", "get_dht_port", "get_directory", "get_download_rate",
-			"get_http_cacert", "get_http_capath",
+			"get_hash_interval", "get_hash_max_tries", "get_hash_read_ahead", "get_http_cacert", "get_http_capath",
 			"get_http_proxy", "get_ip", "get_max_downloads_div", "get_max_downloads_global", "get_max_file_size",
 			"get_max_memory_usage", "get_max_open_files", "get_max_open_http", "get_max_peers", "get_max_peers_seed",
 			"get_max_uploads", "get_max_uploads_global", "get_min_peers_seed", "get_min_peers", "get_peer_exchange",
@@ -165,6 +165,7 @@ switch($mode)
 			"get_use_udp_trackers", "get_max_uploads_div", "get_max_open_sockets"
 			);
 
+		$cmds[5] = $cmds[6] = $cmds[7] = "cat";
 		$req = new rXMLRPCRequest( new rXMLRPCCommand( "dht.statistics" ) );
 		foreach( $cmds as $cmd )
 			$req->addCommand( new rXMLRPCCommand( $cmd ) );
