@@ -104,11 +104,14 @@ dxSTable.prototype.create = function(ele, styles, aName)
 		return;
 	var tr, td, cl, cg, div;
 	this.prefix = aName;
-	this.dCont = ele;
+
+	ele.classList.add('stable-outer');
+
+	this.dCont = document.createElement('div');
+	this.dCont.classList.add('stable-inner');
 
 	this.dHead = $("<div>").addClass("stable-head").get(0);
-	this.dBody = $("<div>").addClass("stable-body auto").get(0);
-	$(this.dCont).addClass("stable col");
+	this.dBody = $("<div>").addClass("stable-body ").get(0);
 	this.tHead = document.createElement('table');
 	this.tHead.tb = document.createElement('thead');
 	this.dCont.appendChild(this.dHead);
@@ -116,7 +119,40 @@ dxSTable.prototype.create = function(ele, styles, aName)
 	this.dHead.appendChild(this.tHead);
 	this.tHead.appendChild(this.tHead.tb);
 
+	// Carry the parent height down through the nested levels
+	ele.classList.add('col');
+	this.dCont.classList.add('auto');
+	this.dCont.classList.add('col');
+	this.dBody.classList.add('auto');
+
 	tr = $("<tr>");
+	tr.on( "mousemove touchstart", 'td', function(e) {
+		if (self.isResizing)
+			return;
+		var x = e.clientX - $(this).offset().left;
+		this.lastMouseX = e.clientX;
+		var w = this.offsetWidth;
+		var i = parseInt(this.getAttribute("index"));
+		var delta = $.support.touchable ? 16 : 8;
+		if (x <= delta) {
+			if (i!= 0) {
+				self.hotCell = i - 1;
+				this.style.cursor = "e-resize";
+			} else {
+				self.hotCell =- 1;
+				this.style.cursor = "";
+			}
+		} else {
+			if (x >= w - delta) {
+				self.hotCell = i;
+				this.style.cursor = "e-resize";
+			} else {
+				self.hotCell =- 1;
+				this.style.cursor = "";
+			}
+		}
+	});
+
 	this.tHead.tb.appendChild(tr.get(0));
 	var self = this, span;
 	var j = 0;
@@ -130,6 +166,8 @@ dxSTable.prototype.create = function(ele, styles, aName)
 			break;
 		}
 	}
+
+	var totalWidth = 0;
 	for (var i = 0, l = styles.length; i < l; i++) {
 		if (!$type(this.colOrder[i]))
 			this.colOrder[i] = i;
@@ -139,35 +177,10 @@ dxSTable.prototype.create = function(ele, styles, aName)
 		this.colsdata[i] = styles[this.colOrder[i]];
 
 		this.colsdata[i].width = iv(this.colsdata[i].width);
+		totalWidth += this.colsdata[i].width;
 		this.ids[i] = styles[i].id;
 
-		td = $("<td>").on( "mousemove touchstart", function(e)
-		{
-			if (self.isResizing)
-				return;
-			var x = e.clientX - $(this).offset().left;
-			this.lastMouseX = e.clientX;
-			var w = this.offsetWidth;
-			var i = parseInt(this.getAttribute("index"));
-			var delta = $.support.touchable ? 16 : 8;
-			if (x <= delta) {
-				if (i!= 0) {
-					self.hotCell = i - 1;
-					this.style.cursor = "e-resize";
-				} else {
-					self.hotCell =- 1;
-					this.style.cursor = "";
-				}
-			} else {
-				if (x >= w - delta) {
-					self.hotCell = i;
-					this.style.cursor = "e-resize";
-				} else {
-					self.hotCell =- 1;
-					this.style.cursor = "";
-				}
-			}
-			});
+		td = $("<td>");
 		tr.append( td.append( $("<div>").html(styles[this.colOrder[i]].text)).
 			width(styles[this.colOrder[i]].width).
 			attr("index", i));
@@ -211,6 +224,9 @@ dxSTable.prototype.create = function(ele, styles, aName)
 	this.dBody.appendChild(this.colReszObj);
 
 	this.created = true;
+
+	this.dCont.style.width = totalWidth + 'px';
+	ele.appendChild(this.dCont);
 }
 
 dxSTable.prototype.toggleColumn = function(i)
@@ -703,10 +719,10 @@ dxSTable.prototype.assignEvents = function()
 		});
 	}
 
-	$(this.dCont).on( "scroll", function(e) {
+	$(this.dBody).on( "scroll", function(e) {
 		var maxRows = self.getMaxRows();
-		if (self.scrollTop != self.dCont.scrollTop) {
-			self.scrollTop = self.dCont.scrollTop;
+		if (self.scrollTop != self.dBody.scrollTop) {
+			self.scrollTop = self.dBody.scrollTop;
 			handleScroll.apply(self);
 		}
 	});
@@ -817,7 +833,7 @@ dxSTable.prototype.refreshRows = function( height, fromScroll )
 	}
 
 	var maxRows = height ? height/TR_HEIGHT : this.getMaxRows();
-	var mni = Math.floor(this.dCont.scrollTop / TR_HEIGHT);
+	var mni = Math.floor(this.dBody.scrollTop / TR_HEIGHT);
 	if (mni + maxRows > this.viewRows) {
 		mni = this.viewRows - maxRows;
 	}
@@ -1110,7 +1126,7 @@ dxSTable.prototype.clearRows = function()
 		this.rowIDs = new Array(0);
 		this.bpad.style.height = "0px";
 		this.tpad.style.height = "0px";
-		this.dCont.scrollTop = 0;
+		this.dBody.scrollTop = 0;
 	}
 }
 
@@ -1401,7 +1417,7 @@ dxSTable.prototype.getFirstSelected = function()
 
 dxSTable.prototype.scrollTo = function(value)
 {
-	var old = this.dCont.scrollTop;
-	this.dCont.scrollTop = value;
+	var old = this.dBody.scrollTop;
+	this.dBody.scrollTop = value;
 	return(old);
 }

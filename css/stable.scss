@@ -5,25 +5,18 @@
 // We're going to use position sticky as it's the only sane way to achieve all
 // of our requirements. We still need to use two separate tables at the moment
 // because Firefox supports position sticky but not on thead.
-//
-// Other browsers will need to rely on a javascript polyfill in stable.js
-//
-// Tracking bugs:
-// https://bugzilla.mozilla.org/show_bug.cgi?id=975644
-// https://code.google.com/p/chromium/issues/detail?id=231752
-// https://dev.modern.ie/platform/status/positionsticky/
-.stable {
-  overflow: scroll;
 
-  // See note in polyfillPositionSticky for details on why this is disabled
-  // > .stable-head {
-  //   position: -webkit-sticky;
-  //   position: sticky;
-  //   top: 0;
-  // }
+.stable-outer {
+  overflow-x: scroll;
+  overflow-y: hidden;
 }
 
-.stable {
+.stable-body {
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+.stable-inner {
   border: 1px solid;
   border-color: #d0d0d0 #fff #fff #d0d0d0;
   table {
@@ -66,6 +59,7 @@ thead {
     }
   }
 }
+
 .stable-head {
   // The rearranging column shiloutte is positioned absolutely, so we need to
   // tell it that that absolute is relative to stable-head
@@ -93,6 +87,7 @@ thead {
     }
   }
 }
+
 .stable-body td {height: 16px; border-bottom: 1px solid #e0e0e0;}
 .stable-icon {width: 16px; height: 16px; margin-right: -6px; margin: 0 5px; float: left}
 .stable-lpad {width: 5px; height: 16px; float: left; }

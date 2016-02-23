@@ -209,54 +209,7 @@ var theWebUI =
 		this.assignEvents();
 		this.set_sizing_preferences();
 		this.update();
-		this.polyfillPositionSticky();
 		return(this.configured);
-	},
-
-	polyfillPositionSticky: function()
-	{
-		// Safari 9's position-sticky implementation was causing problems
-		// rather than browesr sniffing we're going to use this polyfill
-		// exclusively until that situation improves.
-		// We do not yet have a minimal test case filed anywhere, as the
-		// complexity of our table header situation is making it hard to
-		// isolate the exact cause. As we simplify further we may be able
-		// to re-enable this.
-
-		// var el = document.createElement( 'test' );
-		// // This should mirror what we're using in stable.scss
-		// // any differences could result in browser bugs
-		// el.style.cssText = 'position: -webkit-sticky; position: sticky;';
-		// if (el.style.position.indexOf('sticky') !== -1) {
-		// 	return;
-		// }
-
-		var container = document.getElementById('List'),
-			head = document.querySelector('#List .stable-head'),
-			body = document.querySelector('#List .stable-head');
-
-		// Scrolling up and down
-
-		$(head).css({
-			position: 'fixed',
-			top: $('#List').offset().top + 1,
-		});
-		$(body).css({
-			marginTop: head.outerHeight(),
-		});
-
-		var animationFrame = null;
-		container.addEventListener('scroll', function(e){
-			cancelAnimationFrame(animationFrame);
-			animationFrame = requestAnimationFrame(function(){
-
-				// Scrolling left and right
-				$(head).css({
-					width: container.width(),
-					overflow: 'hidden',
-				}).scrollLeft(e.target.scrollLeft);
-			});
-		});
 	},
 
 	assignEvents: function()
@@ -299,12 +252,6 @@ var theWebUI =
 					break;
 				case 115 : 				// F4
 					theWebUI.toggleMenu();
-					// For polyfillPositionSticky
-					$('#List .stable-head').css({
-						position: 'fixed',
-						top: $('#List').offset().top + 1,
-					});
-
 					return(false);
 				case 117 :                      	// F6
 					theWebUI.toggleDetails();
