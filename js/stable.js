@@ -785,33 +785,13 @@ var theSort =
 
 dxSTable.prototype.init = function()
 {
-	if(navigator.product == "Gecko")
-	{
-		for(var n = 0, l = document.styleSheets.length; n < l; n++)
-		{
-			if(!document.styleSheets[n].href || (document.styleSheets[n].href.indexOf("style.css") ==- 1))
-			{
-				continue;
-			}
-			try {
-			var _55 = document.styleSheets[n].cssRules;
-			for(var i = 0; i < _55.length; i++)
-			{
-				if((_55[i].type == CSSRule.STYLE_RULE) && (_55[i].selectorText == ".stable-head"))
-				{
-					_55[i].style.overflow = "-moz-scrollbars-none";
-				}
-			}
-			} catch(e) {}
-		}
-	}
 	this.assignEvents();
 	this.setAlignment();
 }
 
 dxSTable.prototype.setBodyState = function(v)
 {
-        this.tBody.style.visibility = v;
+    this.tBody.style.visibility = v;
 	for(var i = 0; i < this.cols; i++)
 	{
 		if((this.colsdata[i].type==TYPE_PROGRESS) && this.colsdata[i].enabled)
