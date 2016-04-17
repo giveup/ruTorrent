@@ -546,9 +546,6 @@ var theFormatter =
 					case 'launch' :
 						arr[i] = theFormatter.pluginLaunch(arr[i]);
 						break;
-					case 'version' :
-						arr[i] = new Number(arr[i]).toFixed(2);
-						break;
 				}
 			}
 		}
