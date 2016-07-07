@@ -35,4 +35,13 @@ switch($_REQUEST['cmd'])
         $ret = rTaskManager::remove($list);
         break;
 }
-cachedEcho(json_encode($ret), "application/json");
+
+$ret = json_encode($ret);
+if ($ret === false) {
+    http_response_code(500);
+    header('Content-Type: text/plain');
+    echo json_last_error_msg();
+    exit;
+}
+
+cachedEcho($ret, "application/json");
