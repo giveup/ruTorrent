@@ -692,7 +692,7 @@ dxSTable.prototype.Sort = function(e)
 	if(this.sIndex >= 0)
 	{
 		var td = this.tHead.tb.rows[0].cells[this.sIndex];
-		td.style.backgroundImage = "url("+this.paletteURL+"/images/blank.gif)";
+		td.style.backgroundImage = "";
 	}
 	col.style.backgroundImage = "url(" + (this.reverse ? this.sortAscImage : this.sortDescImage) + ")";
 	this.sIndex = ind;

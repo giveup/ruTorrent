@@ -1,7 +1,22 @@
-.stable-head { background: #272e36; border-color: #a0a0a0 #a0a0a0 #a0a0a0 #a0a0a0; }
-.stable-head table tr {background: transparent url(./images/header.gif) repeat-x scroll center top}
-.stable-head table tr td { border-color: #a0a0a0 #a0a0a0 #a0a0a0 #a0a0a0; background-color: transparent; background-image: none; color: #0f0; font-weight: bold;}
-.stable-head div.resz {background: transparent url(./images/s.gif) no-repeat scroll left center; }
+.stable-head {
+  background: #272e36;
+  border-color: #a0a0a0 #a0a0a0 #a0a0a0 #a0a0a0;
+}
+.stable-head {
+  background: transparent url(./images/header.gif) repeat-x scroll center top;
+
+  td {
+    border-color: #a0a0a0 #a0a0a0 #a0a0a0 #a0a0a0;
+    background-color: transparent;
+    background-image: none;
+    color: #0f0;
+    font-weight: bold;
+  }
+
+  .resz {
+    background: transparent url(./images/s.gif) no-repeat scroll left center;
+  }
+}
 .stable-body td { border-bottom: 1px solid #e0e0e0; color: #bddbdb; font-weight: bold;}
 
 .stable-body {

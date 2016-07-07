@@ -1,11 +1,30 @@
 .stable {border: 1px solid; border-color: #333333 #181818 #181818 #333333;}
 .stable td {padding:2px;}
-.stable thead {color:#626262;background: #181818 url(./images/headers.png) repeat-x 0px -91px; border:none; text-shadow:0px 1px 0px #000;font-family:inherit;}
-div#tdcont .stable thead {border:none;}
-div#tdcont .stable {border:none;}
-.stable thead tr {background: transparent;border:none;}
-.stable thead tr td { border:none; font-family:inherit;height:18px;line-height:18px;cursor:pointer;}
-.stable thead div.resz {border: 1px solid #FF0000; background: transparent url(./images/s.gif) no-repeat scroll left center;}
+.stable-head {
+  color:#626262;
+  background: #181818 url(./images/headers.png) repeat-x 0px -91px;
+  border:none;
+  box-shadow: 0 0 5px #000;
+  text-shadow:0px 1px 0px #000;
+  font-family:inherit;
+
+  box-shadow: 0 0 5px #000;
+
+  td {
+    border: none;
+    font-family: inherit;
+
+    height: 18px;
+    line-height: 18px;
+    cursor: pointer;
+  }
+
+  .resz {
+    border: 1px solid #FF0000;
+    background: transparent url(./images/s.gif) no-repeat scroll left center;
+  }
+}
+
 .stable-body {background: window; text-shadow:0px 1px 0px #000;color:#CACCCC; }
 .stable-body td {border-bottom: 1px solid #333333; }
 .stable-body td div {font-family: "Lucida Sans Unicode", "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;height: 16px !important;}
@@ -16,7 +35,7 @@ div#tdcont .stable {border:none;}
         background: #191919;
         height: 22px;
 
-        &:nth-child(2n+1) td{
+        &:nth-child(even) {
             color: #fff;
             background: #181818 url(./images/headers.png) repeat-x 0px -64px;
         }

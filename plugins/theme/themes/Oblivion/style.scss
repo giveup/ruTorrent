@@ -183,8 +183,8 @@ border-radius: 6px;
 /* LOG */
 input#clear_log,input#add_url, input#add_button {margin-top:2px;}
 div#lcont {}
-div#lcont div.std {background: #181818 url(./images/headers.png) repeat-x 0px -37px;height:17px;line-height:17px;border-bottom: 1px solid #333;}
-div#lcont div.std:nth-child(2n+1) {background: #181818 url(./images/headers.png) repeat-x 0px -64px;}
+div#lcont div.std:nth-child(even) {background: #181818 url(./images/headers.png) repeat-x 0px -37px;height:17px;line-height:17px;border-bottom: 1px solid #333;}
+div#lcont div.std:nth-child(odd) {background: #181818 url(./images/headers.png) repeat-x 0px -64px;}
 
 
 #StatusBar { border-top: 1px solid #333; background: #000 url(./images/headers.png) repeat-x 0px 0px; color: #888;font-family:inherit; }
