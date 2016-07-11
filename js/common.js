@@ -258,30 +258,28 @@ var theConverter =
 			ret += val + theUILang.time_s;
 		return( ret.substring(0,ret.length-1) );
 	},
-	bytes: function(bt, p)
+	bytes: function(bytes)
 	{
-		p = (p == null) ? 1 : p;
-		var a = new Array(theUILang.bytes, theUILang.KB, theUILang.MB, theUILang.GB, theUILang.TB, theUILang.PB);
-		var ndx = 0;
-		if (bt == 0)
-			ndx = 1;
-		else
-		{
-			if (bt < 1024)
-			{
-				bt /= 1024;
-				ndx = 1;
-			}
-			else
-			{
-				while(bt >= 1024)
-				{
-							bt /= 1024;
-							ndx++;
-						}
-				}
+		var steps = 0,
+			extensions = [
+				theUILang.bytes,
+				theUILang.KB,
+				theUILang.MB,
+				theUILang.GB,
+				theUILang.TB,
+				theUILang.PB,
+			];
+
+		while (Math.abs(bytes) >= 1024) {
+			steps++;
+			bytes /= 1024;
 		}
-		return(iv(bt).toFixed(p) + " " + a[ndx]);
+
+		if (steps > 0) {
+			bytes = bytes.toFixed(2);
+		}
+
+		return bytes + ' ' + extensions[steps];
 	},
 	speed: function(bt)
 	{
