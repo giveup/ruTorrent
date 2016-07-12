@@ -2,6 +2,18 @@ Last backport: 2015-11-02
 
 | Upstream commit                          | Merged                                   |
 | ---------------------------------------- | ---------------------------------------- |
+
+| f7d048795eb5079ed39eba61d57e05f1b7daae26 | 23cd1accec41bbdb7c8933059d9a6eda70ed1f55 |
+| 5ca9d71bd17020f2e192e3f9baa984858ffcb88c | 966759d6d6f2fd14335028a651f3679df50e85be |
+| e444af2f72a581eabfd5fdb340fc4fc985d87099 | Not applicable |
+| 0b44cd2cddf827bdaf65a5049e8fefcb43815a6f | Already fixed |
+| 8b81e34c548d2f947d0fff5b152490ee0fc6ef40 | 8b81e34c548d2f947d0fff5b152490ee0fc6ef40 |
+| 0715ded93d6fb41018c08cbd3e7a2fa9fec95182 | 9c7157c4cd5e8e79ede20f5bc91ecfa9509e6637 |
+| 68758098d9802efe7c8c38f77d6abbcc59fe7958 | Not applicable |
+| 9bf6943d2ba52a3b0eba8c6ad3a8ceb5c648f465 | 97f43be87a507c7bbfad1c44ccbfdcd506a307d1 |
+| 46235ebabc0d4115d77e766d84a4953e1333b822 | Already fixed |
+| 3fe907f9359efc1b68aa5d282e3e472eea5735ee | Not interested in editor-specific git ignore additions |
+| 23abbb478aeb63239c01397fe7d25e033297916d | 0ae22edbad9bc0f01725bf97ce6ce7b9ec969bcd |
 | e08f28249b867b95beebd46ee1fdecdfa14386b5 | Not applicable |
 | 7b4f919408247417c7202c60c9ad4201d9eb42c2 | Not applicable |
 | fa248e514ae5509913f261d309c54a9d3035eb94 | c0e4cab16ae699ee84f7a3cd62a7c6bf4cba278b |
@@ -20,5 +32,3 @@ Last backport: 2015-11-02
 | 12854736bfce4084f19fcaa437109e0b5dc5f04b | A regex isn't a good way to determine if a tracker is private. |
 | 1d4173258e9cf423c7b054cefaff3e3df84c9ce5 | cab4fab30f979476987118ecdbe63a9220f7a003 |
 | e57bc436a4c97f8ca555879301d676643429728d | Not applicable |
-
-

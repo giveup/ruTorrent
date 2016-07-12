@@ -1,7 +1,7 @@
-# ruTorrent
+# ruTorrent (Clean code fork)
 
-ruTorrent is a front-end for the popular Bittorrent client [rtorrent](http://rakshasa.github.io/rtorrent).
-This project is released under the GPLv3 license, for more details, take a look at the LICENSE.md file in the source.
+ruTorrent is a front-end for the popular Bittorrent client [rtorrent](http://rakshasa.github.io/rtorrent). This project is released under 
+the GPLv3 license, for more details, take a look at the LICENSE.md file in the source.
 
 Note: This is a pre-release fork of ruTorrent that has not yet had a stable release, we do not advise it's use in production at this time.
 
