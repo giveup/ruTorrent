@@ -9,7 +9,6 @@ plugin.onLangLoaded = function()
 	{
 		$("#maincont").filedrop(
 		{
-			fallback_id:	'torrent_file',
 			paramname:	'torrent_file',
 			maxfiles: 	plugin.maxfiles,
 			maxfilesize: 	plugin.maxfilesize,
