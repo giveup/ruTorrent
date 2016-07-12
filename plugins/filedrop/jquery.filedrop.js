@@ -25,8 +25,6 @@
  */
 ;(function($) {
 
-  jQuery.event.props.push("dataTransfer");
-
   var default_opts = {
       fallback_id: '',
       url: '',
@@ -73,10 +71,10 @@
       files_count = files.length;
       upload();
     });
-    
+
     function drop(e) {
         opts.drop(e);
-        files = e.dataTransfer.files;
+        files = e.originalEvent.dataTransfer.files;
         if (files === null || files === undefined) {
           opts.error(errors[0]);
           return false;

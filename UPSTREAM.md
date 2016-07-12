@@ -1,8 +1,14 @@
-Last backport: 2015-11-02
+Last backport: 2016-01-12
 
 | Upstream commit                          | Merged                                   |
 | ---------------------------------------- | ---------------------------------------- |
-
+| 8bf8e17b7467edfcb095f06f67ba9c17287ee97f | 89d2f527b728141827025c5ef77b757defaa64ca |
+| 66cad0d8236aabacb05c5e111453aec7b396c34a | 2b8bd007f0db34632d1cb0680461f7c7790bd24f |
+| 2fdd170fdb652f49ac0308c1bab046fe308200a4 | Already fixed |
+| 31a32c21470adcca05ffb3ea8277e5ec22836084 | Not applicable |
+| 593823a60c1d1ddcf679ec65eca14dcbbccd444f | c82486029c55a6da6077a573ff4ee81d3bc8051a |
+| af3cd98ca8d457f5b25b448ab6d6b5e95a58885f | Not applicable |
+| 8ba6989a011e4bc8a35db57cd1720a7c0540efaf | 70eaf5f6a0c220a91e8ac079f4ef3f3433680d43 |
 | f7d048795eb5079ed39eba61d57e05f1b7daae26 | 23cd1accec41bbdb7c8933059d9a6eda70ed1f55 |
 | 5ca9d71bd17020f2e192e3f9baa984858ffcb88c | 966759d6d6f2fd14335028a651f3679df50e85be |
 | e444af2f72a581eabfd5fdb340fc4fc985d87099 | Not applicable |

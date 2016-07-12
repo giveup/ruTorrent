@@ -7,7 +7,7 @@
   "dependencies": {
     "es6-promise": "3.*",
     "flot": "^0.8.0-alpha",
-    "jquery": "2.*",
+    "jquery": "3.*",
     "whatwg-fetch": "0.*"
   }
 }

@@ -227,7 +227,7 @@ dxSTable.prototype.create = function(ele, styles, aName)
 	this.dCont.appendChild(this.scp);
 	this.dCont.style.position = "relative";
 	this.init();
-	$(window).unload(function() { self.clearRows(); });
+	$(window).on('unload', function() { self.clearRows(); });
 	this.calcSize().resizeColumn();
 
 	this.colReszObj = $("<div>").addClass("stable-resize-header").get(0);
