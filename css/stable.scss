@@ -1,5 +1,5 @@
 .stable {border: 1px solid; border-color: #D0D0D0 #FFFFFF #FFFFFF #D0D0D0; overflow: hidden; display: block; -moz-user-select: none; -moz-user-focus: normal; -moz-user-input: enabled; }
-.stable td {font: menu; white-space: nowrap; padding: 1px}
+.stable td {white-space: nowrap; padding: 1px}
 
 @mixin border-emboss($backgroundColor) {
   border-top: 1px solid lighten($backgroundColor, 20%);
@@ -74,23 +74,26 @@
   background: #F5F5F5;
 
   tr {
-    background: #F3F3F3;
-
-    &:nth-child(even) {
-      background: #FFFFFF;
-    }
+    background: #fff;
 
     &.selected {
-      background: #CFDEEF;
+      background: #CFDEEF !important;
     }
   }
 }
-.stable-move-header {position: absolute; background: transparent url(../images/header_move.gif) repeat-x scroll center top rgba(255,255,255,0.7); top: 0px; font: menu; padding: 2px 12px 2px 4px; line-height: 12px; -moz-user-select: none; visibility: visible; border: 1px solid #0099FF; overflow: hidden; }
+
+.alternate_color {
+  .stable-body tr:nth-child(even) {
+    background: #F3F3F3;
+  }
+}
+
+.stable-move-header {position: absolute; background: transparent url(../images/header_move.gif) repeat-x scroll center top rgba(255,255,255,0.7); top: 0px; padding: 2px 12px 2px 4px; line-height: 12px; -moz-user-select: none; visibility: visible; border: 1px solid #0099FF; overflow: hidden; }
 .stable-active-header {border-color: threedface !important}
-.stable-separator-header {position: absolute; top: 0px; left: 0px; font: menu; height: 1em; width: 1px; overflow: hidden; background: #0099FF; padding: 3px 0px}
+.stable-separator-header {position: absolute; top: 0px; left: 0px; height: 1em; width: 1px; overflow: hidden; background: #0099FF; padding: 3px 0px}
 .stable-virtpad {width: 10px; height: 0px}
 .stable-scrollpos {width: 80%; height: 16px; left: 10%; top: 50%; position: absolute; padding: 0 5px; margin-top: -8px; background: #FFFFFF; color: #AAAAAA; font-size: 11px; font-family: Tahoma, Arial, Helvetica, sans-serif; font-weight: bold; text-align: center; overflow: hidden; display: none; white-space: nowrap}
-.stable-resize-header {	position: absolute; background-color: #A0A0A0; width: 1px; top: 0px; font: menu; -moz-user-select: none; visibility: hidden; overflow: hidden; z-index: 100; }
+.stable-resize-header {	position: absolute; background-color: #A0A0A0; width: 1px; top: 0px; -moz-user-select: none; visibility: hidden; overflow: hidden; z-index: 100; }
 
 .meter-value { float: left; background-color: #99D699; border: 1px inset #BBBBBB; border-bottom: none;}
 .meter-text { position: relative; text-align: left; float: left; width: 0px; height: 0px; overflow: visible; left: 40%; font-size: 11px; font-family: Tahoma, Arial, Helvetica, sans-serif;	z-index: 1; }

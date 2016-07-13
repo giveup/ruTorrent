@@ -23,15 +23,16 @@
     tr {
         background: #191919;
 
-        &:nth-child(even) {
-            background: #333333;
-        }
-
         &.selected {
-            background: #888888;
-            color:#111111;
+            background: #888 !important;
+            color:#111 !important;
         }
     }
+}
+.alternate_color {
+  .stable-body tr:nth-child(even) {
+    background: #333;
+  }
 }
 .stable-move-header { background: transparent url(./images/header_move.gif) repeat-x scroll center top; border: 1px solid #0099FF;}
 

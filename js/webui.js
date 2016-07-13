@@ -137,7 +137,7 @@ var theWebUI =
 		"webui.needmessage":		1,
 		"webui.reqtimeout":		30000,
 		"webui.confirm_when_deleting":	1,
-		"webui.alternate_color":	0,
+		"webui.alternate_color":	1,
 		"webui.update_interval":	3000,
 		"webui.hsplit":			0.88,
 		"webui.vsplit":			0.5,
@@ -306,7 +306,7 @@ var theWebUI =
 			table.obj.ondblclick = table.ondblclick;
 			table.obj.onselect = table.onselect;
 			table.obj.ondelete = table.ondelete;
-			table.obj.colorEvenRows = theWebUI.settings["webui.alternate_color"];
+			document.body.classList.toggle('alternate_color', theWebUI.settings["webui.alternate_color"]);
 			if ($type(theWebUI.settings["webui."+ndx+".sindex"])) {
 				table.obj.sIndex = iv(theWebUI.settings["webui."+ndx+".sindex"]);
 			}
@@ -577,7 +577,7 @@ var theWebUI =
 		var reply = null;
 		$.each(this.settings, function(i,v)
 		{
-				var o = $$(i);
+			var o = $$(i);
 			if (o)
 			{
 				o = $(o);
@@ -597,10 +597,7 @@ var theWebUI =
 								theDialogManager.setEffects( iv(nv)*200 );
 								break;
 							case "webui.alternate_color":
-								$.each(theWebUI.tables, function(ndx,table) {
-									table.obj.colorEvenRows = nv;
-									table.obj.refreshSelection();
-								});
+								document.body.classList.toggle('alternate_color', nv);
 								break;
 							case "webui.show_cats":
 								$("#CatList").toggle();
