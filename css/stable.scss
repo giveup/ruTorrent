@@ -1,14 +1,20 @@
 .stable {border: 1px solid; border-color: #D0D0D0 #FFFFFF #FFFFFF #D0D0D0; overflow: hidden; display: block; -moz-user-select: none; -moz-user-focus: normal; -moz-user-input: enabled; }
 .stable td {font: menu; white-space: nowrap; padding: 1px}
 
+@mixin border-emboss($backgroundColor) {
+  border-top: 1px solid lighten($backgroundColor, 20%);
+  border-right: 1px solid darken($backgroundColor, 20%);
+  border-bottom: 1px solid darken($backgroundColor, 20%);
+  border-left: 1px solid lighten($backgroundColor, 20%);
+}
+
 .stable-head {
   position: absolute;
-  background: #F5F5F5;
+  background: #f5f5f5;
+  @include border-emboss(#f5f5f5);
 
   overflow: hidden;
-  border: 1px solid;
-  border-color: #FFFFFF #D0D0D0 #D0D0D0 #FFFFFF;
-  border-bottom: 0;
+
   z-index: 10;
   background: transparent url(../images/header.gif) repeat-x scroll center top;
 
@@ -17,9 +23,10 @@
     width: 0;
   }
 
-  td {
+  th {
     height: 14px;
     font-size: 11px;
+    font-weight: normal;
     font-family: Tahoma, Arial, Helvetica, sans-serif;
     line-height: 14px;
     overflow: hidden;

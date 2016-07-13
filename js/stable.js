@@ -55,7 +55,6 @@ var dxSTable = function()
 	this.tHead = null;
 	this.tHeadCols = new Array();
 	this.tBodyCols = new Array();
-	this.colorEvenRows = false;
 	this.paletteURL = ".";
 	this.sortAscImage = this.paletteURL+"/images/asc.gif";
 	this.sortDescImage = this.paletteURL+"/images/desc.gif";
@@ -115,7 +114,7 @@ dxSTable.prototype.create = function(ele, styles, aName)
 	this.tHead = $("<table>").width(100).get(0);
 	this.tHead.cellSpacing = 0;
 	this.tHead.cellPadding = 0;
-	this.tHead.tb = $("<tbody>").get(0);
+	this.tHead.tb = $("<thead>").get(0);
 	this.dCont.appendChild(this.dHead);
 	this.dCont.appendChild(this.dBody);
 	this.dHead.appendChild(this.tHead);
@@ -148,7 +147,7 @@ dxSTable.prototype.create = function(ele, styles, aName)
 		this.colsdata[i].width = iv(this.colsdata[i].width);
 		this.ids[i] = styles[i].id;
 
-		td = $("<td>").on( "mousemove touchstart", function(e)
+		td = $("<th>").on( "mousemove touchstart", function(e)
 		{
 			if(self.isResizing)
 				return;
@@ -188,11 +187,9 @@ dxSTable.prototype.create = function(ele, styles, aName)
 			width(styles[this.colOrder[i]].width).
 			attr("index", i));
 		this.colMove.init(td.get(0), preventSort, null, moveColumn);
-		td.mouseclick( 	function(e)
-		{
+		td.on('mouseclick', function(e) {
 			self.onRightClick(e);
-		}).mouseup( function(e)
-		{
+		}).on('mouseup', function(e) {
 			self.Sort(e);
 		});
 		if(!$.support.touchable)
@@ -1249,9 +1246,6 @@ dxSTable.prototype.createRow = function(cols, sId, icon, attr)
 	if(sId != null)
 		tr.attr("id",sId);
 	var self = this;
-	if(this.colorEvenRows)
-		tr.addClass( (this.rows & 1) ? "odd" : "even" );
-
 	tr.mouseclick( function(e) { return(self.selectRow(e, this)); });
 
 	if($type(this.ondblclick) == "function")
@@ -1266,7 +1260,7 @@ dxSTable.prototype.createRow = function(cols, sId, icon, attr)
 	for(var i = 0; i < this.cols; i++)
 	{
 		var ind = this.colOrder[i];
-		s+="<td class='stable-"+this.dCont.id+"-col-"+ind+"'";
+		s+="<td";
 		var span1 = "";
 		var span2 = "";
 		if(this.colsdata[i].type==TYPE_PROGRESS)
@@ -1393,21 +1387,16 @@ dxSTable.prototype.unhideRow = function(sId)
 
 dxSTable.prototype.refreshSelection = function()
 {
-        if(this.created)
-        {
-		var rows = this.tBody.tb.rows, l = rows.length;
-		for(var i = 0; i < l; i++)
-		{
-			if(this.rowSel[rows[i].id] == true)
-				rows[i].className = "selected";
-			else
-			{
-				if(!this.colorEvenRows)
-					rows[i].className = "even";
-				else
-					rows[i].className = (i & 1) ? "odd" : "even";
+    if (this.created) {
+		var rows = this.tBody.tb.rows,
+			l = rows.length;
+		for (var i = 0; i < l; i++) {
+			if(this.rowSel[rows[i].id] == true) {
+				rows[i].classList.add("selected");
+			} else {
+				rows[i].classList.remove("selected");
 			}
-      		}
+  		}
 	}
 }
 

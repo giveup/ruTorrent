@@ -4,7 +4,7 @@
   border-color: #181818 #333333 #333333 #181818;
   background: transparent url(./images/header.gif) repeat-x scroll center top;
 
-  td {
+  th {
     border-color: #181818 #333333 #333333 #181818;
   }
 
@@ -23,7 +23,7 @@
     tr {
         background: #191919;
 
-        &:nth-child(odd) {
+        &:nth-child(even) {
             background: #333333;
         }
 
