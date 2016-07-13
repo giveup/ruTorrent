@@ -150,7 +150,7 @@ var theWebUI =
 		"webui.dateformat":		0,
 		"webui.speedintitle":		0,
 		"webui.log_autoswitch":		1,
-		"webui.show_labelsize":		1
+		"webui.show_labelsize":		0,
 	},
 	showFlags: 0,
 	total:
