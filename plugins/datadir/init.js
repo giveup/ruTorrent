@@ -146,8 +146,7 @@ plugin.onLangLoaded = function()
 			"<input type='button' value='" + theUILang.ok + "' class='OK Button' id='btn_datadir_ok'" +
 				" onclick='theWebUI.sendDataDir(); return(false);' />" +
 			"<input type='button' value='"+ theUILang.Cancel + "' class='Cancel Button'/>" +
-		"</div><br/>" +
-		"<div />",
+		"</div>",
 		true);
 	if(thePlugins.isInstalled("_getdir"))
 	{
