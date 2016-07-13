@@ -69,12 +69,12 @@
   tr {
     background: #F3F3F3;
 
-    &.selected {
-      background: #CFDEEF;
-    }
-
     &:nth-child(even) {
       background: #FFFFFF;
+    }
+
+    &.selected {
+      background: #CFDEEF;
     }
   }
 }

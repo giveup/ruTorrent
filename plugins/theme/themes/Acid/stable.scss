@@ -1,9 +1,7 @@
 .stable-head {
   background: #272e36;
-  border-color: #a0a0a0 #a0a0a0 #a0a0a0 #a0a0a0;
-}
-.stable-head {
   background: transparent url(./images/header.gif) repeat-x scroll center top;
+  border-color: #a0a0a0 #a0a0a0 #a0a0a0 #a0a0a0;
 
   td {
     border-color: #a0a0a0 #a0a0a0 #a0a0a0 #a0a0a0;
@@ -17,16 +15,13 @@
     background: transparent url(./images/s.gif) no-repeat scroll left center;
   }
 }
-.stable-body td { border-bottom: 1px solid #e0e0e0; color: #bddbdb; font-weight: bold;}
 
 .stable-body {
     background: #272e36;
 
     tr {
-        cursor: pointer;;
-        &:nth-child(odd) {
-            background: #323a46;
-        }
+        cursor: pointer;
+        background: #323a46;
 
         &:nth-child(even) {
             background: #272e36;
@@ -37,6 +32,12 @@
             color: #272e36;
         }
     }
+
+     td {
+       border-bottom: 1px solid #e0e0e0;
+       color: #bddbdb;
+       font-weight: bold;
+     }
 }
 .stable-move-header {position: absolute; background: transparent url(./images/header_move.gif) repeat-x scroll center top rgba(255,255,255,0.7); border: 1px solid #0099FF; }
 
