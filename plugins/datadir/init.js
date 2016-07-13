@@ -21,8 +21,8 @@ theWebUI.showDataDirDlg = function( d )
 	var is_multy = false;
 	if( id && (id.length==40) && this.torrents[id] )
 	{
-		is_done = this.torrents[id].done.trim() == 1000;
-		is_multy = this.torrents[id].multi_file.trim() != "0";
+		is_done = this.torrents[id].done == 1000;
+		is_multy = this.torrents[id].multi_file != 0;
 	}
 	$('#edit_datadir').val( d.basepath.trim().replace(/\/[^\/]+$/g, "") );
 	$('#btn_datadir_ok').prop("disabled",false);
