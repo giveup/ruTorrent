@@ -113,13 +113,6 @@ class rTorrentSettings
         "set_xmlrpc_size_limit"     =>  array( "name"=>"network.xmlrpc.size_limit.set", "prm"=>1 ),
         "system.file_allocate"  =>  array( "name"=>"system.file.allocate", "prm"=>0 ),
         "system.file_allocate.set"  =>  array( "name"=>"system.file.allocate.set", "prm"=>1 ),      // ?
-        "system.method.erase"   =>  array( "name"=>"method.erase", "prm"=>1 ),
-        "system.method.get"     =>  array( "name"=>"method.get", "prm"=>1 ),
-        "system.method.has_key"     =>  array( "name"=>"method.has_key", "prm"=>1 ),
-        "system.method.insert"  =>  array( "name"=>"method.insert", "prm"=>1 ),
-        "system.method.list_keys"   =>  array( "name"=>"method.list_keys", "prm"=>1 ),
-        "system.method.set"     =>  array( "name"=>"method.set", "prm"=>1 ),
-        "system.method.set_key"     =>  array( "name"=>"method.set_key", "prm"=>1 ),
         "throttle_down"         =>  array( "name"=>"throttle.down", "prm"=>1 ),                 // ?
         "throttle_ip"       =>  array( "name"=>"throttle.ip", "prm"=>1 ),               // ?
         "throttle_up"       =>  array( "name"=>"throttle.up", "prm"=>1 ),               // ?
@@ -297,7 +290,7 @@ class rTorrentSettings
     }
     public function getEventCommand($cmd1, $cmd2, $args)
     {
-        $cmd = new rXMLRPCCommand('system.method.set_key', 'event.download.'.$cmd2);
+        $cmd = new rXMLRPCCommand('method.set_key', 'event.download.'.$cmd2);
         $cmd->addParameters($args);
         return($cmd);
     }
