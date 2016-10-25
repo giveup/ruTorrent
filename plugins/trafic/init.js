@@ -335,7 +335,7 @@ plugin.onLangLoaded = function()
 {
 	if (this.canChangeTabs()) {
 	 	this.attachPageToTabs(
-			$('<div>').attr("id","traf").html(
+			$('<div>').attr("id","traf").addClass('col').html(
 				"<div id='traf_graph_ctrl' class='graph_tab' align=right style='height:30px;'>"+
 					(plugin.disableClearButton ? "" : "<input type='button' value='"+theUILang.ClearButton+"' class='Button' onclick='theWebUI.clearStats();return(false);'>")+
 					"<select name='tracker_mode' id='tracker_mode' onchange='theWebUI.reqForTraficGraph()'>"+
@@ -346,7 +346,7 @@ plugin.onLangLoaded = function()
 						"<option value='month'>"+theUILang.perMonth+"</option>"+
 						"<option value='year'>"+theUILang.perYear+"</option>"+
 					"</select>"+
-				"</div><div id='traf_graph' class='graph_tab'></div>").get(0),theUILang.traf,"lcont");
+				"</div><div id='traf_graph' class='graph_tab auto'></div>").get(0),theUILang.traf,"lcont");
 		theWebUI.trafGraph = new rTraficGraph();
 		theWebUI.trafGraph.create($("#traf_graph"));
 		plugin.onShow = theTabs.onShow;
