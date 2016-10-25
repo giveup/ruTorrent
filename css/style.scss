@@ -186,10 +186,30 @@ a {
   color: #686868;
 }
 
-#CatList {border-right: 1px solid #a0a0a0; background-color: #fff;}
-#CatList ul {list-style: none; white-space: nowrap;}
-#CatList ul li {padding: 2px 25px; line-height: 14px; cursor: pointer; border: 1px solid #fff; background-repeat: no-repeat;}
-#CatList ul li.sel {background-color: #CFDEEF; border-color: #CFDEEF;}
+#CatList {
+  overflow: auto;
+  border-right: 1px solid #a0a0a0;
+  background-color: #fff;
+
+  ul {
+    list-style: none;
+    white-space: nowrap;
+
+    li {
+      padding: 2px 25px;
+      line-height: 14px;
+      cursor: pointer;
+      border: 1px solid #fff;
+      background-repeat: no-repeat;
+
+      &.sel {
+        background-color: #CFDEEF;
+        border-color: #CFDEEF;
+      }
+    }
+  }
+}
+
 #-_-_-all-_-_-, #-_-_-dls-_-_-, #-_-_-com-_-_-, #-_-_-act-_-_-, #-_-_-iac-_-_-, #-_-_-err-_-_- {background-image: url('../images/tstatus.png');}
 #-_-_-all-_-_- {background-position: 4px -174px;}
 #-_-_-dls-_-_- {background-position: 4px 2px;}
