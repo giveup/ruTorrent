@@ -187,9 +187,11 @@ dxSTable.prototype.create = function(ele, styles, aName)
 			width(styles[this.colOrder[i]].width).
 			attr("index", i));
 		this.colMove.init(td.get(0), preventSort, null, moveColumn);
-		td.on('mouseclick', function(e) {
+		td.on('contextmenu', function(e) {
+			// We can't call this directly or this won't be defined properly
 			self.onRightClick(e);
-		}).on('mouseup', function(e) {
+		})
+		.on('mouseup', function(e) {
 			self.Sort(e);
 		});
 		if(!$.support.touchable)
@@ -292,23 +294,20 @@ dxSTable.prototype.removeColumn = function(no)
 
 dxSTable.prototype.onRightClick = function(e)
 {
-        if((e.which==3) && !this.isMoving)
-        {
-		theContextMenu.clear();
-		for(var i = 0; i<this.colsdata.length; i++)
+	theContextMenu.clear();
+	for(var i = 0; i<this.colsdata.length; i++)
+	{
+		if(this.colOrder[i])
 		{
-			if(this.colOrder[i])
-			{
-				var a = [this.colsdata[i].text, "theWebUI.getTable('"+this.prefix+"').toggleColumn("+i+")"];
-				if(this.colsdata[i].enabled)
-					a.unshift(CMENU_SEL);
-				theContextMenu.add(a);
-			}
+			var a = [this.colsdata[i].text, "theWebUI.getTable('"+this.prefix+"').toggleColumn("+i+")"];
+			if(this.colsdata[i].enabled)
+				a.unshift(CMENU_SEL);
+			theContextMenu.add(a);
 		}
-		theContextMenu.setNoHide();
-		theContextMenu.show(e.clientX,e.clientY);
-		return(false);
 	}
+	theContextMenu.setNoHide();
+	theContextMenu.show(e.clientX,e.clientY);
+	return false;
 }
 
 dxSTable.prototype.resizeHack = function()
