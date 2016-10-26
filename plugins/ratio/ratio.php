@@ -165,38 +165,38 @@ class rRatio
                     {
                         case RAT_STOP:
                             {
-                            $req->addCommand(new rXMLRPCCommand("method.set", array("group.rat_".$i.".ratio.command",
+                            $req->addCommand(new rXMLRPCCommand("system.method.set", array("group.rat_".$i.".ratio.command",
                                 getCmd("d.stop=")."; ".getCmd("d.close="))));
                             break;
                         }
                         case RAT_STOP_AND_REMOVE:
                             {
-                            $req->addCommand(new rXMLRPCCommand("method.set", array("group.rat_".$i.".ratio.command",
+                            $req->addCommand(new rXMLRPCCommand("system.method.set", array("group.rat_".$i.".ratio.command",
                                 getCmd("d.stop=")."; ".getCmd("d.close=")."; ".getCmd("view.set_not_visible")."=rat_".$i."; ".getCmd("d.views.remove")."=rat_".$i)));
                             break;
                         }
                         case RAT_ERASE:
                             {
-                            $req->addCommand(new rXMLRPCCommand("method.set", array("group.rat_".$i.".ratio.command",
+                            $req->addCommand(new rXMLRPCCommand("system.method.set", array("group.rat_".$i.".ratio.command",
                                 getCmd("d.stop=")."; ".getCmd("d.close=")."; ".getCmd("d.erase="))));
                             break;
                         }
                         case RAT_ERASEDATA:
                             {
-                            $req->addCommand(new rXMLRPCCommand("method.set", array("group.rat_".$i.".ratio.command",
+                            $req->addCommand(new rXMLRPCCommand("system.method.set", array("group.rat_".$i.".ratio.command",
                                 getCmd("d.stop=")."; ".getCmd("d.close=")."; ".getCmd("d.custom5.set=")."1; ".getCmd("d.erase="))));
                             break;
                         }
                         case RAT_ERASEDATAALL:
                             {
-                            $req->addCommand(new rXMLRPCCommand("method.set", array("group.rat_".$i.".ratio.command",
+                            $req->addCommand(new rXMLRPCCommand("system.method.set", array("group.rat_".$i.".ratio.command",
                                 getCmd("d.stop=")."; ".getCmd("d.close=")."; ".getCmd("d.custom5.set=")."2; ".getCmd("d.erase="))));
                             break;
                         }
                         default:
                             {
                             $thr = "thr_".($rat["action"]-RAT_FIRSTTHROTTLE);
-                            $req->addCommand(new rXMLRPCCommand("method.set", array("group.rat_".$i.".ratio.command",
+                            $req->addCommand(new rXMLRPCCommand("system.method.set", array("group.rat_".$i.".ratio.command",
                                 getCmd('cat').'=$'.getCmd("d.stop").'=,$'.getCmd("d.throttle_name.set=").$thr.',$'.getCmd('d.start='))));
                             break;
                         }
