@@ -116,10 +116,10 @@ class rThrottle
         if ($req->run() && !$req->fault) {
             $req1 = new rXMLRPCRequest();
             if ($req->val[0]==0) {
-                $req1->addCommand(new rXMLRPCCommand("set_upload_rate", 0));
+                $req1->addCommand(new rXMLRPCCommand("set_upload_rate", 2 ** 30));
             }
             if ($req->val[1]==0) {
-                $req1->addCommand(new rXMLRPCCommand("set_download_rate", 0));
+                $req1->addCommand(new rXMLRPCCommand("set_download_rate", 2 ** 30));
             }
             if ((($req->val[0]==0) || ($req->val[1]==0)) &&
                 (!$req1->run() || $req1->fault)) {
