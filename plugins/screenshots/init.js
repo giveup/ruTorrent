@@ -128,7 +128,6 @@ if(plugin.canChangeMenu())
 
 	plugin.onTaskShowInterface = function(task)
 	{
-	        $('.scplay').hide();
 	        $('#tskcmdlog').addClass('scframe_cont');
 	}
 
@@ -170,7 +169,6 @@ if(plugin.canChangeMenu())
 
 	plugin.onTaskHideInterface = function(task)
 	{
-	        $('.scplay').hide();
 		$('#tskcmdlog').removeClass('scframe_cont');
 		if(plugin.playTimer)
 		{
@@ -183,7 +181,6 @@ if(plugin.canChangeMenu())
 	{
 		if($('.scframe').length)
 		{
-			$('.scplay').show();
 			var current = plugin.getCurrentFrame();
 			$("#tskConsole-header").html(theUILang.exScreenshot+" "+(current+1)+"/"+$('.scframe').length);
 			$("#scplay").val(plugin.playTimer ? "▀" : "►")
@@ -218,8 +215,6 @@ if(plugin.canChangeMenu())
 				$("#scplay,#scsaveall").removeClass("disabled");
 			}
 		}
-		else
-			$('.scplay').hide();
 	}
 }
 
@@ -282,13 +277,13 @@ plugin.onLangLoaded = function()
 				"</fieldset>"
 				)[0],theUILang.exFFMPEG);
 		$('#tsk_btns').prepend(
-			"<input type='button' class='Button scplay' id='scfirst' value='<<'>"+
-			"<input type='button' class='Button scplay' id='scprev' value='<'>"+
-			"<input type='button' class='Button scplay' id='scplay' value='►'>"+
-			"<input type='button' class='Button scplay' id='scnext' value='>'>"+
-			"<input type='button' class='Button scplay' id='sclast' value='>>'>&nbsp;&nbsp;&nbsp;&nbsp;"+
-			"<input type='button' class='Button scplay' id='scsave' value='"+theUILang.exSave+"'>"+
-			"<input type='button' class='Button scplay' id='scsaveall' value='"+theUILang.exSaveAll+"'>"
+			"<input type='button' class='Button' id='scfirst' value='<<'>"+
+			"<input type='button' class='Button' id='scprev' value='<'>"+
+			"<input type='button' class='Button' id='scplay' value='►'>"+
+			"<input type='button' class='Button' id='scnext' value='>'>"+
+			"<input type='button' class='Button' id='sclast' value='>>'>&nbsp;&nbsp;&nbsp;&nbsp;"+
+			"<input type='button' class='Button' id='scsave' value='"+theUILang.exSave+"'>"+
+			"<input type='button' class='Button' id='scsaveall' value='"+theUILang.exSaveAll+"'>"
 			 );
 		$("#scfirst").click( function()
 		{
