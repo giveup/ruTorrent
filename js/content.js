@@ -241,8 +241,8 @@ function makeContent()
 				"</a></li>"+
 			"</ul>"+
 		"</div>"+
-		'<div id="stg_c" class="col">'+
-			"<div id=\"st_gl\" class=\"stg_con auto\">"+
+		'<div id="stg_c">'+
+			"<div id=\"st_gl\" class=\"stg_con\">"+
 				"<fieldset>"+
 					"<legend>"+theUILang.User_Interface+"</legend>"+
 					"<div class=\"op50l\">"+
@@ -311,7 +311,7 @@ function makeContent()
 					"</div>"+
 				"</fieldset>"+
 			"</div>"+
-			"<div id=\"st_dl\" class=\"stg_con auto\">"+
+			"<div id=\"st_dl\" class=\"stg_con\">"+
 				"<fieldset>"+
 					"<legend>"+theUILang.Bandwidth_sett+"</legend>"+
 					"<table>"+
@@ -356,7 +356,7 @@ function makeContent()
 					"</table>"+
 				"</fieldset>"+
 			"</div>"+
-			"<div id=\"st_con\" class=\"stg_con auto\">"+
+			"<div id=\"st_con\" class=\"stg_con\">"+
 				"<div>"+
 					"<input id=\"port_open\" type=\"checkbox\" onchange=\"linked(this, 0, ['port_range', 'port_random']);\" />"+
 					"<label for=\"port_open\">"+
@@ -419,7 +419,7 @@ function makeContent()
 					"</table>"+
 				"</fieldset>"+
 			"</div>"+
-			"<div id=\"st_bt\" class=\"stg_con auto\">"+
+			"<div id=\"st_bt\" class=\"stg_con\">"+
 				"<fieldset>"+
 					"<legend>"+theUILang.Add_bittor_featrs+"</legend>"+
 					"<table>"+
@@ -442,7 +442,7 @@ function makeContent()
 					"</table>"+
 				"</fieldset>"+
 			"</div>"+
-			"<div id=\"st_ao\" class=\"stg_con auto\">"+
+			"<div id=\"st_ao\" class=\"stg_con\">"+
 				"<fieldset>"+
 					"<legend>"+theUILang.Advanced+"</legend>"+
 					"<div id=\"st_ao_h\">"+
