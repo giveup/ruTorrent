@@ -5,8 +5,13 @@ css/*.css.map
 plugins/theme/themes/*/*.css
 plugins/theme/themes/*/*.css.map
 
-# JS modules
+# Composer (PHP modules)
+vendor/
+plugins/*/vendor/
+
+# Node (JS modules)
 node_modules/
+plugins/*/node_modules/
 
 # Compression
 *.gz
