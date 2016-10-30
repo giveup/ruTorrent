@@ -1,6 +1,6 @@
 <?php
 
-if (chdir(dirname(__FILE__))) {
+if (chdir(__DIR__)) {
     set_time_limit(0);
     if (count($argv) > 8) {
         $_SERVER['REMOTE_USER'] = $argv[8];

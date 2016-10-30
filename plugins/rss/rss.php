@@ -1,8 +1,8 @@
 <?php
 
-require_once( dirname(__FILE__).'/../../php/cache.php');
-require_once( dirname(__FILE__).'/../../php/Snoopy.class.inc');
-require_once( dirname(__FILE__).'/../../php/rtorrent.php' );
+require_once( __DIR__.'/../../php/cache.php');
+require_once( __DIR__.'/../../php/Snoopy.class.inc');
+require_once( __DIR__.'/../../php/rtorrent.php' );
 eval(getPluginConf('rss'));
 
 class rRSS
@@ -860,7 +860,7 @@ class rRSSManager
 	{
 	        $startAt = 0;
 		$req = new rXMLRPCRequest( rTorrentSettings::get()->getScheduleCommand("rss",$this->data->interval,
-			getCmd('execute').'={sh,-c,'.escapeshellarg(getPHP()).' '.escapeshellarg(dirname(__FILE__).'/update.php').' '.escapeshellarg(getUser()).' & exit 0}', $startAt) );
+			getCmd('execute').'={sh,-c,'.escapeshellarg(getPHP()).' '.escapeshellarg(__DIR__.'/update.php').' '.escapeshellarg(getUser()).' & exit 0}', $startAt) );
 		if($req->success())
 		{
 			$this->setStartTime($startAt);

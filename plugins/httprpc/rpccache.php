@@ -4,7 +4,7 @@
 @define("SIZEOF_HASH", 40);
 @define("SIZEOF_MD5", 32);
 
-require_once( dirname(__FILE__)."/../../php/util.php" );
+require_once( __DIR__."/../../php/util.php" );
 
 function array_diff_assoc_recursive($array1, $array2)
 {

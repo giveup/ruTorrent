@@ -1,6 +1,6 @@
 <?php
 
-if (!chdir(dirname(__FILE__))) {
+if (!chdir(__DIR__)) {
     exit();
 }
 

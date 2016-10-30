@@ -1,6 +1,6 @@
 <?php
 eval(getPluginConf($plugin["name"]));
-require_once( dirname(__FILE__)."/task.php" );
+require_once( __DIR__."/task.php" );
 
 rTaskManager::cleanup();
 $theSettings->registerPlugin($plugin["name"], $pInfo["perms"]);

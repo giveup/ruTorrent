@@ -27,8 +27,8 @@
  */
 
 /** XMPPHP_XMLStream */
-require_once dirname(__FILE__) . "/XMLStream.php";
-require_once dirname(__FILE__) . "/Roster.php";
+require_once __DIR__ . "/XMLStream.php";
+require_once __DIR__ . "/Roster.php";
 
 /**
  * XMPPHP Main Class

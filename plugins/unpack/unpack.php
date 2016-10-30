@@ -1,8 +1,8 @@
 <?php
-require_once( dirname(__FILE__)."/../../php/xmlrpc.php" );
-require_once( dirname(__FILE__)."/../../php/cache.php");
-require_once( dirname(__FILE__)."/../../php/settings.php");
-require_once( dirname(__FILE__).'/../_task/task.php' );
+require_once( __DIR__."/../../php/xmlrpc.php" );
+require_once( __DIR__."/../../php/cache.php");
+require_once( __DIR__."/../../php/settings.php");
+require_once( __DIR__.'/../_task/task.php' );
 eval( getPluginConf('unpack') );
 
 class rUnpack
@@ -71,7 +71,7 @@ class rUnpack
         global $unpackToTemp;
         global $unpack_debug_enabled;
         if (rTorrentSettings::get()->isPluginRegistered('quotaspace')) {
-            require_once( dirname(__FILE__)."/../quotaspace/rquota.php" );
+            require_once( __DIR__."/../quotaspace/rquota.php" );
             $qt = rQuota::load();
             if (!$qt->check()) {
                 return;
@@ -305,7 +305,7 @@ class rUnpack
         $ret = array( "no"=>-1, "pid"=>0, "status"=>255, "log"=>array(), "errors"=>array("Unknown error.") );
 
         if (rTorrentSettings::get()->isPluginRegistered('quotaspace')) {
-            require_once( dirname(__FILE__)."/../quotaspace/rquota.php" );
+            require_once( __DIR__."/../quotaspace/rquota.php" );
             $qt = rQuota::load();
             if (!$qt->check()) {
                 $ret["errors"] = array("Quota limitation was reached. Unpack failed.");

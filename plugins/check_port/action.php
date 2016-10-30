@@ -1,6 +1,6 @@
 <?php
-require_once( dirname(__FILE__)."/../../php/settings.php" );
-require_once( dirname(__FILE__)."/../../php/Snoopy.class.inc" );
+require_once( __DIR__."/../../php/settings.php" );
+require_once( __DIR__."/../../php/Snoopy.class.inc" );
 
 $ret = 0;
 $port = rTorrentSettings::get()->port;

@@ -1,6 +1,6 @@
 <?php
 
-require_once( dirname(__FILE__)."/../../php/util.php" );
+require_once( __DIR__."/../../php/util.php" );
 require_once( $rootPath.'/php/cache.php');
 require_once( $rootPath.'/php/Snoopy.class.inc');
 eval( getPluginConf('loginmgr') );
@@ -260,7 +260,7 @@ class accountManager
                 rTorrentSettings::get()->getScheduleCommand(
                     "loginmgr",
                     1440,
-                    getCmd('execute').'={sh,-c,'.escapeshellarg(getPHP()).' '.escapeshellarg(dirname(__FILE__).'/update.php').' '.escapeshellarg(getUser()).' & exit 0}'
+                    getCmd('execute').'={sh,-c,'.escapeshellarg(getPHP()).' '.escapeshellarg(__DIR__.'/update.php').' '.escapeshellarg(getUser()).' & exit 0}'
                 ) :
                 rTorrentSettings::get()->getRemoveScheduleCommand("loginmgr"));
                 $req->success();

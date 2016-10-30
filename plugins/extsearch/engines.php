@@ -1,6 +1,6 @@
 <?php
 
-require_once( dirname(__FILE__)."/../../php/util.php" );
+require_once( __DIR__."/../../php/util.php" );
 require_once( $rootPath.'/php/cache.php');
 require_once( $rootPath.'/php/settings.php');
 require_once( $rootPath.'/php/Snoopy.class.inc');
@@ -91,25 +91,25 @@ class commonEngine
 			{
 				case "tib":
 				case "tb":
-				case "òá":
+				case "ï¿½ï¿½":
 				case "ï¿½ï¿½":
 				case "ï¿½ï¿½":
 					$val*=1024;
 				case "gib":
 				case "gb":
-				case "ãá":
+				case "ï¿½ï¿½":
 				case "ï¿½ï¿½":
 				case "ï¿½ï¿½":
 					$val*=1024;
 				case "mib":
 				case "mb":
-				case "ìá":
+				case "ï¿½ï¿½":
 				case "ï¿½ï¿½":
 				case "ï¿½ï¿½":
 					$val*=1024;
 				case "kib":
 				case "kb":
-				case "êá":
+				case "ï¿½ï¿½":
 				case "ï¿½ï¿½":
 				case "ï¿½ï¿½":
 					$val*=1024;

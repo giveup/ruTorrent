@@ -13,7 +13,7 @@ execute = {sh,-c,/usr/local/bin/php /usr/local/www/rt/php/initplugins.php user_n
  * All plugins would be run according their runlevel
  */
 
-if (!chdir(dirname(__FILE__))) {
+if (!chdir(__DIR__)) {
         exit();
 }
 

@@ -1,8 +1,8 @@
 <?php
 
-require_once( dirname(__FILE__).'/../../php/cache.php');
-require_once( dirname(__FILE__).'/../../php/util.php');
-require_once( dirname(__FILE__).'/../../php/settings.php');
+require_once( __DIR__.'/../../php/cache.php');
+require_once( __DIR__.'/../../php/util.php');
+require_once( __DIR__.'/../../php/settings.php');
 
 class rURLRewriteRule
 {
@@ -60,7 +60,7 @@ class rURLRewriteRulesList
 			$changed = false;
 			if(is_null($mngr))
 			{
-				require_once( dirname(__FILE__).'/../rss/rss.php' );
+				require_once( __DIR__.'/../rss/rss.php' );
 				$mngr = new rRSSManager();	
 			}
 			foreach($ar->lst as $rule)

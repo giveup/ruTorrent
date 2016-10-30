@@ -1,6 +1,6 @@
 <?php
-require_once( dirname(__FILE__)."/../../php/util.php" );
-require_once( dirname(__FILE__)."/../../php/rtorrent.php" );
+require_once( __DIR__."/../../php/util.php" );
+require_once( __DIR__."/../../php/rtorrent.php" );
 require_once( "engines.php" );
 
 set_time_limit(0);

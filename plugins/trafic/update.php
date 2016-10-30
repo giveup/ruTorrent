@@ -4,7 +4,7 @@ if (chdir($path)) {
     if (count($argv) > 1) {
         $_SERVER['REMOTE_USER'] = $argv[1];
     }
-    require_once( dirname(__FILE__).'/../../php/xmlrpc.php' );
+    require_once( __DIR__.'/../../php/xmlrpc.php' );
     require_once( 'stat.php' );
     eval(getPluginConf('trafic'));
         

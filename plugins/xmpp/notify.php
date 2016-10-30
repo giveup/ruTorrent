@@ -1,5 +1,5 @@
 <?php
-if (!chdir(dirname(__FILE__))) {
+if (!chdir(__DIR__)) {
     exit();
 }
 
@@ -7,7 +7,7 @@ if (count($argv) > 2) {
     $_SERVER['REMOTE_USER'] = $argv[2];
 }
 
-require_once( dirname(__FILE__)."/../../php/settings.php");
+require_once( __DIR__."/../../php/settings.php");
 require_once( "./XMPPHP/XMPP.php" );
 require_once( "xmpp.php" );
 

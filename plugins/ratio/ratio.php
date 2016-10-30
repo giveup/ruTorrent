@@ -1,6 +1,6 @@
 <?php
 
-require_once( dirname(__FILE__)."/../../php/xmlrpc.php" );
+require_once( __DIR__."/../../php/xmlrpc.php" );
 require_once( $rootPath.'/php/cache.php');
 require_once( $rootPath.'/php/settings.php');
 eval(getPluginConf('ratio'));
@@ -107,7 +107,7 @@ class rRatio
             rTorrentSettings::get()->getScheduleCommand(
                 "ratio",
                 $checkTimesInterval,
-                getCmd('execute').'={sh,-c,'.escapeshellarg(getPHP()).' '.escapeshellarg(dirname(__FILE__).'/update.php').' '.escapeshellarg(getUser()).' & exit 0}'
+                getCmd('execute').'={sh,-c,'.escapeshellarg(getPHP()).' '.escapeshellarg(__DIR__.'/update.php').' '.escapeshellarg(getUser()).' & exit 0}'
             ) :
             rTorrentSettings::get()->getRemoveScheduleCommand("ratio"));
         return($req->success());

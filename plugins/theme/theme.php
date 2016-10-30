@@ -1,6 +1,6 @@
 <?php
 
-require_once( dirname(__FILE__)."/../../php/cache.php" );
+require_once( __DIR__."/../../php/cache.php" );
 eval( getPluginConf('theme') );
 
 class rTheme
@@ -28,7 +28,7 @@ class rTheme
 
     public function isValid()
     {
-        return( ($this->current!='') && is_dir(dirname(__FILE__).'/themes/'.$this->current) );
+        return( ($this->current!='') && is_dir(__DIR__.'/themes/'.$this->current) );
     }
 
     public function get()

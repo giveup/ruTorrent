@@ -1,6 +1,6 @@
 <?php
 
-require_once( dirname(__FILE__)."/../../php/settings.php");
+require_once( __DIR__."/../../php/settings.php");
 
 class rXmpp
 {
@@ -105,7 +105,7 @@ class rXmpp
     public function setHandlers()
     {
         $theSettings = rTorrentSettings::get();
-        $pathToXmpp = dirname(__FILE__);
+        $pathToXmpp = __DIR__;
         $req = new rXMLRPCRequest();
         if ($this->message !== '' && isset($this->jabberServer) && isset($this->jabberLogin) && isset($this->jabberPasswd) && isset($this->jabberFor)) {
             $cmd = $theSettings->getOnFinishedCommand(array('xmpp'.getUser(),

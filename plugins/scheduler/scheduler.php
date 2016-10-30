@@ -1,6 +1,6 @@
 <?php
 
-require_once( dirname(__FILE__)."/../../php/xmlrpc.php" );
+require_once( __DIR__."/../../php/xmlrpc.php" );
 require_once( $rootPath.'/php/cache.php');
 eval(getPluginConf('scheduler'));
 

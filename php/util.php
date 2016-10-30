@@ -9,7 +9,7 @@ if (!isset($_SERVER['REMOTE_USER'])) {
     }
 }
 
-$rootPath = realpath(dirname(__FILE__)."/..");
+$rootPath = realpath(__DIR__."/..");
 require_once( $rootPath.'/conf/config.php' );
 $conf = getConfFile('config.php');
 if ($conf) {
@@ -335,7 +335,7 @@ function getProfilePath($user = null)
 {
     global $profilePath;
 
-    $ret = fullpath(isset($profilePath) ? $profilePath : '../share', dirname(__FILE__));
+    $ret = fullpath(isset($profilePath) ? $profilePath : '../share', __DIR__);
     if (is_null($user)) {
             $user = getUser();
     }

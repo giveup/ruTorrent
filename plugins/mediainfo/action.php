@@ -1,6 +1,6 @@
 <?php
 
-require_once( dirname(__FILE__).'/../_task/task.php' );
+require_once( __DIR__.'/../_task/task.php' );
 eval( getPluginConf('mediainfo') );
 
 class mediainfoSettings

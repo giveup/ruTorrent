@@ -190,7 +190,7 @@ class rTorrentSettings
         if (array_key_exists($ename, $this->hooks)) {
             for ($i = 0; $i<count($this->hooks[$ename]); $i++) {
                 $pname = $this->hooks[$ename][$i];
-                $file = dirname(__FILE__).'/../plugins/'.$pname.'/hooks.php';
+                $file = __DIR__.'/../plugins/'.$pname.'/hooks.php';
                 if (is_file($file)) {
                     require_once( $file );
                     $func = $pname.'Hooks::On'.$ename;

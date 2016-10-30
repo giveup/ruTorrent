@@ -1,8 +1,8 @@
 <?php
 
-require_once( dirname(__FILE__).'/../_task/task.php' );
-require_once( dirname(__FILE__).'/../../php/Torrent.php' );
-require_once( dirname(__FILE__).'/../../php/rtorrent.php' );
+require_once( __DIR__.'/../_task/task.php' );
+require_once( __DIR__.'/../../php/Torrent.php' );
+require_once( __DIR__.'/../../php/rtorrent.php' );
 eval( getPluginConf('create') );
 
 class recentTrackers

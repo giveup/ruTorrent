@@ -4,10 +4,10 @@ if (count($argv) > 2) {
     $_SERVER['REMOTE_USER'] = $argv[2];
 }
 if (count($argv) > 1) {
-    require_once( dirname(__FILE__).'/../../php/xmlrpc.php' );
-    require_once( dirname(__FILE__).'/../../php/Torrent.php' );
-    require_once( dirname(__FILE__).'/../../php/rtorrent.php' );
-    require_once( dirname(__FILE__).'/../_task/task.php' );
+    require_once( __DIR__.'/../../php/xmlrpc.php' );
+    require_once( __DIR__.'/../../php/Torrent.php' );
+    require_once( __DIR__.'/../../php/rtorrent.php' );
+    require_once( __DIR__.'/../_task/task.php' );
     eval(getPluginConf('create'));
     
     $taskNo = $argv[1];

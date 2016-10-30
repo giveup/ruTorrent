@@ -1,6 +1,6 @@
 <?php
 
-require_once( dirname(__FILE__)."/../../php/settings.php");
+require_once( __DIR__."/../../php/settings.php");
 eval(getPluginConf('autotools'));
 
 class rAutoTools
@@ -120,7 +120,7 @@ class rAutoTools
             // old version fix
             $theSettings->getOnInsertCommand(array('autolabel'.getUser(), getCmd('cat=')))
         );
-        $pathToAutoTools = dirname(__FILE__);
+        $pathToAutoTools = __DIR__;
 
         if ($this->enable_label) {
             $cmd =  $theSettings->getOnInsertCommand(array('_autolabel'.getUser(),
