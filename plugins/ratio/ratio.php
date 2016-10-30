@@ -9,7 +9,6 @@ eval(getPluginConf('ratio'));
 @define('RAT_STOP_AND_REMOVE', 1);
 @define('RAT_ERASE', 2);
 @define('RAT_ERASEDATA', 3);
-@define('RAT_ERASEDATAALL', 4);
 @define('RAT_FIRSTTHROTTLE', 10);
 
 class rRatio
@@ -183,14 +182,8 @@ class rRatio
                         }
                         case RAT_ERASEDATA:
                             {
-                            $req->addCommand(new rXMLRPCCommand("system.method.set", array("group.rat_".$i.".ratio.command",
-                                getCmd("d.stop=")."; ".getCmd("d.close=")."; ".getCmd("d.custom5.set=")."1; ".getCmd("d.erase="))));
-                            break;
-                        }
-                        case RAT_ERASEDATAALL:
-                            {
-                            $req->addCommand(new rXMLRPCCommand("system.method.set", array("group.rat_".$i.".ratio.command",
-                                getCmd("d.stop=")."; ".getCmd("d.close=")."; ".getCmd("d.custom5.set=")."2; ".getCmd("d.erase="))));
+                            $req->addCommand(new rXMLRPCCommand("system.method.set", ["group.rat_".$i.".ratio.command",
+                                "d.stop=; d.close=; d.delete_files=; d.erase="]));
                             break;
                         }
                         default:

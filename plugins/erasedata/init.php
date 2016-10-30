@@ -1,26 +1,25 @@
 <?php
+declare(strict_types=1);
 
 require_once('xmlrpc.php');
-eval(getPluginConf($plugin["name"]));
-
-$listPath = getSettingsPath()."/erasedata";
-@makeDirectory($listPath);
-$thisDir = dirname(__FILE__);
 
 $req = new rXMLRPCRequest([
-    $theSettings->getOnEraseCommand(array('erasedata0'.getUser(),
-        getCmd('d.open').'= ; '.getCmd('branch=').getCmd('d.get_custom5').'=,"'.getCmd('f.multicall').'=,\"'.getCmd('execute').'={'.$thisDir.'/cat.sh,'.$listPath.',$system.pid=,$'.getCmd('f.get_frozen_path').'=}\""')),
-    $theSettings->getOnEraseCommand(array('erasedata1'.getUser(),
-        getCmd('branch=').getCmd('d.get_custom5').'=,"'.getCmd('execute').'={'.$thisDir.'/fin.sh,'.$listPath.',$'.getCmd('system.pid').'=,$'.getCmd('d.get_hash').'=,$'.getCmd('d.get_base_path').'=,$'.getCmd('d.is_multi_file').'=}"')),
-    $theSettings->getAbsScheduleCommand(
-        "erasedata",
-        $garbageCheckInterval,
-        getCmd('execute').'={sh,-c,'.escapeshellarg(getPHP()).' '.escapeshellarg($thisDir.'/update.php').' '.escapeshellarg(getUser()).' &}'
-    )
+    new rXMLRPCCommand('method.get', ['', 'd.delete_files']),
 ]);
+
 
 if ($req->success()) {
     $theSettings->registerPlugin($plugin["name"], $pInfo["perms"]);
 } else {
-    $jResult.="plugin.disable(); noty('erasedata: '+theUILang.pluginCantStart,'error');";
+    $jResult.="noty('erasedata: Attempting bootstrap');";
+
+    $req = new rXMLRPCRequest([
+        new rXMLRPCCommand('import', ['', __DIR__.'/rtorrent.rc']),
+    ]);
+
+
+    if (!$req->success()) {
+        $jResult.="plugin.disable();";
+        $jResult.="noty('erasedata: Failed to import ".__DIR__."/rtorrent.rc');";
+    }
 }

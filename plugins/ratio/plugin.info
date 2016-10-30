@@ -6,3 +6,4 @@ rtorrent.version: 0.8.6
 rtorrent.php.error: update.php,ratio.php,conf.php
 rtorrent.external.warning: php
 plugin.help: https://github.com/Novik/ruTorrent/wiki/PluginRatio
+plugin.dependencies = erasedata

@@ -8,7 +8,7 @@ class rTorrent
 {
     const RTORRENT_PACKET_LIMIT = 1572864;
 
-    public static function sendTorrent($fname, $isStart, $isAddPath, $directory, $label, $saveTorrent, $isFast, $isNew = true, $addition = null)
+    public static function sendTorrent($fname, bool $isStart, bool $isAddPath, $directory, $label, $saveTorrent, $isFast, $isNew = true, $addition = null)
     {
         $hash = false;
         $torrent = is_object($fname) ? $fname : new Torrent($fname);

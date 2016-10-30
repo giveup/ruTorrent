@@ -33,11 +33,8 @@ if(plugin.canChangeMenu())
 	{
 		for( var i = 0; i < this.hashes.length; i++ )
 		{
-			var cmd = new rXMLRPCCommand( "d.custom5.set" );
-			cmd.addParameter( "string", this.hashes[i] );
-			cmd.addParameter( "string", "1" );
-			this.commands.push( cmd );
-			cmd = new rXMLRPCCommand( "d.delete_tied" );
+
+			cmd = new rXMLRPCCommand( "d.delete_files" );
 			cmd.addParameter( "string", this.hashes[i] );
 			this.commands.push( cmd );
 			cmd = new rXMLRPCCommand( "d.erase" );
