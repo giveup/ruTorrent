@@ -268,6 +268,7 @@ plugin.enterTeg = function()
 		var teg = $("#TegList");
 		lst.hide();
 		teg.show();
+		table.refreshRows();
 		table.scrollTo(0);
 	}
 }
