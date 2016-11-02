@@ -1,0 +1,14 @@
+# Old solution
+# Side effect: Will delete unpacked files, but at the risk of catastrophic data
+#              loss if the torrent is downloaded to a common folder without a
+#              unique folder prefix
+# method.insert = d.get_data_full_path, simple, "branch=((d.is_multi_file)),((cat,(d.directory))),((cat,(d.directory),/,(d.name)))"
+# method.insert = d.delete_files, simple, "execute=rm,--recursive,--one-file-system,$d.get_data_full_path="
+
+# New solution
+# Never delete files that aren't directly managed by the client
+# Side effect: Since torrent file lists don't handle directories, we assume any
+#              empty directories contained within the torrent's directory are
+#              fine to remove
+method.insert = d.list_files, simple, "f.multicall=,f.frozen_path="
+method.insert = d.delete_files, simple, "execute=rm,--one-file-system,$d.list_files=;execute=find,$d.directory=,-type,\"d\",-empty,-delete"
