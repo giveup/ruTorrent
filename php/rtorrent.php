@@ -30,13 +30,15 @@ class rTorrent
             $raw_value = base64_encode($torrent->__toString());
             $filename = is_object($fname) ? $torrent->getFileName() : $fname;
             if ((strlen($raw_value)<self::RTORRENT_PACKET_LIMIT) || is_null($filename) || !isLocalMode()) {
-                $cmd = new rXMLRPCCommand($isStart ? 'load_raw_start' : 'load_raw');
+                $cmd = new rXMLRPCCommand($isStart ? 'load.raw_start' : 'load.raw');
+                $cmd->addParameter("");
                 $cmd->addParameter($raw_value, "base64");
                 if (!is_null($filename) && !$saveTorrent) {
                     @unlink($filename);
                 }
             } else {
-                $cmd = new rXMLRPCCommand($isStart ? 'load_start' : 'load');
+                $cmd = new rXMLRPCCommand($isStart ? 'load.start' : 'load');
+                $cmd->addParameter("");
                 $cmd->addParameter($filename);
             }
             if (!is_null($filename)) {
@@ -96,7 +98,8 @@ class rTorrent
             }
             if (strlen($hash)==40) {
                 $req = new rXMLRPCRequest();
-                $cmd = new rXMLRPCCommand($isStart ? 'load_start' : 'load');
+                $cmd = new rXMLRPCCommand($isStart ? 'load.start' : 'load');
+                $cmd->addParameter("");
                 $cmd->addParameter($magnet);
                 if ($directory && (strlen($directory)>0)) {
                     if (!rTorrentSettings::get()->correctDirectory($directory)) {
