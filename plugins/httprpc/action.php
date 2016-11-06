@@ -181,51 +181,51 @@ switch ($mode) {
         break;
     case "stg":    /**/
         $cmds = array(
-            "get_bind",
-            "get_check_hash",
-            "get_dht_port",
-            "get_directory",
-            "get_download_rate",
-            "get_http_cacert",
-            "get_http_capath",
-            "get_http_proxy",
-            "get_ip",
-            "get_max_downloads_div",
-            "get_max_downloads_global",
-            "get_max_file_size",
-            "get_max_memory_usage",
-            "get_max_open_files",
-            "get_max_open_http",
-            "get_max_peers",
-            "get_max_peers_seed",
-            "get_max_uploads",
-            "get_max_uploads_global",
-            "get_min_peers_seed",
-            "get_min_peers",
-            "get_peer_exchange",
-            "get_port_open",
-            "get_upload_rate",
-            "get_port_random",
-            "get_port_range",
-            "get_preload_min_size",
-            "get_preload_required_rate",
-            "get_preload_type",
-            "get_proxy_address",
-            "get_receive_buffer_size",
-            "get_safe_sync",
-            "get_scgi_dont_route",
-            "get_send_buffer_size",
-            "get_session",
-            "get_session_lock",
-            "get_session_on_completion",
-            "get_split_file_size",
-            "get_split_suffix",
-            "get_timeout_safe_sync",
-            "get_timeout_sync",
-            "get_tracker_numwant",
-            "get_use_udp_trackers",
-            "get_max_uploads_div",
-            "get_max_open_sockets"
+            "network.bind_address",
+            "pieces.hash.on_completion",
+            "dht.port",
+            "directory.default",
+            "throttle.global_down.max_rate",
+            "network.http.cacert",
+            "network.http.capath",
+            "network.http.proxy_address",
+            "network.local_address",
+            "throttle.max_downloads.div",
+            "throttle.max_downloads.global",
+            "system.file.max_size",
+            "pieces.memory.max",
+            "network.max_open_files",
+            "network.http.max_open",
+            "throttle.max_peers.normal",
+            "throttle.max_peers.seed",
+            "throttle.max_uploads",
+            "throttle.max_uploads.global",
+            "throttle.min_peers.seed",
+            "throttle.min_peers.normal",
+            "protocol.pex",
+            "network.port_open",
+            "throttle.global_up.max_rate",
+            "network.port_random",
+            "network.port_range",
+            "pieces.preload.min_size",
+            "pieces.preload.min_rate",
+            "pieces.preload.type",
+            "network.proxy_address",
+            "network.receive_buffer.size",
+            "pieces.sync.always_safe",
+            "network.scgi.dont_route",
+            "network.send_buffer.size",
+            "session.path",
+            "session.use_lock",
+            "session.on_completion",
+            "system.file.split_size",
+            "system.file.split_suffix",
+            "pieces.sync.timeout_safe",
+            "pieces.sync.timeout",
+            "trackers.numwant",
+            "trackers.use_udp",
+            "throttle.max_uploads.div",
+            "network.max_open_sockets"
         );
 
         $cmds[5] = $cmds[6] = $cmds[7] = "cat";
@@ -237,9 +237,9 @@ switch ($mode) {
             $req->addCommand(new rXMLRPCCommand($prm));
         }
         if ($req->success()) {
-                $result = array();
+            $result = array();
             $dht_active = $req->val[0];
-                        $dht = $req->val[1];
+            $dht = $req->val[1];
             $i = 3;
             if ($dht_active!='0') {
                 $i+=(count($req->val)-51);
@@ -327,20 +327,24 @@ switch ($mode) {
         }
         break;
     case "setlabel":    /**/
-    {
         $req = new rXMLRPCRequest();
-        foreach ($hash as $ndx => $h)
-            $req->addCommand(new rXMLRPCCommand("d.custom1.set", array($h, $vs[0]) ) );
-        if ($req->success())
-                $result = $req->val;
+        foreach ($hash as $ndx => $h) {
+            $req->addCommand(new rXMLRPCCommand("d.custom1.set", array($h, $vs[0])));
+        }
+        if ($req->success()) {
+            $result = $req->val;
+        }
         break;
-    }
     case "trkall":    /**/
-    {
         $cmds = array(
-                "t.url=", "t.type=", "t.is_enabled=", "t.group=", "t.scrape_complete=",
-            "t.scrape_incomplete=", "t.scrape_downloaded="
-                );
+            "t.url=",
+            "t.type=",
+            "t.is_enabled=",
+            "t.group=",
+            "t.scrape_complete=",
+            "t.scrape_incomplete=",
+            "t.scrape_downloaded="
+        );
         $result = array();
         if (empty($hash)) {
             $prm = getCmd("cat").'="$'.getCmd("t.multicall=").getCmd("d.hash=").",";
@@ -378,18 +382,20 @@ switch ($mode) {
             }
         }
         break;
-    }
     case "setsettings":
         $req = new rXMLRPCRequest();
         foreach ($vs as $ndx => $v) {
-            if ($ss[$ndx][0]=='n')
+            if ($ss[$ndx][0]=='n') {
                 $v = floatval($v);
-            if ( ($ss[$ndx]=="sdirectory") && !rTorrentSettings::get()->correctDirectory($v) )
+            }
+            if (($ss[$ndx]=="sdirectory") && !rTorrentSettings::get()->correctDirectory($v)) {
                 continue;
-            if ($ss[$ndx]=="ndht")
-                $cmd = new rXMLRPCCommand('dht',(($v==0) ? "disable" : "auto"));
-            else
-                $cmd = new rXMLRPCCommand('set_'.substr($ss[$ndx],1),$v);
+            }
+            if ($ss[$ndx]=="ndht") {
+                $cmd = new rXMLRPCCommand('dht', (($v==0) ? "disable" : "auto"));
+            } else {
+                $cmd = new rXMLRPCCommand(substr($ss[$ndx], 1).'.set', $v);
+            }
             $req->addCommand($cmd);
         }
         if ($req->getCommandsCount()) {
@@ -401,126 +407,111 @@ switch ($mode) {
         }
         break;
     case "setprops":    /**/
-    {
         $req = new rXMLRPCRequest();
-        foreach ($ss as $ndx => $s)
-        {
-            if ($s=="superseed")
-            {
-                    $conn = ($vs[$ndx]!=0) ? "initial_seed" : "seed";
+        foreach ($ss as $ndx => $s) {
+            if ($s=="superseed") {
+                $conn = ($vs[$ndx]!=0) ? "initial_seed" : "seed";
                 $cmd = new rXMLRPCCommand("branch", array(
                     $hash[0],
                     getCmd("d.is_active="),
                     getCmd("cat").'=$'.getCmd("d.stop=").',$'.getCmd("d.close=").',$'.getCmd("d.connection_seed.set=").$conn.',$'.getCmd("d.open=").',$'.getCmd("d.start="),
                     getCmd("d.connection_seed.set=").$conn
                     ));
-            }
-            else
-            {
-                if ($s=="ulslots")
+            } else {
+                if ($s=="ulslots") {
                     $cmd = new rXMLRPCCommand("d.uploads_max.set");
-                else
-                if ($s=="pex")
+                } elseif ($s=="pex") {
                     $cmd = new rXMLRPCCommand("d.peer_exchange.set");
-                else
+                } else {
                     $cmd = new rXMLRPCCommand("d.set_".$s);
-                $cmd->addParameters( array($hash[0], $vs[$ndx]));
+                }
+                $cmd->addParameters([$hash[0], $vs[$ndx]]);
             }
             $req->addCommand($cmd);
         }
-        if ($req->success())
-                $result = $req->val;
+        if ($req->success()) {
+            $result = $req->val;
+        }
         break;
-    }
     case "setul":    /**/
-    {
-        $req = new rXMLRPCRequest( new rXMLRPCCommand("set_upload_rate", $ss[0]));
-        if ($req->success())
-                $result = $req->val;
+        $req = new rXMLRPCRequest(new rXMLRPCCommand("set_upload_rate", $ss[0]));
+        if ($req->success()) {
+            $result = $req->val;
+        }
         break;
-    }
     case "setdl":    /**/
-    {
-        $req = new rXMLRPCRequest( new rXMLRPCCommand("set_download_rate", $ss[0]));
-        if ($req->success())
-                $result = $req->val;
+        $req = new rXMLRPCRequest(new rXMLRPCCommand("set_download_rate", $ss[0]));
+        if ($req->success()) {
+            $result = $req->val;
+        }
         break;
-    }
     case "unsnub":
     case "snub":
-    {
         $on = (($mode=="snub") ? 1 : 0);
         $req = new rXMLRPCRequest();
-                foreach ($vs as $v)
-            $req->addCommand(new rXMLRPCCommand("p.snubbed.set", array($hash[0].":p".$v,$on)) );
-        if ($req->success())
-                $result = $req->val;
-        break;
-    }
-    case "ban":
-    {
-        $req = new rXMLRPCRequest();
-                foreach ($vs as $v)
-        {
-            $req->addCommand(new rXMLRPCCommand("p.banned.set", array($hash[0].":p".$v,1)) );
-            $req->addCommand(new rXMLRPCCommand("p.disconnect", $hash[0].":p".$v) );
+        foreach ($vs as $v) {
+            $req->addCommand(new rXMLRPCCommand("p.snubbed.set", array($hash[0].":p".$v,$on)));
         }
-        if ($req->success())
-                $result = $req->val;
+        if ($req->success()) {
+            $result = $req->val;
+        }
         break;
-    }
-    case "kick":
-    {
+    case "ban":
         $req = new rXMLRPCRequest();
-                foreach ($vs as $v)
-            $req->addCommand(new rXMLRPCCommand("p.disconnect", $hash[0].":p".$v) );
-        if ($req->success())
-                $result = $req->val;
+        foreach ($vs as $v) {
+            $req->addCommand(new rXMLRPCCommand("p.banned.set", array($hash[0].":p".$v,1)));
+            $req->addCommand(new rXMLRPCCommand("p.disconnect", $hash[0].":p".$v));
+        }
+        if ($req->success()) {
+            $result = $req->val;
+        }
         break;
-    }
+    case "kick":
+        $req = new rXMLRPCRequest();
+        foreach ($vs as $v) {
+            $req->addCommand(new rXMLRPCCommand("p.disconnect", $hash[0].":p".$v));
+        }
+        if ($req->success()) {
+            $result = $req->val;
+        }
+        break;
     case "add_peer":
-    {
-        $req = new rXMLRPCRequest(
-            new rXMLRPCCommand("add_peer", array($hash[0], $vs[0]) ) );
-        if ($req->success())
-                $result = $req->val;
+        $req = new rXMLRPCRequest(new rXMLRPCCommand("add_peer", [$hash[0], $vs[0]]));
+        if ($req->success()) {
+            $result = $req->val;
+        }
         break;
-    }
     case "getchunks":
-    {
-        $req = new rXMLRPCRequest( array(
+        $req = new rXMLRPCRequest([
             new rXMLRPCCommand("d.bitfield", $hash[0]),
             new rXMLRPCCommand("d.chunk_size", $hash[0]),
-            new rXMLRPCCommand("d.size_chunks", $hash[0] ) ));
+            new rXMLRPCCommand("d.size_chunks", $hash[0])
+        ]);
 
-        $req->addCommand(new rXMLRPCCommand("d.chunks_seen", $hash[0] ));
+        $req->addCommand(new rXMLRPCCommand("d.chunks_seen", $hash[0]));
         if ($req->success()) {
             $result = array( "chunks"=>$req->val[0], "size"=>$req->val[1], "tsize"=>$req->val[2] );
             $result["seen"] = $req->val[3];
         }
         break;
-    }
     default:
-    {
-        if (isset($HTTP_RAW_POST_DATA))
-        {
+        if (isset($HTTP_RAW_POST_DATA)) {
             $result = rXMLRPCRequest::send($HTTP_RAW_POST_DATA);
-            if (!empty($result))
-            {
+            if (!empty($result)) {
                 $pos = strpos($result, "\r\n\r\n");
-                if ($pos !== false)
-                    $result = substr($result,$pos+4);
+                if ($pos !== false) {
+                    $result = substr($result, $pos + 4);
+                }
                 cachedEcho($result, "text/xml");
             }
         }
         break;
-    }
 }
 
-if (is_null($result))
-{
+
+if (is_null($result)) {
     header("HTTP/1.0 500 Server Error");
-    cachedEcho( (isset($req) && $req->fault) ? "Warning: XMLRPC call is failed." : "Link to XMLRPC failed. May be, rTorrent is down?","text/html");
+    cachedEcho((isset($req) && $req->fault) ? "Warning: XMLRPC call is failed." : "Link to XMLRPC failed. May be, rTorrent is down?", "text/html");
+} else {
+    cachedEcho(json_encode($result), "application/json");
 }
-else
-    cachedEcho(json_encode($result),"application/json");

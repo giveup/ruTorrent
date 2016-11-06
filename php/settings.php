@@ -56,8 +56,6 @@ class rTorrentSettings
         "get_min_peers"         =>  array( "name"=>"throttle.min_peers.normal", "prm"=>0 ),
         "get_min_peers_seed"    =>  array( "name"=>"throttle.min_peers.seed", "prm"=>0 ),
         "get_name"      =>  array( "name"=>"session.name", "prm"=>0 ),
-        "get_peer_exchange"     =>  array( "name"=>"protocol.pex", "prm"=>0 ),
-        "get_port_open"         =>  array( "name"=>"network.port_open", "prm"=>0 ),
         "get_port_random"   =>  array( "name"=>"network.port_random", "prm"=>0 ),
         "get_port_range"    =>  array( "name"=>"network.port_range", "prm"=>0 ),
         "get_preload_min_size"  =>  array( "name"=>"pieces.preload.min_size", "prm"=>0 ),
@@ -85,13 +83,10 @@ class rTorrentSettings
         "get_up_rate"       =>  array( "name"=>"throttle.global_up.rate", "prm"=>0 ),
         "get_up_total"      =>  array( "name"=>"throttle.global_up.total", "prm"=>0 ),
         "get_upload_rate"   =>  array( "name"=>"throttle.global_up.max_rate", "prm"=>0 ),
-        "get_use_udp_trackers"  =>  array( "name"=>"trackers.use_udp", "prm"=>0 ),
         "get_xmlrpc_size_limit"     =>  array( "name"=>"network.xmlrpc.size_limit", "prm"=>0 ),
         "http_cacert"       =>  array( "name"=>"network.http.cacert", "prm"=>0 ),
         "http_capath"       =>  array( "name"=>"network.http.capath", "prm"=>0 ),
         "http_proxy"        =>  array( "name"=>"network.proxy_address", "prm"=>0 ),
-        "peer_exchange"         =>  array( "name"=>"protocol.pex.set", "prm"=>1 ),
-        "port_open"         =>  array( "name"=>"network.port_open", "prm"=>0 ),
         "session_save"      =>  array( "name"=>"session.save", "prm"=>0 ),
         "set_bind"      =>  array( "name"=>"network.bind_address.set", "prm"=>1 ),
         "set_directory"         =>  array( "name"=>"directory.default.set", "prm"=>1 ),
@@ -108,7 +103,6 @@ class rTorrentSettings
         "set_session_on_completion"     =>  array( "name"=>"session.on_completion.set", "prm"=>1 ),
         "set_tracker_numwant"   =>  array( "name"=>"trackers.numwant.set", "prm"=>1 ),
         "set_upload_rate"   =>  array( "name"=>"throttle.global_up.max_rate.set", "prm"=>1 ),
-        "set_use_udp_trackers"  =>  array( "name"=>"trackers.use_udp.set", "prm"=>1 ),
         "set_xmlrpc_dialect"    =>  array( "name"=>"network.xmlrpc.dialect.set", "prm"=>1 ),        // ?
         "set_xmlrpc_size_limit"     =>  array( "name"=>"network.xmlrpc.size_limit.set", "prm"=>1 ),
         "system.file_allocate"  =>  array( "name"=>"system.file.allocate", "prm"=>0 ),
@@ -117,7 +111,6 @@ class rTorrentSettings
         "throttle_ip"       =>  array( "name"=>"throttle.ip", "prm"=>1 ),               // ?
         "throttle_up"       =>  array( "name"=>"throttle.up", "prm"=>1 ),               // ?
         "tracker_numwant"   =>  array( "name"=>"trackers.numwant", "prm"=>0 ),
-        "use_udp_trackers"  =>  array( "name"=>"trackers.use_udp.set", "prm"=>1 ),
         "xmlrpc_dialect"    =>  array( "name"=>"network.xmlrpc.dialect.set", "prm"=>1 ),        // ?
         "xmlrpc_size_limit"     =>  array( "name"=>"network.xmlrpc.size_limit.set", "prm"=>1 ),
         "load"          =>  array( "name"=>"load.normal", "prm"=>1 ),

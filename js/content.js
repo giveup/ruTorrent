@@ -293,10 +293,10 @@ function makeContent()
 					"</div>"+
 
 					"<div class=\"op100l\"><input type=\"checkbox\" id=\"webui.log_autoswitch\"/>"+
-						"<label for=\"webui.log_autoswitch\" id=\"lbl_webui.log_autoswitch\" >"+theUILang.logAutoSwitch+"</label>"+
+						"<label for=\"webui.log_autoswitch\">"+theUILang.logAutoSwitch+"</label>"+
 					"</div>"+
 					"<div class=\"op100l\"><input type=\"checkbox\" id=\"webui.show_labelsize\"/>"+
-						"<label for=\"webui.show_labelsize\" id=\"lbl_webui.show_labelsize\" >"+theUILang.showLabelSize+"</label>"+
+						"<label for=\"webui.show_labelsize\" >"+theUILang.showLabelSize+"</label>"+
 					"</div>"+
 					"<div class=\"op100l\">"+
 						"<label for=\"webui.retry_on_error\">"+theUILang.retryOnErrorTitle+":</label>&nbsp;"+
@@ -318,27 +318,27 @@ function makeContent()
 					"<table>"+
 						"<tr>"+
 							"<td>"+theUILang.Number_ul_slots+":</td>"+
-							"<td class=\"alr\"><input type=\"text\" id=\"max_uploads\" class=\"Textbox num\" maxlength=\"6\" /></td>"+
+							"<td class=\"alr\"><input type=\"text\" id=\"throttle.max_uploads\" class=\"Textbox num\" maxlength=\"6\" /></td>"+
 						"</tr>"+
 						"<tr>"+
 							"<td>"+theUILang.Number_Peers_min+":</td>"+
-							"<td class=\"alr\"><input type=\"text\" id=\"min_peers\" class=\"Textbox num\" maxlength=\"6\" /></td>"+
+							"<td class=\"alr\"><input type=\"text\" id=\"throttle.min_peers.normal\" class=\"Textbox num\" maxlength=\"6\" /></td>"+
 						"</tr>"+
 						"<tr>"+
 							"<td>"+theUILang.Number_Peers_max+":</td>"+
-							"<td class=\"alr\"><input type=\"text\" id=\"max_peers\" class=\"Textbox num\" maxlength=\"6\" /></td>"+
+							"<td class=\"alr\"><input type=\"text\" id=\"throttle.max_peers.normal\" class=\"Textbox num\" maxlength=\"6\" /></td>"+
 						"</tr>"+
 						"<tr>"+
 							"<td>"+theUILang.Number_Peers_For_Seeds_min+":</td>"+
-							"<td class=\"alr\"><input type=\"text\" id=\"min_peers_seed\" class=\"Textbox num\" maxlength=\"6\" /></td>"+
+							"<td class=\"alr\"><input type=\"text\" id=\"throttle.min_peers.seed\" class=\"Textbox num\" maxlength=\"6\" /></td>"+
 						"</tr>"+
 						"<tr>"+
 							"<td>"+theUILang.Number_Peers_For_Seeds_max+":</td>"+
-							"<td class=\"alr\"><input type=\"text\" id=\"max_peers_seed\" class=\"Textbox num\" maxlength=\"6\" /></td>"+
+							"<td class=\"alr\"><input type=\"text\" id=\"throttle.max_peers.seed\" class=\"Textbox num\" maxlength=\"6\" /></td>"+
 						"</tr>"+
 						"<tr>"+
 							"<td>"+theUILang.Tracker_Numwant+":</td>"+
-							"<td class=\"alr\"><input type=\"text\" id=\"tracker_numwant\" class=\"Textbox num\" maxlength=\"6\" /></td>"+
+							"<td class=\"alr\"><input type=\"text\" id=\"trackers.numwant\" class=\"Textbox num\" maxlength=\"6\" /></td>"+
 						"</tr>"+
 					"</table>"+
 				"</fieldset>"+
@@ -346,21 +346,21 @@ function makeContent()
 					"<legend>"+theUILang.Other_sett+"</legend>"+
 					"<table>"+
 						"<tr>"+
-							"<td><input id=\"check_hash\" type=\"checkbox\"/>"+
-								"<label for=\"check_hash\">"+theUILang.Check_hash+"</label>"+
+							"<td><input id=\"pieces.hash.on_completion\" type=\"checkbox\"/>"+
+								"<label for=\"pieces.hash.on_completion\">"+theUILang.Check_hash+"</label>"+
 							"</td>"+
 						"</tr>"+
 						"<tr>"+
 							"<td>"+theUILang.Directory_For_Dl+":</td>"+
-							"<td class=\"alr\"><input type=\"text\" id=\"directory\" class=\"Textbox str\" maxlength=\"100\" /></td>"+
+							"<td class=\"alr\"><input type=\"text\" id=\"directory.default\" class=\"Textbox str\" maxlength=\"100\" /></td>"+
 						"</tr>"+
 					"</table>"+
 				"</fieldset>"+
 			"</div>"+
 			"<div id=\"st_con\" class=\"stg_con\">"+
 				"<div>"+
-					"<input id=\"port_open\" type=\"checkbox\" onchange=\"linked(this, 0, ['port_range', 'port_random']);\" />"+
-					"<label for=\"port_open\">"+
+					"<input id=\"network.port_open\" type=\"checkbox\" onchange=\"linked(this, 0, ['network.port_range', 'network.port_random']);\" />"+
+					"<label for=\"network.port_open\">"+
 						theUILang.Enable_port_open+
 					"</label>"+
 				"</div>"+
@@ -368,15 +368,15 @@ function makeContent()
 					"<legend>"+theUILang.Listening_Port+"</legend>"+
 					"<table>"+
 						"<tr>"+
-							"<td><label id=\"lbl_port_range\" for=\"port_range\" class=\"disabled\">"+theUILang.Port_f_incom_conns+":</label></td>"+
+							"<td><label for=\"network.port_range\" class=\"disabled\">"+theUILang.Port_f_incom_conns+":</label></td>"+
 							"<td class=\"alr\">"+
-								"<input type=\"text\" id=\"port_range\" class=\"TextboxShort\" class=\"disabled\" maxlength=\"13\" />"+
+								"<input type=\"text\" id=\"network.port_range\" class=\"TextboxShort\" class=\"disabled\" maxlength=\"13\" />"+
 							"</td>"+
 						"</tr>"+
 						"<tr>"+
 							"<td colspan=\"2\">"+
-								"<input id=\"port_random\" type=\"checkbox\"  class=\"disabled\"/>"+
-								"<label  id=\"lbl_port_random\" for=\"port_random\"  class=\"disabled\">"+theUILang.Rnd_port_torr_start+"</label>"+
+								"<input id=\"network.port_random\" type=\"checkbox\"  class=\"disabled\"/>"+
+								"<label for=\"network.port_random\"  class=\"disabled\">"+theUILang.Rnd_port_torr_start+"</label>"+
 							"</td>"+
 						"</tr>"+
 					"</table>"+
@@ -386,11 +386,11 @@ function makeContent()
 					"<table>"+
 						"<tr>"+
 							"<td>"+theUILang.Global_max_upl+" ("+theUILang.kbs+"): [0: "+theUILang.unlimited+"]</td>"+
-							"<td class=\"alr\"><input type=\"text\" id=\"upload_rate\" class=\"Textbox num\" maxlength=\"6\" /></td>"+
+							"<td class=\"alr\"><input type=\"text\" id=\"throttle.global_up.max_rate\" class=\"Textbox num\" maxlength=\"6\" /></td>"+
 						"</tr>"+
 						"<tr>"+
 							"<td>"+theUILang.Glob_max_downl+" ("+theUILang.kbs+"): [0: "+theUILang.unlimited+"]</td>"+
-							"<td class=\"alr\"><input type=\"text\" id=\"download_rate\" class=\"Textbox num\" maxlength=\"6\" /></td>"+
+							"<td class=\"alr\"><input type=\"text\" id=\"throttle.global_down.max_rate\" class=\"Textbox num\" maxlength=\"6\" /></td>"+
 						"</tr>"+
 					"</table>"+
 				"</fieldset>"+
@@ -399,23 +399,23 @@ function makeContent()
 					"<table>"+
 						"<tr>"+
 							"<td>"+theUILang.Number_ul_slots+":</td>"+
-							"<td class=\"alr\"><input type=\"text\" id=\"max_uploads_global\" class=\"Textbox num\" maxlength=\"6\" /></td>"+
+							"<td class=\"alr\"><input type=\"text\" id=\"throttle.max_uploads.global\" class=\"Textbox num\" maxlength=\"6\" /></td>"+
 						"</tr>"+
 						"<tr>"+
 							"<td>"+theUILang.Number_dl_slots+":</td>"+
-							"<td class=\"alr\"><input type=\"text\" id=\"max_downloads_global\" class=\"Textbox num\" maxlength=\"6\" /></td>"+
+							"<td class=\"alr\"><input type=\"text\" id=\"throttle.max_downloads.global\" class=\"Textbox num\" maxlength=\"6\" /></td>"+
 						"</tr>"+
 						"<tr>"+
 							"<td>"+theUILang.Glob_max_memory+" ("+theUILang.MB+"):</td>"+
-							"<td class=\"alr\"><input type=\"text\" id=\"max_memory_usage\" class=\"Textbox num\" maxlength=\"6\" /></td>"+
+							"<td class=\"alr\"><input type=\"text\" id=\"pieces.memory.max\" class=\"Textbox num\" maxlength=\"6\" /></td>"+
 						"</tr>"+
 						"<tr>"+
 							"<td>"+theUILang.Glob_max_files+":</td>"+
-							"<td class=\"alr\"><input type=\"text\" id=\"max_open_files\" class=\"Textbox num\" maxlength=\"6\" /></td>"+
+							"<td class=\"alr\"><input type=\"text\" id=\"network.max_open_files\" class=\"Textbox num\" maxlength=\"6\" /></td>"+
 						"</tr>"+
 						"<tr>"+
 							"<td>"+theUILang.Glob_max_http+":</td>"+
-							"<td class=\"alr\"><input type=\"text\" id=\"max_open_http\" class=\"Textbox num\" maxlength=\"6\" /></td>"+
+							"<td class=\"alr\"><input type=\"text\" id=\"network.http.max_open\" class=\"Textbox num\" maxlength=\"6\" /></td>"+
 						"</tr>"+
 					"</table>"+
 				"</fieldset>"+
@@ -428,17 +428,17 @@ function makeContent()
 							"<td><input id=\"dht\" type=\"checkbox\"  onchange=\"linked(this, 0, ['dht_port']);\" />"+
 								"<label for=\"dht\">"+theUILang.En_DHT_ntw+"</label>"+
 						"</td>"+
-							"<td><input id=\"peer_exchange\" type=\"checkbox\" />"+
-								"<label for=\"peer_exchange\">"+theUILang.Peer_exch+"</label>"+
+							"<td><input id=\"protocol.pex\" type=\"checkbox\" />"+
+								"<label for=\"protocol.pex\">"+theUILang.Peer_exch+"</label>"+
 							"</td>"+
 						"</tr>"+
 						"<tr>"+
-							"<td id=\"lbl_dht_port\" class=\"disabled\">"+theUILang.dht_port+":</td>"+
-							"<td><input type=\"text\" id=\"dht_port\" class=\"Textbox num\" maxlength=\"6\" class=\"disabled\"/></td>"+
+							"<td class=\"disabled\">"+theUILang.dht_port+":</td>"+
+							"<td><input type=\"text\" id=\"dht.port\" class=\"Textbox num\" maxlength=\"6\" class=\"disabled\"/></td>"+
 						"</tr>"+
 						"<tr>"+
 							"<td>"+theUILang.Ip_report_track+":</td>"+
-							"<td><input type=\"text\" id=\"ip\" class=\"Textbox str\" maxlength=\"50\" /></td>"+
+							"<td><input type=\"text\" id=\"network.local_address\" class=\"Textbox str\" maxlength=\"50\" /></td>"+
 						"</tr>"+
 					"</table>"+
 				"</fieldset>"+
@@ -449,29 +449,29 @@ function makeContent()
 					"<div id=\"st_ao_h\">"+
 						"<table width=\"99%\">"+
 							"<tr>"+
-								"<td>http_cacert</td>"+
-								"<td class=\"alr\"><input type=\"text\" id=\"http_cacert\" class=\"Textbox str\" maxlength=\"100\" /></td>"+
+								"<td>network.http.cacert</td>"+
+								"<td class=\"alr\"><input type=\"text\" id=\"network.http.cacert\" class=\"Textbox str\" maxlength=\"100\" /></td>"+
 							"</tr>"+
 							"<tr>"+
-								"<td>http_capath</td>"+
-								"<td class=\"alr\"><input type=\"text\" id=\"http_capath\" class=\"Textbox str\" maxlength=\"100\" /></td>"+
+								"<td>network.http.capath</td>"+
+								"<td class=\"alr\"><input type=\"text\" id=\"network.http.capath\" class=\"Textbox str\" maxlength=\"100\" /></td>"+
 							"</tr>"+
 							"<tr>"+
-								"<td>max_downloads_div</td>"+
-								"<td class=\"alr\"><input type=\"text\" id=\"max_downloads_div\" class=\"Textbox num\" maxlength=\"5\" /></td>"+
+								"<td>throttle.max_downloads.div</td>"+
+								"<td class=\"alr\"><input type=\"text\" id=\"throttle.max_downloads.div\" class=\"Textbox num\" maxlength=\"5\" /></td>"+
 							"</tr>"+
 							"<tr>"+
-								"<td>max_uploads_div</td>"+
-								"<td class=\"alr\"><input type=\"text\" id=\"max_uploads_div\" class=\"Textbox num\" maxlength=\"5\" /></td>"+
+								"<td>throttle.max_uploads.div</td>"+
+								"<td class=\"alr\"><input type=\"text\" id=\"throttle.max_uploads.div\" class=\"Textbox num\" maxlength=\"5\" /></td>"+
 							"</tr>"+
 							"<tr>"+
-								"<td>max_file_size</td>"+
-								"<td class=\"alr\"><input type=\"text\" id=\"max_file_size\" class=\"Textbox num\" maxlength=\"20\" /></td>"+
+								"<td>system.file.max_size</td>"+
+								"<td class=\"alr\"><input type=\"text\" id=\"system.file.max_size\" class=\"Textbox num\" maxlength=\"20\" /></td>"+
 							"</tr>"+
 							"<tr>"+
-								"<td>preload_type</td>"+
+								"<td>pieces.preload.type</td>"+
 								"<td class=\"alr\">"+
-									"<select id=\"preload_type\">"+
+									"<select id=\"pieces.preload.type\">"+
 										"<option value=\"0\" selected=\"selected\">off</option>"+
 										"<option value=\"1\">madvise</option>"+
 										"<option value=\"2\">direct paging</option>"+
@@ -479,72 +479,72 @@ function makeContent()
 								"</td>"+
 							"</tr>"+
 							"<tr>"+
-								"<td>preload_min_size</td>"+
-								"<td class=\"alr\"><input type=\"text\" id=\"preload_min_size\" class=\"Textbox num\" maxlength=\"20\" /></td>"+
+								"<td>pieces.preload.min_size</td>"+
+								"<td class=\"alr\"><input type=\"text\" id=\"pieces.preload.min_size\" class=\"Textbox num\" maxlength=\"20\" /></td>"+
 							"</tr>"+
 							"<tr>"+
-								"<td>preload_required_rate</td>"+
-								"<td class=\"alr\"><input type=\"text\" id=\"preload_required_rate\" class=\"Textbox num\" maxlength=\"20\" /></td>"+
+								"<td>pieces.preload.min_rate</td>"+
+								"<td class=\"alr\"><input type=\"text\" id=\"pieces.preload.min_rate\" class=\"Textbox num\" maxlength=\"20\" /></td>"+
 							"</tr>"+
 							"<tr>"+
-								"<td>receive_buffer_size</td>"+
-								"<td class=\"alr\"><input type=\"text\" id=\"receive_buffer_size\" class=\"Textbox num\" maxlength=\"20\" /></td>"+
+								"<td>network.receive_buffer.size</td>"+
+								"<td class=\"alr\"><input type=\"text\" id=\"network.receive_buffer.size\" class=\"Textbox num\" maxlength=\"20\" /></td>"+
 							"</tr>"+
 							"<tr>"+
-								"<td>send_buffer_size</td>"+
-								"<td class=\"alr\"><input type=\"text\" id=\"send_buffer_size\" class=\"Textbox num\" maxlength=\"20\" /></td>"+
+								"<td>network.send_buffer.size</td>"+
+								"<td class=\"alr\"><input type=\"text\" id=\"network.send_buffer.size\" class=\"Textbox num\" maxlength=\"20\" /></td>"+
 							"</tr>"+
 							"<tr>"+
-								"<td><label for=\"safe_sync\">safe_sync</label></td>"+
-								"<td class=\"alr\"><input type=\"checkbox\" id=\"safe_sync\" /></td>"+
+								"<td><label for=\"pieces.sync.always_safe\">pieces.sync.always_safe</label></td>"+
+								"<td class=\"alr\"><input type=\"checkbox\" id=\"pieces.sync.always_safe\" /></td>"+
 							"</tr>"+
 							"<tr>"+
-								"<td>timeout_safe_sync</td>"+
-								"<td class=\"alr\"><input type=\"text\" id=\"timeout_safe_sync\" class=\"Textbox num\" maxlength=\"20\" /></td>"+
+								"<td>pieces.sync.timeout_safe</td>"+
+								"<td class=\"alr\"><input type=\"text\" id=\"pieces.sync.timeout_safe\" class=\"Textbox num\" maxlength=\"20\" /></td>"+
 							"</tr>"+
 							"<tr>"+
-								"<td>timeout_sync</td>"+
-								"<td class=\"alr\"><input type=\"text\" id=\"timeout_sync\" class=\"Textbox num\" maxlength=\"20\" /></td>"+
+								"<td>pieces.sync.timeout</td>"+
+								"<td class=\"alr\"><input type=\"text\" id=\"pieces.sync.timeout\" class=\"Textbox num\" maxlength=\"20\" /></td>"+
 							"</tr>"+
 							"<tr>"+
-								"<td><label for=\"scgi_dont_route\">scgi_dont_route</label></td>"+
-								"<td class=\"alr\"><input type=\"checkbox\" id=\"scgi_dont_route\" /></td>"+
+								"<td><label for=\"network.scgi.dont_route\">network.scgi.dont_route</label></td>"+
+								"<td class=\"alr\"><input type=\"checkbox\" id=\"network.scgi.dont_route\" /></td>"+
 							"</tr>"+
 							"<tr>"+
-								"<td>session</td>"+
-								"<td class=\"alr\"><input type=\"text\" id=\"session\" class=\"Textbox str\" maxlength=\"100\" /></td>"+
+								"<td>session.path</td>"+
+								"<td class=\"alr\"><input type=\"text\" id=\"session.path\" class=\"Textbox str\" maxlength=\"100\" /></td>"+
 							"</tr>"+
 							"<tr>"+
-								"<td><label for=\"session_lock\">session_lock</label></td>"+
-								"<td class=\"alr\"><input type=\"checkbox\" id=\"session_lock\" /></td>"+
+								"<td><label for=\"session.use_lock\">session.use_lock</label></td>"+
+								"<td class=\"alr\"><input type=\"checkbox\" id=\"session.use_lock\" /></td>"+
 							"</tr>"+
 							"<tr>"+
-								"<td><label for=\"session_on_completion\">session_on_completion</label></td>"+
-								"<td class=\"alr\"><input type=\"checkbox\" id=\"session_on_completion\" /></td>"+
+								"<td><label for=\"session.on_completion\">session.on_completion</label></td>"+
+								"<td class=\"alr\"><input type=\"checkbox\" id=\"session.on_completion\" /></td>"+
 							"</tr>"+
 							"<tr>"+
-								"<td>split_file_size</td>"+
-								"<td class=\"alr\"><input type=\"text\" id=\"split_file_size\" class=\"Textbox num\" maxlength=\"20\" /></td>"+
+								"<td>system.file.split_size</td>"+
+								"<td class=\"alr\"><input type=\"text\" id=\"system.file.split_size\" class=\"Textbox num\" maxlength=\"20\" /></td>"+
 							"</tr>"+
 							"<tr>"+
-								"<td>split_suffix</td>"+
-								"<td class=\"alr\"><input type=\"text\" id=\"split_suffix\" class=\"Textbox str\" maxlength=\"100\" /></td>"+
+								"<td>system.file.split_suffix</td>"+
+								"<td class=\"alr\"><input type=\"text\" id=\"system.file.split_suffix\" class=\"Textbox str\" maxlength=\"100\" /></td>"+
 							"</tr>"+
 							"<tr>"+
-								"<td><label for=\"use_udp_trackers\">use_udp_trackers</label></td>"+
-								"<td class=\"alr\"><input type=\"checkbox\" id=\"use_udp_trackers\" /></td>"+
+								"<td><label for=\"trackers.use_udp\">trackers.use_udp</label></td>"+
+								"<td class=\"alr\"><input type=\"checkbox\" id=\"trackers.use_udp\" /></td>"+
 							"</tr>"+
 							"<tr>"+
-								"<td>http_proxy</td>"+
-								"<td class=\"alr\"><input type=\"text\" id=\"http_proxy\" class=\"Textbox str\" maxlength=\"100\" /></td>"+
+								"<td>network.http.proxy_address</td>"+
+								"<td class=\"alr\"><input type=\"text\" id=\"network.http.proxy_address\" class=\"Textbox str\" maxlength=\"100\" /></td>"+
 							"</tr>"+
 							"<tr>"+
-								"<td>proxy_address</td>"+
-								"<td class=\"alr\"><input type=\"text\" id=\"proxy_address\" class=\"Textbox str\" maxlength=\"100\" /></td>"+
+								"<td>network.proxy_address</td>"+
+								"<td class=\"alr\"><input type=\"text\" id=\"network.proxy_address\" class=\"Textbox str\" maxlength=\"100\" /></td>"+
 							"</tr>"+
 							"<tr>"+
-								"<td>bind</td>"+
-								"<td class=\"alr\"><input type=\"text\" id=\"bind\" class=\"Textbox str\" maxlength=\"100\" /></td>"+
+								"<td>network.bind_address</td>"+
+								"<td class=\"alr\"><input type=\"text\" id=\"network.bind_address\" class=\"Textbox str\" maxlength=\"100\" /></td>"+
 							"</tr>"+
 						"</table>"+
 					"</div>"+
@@ -683,13 +683,10 @@ function correctContent()
 		"get_min_peers"		:	{ name: "throttle.min_peers.normal", prm: 0 },
 		"get_min_peers_seed"	:	{ name: "throttle.min_peers.seed", prm: 0 },
 		"get_name"		:	{ name: "session.name", prm: 0 },
-		"get_peer_exchange"	:	{ name: "protocol.pex", prm: 0 },
-		"get_port_open"		:	{ name: "network.port_open", prm: 0 },
 		"get_port_random"	:	{ name: "network.port_random", prm: 0 },
 		"get_port_range"	:	{ name: "network.port_range", prm: 0 },
 		"get_preload_min_size"	:	{ name: "pieces.preload.min_size", prm: 0 },
 		"get_preload_required_rate"	:	{ name: "pieces.preload.min_rate", prm: 0 },
-		"get_preload_type"	:	{ name: "pieces.preload.type", prm: 0 },
 		"get_proxy_address"	:	{ name: "network.http.proxy_address", prm: 0 },
 		"get_receive_buffer_size"	:	{ name: "network.receive_buffer.size", prm: 0 },
 		"get_safe_sync"		:	{ name: "pieces.sync.always_safe", prm: 0 },
@@ -712,13 +709,10 @@ function correctContent()
 		"get_up_rate"		:	{ name: "throttle.global_up.rate", prm: 0 },
 		"get_up_total"		:	{ name: "throttle.global_up.total", prm: 0 },
 		"get_upload_rate"	:	{ name: "throttle.global_up.max_rate", prm: 0 },
-		"get_use_udp_trackers"	:	{ name: "trackers.use_udp", prm: 0 },
 		"get_xmlrpc_size_limit"	:	{ name: "network.xmlrpc.size_limit", prm: 0 },
 		"http_cacert"		:	{ name: "network.http.cacert", prm: 0 },
 		"http_capath"		:	{ name: "network.http.capath", prm: 0 },
 		"http_proxy"		:	{ name: "network.proxy_address", prm: 0 },
-		"peer_exchange"		:	{ name: "protocol.pex.set", prm: 1 },
-		"port_open"		:	{ name: "network.port_open", prm: 0 },
 		"session_save"		:	{ name: "session.save", prm: 0 },
 		"set_bind"		:	{ name: "network.bind_address.set", prm: 1 },
 		"set_directory"		:	{ name: "directory.default.set", prm: 1 },
@@ -735,7 +729,6 @@ function correctContent()
 		"set_session_on_completion"	:	{ name: "session.on_completion.set", prm: 1 },
 		"set_tracker_numwant"	:	{ name: "trackers.numwant.set", prm: 1 },
 		"set_upload_rate"	:	{ name: "throttle.global_up.max_rate.set", prm: 1 },
-		"set_use_udp_trackers"	:	{ name: "trackers.use_udp.set", prm: 1 },
 		"set_xmlrpc_dialect"	:	{ name: "network.xmlrpc.dialect.set", prm: 1 },
 		"set_xmlrpc_size_limit"	:	{ name: "network.xmlrpc.size_limit.set", prm: 1 },
 		"system.file_allocate"	:	{ name: "system.file.allocate", prm: 0 },
@@ -745,7 +738,6 @@ function correctContent()
 		"throttle_ip"		:	{ name: "throttle.ip", prm: 1 },
 		"throttle_up"		:	{ name: "throttle.up", prm: 1 },
 		"tracker_numwant"	:	{ name: "trackers.numwant", prm: 0 },
-		"use_udp_trackers"	:	{ name: "trackers.use_udp.set", prm: 1 },
 		"xmlrpc_dialect"	:	{ name: "network.xmlrpc.dialect.set", prm: 1 },
 		"xmlrpc_size_limit"	:	{ name: "network.xmlrpc.size_limit.set", prm: 1 },
 		"load"			:	{ name: "load.normal", prm: 1 }
