@@ -160,39 +160,28 @@ class rRatio
                     $req->addCommand(new rXMLRPCCommand("group.rat_".$i.".ratio.min.set", $rat["min"]));
                     $req->addCommand(new rXMLRPCCommand("group.rat_".$i.".ratio.max.set", $rat["max"]));
                     $req->addCommand(new rXMLRPCCommand("group.rat_".$i.".ratio.upload.set", floatval($rat["upload"]*1024*1024)));
-                    switch($rat["action"])
-                    {
+                    switch ($rat["action"]) {
                         case RAT_STOP:
-                            {
-                            $req->addCommand(new rXMLRPCCommand("system.method.set", array("group.rat_".$i.".ratio.command",
-                                getCmd("d.stop=")."; ".getCmd("d.close="))));
+                            $req->addCommand(new rXMLRPCCommand("method.set", ["", "group.rat_".$i.".ratio.command",
+                                getCmd("d.stop=")."; ".getCmd("d.close=")]));
                             break;
-                        }
                         case RAT_STOP_AND_REMOVE:
-                            {
-                            $req->addCommand(new rXMLRPCCommand("system.method.set", array("group.rat_".$i.".ratio.command",
-                                getCmd("d.stop=")."; ".getCmd("d.close=")."; ".getCmd("view.set_not_visible")."=rat_".$i."; ".getCmd("d.views.remove")."=rat_".$i)));
+                            $req->addCommand(new rXMLRPCCommand("method.set", ["", "group.rat_".$i.".ratio.command",
+                                getCmd("d.stop=")."; ".getCmd("d.close=")."; ".getCmd("view.set_not_visible")."=rat_".$i."; ".getCmd("d.views.remove")."=rat_".$i]));
                             break;
-                        }
                         case RAT_ERASE:
-                            {
-                            $req->addCommand(new rXMLRPCCommand("system.method.set", array("group.rat_".$i.".ratio.command",
-                                getCmd("d.stop=")."; ".getCmd("d.close=")."; ".getCmd("d.erase="))));
+                            $req->addCommand(new rXMLRPCCommand("method.set", ["", "group.rat_".$i.".ratio.command",
+                                getCmd("d.stop=")."; ".getCmd("d.close=")."; ".getCmd("d.erase=")]));
                             break;
-                        }
                         case RAT_ERASEDATA:
-                            {
-                            $req->addCommand(new rXMLRPCCommand("system.method.set", ["group.rat_".$i.".ratio.command",
+                            $req->addCommand(new rXMLRPCCommand("method.set", ["", "group.rat_".$i.".ratio.command",
                                 "d.stop=; d.close=; d.delete_files=; d.erase="]));
                             break;
-                        }
                         default:
-                            {
                             $thr = "thr_".($rat["action"]-RAT_FIRSTTHROTTLE);
-                            $req->addCommand(new rXMLRPCCommand("system.method.set", array("group.rat_".$i.".ratio.command",
-                                getCmd('cat').'=$'.getCmd("d.stop").'=,$'.getCmd("d.throttle_name.set=").$thr.',$'.getCmd('d.start='))));
+                            $req->addCommand(new rXMLRPCCommand("method.set", ["", "group.rat_".$i.".ratio.command",
+                                getCmd('cat').'=$'.getCmd("d.stop").'=,$'.getCmd("d.throttle_name.set=").$thr.',$'.getCmd('d.start=')]));
                             break;
-                        }
                     }
                 }
             }
