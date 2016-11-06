@@ -8,17 +8,43 @@ var dStatus = { started : 1, paused : 2, checking : 4, hashing : 8, error : 16 }
 var theRequestManager =
 {
 	aliases: {},
-        trt:
-        {
-		commands:
-		[
-			"d.hash=", "d.is_open=", "d.is_hash_checking=", "d.is_hash_checked=", "d.state=",
-			"d.name=", "d.size_bytes=", "d.completed_chunks=", "d.size_chunks=", "d.bytes_done=",
-			"d.up.total=", "d.ratio=", "d.up.rate=", "d.down.rate=", "d.chunk_size=",
-			"d.custom1=", "d.peers_accounted=", "d.peers_not_connected=", "d.peers_connected=", "d.peers_complete=",
-			"d.left_bytes=", "d.priority=", "d.state_changed=", "d.skip.total=", "d.hashing=",
-			"d.chunks_hashed=", "d.base_path=", "d.creation_date=", "d.tracker_focus=", "d.is_active=",
-			"d.message=", "d.custom2=", "d.free_diskspace=", "d.is_private=", "d.is_multi_file="
+    trt: {
+		commands: [
+			"d.hash=",
+			"d.is_open=",
+			"d.is_hash_checking=",
+			"d.is_hash_checked=",
+			"d.state=",
+			"d.name=",
+			"d.size_bytes=",
+			"d.completed_chunks=",
+			"d.size_chunks=",
+			"d.bytes_done=",
+			"d.up.total=",
+			"d.ratio=",
+			"d.up.rate=",
+			"d.down.rate=",
+			"d.chunk_size=",
+			"d.custom1=",
+			"d.peers_accounted=",
+			"d.peers_not_connected=",
+			"d.peers_connected=",
+			"d.peers_complete=",
+			"d.left_bytes=",
+			"d.priority=",
+			"d.state_changed=",
+			"d.skip.total=",
+			"d.hashing=",
+			"d.chunks_hashed=",
+			"d.base_path=",
+			"d.creation_date=",
+			"d.tracker_focus=",
+			"d.is_active=",
+			"d.message=",
+			"d.custom2=",
+			"d.free_diskspace=",
+			"d.is_private=",
+			"d.is_multi_file="
 		],
 		handlers: []
 	},
@@ -26,9 +52,15 @@ var theRequestManager =
 	{
 		commands:
 		[
-		        "t.url=", "t.type=", "t.is_enabled=", "t.group=", "t.scrape_complete=",
-			"t.scrape_incomplete=", "t.scrape_downloaded=",
-			"t.normal_interval=", "t.scrape_time_last="
+		    "t.url=",
+			"t.type=",
+			"t.is_enabled=",
+			"t.group=",
+			"t.scrape_complete=",
+			"t.scrape_incomplete=",
+			"t.scrape_downloaded=",
+			"t.normal_interval=",
+			"t.scrape_time_last="
 		],
 		handlers: []
 	},
@@ -36,7 +68,11 @@ var theRequestManager =
 	{
 		commands:
 		[
-			"f.path=", "f.completed_chunks=", "f.size_chunks=", "f.size_bytes=", "f.priority="
+			"f.path=",
+			"f.completed_chunks=",
+			"f.size_chunks=",
+			"f.size_bytes=",
+			"f.priority="
 		],
 		handlers: []
 	},
@@ -44,9 +80,21 @@ var theRequestManager =
 	{
 		commands:
 		[
-			"p.id=", "p.address=", "p.client_version=", "p.is_incoming=", "p.is_encrypted=",
-			"p.is_snubbed=", "p.completed_percent=", "p.down_total=", "p.up_total=", "p.down_rate=",
-			"p.up_rate=", "p.id_html=", "p.peer_rate=", "p.peer_total=", "p.port="
+			"p.id=",
+			"p.address=",
+			"p.client_version=",
+			"p.is_incoming=",
+			"p.is_encrypted=",
+			"p.is_snubbed=",
+			"p.completed_percent=",
+			"p.down_total=",
+			"p.up_total=",
+			"p.down_rate=",
+			"p.up_rate=",
+			"p.id_html=",
+			"p.peer_rate=",
+			"p.peer_total=",
+			"p.port="
 		],
 		handlers: []
 	},
@@ -54,7 +102,10 @@ var theRequestManager =
 	{
 		commands:
 		[
-			"get_up_total", "get_down_total", "get_upload_rate", "get_download_rate"
+			"throttle.global_up.total",
+			"throttle.global_down.total",
+			"throttle.global_up.max_rate",
+			"throttle.global_down.max_rate"
 		],
 		handlers: []
 	},
@@ -62,8 +113,13 @@ var theRequestManager =
 	{
 		commands:
 		[
-			"d.peer_exchange", "d.peers_max", "d.peers_min", "d.tracker_numwant", "d.uploads_max",
-			"d.is_private", "d.connection_seed"
+			"d.peer_exchange",
+			"d.peers_max",
+			"d.peers_min",
+			"d.tracker_numwant",
+			"d.uploads_max",
+			"d.is_private",
+			"d.connection_seed"
 		],
 		handlers: []
 	},
@@ -71,16 +127,57 @@ var theRequestManager =
 	{
 		commands:
 		[
-			"bind", "check_hash", "dht_port", "directory", "download_rate",
-			"hash_interval", "hash_max_tries", "hash_read_ahead", "http_cacert", "http_capath",
-			"http_proxy", "ip", "max_downloads_div", "max_downloads_global", "max_file_size",
-			"max_memory_usage", "max_open_files", "max_open_http", "max_peers", "max_peers_seed",
-			"max_uploads", "max_uploads_global", "min_peers_seed", "min_peers", "peer_exchange",
-			"port_open", "upload_rate", "port_random", "port_range", "preload_min_size",
-			"preload_required_rate", "preload_type", "proxy_address", "receive_buffer_size", "safe_sync",
-			"scgi_dont_route", "send_buffer_size", "session", "session_lock", "session_on_completion",
-			"split_file_size", "split_suffix", "timeout_safe_sync", "timeout_sync", "tracker_numwant",
-			"use_udp_trackers", "max_uploads_div", "max_open_sockets"
+			"network.bind_address",
+			"pieces.hash.on_completion",
+			"dht.port",
+			"directory.default",
+			"throttle.global_down.max_rate",
+
+			// TODO: get_hash_* doesn't exist anymore
+			"get_hash_interval",
+			"get_hash_max_tries",
+			"get_hash_read_ahead",
+
+			"network.http.cacert",
+			"network.http.capath",
+			"network.http.proxy_address",
+			"network.local_address",
+			"throttle.max_downloads.div",
+			"throttle.max_downloads.global",
+			"system.file.max_size",
+			"pieces.memory.max",
+			"network.max_open_files",
+			"network.http.max_open",
+			"throttle.max_peers.normal",
+			"throttle.max_peers.seed",
+			"throttle.max_uploads",
+			"throttle.max_uploads.global",
+			"throttle.min_peers.seed",
+			"throttle.min_peers.normal",
+			"protocol.pex",
+			"network.port_open",
+			"throttle.global_up.max_rate",
+			"network.port_random",
+			"network.port_range",
+			"pieces.preload.min_size",
+			"pieces.preload.min_rate",
+			"pieces.preload.type",
+			"network.proxy_address",
+			"network.receive_buffer.size",
+			"pieces.sync.always_safe",
+			"network.scgi.dont_route",
+			"network.send_buffer.size",
+			"session.path",
+			"session.use_lock",
+			"session.on_completion",
+			"system.file.split_size",
+			"system.file.split_suffix",
+			"pieces.sync.timeout_safe",
+			"pieces.sync.timeout",
+			"trackers.numwant",
+			"trackers.use_udp",
+			"throttle.max_uploads.div",
+			"network.max_open_sockets"
 		],
 		handlers: []
 	},
@@ -262,7 +359,7 @@ rTorrentStub.prototype.settrackerstate = function()
 {
 	for (var i=0; i<this.vs.length; i++)
 	{
-		var cmd = new rXMLRPCCommand("t.set_enabled");
+		var cmd = new rXMLRPCCommand("t.is_enabled.set");
 		cmd.addParameter("string",this.hashes[0]);
 		cmd.addParameter("i4",this.vs[i]);
 		cmd.addParameter("i4",this.ss[0]);
@@ -345,7 +442,7 @@ rTorrentStub.prototype.setsettings = function()
 			cmd = new rXMLRPCCommand('dht');
 		}
 		else
-			cmd = new rXMLRPCCommand('set_'+this.ss[i].substr(1));
+			cmd = new rXMLRPCCommand(this.ss[i].substr(1) + ".set");
 		cmd.addParameter(prmType,prm);
 		this.commands.push( cmd );
 	}
@@ -355,7 +452,7 @@ rTorrentStub.prototype.getsettings = function()
 {
 	this.commands.push(new rXMLRPCCommand("dht.statistics"));
 	for ( var cmd in theRequestManager.stg.commands )
-		this.commands.push(new rXMLRPCCommand('get_'+theRequestManager.stg.commands[cmd]));
+		this.commands.push(new rXMLRPCCommand(theRequestManager.stg.commands[cmd]));
 }
 
 rTorrentStub.prototype.start = function()
@@ -439,7 +536,7 @@ rTorrentStub.prototype.setprio = function()
 {
 	for (var i=0; i<this.vs.length; i++)
 	{
-		var cmd = new rXMLRPCCommand("f.set_priority");
+		var cmd = new rXMLRPCCommand("f.priority.set");
 		cmd.addParameter("string",this.hashes[0]);
 		cmd.addParameter("i4",this.vs[i]);
 		cmd.addParameter("i4",this.ss[0]);
@@ -547,7 +644,7 @@ rTorrentStub.prototype.setprops = function()
 			if (this.ss[i]=="pex")
 				cmd = new rXMLRPCCommand("d.peer_exchange.set");
 			else
-				cmd = new rXMLRPCCommand("d.set_"+this.ss[i]);
+				cmd = new rXMLRPCCommand("d."+this.ss[i]+".set");
 			cmd.addParameter("string",this.hashes[0]);
 			cmd.addParameter("i4",this.vs[i]);
 		}
@@ -557,14 +654,14 @@ rTorrentStub.prototype.setprops = function()
 
 rTorrentStub.prototype.setulrate = function()
 {
-	var cmd = new rXMLRPCCommand("set_upload_rate");
+	var cmd = new rXMLRPCCommand("throttle.global_up.max_rate.set");
 	cmd.addParameter("string",this.ss[0]);
 	this.commands.push( cmd );
 }
 
 rTorrentStub.prototype.setdlrate = function()
 {
-	var cmd = new rXMLRPCCommand("set_download_rate");
+	var cmd = new rXMLRPCCommand("throttle.global_down.max_rate");
 	cmd.addParameter("string",this.ss[0]);
 	this.commands.push( cmd );
 }
