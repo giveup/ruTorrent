@@ -16,7 +16,7 @@ div#dlgEditRSS div.dlg-header {
     background-image: url(./images/rss.svg);
     background-size: 16px;
 }
-div#dlgEditRSS div.content {width: 330px; margin: 5px; padding: 5px; line-height: 16px}
+div#dlgEditRSS div.content {margin: 5px; padding: 5px; line-height: 16px}
 div#dlgEditRSS div.content input {margin-top: 5px}
 div#dlgEditRSS label {width: 70px; display: block; float: left; margin-top: 5px; margin-bottom: 5px; margin-left: 10px; }
 div#dlgEditRSS label#nomargin { margin-top: 0px; margin-bottom: 0px; }
