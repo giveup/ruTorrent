@@ -222,7 +222,8 @@ function makeContent()
 	for (var i in theUILang.retryOnErrorList)
 		retries+="<option value='"+i+"'>"+theUILang.retryOnErrorList[i]+"</option>";
 	theDialogManager.make("stg",theUILang.ruTorrent_settings,
-		"<div class=\"lm\">"+
+		'<div class="row">' +
+		"<aside>"+
 			"<ul>"+
 				"<li class=\"first\"><a id=\"mnu_st_gl\" href=\"javascript://void();\" onclick=\"theOptionsSwitcher.run(\'st_gl\'); return(false);\" class=\"focus\">"+
 					theUILang.General+
@@ -240,8 +241,8 @@ function makeContent()
 					theUILang.Advanced+
 				"</a></li>"+
 			"</ul>"+
-		"</div>"+
-		'<div id="stg_c">'+
+		"</aside>"+
+		'<main class="auto">'+
 			"<div id=\"st_gl\" class=\"stg_con\">"+
 				"<fieldset>"+
 					"<legend>"+theUILang.User_Interface+"</legend>"+
@@ -448,18 +449,6 @@ function makeContent()
 					"<div id=\"st_ao_h\">"+
 						"<table width=\"99%\">"+
 							"<tr>"+
-								"<td>hash_interval</td>"+
-								"<td class=\"alr\"><input type=\"text\" id=\"hash_interval\" class=\"Textbox num\" maxlength=\"20\" /></td>"+
-							"</tr>"+
-							"<tr>"+
-								"<td>hash_max_tries</td>"+
-								"<td class=\"alr\"><input type=\"text\" id=\"hash_max_tries\" class=\"Textbox num\" maxlength=\"5\" /></td>"+
-							"</tr>"+
-							"<tr>"+
-								"<td>hash_read_ahead</td>"+
-								"<td class=\"alr\"><input type=\"text\" id=\"hash_read_ahead\" class=\"Textbox num\" maxlength=\"20\" /></td>"+
-							"</tr>"+
-							"<tr>"+
 								"<td>http_cacert</td>"+
 								"<td class=\"alr\"><input type=\"text\" id=\"http_cacert\" class=\"Textbox str\" maxlength=\"100\" /></td>"+
 							"</tr>"+
@@ -565,7 +554,8 @@ function makeContent()
 				"<input type=\"button\" value=\"OK\" onclick=\"theDialogManager.hide('stg');theWebUI.setSettings();return(false);\" class=\"OK Button\" />"+
 				"<input type=\"button\" value=\""+theUILang.Cancel+"\" class=\"Cancel Button\" />"+
 			"</div>"+
-		"</div>");
+		"</main>"+
+		'</div>');
 }
 
 function correctContent()
@@ -650,15 +640,6 @@ function correctContent()
 		$('#st_ao_h table tr:first').remove();
 		$('#st_ao_h table tr:first').remove();
 		$('#st_ao_h table tr:first').remove();
-		$.extend(theRequestManager.aliases,
-		{
-			"get_hash_interval"		: { name: "cat", prm: 0 },
-			"get_hash_max_tries"		: { name: "cat", prm: 0 },
-			"get_hash_read_ahead"		: { name: "cat", prm: 0 },
-			"set_hash_interval"		: { name: "cat", prm: 0 },
-			"set_hash_max_tries"		: { name: "cat", prm: 0 },
-			"set_hash_read_ahead"		: { name: "cat", prm: 0 }
-		});
 	}
 
 	$.extend(theRequestManager.aliases,

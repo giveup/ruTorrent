@@ -1420,7 +1420,7 @@ plugin.correctCSS = function()
 			rule3.style.backgroundColor = rule.style.backgroundColor;
 			rule3.style.color = rule.style.color;
 		}
-		rule = getCSSRule("div#stg .lm");
+		rule = getCSSRule("#stg aside");
 	        rule1 = getCSSRule(".lf");
         	rule2 = getCSSRule(".lf li input.TextboxNormal");
 		if(rule && rule1 && rule2 && ruleMain)

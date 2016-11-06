@@ -55,8 +55,6 @@ table {
 .aright {text-align: right;}
 .dlg-window {
   position: absolute;
-  left: 0;
-  top: 0;
   background-color: #fafafa;
   border: 2px solid #909090;
   display: none;
@@ -251,10 +249,6 @@ a {
 #stg {
   width: 600px;
   height: 460px;
-  position: absolute;
-  left: 0;
-  top: 50px;
-  display: none;
 
   // Many plugins still use tables to lay out their settings boxes
   // we need to ensure we give them the same table behavior they expect
@@ -262,32 +256,29 @@ a {
     table-layout: auto;
   }
 }
-#stg_c {overflow: hidden;}
 #stg-header { background-image: url('../images/settings.gif'); }
 
-#stg .lm {
-  float: left;
+#stg aside {
   width: 120px;
-  height: 100%;
   padding: 5px;
-  position: relative;
   background-color: #fff;
   border-right: 1px solid #d0d0d0;
   overflow: auto;
+
+  ul {list-style-position: inside; list-style: none;}
+  li {margin: 0 5px; padding: 0 12px; line-height: 16px !important; background: transparent url('../images/bul.gif') no-repeat scroll left center;}
+  ul.child {margin: 0 0 0 5px; display: none;}
+  ul.child li {margin: 0 0 0 9px;}
+  li.first {background: transparent url('../images/bul_f.gif') no-repeat scroll left bottom}
+  li.last {background: transparent url('../images/bul_l.gif') no-repeat scroll left top}
+  li .toggle {width: 10px; height: 10px; background: transparent url('../images/exp.gif') no-repeat scroll center center; float: left; margin: 3px 0 0 -16px; cursor: pointer;}
+  li a {color: #000; padding: 1px 2px;}
+  li a.focus {background-color: #e0e0e0;}
 }
 .op100l {width: 400px; float: left;}
 .op50l {width: 200px; float: left; clear: left;}
 .algnright {text-align: right; clear: right;}
 
-.lm ul {width: 100%; list-style-position: inside; list-style: none;}
-.lm li {margin: 0 5px; padding: 0 12px; line-height: 16px !important; background: transparent url('../images/bul.gif') no-repeat scroll left center;}
-.lm ul.child {margin: 0 0 0 5px; display: none;}
-.lm ul.child li {margin: 0 0 0 9px;}
-.lm li.first {background: transparent url('../images/bul_f.gif') no-repeat scroll left bottom}
-.lm li.last {background: transparent url('../images/bul_l.gif') no-repeat scroll left top}
-.lm li .toggle {width: 10px; height: 10px; background: transparent url('../images/exp.gif') no-repeat scroll center center; float: left; margin: 3px 0 0 -16px; cursor: pointer;}
-.lm li a {color: #000; padding: 1px 2px;}
-.lm li a.focus {background-color: #e0e0e0;}
 .stg_con {height: 400px; margin: 4px; background-color: #fafafa;}
 fieldset {
   border: 1px solid #d0d0d0;

@@ -1,25 +1,25 @@
 html, body { background-color: #DFE8F6 }
 
 header {
-	background: #181818 url(./images/header_bg.gif) repeat-x center center;
-	border-bottom: 1px solid #333;
+  background: #181818 url(./images/header_bg.gif) repeat-x center center;
+  border-bottom: 1px solid #333;
 
-	#add {background: transparent url(./images/toolbar.png) no-repeat -24px center}
-	#create {background: transparent url(./images/toolbar.png) no-repeat -48px center}
-	#remove {background: transparent url(./images/toolbar.png) no-repeat -72px center}
-	#start {background: transparent url(./images/toolbar.png) no-repeat -96px center}
-	#pause {background: transparent url(./images/toolbar.png) no-repeat -120px center}
-	#stop {background: transparent url(./images/toolbar.png) no-repeat -144px center}
-	#moveu {background: transparent url(./images/toolbar.png) no-repeat -168px center}
-	#moved {background: transparent url(./images/toolbar.png) no-repeat -192px center}
-	#search {background: transparent url(./images/toolbar.png) no-repeat -216px center}
-	#rss {background: transparent url(./images/toolbar.png) no-repeat -240px center}
-	#setting {background: transparent url(./images/toolbar.png) no-repeat -264px center}
-	#help {background: transparent url(./images/quest.gif) no-repeat 0px center}
-	#go {background: transparent url(./images/go.gif) no-repeat 0px center; }
-	#plugins {background: transparent url(./images/plugin.png) no-repeat 0px center}
+  #add {background: transparent url(./images/toolbar.png) no-repeat -24px center}
+  #create {background: transparent url(./images/toolbar.png) no-repeat -48px center}
+  #remove {background: transparent url(./images/toolbar.png) no-repeat -72px center}
+  #start {background: transparent url(./images/toolbar.png) no-repeat -96px center}
+  #pause {background: transparent url(./images/toolbar.png) no-repeat -120px center}
+  #stop {background: transparent url(./images/toolbar.png) no-repeat -144px center}
+  #moveu {background: transparent url(./images/toolbar.png) no-repeat -168px center}
+  #moved {background: transparent url(./images/toolbar.png) no-repeat -192px center}
+  #search {background: transparent url(./images/toolbar.png) no-repeat -216px center}
+  #rss {background: transparent url(./images/toolbar.png) no-repeat -240px center}
+  #setting {background: transparent url(./images/toolbar.png) no-repeat -264px center}
+  #help {background: transparent url(./images/quest.gif) no-repeat 0px center}
+  #go {background: transparent url(./images/go.gif) no-repeat 0px center; }
+  #plugins {background: transparent url(./images/plugin.png) no-repeat 0px center}
 
-	#ind {background: transparent url(./images/ajax-loader.gif) no-repeat 0px center;}
+  #ind {background: transparent url(./images/ajax-loader.gif) no-repeat 0px center;}
 }
 
 ul.CMenu li a:hover {background-color: #D9E8FB}
@@ -63,24 +63,28 @@ ul.CMenu li ul li a.dis {color: #808080}
 ul.CMenu li ul li a.dis:hover {background-color: #F0F0F0; color: #808080}
 
 .stg_con { background-color: #fff }
-div#stg .lm { background-color: #FAFAFA; border: 1px solid #D0D0D0; }
-.lm li a.focus {background-color: #D9E8FB}
+#stg aside {
+  background-color: #FAFAFA;
+  border: 1px solid #D0D0D0;
+
+	li a.focus {background-color: #D9E8FB}
+}
 
 .dlg-window {
-	border: 1px solid #fff;
-	border-radius: 4px;
-	box-shadow: 0 0 0 1px #84a0c4;
-	border-image: linear-gradient(to bottom, #e8eef6, #d4e2f4, #d4e2f4) 25% stretch;
-	border-width: 0 3px 10px 3px;
+  border: 1px solid #fff;
+  border-radius: 4px;
+  box-shadow: 0 0 0 1px #84a0c4;
+  border-image: linear-gradient(to bottom, #e8eef6, #d4e2f4, #d4e2f4) 25% stretch;
+  border-width: 0 3px 10px 3px;
 
-	> .dlg-header {
-		background-color: #D9E8FB;
-		background-image: url('./images/tabs-bg.png');
-		border: 0;
-		color: #15428B;
-		font-weight: bold;
-		border-bottom: 1px solid #84a0c4;
-	}
+  > .dlg-header {
+    background-color: #D9E8FB;
+    background-image: url('./images/tabs-bg.png');
+    border: 0;
+    color: #15428B;
+    font-weight: bold;
+    border-bottom: 1px solid #84a0c4;
+  }
 }
 
 // While we're using border-image + linear-gradient to do this above now, I

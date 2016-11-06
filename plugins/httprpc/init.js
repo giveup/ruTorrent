@@ -378,14 +378,6 @@ rTorrentStub.prototype.getsettingsResponse = function(values)
 		ret.dht = values[0];
 		for ( var cmd=0; cmd<theRequestManager.stg.count; cmd++ ) {
         	var v = values[cmd+1];
-			switch(theRequestManager.stg.commands[cmd]) {
-				case "hash_interval":
-					v = iv(v)/1000;
-					break;
-				case "hash_read_ahead":
-					v = iv(v)/1048576;
-					break;
-			}
 			ret[theRequestManager.stg.commands[cmd]] = v;
 		}
 		$.each( theRequestManager.stg.handlers, function(i,handler)

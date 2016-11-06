@@ -132,12 +132,6 @@ var theRequestManager =
 			"dht.port",
 			"directory.default",
 			"throttle.global_down.max_rate",
-
-			// TODO: get_hash_* doesn't exist anymore
-			"get_hash_interval",
-			"get_hash_max_tries",
-			"get_hash_read_ahead",
-
 			"network.http.cacert",
 			"network.http.capath",
 			"network.http.proxy_address",
@@ -183,8 +177,8 @@ var theRequestManager =
 	},
 	init: function()
 	{
-	        var self = this;
-		$.each( ["trt","trk", "fls", "prs", "ttl", "prp", "stg"], function(ndx,cmd)
+        var self = this;
+		$.each(["trt","trk", "fls", "prs", "ttl", "prp", "stg"], function(ndx,cmd)
 		{
 			self[cmd].count = self[cmd].commands.length;
 		});
@@ -901,16 +895,7 @@ rTorrentStub.prototype.getsettingsResponse = function(xml)
 
 	for ( var cmd=0; cmd<theRequestManager.stg.count; cmd++ )
 	{
-	        var v = this.getValue(values,i);
-		switch(theRequestManager.stg.commands[cmd])
-		{
-			case "hash_interval":
-				v = iv(v)/1000;
-				break;
-			case "hash_read_ahead":
-				v = iv(v)/1048576;
-				break;
-		}
+        var v = this.getValue(values,i);
 		ret[theRequestManager.stg.commands[cmd]] = v;
 		i+=2;
 	}

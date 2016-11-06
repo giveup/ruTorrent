@@ -18,26 +18,26 @@ ul.CMenu li:hover ul li a:hover {background-color: #bddbdb; color: #272e36;}
 div.graph_tab {background-color: #272e36; color: #bddbdb; font-weight: bold;}
 
 header {
-	background: #252525 url(./images/t_bg.png) repeat-x center center;
-	border-bottom: 1px solid #252525;
+  background: #252525 url(./images/t_bg.png) repeat-x center center;
+  border-bottom: 1px solid #252525;
 
-	a:hover {background: transparent url(./images/tb_bg.gif) no-repeat scroll center center}
+  a:hover {background: transparent url(./images/tb_bg.gif) no-repeat scroll center center}
 
-	#add {background: transparent url(./images/toolbar.png) no-repeat -24px center}
-	#create {background: transparent url(./images/toolbar.png) no-repeat -48px center}
-	#remove {background: transparent url(./images/toolbar.png) no-repeat -72px center}
-	#start {background: transparent url(./images/toolbar.png) no-repeat -96px center}
-	#pause {background: transparent url(./images/toolbar.png) no-repeat -120px center}
-	#stop {background: transparent url(./images/toolbar.png) no-repeat -144px center}
-	#moveu {background: transparent url(./images/toolbar.png) no-repeat -168px center}
-	#moved {background: transparent url(./images/toolbar.png) no-repeat -192px center}
-	#search {background: transparent url(./images/toolbar.png) no-repeat -216px center}
-	#rss {background: transparent url(./images/toolbar.png) no-repeat -240px center}
-	#setting {background: transparent url(./images/toolbar.png) no-repeat -264px center}
-	#help {background: transparent url(./images/quest.gif) no-repeat 0px center}
-	#go {background: transparent url(./images/go.gif) no-repeat 0px center; }
+  #add {background: transparent url(./images/toolbar.png) no-repeat -24px center}
+  #create {background: transparent url(./images/toolbar.png) no-repeat -48px center}
+  #remove {background: transparent url(./images/toolbar.png) no-repeat -72px center}
+  #start {background: transparent url(./images/toolbar.png) no-repeat -96px center}
+  #pause {background: transparent url(./images/toolbar.png) no-repeat -120px center}
+  #stop {background: transparent url(./images/toolbar.png) no-repeat -144px center}
+  #moveu {background: transparent url(./images/toolbar.png) no-repeat -168px center}
+  #moved {background: transparent url(./images/toolbar.png) no-repeat -192px center}
+  #search {background: transparent url(./images/toolbar.png) no-repeat -216px center}
+  #rss {background: transparent url(./images/toolbar.png) no-repeat -240px center}
+  #setting {background: transparent url(./images/toolbar.png) no-repeat -264px center}
+  #help {background: transparent url(./images/quest.gif) no-repeat 0px center}
+  #go {background: transparent url(./images/go.gif) no-repeat 0px center; }
 
-	#ind { background: transparent url(./images/ajax-loader.gif) no-repeat 0px center; }
+  #ind { background: transparent url(./images/ajax-loader.gif) no-repeat 0px center; }
 }
 
 input.Button { background: #D7D7D7 url(./images/h.gif) repeat-x center bottom; }
@@ -59,14 +59,18 @@ input.Button { background: #D7D7D7 url(./images/h.gif) repeat-x center bottom; }
 
 div#stg { background-color: #1E2124; color: #bddbdb; border: 2px solid #909090; }
 div#stg-header { background: #1e2124 url(./images/settings.gif) no-repeat scroll 4px center; color: #0f0;}
-div#stg .lm { background-color: #272e36; border: 1px solid #D0D0D0; }
+#stg aside {
+  background-color: #272e36;
+  border: 1px solid #D0D0D0;
 
-.lm li { background: transparent url(./images/bul.gif) no-repeat scroll left center}
-.lm li.first {background: transparent url(./images/bul_f.gif) no-repeat scroll left bottom}
-.lm li.last {background: transparent url(./images/bul_l.gif) no-repeat scroll left top}
-.lm li div.toggle { background: transparent url(./images/exp.gif) no-repeat scroll center center; }
-.lm li a {color: #bddbdb; }
-.lm li a.focus {background-color: #bddbdb; color: #272e36;}
+  li { background: transparent url(./images/bul.gif) no-repeat scroll left center}
+  li.first {background: transparent url(./images/bul_f.gif) no-repeat scroll left bottom}
+  li.last {background: transparent url(./images/bul_l.gif) no-repeat scroll left top}
+  li div.toggle { background: transparent url(./images/exp.gif) no-repeat scroll center center; }
+  li a {color: #bddbdb; }
+  li a.focus {background-color: #bddbdb; color: #272e36;}
+}
+
 .stg_con {background-color: #272e36}
 
 input[disabled] {background-color: #272e36; }
