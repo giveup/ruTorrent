@@ -155,18 +155,14 @@ plugin.clearBackTimeout = function()
 plugin.onStart = function(data)
 {
         theDialogManager.clearModalState();
-	if(data.status || this.foreground.options.noclose || this.isInBackground())
-	{
+	if(data.status || this.foreground.options.noclose || this.isInBackground()) {
 		if(!this.isInBackground())
 			plugin.refreshTasks();
 		plugin.callNotification("ShowInterface",$.extend(this.foreground,data));
 	        $("#tskConsole-header").html(theUILang.tskCommand);
 	        theDialogManager.show("tskConsole");
 		this.check(data);
-	}
-	else
-		if(!data.status)
-		{
+	} else if(!data.status) {
 			this.foreground.no = data.no;
 			this.kill();
 			this.callNotification("Shutdown");
@@ -177,21 +173,17 @@ plugin.onStart = function(data)
 plugin.check = function(data)
 {
 	this.clearForeTimeout();
-        this.foreground.no = data.no;
-        this.foreground.pid = data.pid;
+    this.foreground.no = data.no;
+    this.foreground.pid = data.pid;
 	this.foreground.status = data.status;
 	this.fillConsole('tskcmdlog',data.log);
 	this.setConsoleControls( this.fillConsole('tskcmderrors',data.errors) );
-	if(this.foreground.status<0)
-	{
+	if(this.foreground.status<0) {
 		var self = this;
-		this.foreTimeout = setTimeout( function()
-		{
+		this.foreTimeout = setTimeout( function() {
 			theWebUI.requestWithoutTimeout("?action=taskcheck&hash="+self.foreground.no,[self.check,self]);
 		},1000);
-	}
-	else
-	{
+	} else {
 		plugin.callNotification("Finished");
 		if(!this.foreground.status && !this.foreground.options.noclose && !this.isInBackground())
 			theDialogManager.hide("tskConsole");
@@ -241,18 +233,16 @@ plugin.setConsoleControls = function( errPresent )
 
 plugin.fillConsole = function(id,arr)
 {
-       	if(arr)
-        {
+    if(arr) {
 		var s = '';
 		var requester = thePlugins.get(this.foreground.requester);
 		for(var i = 0; i<arr.length; i++)
 			s += (requester && $type(requester["onTaskShowLog"])=="function") ?
-				requester.onTaskShowLog(this.foreground,arr[i],id,i) : escapeHTML(arr[i])+'<br>';
+				requester.onTaskShowLog(this.foreground,arr[i],id,i) : escapeHTML(arr[i])+'\n';
 		var crc = getCRC( s, 0 );
-		if(plugin.foreground[id]!=crc)
-		{
+		if(plugin.foreground[id]!=crc) {
 			plugin.foreground[id] = crc;
-			$('#'+id).html(s);
+			$('#'+id).text(s);
 			if(!this.foreground.options.noclose)
 				$('#'+id)[0].scrollTop = $('#'+id)[0].scrollHeight;
 		}
@@ -386,8 +376,7 @@ plugin.renameTasksStuff = function()
 		table.renameColumnById("arg",theUILang.tskArg);
 		$("#tasks .stable-body").mouseclick( function(e)
 		{
-			if((e.which==3) && plugin.allStuffLoaded && plugin.canChangeMenu())
-			{
+			if((e.which==3) && plugin.allStuffLoaded && plugin.canChangeMenu()) {
 				table.tasksSelect(e,null);
 				return(true);
 			}
@@ -416,10 +405,8 @@ dxSTable.prototype.tasksRemove = function()
 dxSTable.prototype.tasksRemovePrim = function(cmd)
 {
 	var req = '';
-	for( var k in this.rowSel )
-	{
-		if( this.rowSel[k] )
-		{
+	for( var k in this.rowSel ) {
+		if( this.rowSel[k] ) {
 			var id = k.substr(6);
 			req+=("&hash=" + id);
 			if(id==plugin.foreground.no)
@@ -435,14 +422,11 @@ dxSTable.prototype.tasksRemovePrim = function(cmd)
 
 dxSTable.prototype.tasksSelect = function(e,id)
 {
-	if(plugin.enabled && plugin.allStuffLoaded && (e.which==3))
-	{
+	if(plugin.enabled && plugin.allStuffLoaded && (e.which==3)) {
 		theContextMenu.clear();
-		if(this.selCount)
-		{
+		if(this.selCount) {
 			id = this.getFirstSelected().substr(6);
-			theContextMenu.add([theUILang.tskActivate, this.selCount==1 ? function()
-			{
+			theContextMenu.add([theUILang.tskActivate, this.selCount==1 ? function() {
 				plugin.fromBackground( id );
 			} : null ]);
 		}
@@ -558,7 +542,7 @@ plugin.onLangLoaded = function()
 		"<div class='fxcaret'>"+
 			"<fieldset id='tskcmdlog_set'>"+
 				"<legend>"+theUILang.tskConsole+"</legend>"+
-				"<div class='tskconsole' id='tskcmdlog'></div>"+
+				"<pre class='tskconsole' id='tskcmdlog'></pre>"+
 			"</fieldset>"+
 			"<fieldset id='tskcmderrors_set'>"+
 				"<legend>"+theUILang.tskErrors+"</legend>"+

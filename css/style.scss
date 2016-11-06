@@ -35,6 +35,7 @@ label {
 body {
   @include user-select(none);
 
+  pre,
   input,
   textarea,
   #tdcont {
