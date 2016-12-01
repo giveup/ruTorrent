@@ -394,7 +394,7 @@ switch ($mode) {
             if ($ss[$ndx]=="ndht") {
                 $cmd = new rXMLRPCCommand('dht', (($v==0) ? "disable" : "auto"));
             } else {
-                $cmd = new rXMLRPCCommand(substr($ss[$ndx], 1).'.set', $v);
+                $cmd = new rXMLRPCCommand(substr($ss[$ndx], 1).'.set', ["", $v]);
             }
             $req->addCommand($cmd);
         }

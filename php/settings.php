@@ -232,7 +232,7 @@ class rTorrentSettings
             ]);
             if ($req->success()) {
                 $this->directory = $req->val[0];
-                        $this->session = $req->val[1];
+                $this->session = $req->val[1];
                 $this->libVersion = $req->val[2];
                 $this->server = $req->val[4];
                 $this->portRange = $req->val[5];
@@ -246,7 +246,7 @@ class rTorrentSettings
 
                 if (isLocalMode()) {
                     if (!empty($this->session)) {
-                                        $this->started = @filemtime($this->session.'/rtorrent.lock');
+                        $this->started = @filemtime($this->session.'/rtorrent.lock');
                         if ($this->started===false) {
                             $this->started = 0;
                         }
@@ -297,15 +297,15 @@ class rTorrentSettings
     }
     public function getOnFinishedCommand($args)
     {
-            return($this->getEventCommand('on_finished', 'finished', $args));
+        return($this->getEventCommand('on_finished', 'finished', $args));
     }
     public function getOnResumedCommand($args)
     {
-            return($this->getEventCommand('on_start', 'resumed', $args));
+        return($this->getEventCommand('on_start', 'resumed', $args));
     }
     public function getOnHashdoneCommand($args)
     {
-            return($this->getEventCommand('on_hash_done', 'hash_done', $args));
+        return($this->getEventCommand('on_hash_done', 'hash_done', $args));
     }
     public function getAbsScheduleCommand($name, $interval, $cmd) // $interval in seconds
     {
