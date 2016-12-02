@@ -72,7 +72,7 @@ class rRatio
         if ($cnt) {
             $cmd = new rXMLRPCCommand("d.multicall2", ["", "complete", "d.hash=", getCmd("d.custom=")."seedingtime", getCmd("d.is_active=") ]);
             foreach ($times as $i) {
-                $cmd->addParameters(array( getCmd("cat")."=".$i, getCmd("d.views.has")."=rat_".$i));
+                $cmd->addParameters(array( 'cat'."=".$i, getCmd("d.views.has")."=rat_".$i));
             }
             $req = new rXMLRPCRequest($cmd);
             if ($req->success()) {

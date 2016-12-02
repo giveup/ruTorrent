@@ -347,7 +347,7 @@ switch ($mode) {
         );
         $result = [];
         if (empty($hash)) {
-            $prm = getCmd("cat").'="$'.getCmd("t.multicall=")."d.hash=".",";
+            $prm = 'cat'.'="$'.getCmd("t.multicall=")."d.hash=".",";
             foreach ($cmds as $tcmd) {
                 $prm.=getCmd($tcmd).','.getCmd("cat=#").',';
             }
@@ -415,7 +415,7 @@ switch ($mode) {
                 $cmd = new rXMLRPCCommand("branch", array(
                     $hash[0],
                     getCmd("d.is_active="),
-                    getCmd("cat").'=$'.getCmd("d.stop=").',$'.getCmd("d.close=").',$'.getCmd("d.connection_seed.set=").$conn.',$'.getCmd("d.open=").',$'.getCmd("d.start="),
+                    'cat'.'=$'.getCmd("d.stop=").',$'.getCmd("d.close=").',$'.getCmd("d.connection_seed.set=").$conn.',$'.getCmd("d.open=").',$'.getCmd("d.start="),
                     getCmd("d.connection_seed.set=").$conn
                     ));
             } else {

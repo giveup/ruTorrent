@@ -53,7 +53,7 @@ class rThrottle
         for ($i=0; $i<MAX_THROTTLE; $i++) {
             if ($this->isCorrect($i)) {
                 $up = $this->thr[$i]["up"];
-                $down = $this->thr[$i]["down"];
+                $down = $this->thr[$i]["down."];
             } else {
                 $up = 0;
                 $down = 0;
@@ -78,9 +78,9 @@ class rThrottle
                 "",
                 "",
                 "d.hash=",
-                getCmd("d.throttle_name="),
-                getCmd('cat').'=$'.getCmd("get_throttle_up_max").'=$'.getCmd("d.throttle_name="),
-                getCmd('cat').'=$'.getCmd("get_throttle_down_max").'=$'.getCmd("d.throttle_name=")])
+                'd.throttle_name=',
+                'cat'.'=$'."get_throttle_up_max".'=$'.'d.throttle_name=',
+                'cat'.'=$'."get_throttle_down_max".'=$'.'d.throttle_name='])
         );
         if ($req->run() && !$req->fault) {
             for ($i=0; $i<count($req->val); $i+=4) {

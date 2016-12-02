@@ -964,7 +964,7 @@ rTorrentStub.prototype.getpeersResponse = function(xml)
 		peer.ul = this.getValue(values,10);		//	p.get_up_rate
 		peer.peerdl = this.getValue(values,12);		//	p.get_peer_rate
 		peer.peerdownloaded = this.getValue(values,13);	//	p.get_peer_total
-		peer.port = this.getValue(values,14);		//	p.get_port
+		peer.port = this.getValue(values,14);		//	p.port
 		var id = this.getValue(values,0);
 		$.each( theRequestManager.prs.handlers, function(i,handler)
 		{

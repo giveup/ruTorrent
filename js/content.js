@@ -441,7 +441,7 @@ function makeContent()
 					"<legend>"+theUILang.Add_bittor_featrs+"</legend>"+
 					"<table>"+
 						"<tr>"+
-							"<td><input id=\"dht\" type=\"checkbox\"  onchange=\"linked(this, 0, ['dht_port']);\" />"+
+							"<td><input id=\"dht\" type=\"checkbox\"  onchange=\"linked(this, 0, ['dht.port']);\" />"+
 								"<label for=\"dht\">"+theUILang.En_DHT_ntw+"</label>"+
 						"</td>"+
 							"<td><input id=\"protocol.pex\" type=\"checkbox\" />"+
@@ -617,17 +617,12 @@ function correctContent()
 
 	$.extend(theRequestManager.aliases,
 	{
-		"execute_raw"		:	{ name: "execute.raw", prm: 1 },
-		"execute_raw_nothrow"	:	{ name: "execute.raw_nothrow", prm: 1 },
-		"execute_throw"		:	{ name: "execute.throw", prm: 1 },
 		"f.set_priority"	:	{ name: "f.priority.set", prm: 0 },
 		"fi.get_filename_last"	:	{ name: "fi.filename_last", prm: 0 },
 		"get_bind"		:	{ name: "network.bind_address", prm: 0 },
 		"get_check_hash"	:	{ name: "pieces.hash.on_completion", prm: 0 },
 		"get_connection_leech"	:	{ name: "protocol.connection.leech", prm: 0 },
 		"get_connection_seed"	:	{ name: "protocol.connection.seed", prm: 0 },
-		"get_dht_port"		:	{ name: "dht.port", prm: 0 },
-		"get_dht_throttle"	:	{ name: "dht.throttle.name", prm: 0 },
 		"get_directory"		:	{ name: "directory.default", prm: 0 },
 		"get_down_rate"		:	{ name: "throttle.global_down.rate", prm: 0 },
 		"get_down_total"	:	{ name: "throttle.global_down.total", prm: 0 },
@@ -650,10 +645,6 @@ function correctContent()
 		"get_min_peers"		:	{ name: "throttle.min_peers.normal", prm: 0 },
 		"get_min_peers_seed"	:	{ name: "throttle.min_peers.seed", prm: 0 },
 		"get_name"		:	{ name: "session.name", prm: 0 },
-		"get_port_random"	:	{ name: "network.port_random", prm: 0 },
-		"get_port_range"	:	{ name: "network.port_range", prm: 0 },
-		"get_preload_min_size"	:	{ name: "pieces.preload.min_size", prm: 0 },
-		"get_preload_required_rate"	:	{ name: "pieces.preload.min_rate", prm: 0 },
 		"get_proxy_address"	:	{ name: "network.http.proxy_address", prm: 0 },
 		"get_receive_buffer_size"	:	{ name: "network.receive_buffer.size", prm: 0 },
 		"get_safe_sync"		:	{ name: "pieces.sync.always_safe", prm: 0 },
@@ -676,7 +667,6 @@ function correctContent()
 		"get_up_rate"		:	{ name: "throttle.global_up.rate", prm: 0 },
 		"get_up_total"		:	{ name: "throttle.global_up.total", prm: 0 },
 		"get_upload_rate"	:	{ name: "throttle.global_up.max_rate", prm: 0 },
-		"get_xmlrpc_size_limit"	:	{ name: "network.xmlrpc.size_limit", prm: 0 },
 		"http_capath"		:	{ name: "network.http.capath", prm: 0 },
 		"http_proxy"		:	{ name: "network.proxy_address", prm: 0 },
 		"session_save"		:	{ name: "session.save", prm: 0 },
@@ -693,8 +683,6 @@ function correctContent()
 		"set_session_on_completion"	:	{ name: "session.on_completion.set", prm: 1 },
 		"set_tracker_numwant"	:	{ name: "trackers.numwant.set", prm: 1 },
 		"set_upload_rate"	:	{ name: "throttle.global_up.max_rate.set", prm: 1 },
-		"set_xmlrpc_dialect"	:	{ name: "network.xmlrpc.dialect.set", prm: 1 },
-		"set_xmlrpc_size_limit"	:	{ name: "network.xmlrpc.size_limit.set", prm: 1 },
 		"system.file_allocate"	:	{ name: "system.file.allocate", prm: 0 },
 		"system.file_allocate.set"	:	{ name: "system.file.allocate.set", prm: 1 },
 		"t.set_enabled"		:	{ name: "t.is_enabled.set", prm: 0 },
@@ -702,9 +690,6 @@ function correctContent()
 		"throttle_ip"		:	{ name: "throttle.ip", prm: 1 },
 		"throttle_up"		:	{ name: "throttle.up", prm: 1 },
 		"tracker_numwant"	:	{ name: "trackers.numwant", prm: 0 },
-		"xmlrpc_dialect"	:	{ name: "network.xmlrpc.dialect.set", prm: 1 },
-		"xmlrpc_size_limit"	:	{ name: "network.xmlrpc.size_limit.set", prm: 1 },
-		"load"			:	{ name: "load.normal", prm: 1 }
 	});
 
 	$("#rtorrentv").text(theWebUI.systemInfo.rTorrent.version+"/"+theWebUI.systemInfo.rTorrent.libVersion);
