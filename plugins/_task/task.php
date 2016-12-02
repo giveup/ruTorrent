@@ -201,8 +201,8 @@ class rTask
 		{
 			$req = new rXMLRPCRequest(
 				(!($flags & self::FLG_WAIT)) ?
-					new rXMLRPCCommand( "execute.nothrow.bg", array("","sh",$cmd) ) :
-					new rXMLRPCCommand( "execute_nothrow", array("sh","-c",$cmd.$params) )
+					new rXMLRPCCommand( "execute.nothrow.bg", ["", "sh", $cmd] ) :
+					new rXMLRPCCommand( "execute.nothrow", ["", "sh", "-c", $cmd.$params] )
 				);
 			if($req->success() && count($req->val))
 				$ret = intval($req->val[0]);

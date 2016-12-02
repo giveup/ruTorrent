@@ -180,7 +180,7 @@ class rRatioRulesList
 		$req = new rXMLRPCRequest();
 		foreach( $hashes as $hash )
 		{
-			$req->addCommand( new rXMLRPCCommand( "d.custom1", $hash ) ); 
+			$req->addCommand( new rXMLRPCCommand( "d.custom1", $hash ) );
 			$req->addCommand( new rXMLRPCCommand( "d.state", $hash ) );
 			$req->addCommand( new rXMLRPCCommand( "d.views", $hash ) );
 			$req->addCommand( new rXMLRPCCommand( "d.throttle_name", $hash ) );
@@ -194,12 +194,12 @@ class rRatioRulesList
 				$state = !empty($req->val[$ndx*4+1]);
 				$ratio = null;
 				if( preg_match( '`rat_(\d+)`',$req->val[$ndx*4+2],$matches ) )
-					$ratio = 'rat_'.$matches[1];	
+					$ratio = 'rat_'.$matches[1];
 				$throttle = $req->val[$ndx*4+3];
 
 				$trackers = '';
 			        $req1 = new rXMLRPCRequest( array(
-					new rXMLRPCCommand("t.multicall", 
+					new rXMLRPCCommand("t.multicall",
 						array($hash,"",getCmd("t.url=")))));
 				if($req1->success())
 					$trackers = implode( '#', $req1->val );
@@ -239,7 +239,7 @@ class rRatioRulesList
 		{
 			if($item->ratio!='')
 				$ratioRulesExist = true;
-			if($item->channel!='')		
+			if($item->channel!='')
 				$throttleRulesExist = true;
 		}
 		if($ratioRulesExist)
@@ -248,8 +248,8 @@ class rRatioRulesList
 			$insCmd = '';
 			for($i=0; $i<MAX_RATIO; $i++)
 				$insCmd .= (getCmd('d.views.has=').'rat_'.$i.',,');
-			$ratCmd = 
-                                getCmd('d.custom.set').'=x-extratio1,"$'.getCmd('execute_capture').
+			$ratCmd =
+                                getCmd('d.custom.set').'=x-extratio1,"$'.'execute.capture'.
                                 '={'.getPHP().','.$rootPath.'/plugins/extratio/update.php,\"$'.getCmd('t.multicall').'=$'.getCmd('d.hash').'=,'.getCmd('t.url').'=,'.getCmd('cat').'=#\",$'.getCmd('d.custom1').'=,ratio,'.getUser().'}" ; '.
                                 getCmd('branch').'=$'.getCmd('not').'=$'.getCmd('d.custom').'=x-extratio1,,'.$insCmd.
                                 getCmd('view.set_visible').'=$'.getCmd('d.custom').'=x-extratio1';
@@ -257,8 +257,8 @@ class rRatioRulesList
 		else
 			$ratCmd = getCmd('cat=');
 		if($throttleRulesExist)
-			$thrCmd = 
-                                getCmd('d.custom.set').'=x-extratio2,"$'.getCmd('execute_capture').
+			$thrCmd =
+                                getCmd('d.custom.set').'=x-extratio2,"$'.'execute.capture'.
                                 '={'.getPHP().','.$rootPath.'/plugins/extratio/update.php,\"$'.getCmd('t.multicall').'=$'.getCmd('d.hash').'=,'.getCmd('t.url').'=,'.getCmd('cat').'=#\",$'.getCmd('d.custom1').'=,channel,'.getUser().'}" ; '.
                                 getCmd('branch').'=$'.getCmd('not').'=$'.getCmd('d.custom').'=x-extratio2,,'.
                                 getCmd('d.throttle_name.set').'=$'.getCmd('d.custom').'=x-extratio2';

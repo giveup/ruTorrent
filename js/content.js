@@ -660,9 +660,6 @@ function correctContent()
 
 	$.extend(theRequestManager.aliases,
 	{
-		"execute_capture"	:	{ name: "execute.capture", prm: 1 },
-		"execute_capture_nothrow"	:	{ name: "execute.capture_nothrow", prm: 1 },
-		"execute_nothrow"	:	{ name: "execute.nothrow", prm: 1 },
 		"execute_raw"		:	{ name: "execute.raw", prm: 1 },
 		"execute_raw_nothrow"	:	{ name: "execute.raw_nothrow", prm: 1 },
 		"execute_throw"		:	{ name: "execute.throw", prm: 1 },

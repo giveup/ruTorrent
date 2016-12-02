@@ -17,9 +17,6 @@ class rTorrentSettings
     public $plugins = array();
     public $hooks = array();
     public $aliases = array(
-        "execute_capture"   =>  array( "name"=>"execute.capture", "prm"=>1 ),
-        "execute_capture_nothrow"   =>  array( "name"=>"execute.capture_nothrow", "prm"=>1 ),
-        "execute_nothrow"   =>  array( "name"=>"execute.nothrow", "prm"=>1 ),
         "execute_raw"       =>  array( "name"=>"execute.raw", "prm"=>1 ),
         "execute_raw_nothrow"   =>  array( "name"=>"execute.raw_nothrow", "prm"=>1 ),
         "execute_throw"         =>  array( "name"=>"execute.throw", "prm"=>1 ),
@@ -247,7 +244,7 @@ class rTorrentSettings
                     }
                     $id = getExternal('id');
                     $req = new rXMLRPCRequest(
-                        new rXMLRPCCommand("execute_capture", array("sh","-c",$id." -u ; ".$id." -G ; echo ~ "))
+                        new rXMLRPCCommand("execute.capture", ["", "sh","-c",$id." -u ; ".$id." -G ; echo ~ "])
                     );
                     if ($req->run() && !$req->fault && (($line=explode("\n", $req->val[0]))!==false) && (count($line)>2)) {
                         $this->uid = intval(trim($line[0]));

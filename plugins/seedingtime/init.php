@@ -2,9 +2,9 @@
 
 $req = new rXMLRPCRequest(array(
     $theSettings->getOnFinishedCommand(array("seedingtime".getUser(),
-        getCmd('d.custom.set').'=seedingtime,"$'.getCmd('execute_capture').'={date,+%s}"')),
+        getCmd('d.custom.set').'=seedingtime,"$execute.capture={date,+%s}"')),
     $theSettings->getOnInsertCommand(array("addtime".getUser(),
-        getCmd('d.custom.set').'=addtime,"$'.getCmd('execute_capture').'={date,+%s}"')),
+        getCmd('d.custom.set').'=addtime,"$execute.capture={date,+%s}"')),
 
     $theSettings->getOnHashdoneCommand(array("seedingtimecheck".getUser(),
         getCmd('branch=').'$'.getCmd('not=').'$'.getCmd('d.complete=').',,'.
