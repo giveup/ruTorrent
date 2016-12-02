@@ -9,7 +9,7 @@
  * http://www.gnu.org/licenses/gpl.html.
  */
 
-require_once( 'util.php' );
+require_once('util.php');
 
 class Torrent
 {

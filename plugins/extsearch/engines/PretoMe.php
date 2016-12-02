@@ -20,7 +20,7 @@ class PretoMeEngine extends commonEngine
 			$cat = $categories['all'];
 		else
 			$cat = $categories[$cat];
-		for($pg = 0; $pg<10; $pg++)
+		for ($pg = 0; $pg<10; $pg++)
 		{
 			$cli = $this->fetch( $url.'/browse.php?search='.$what.'&tags=&st=1&tf=all'.$cat.'&sort=7&type=d&page='.$pg );
 			if ( ($cli==false) || (strpos($cli->results, "<h2>No .torrents fit this filter criteria</h2>")!==false) ||
@@ -40,7 +40,7 @@ class PretoMeEngine extends commonEngine
 				'<td class="row3" style="text-align: center;">(?P<leech>.*)<\/td>/siU', $cli->results, $matches);
 			if ($res)
 			{
-				for($i=0; $i<$res; $i++)
+				for ($i=0; $i<$res; $i++)
 				{
 					$link = $url."/download.php/".$matches["id"][$i]."/".$matches["tname"][$i];
 					if (!array_key_exists($link,$ret))

@@ -119,7 +119,7 @@ theWebUI.config = function(data)
 		],
 		format:	function(table,arr)
 		{
-			for(var i in arr)
+			for (var i in arr)
 			{
 				if (arr[i]==null)
 					arr[i] = '';
@@ -193,7 +193,7 @@ dxSTable.prototype.historyRemove = function()
 dxSTable.prototype.cmdHistory = function(cmd)
 {
 	var req = '';
-	for( var k in this.rowSel )
+	for ( var k in this.rowSel )
 	{
 		if ( this.rowSel[k] )
 			req+=("&hash=" + k);
@@ -207,7 +207,7 @@ dxSTable.prototype.cmdHistory = function(cmd)
 rTorrentStub.prototype.hstdelete = function()
 {
 	this.content = "cmd=delete";
-	for(var i=0; i<this.hashes.length; i++)
+	for (var i=0; i<this.hashes.length; i++)
 		this.content += ('&hash='+this.hashes[i]);
 	this.contentType = "application/x-www-form-urlencoded";
 	this.mountPoint = "plugins/history/action.php";
@@ -252,7 +252,7 @@ plugin.onGetHistory = function(d)
 	{
 		if (d.mode)
 			table.clearRows();
-		for( var id in d.items )
+		for ( var id in d.items )
 		{
 			var item = d.items[id];
 			table.addRowById(

@@ -154,7 +154,7 @@ class commonEngine
 class rSearchHistory
 {
 	public $hash = "extsearch_history.dat";
-	public $lst = array();
+	public $lst = [];
 	public $changed = false;
 
 	public function add( $url, $hash )
@@ -190,7 +190,7 @@ class rSearchHistory
 		uasort($this->lst, function($a, $b) { return( ($a["time"] > $b["time"]) ? 1 : (($a["time"] < $b["time"]) ? -1 : 0) ); });
 		$cnt = count($this->lst)/2;
 		$i=0;
-		foreach( $this->lst as $key=>$value )
+		foreach ( $this->lst as $key=>$value )
 		{
 			unset($this->lst[$key]);
 			if (++$i>=$cnt)
@@ -203,7 +203,7 @@ class engineManager
 {
 	public $hash = "extsearch.dat";
 	public $limit = 1000;
-	public $engines = array();
+	public $engines = [];
 
 	static public function load()
 	{
@@ -221,7 +221,7 @@ class engineManager
 	public function obtain( $dir = '../plugins/extsearch/engines' )
 	{
 		$oldEngines = $this->engines;
-		$this->engines = array();
+		$this->engines = [];
 		if ( $handle = opendir($dir) )
 		{
 			while(false !== ($file = readdir($handle)))
@@ -265,11 +265,11 @@ class engineManager
 	public function get()
 	{
                 $ret = "theSearchEngines.globalLimit = ".$this->limit."; theSearchEngines.sites = {";
-		foreach( $this->engines as $name=>$nfo )
+		foreach ( $this->engines as $name=>$nfo )
 		{
 			$ret.="'".$name."': { enabled: ".intval($nfo["enabled"]). ", global: ".intval($nfo["global"]).
 				", auth: ".intval($nfo["auth"]).", limit: ".$nfo["limit"].", public: ".intval($nfo["public"]). ", cookies: ".quoteAndDeslashEachItem($nfo["cookies"]).", cats: [";
-			foreach( $nfo["cats"] as $cat=>$prm )
+			foreach ( $nfo["cats"] as $cat=>$prm )
 			{
 				$ret.=quoteAndDeslashEachItem($cat);
 				$ret.=',';
@@ -287,7 +287,7 @@ class engineManager
 
 	public function set()
 	{
-		foreach( $this->engines as $name=>$nfo )
+		foreach ( $this->engines as $name=>$nfo )
 		{
 			if (isset($_REQUEST[$name."_enabled"]))
 				$this->engines[$name]["enabled"] = intval($_REQUEST[$name."_enabled"]);
@@ -316,7 +316,7 @@ class engineManager
 				$rssHistory = new rRSSHistory();
 				if ($cache->get($rssHistory))
 				{
-					foreach($rssHistory->lst as $url=>$info)
+					foreach ($rssHistory->lst as $url=>$info)
 					{
 						if (strlen($info["hash"])==40)
 							$history->add($url,$info["hash"]);
@@ -369,7 +369,7 @@ class engineManager
 
 	public function action( $eng, $what, $cat = "all" )
 	{
-		$arr = array();
+		$arr = [];
 		$what = rawurlencode($what);
 		switch ($eng)
 		{
@@ -377,7 +377,7 @@ class engineManager
 			case "private":
 			case "all":
 			{
-				foreach( $this->engines as $name=>$nfo )
+				foreach ( $this->engines as $name=>$nfo )
 				{
 					if (($nfo["global"] && $nfo["enabled"]) &&
 						(($nfo["public"] && ($eng=="public")) || (!$nfo["public"] && ($eng=="private")) || ($eng=="all")))
@@ -399,8 +399,8 @@ class engineManager
 		$cnt = 0;		
 		$history = self::loadHistory(true);
 
-		$ret = array( "eng"=>$eng, "cat"=>$cat, "data"=>array() );
-		foreach( $arr as $href=>$nfo )
+		$ret = array( "eng"=>$eng, "cat"=>$cat, "data"=>[] );
+		foreach ( $arr as $href=>$nfo )
 		{
 			self::correctItem($nfo);
 			$nfo["link"] = $href;
@@ -415,9 +415,9 @@ class engineManager
 
 	public function getTorrents( $engs, $urls, $isStart, $isAddPath, $directory, $label, $fast )
 	{
-		$ret = array();
+		$ret = [];
 		$history = self::loadHistory();
-		for( $i=0; $i<count($urls); $i++ )
+		for ( $i=0; $i<count($urls); $i++ )
 		{
 			$url = $urls[$i];
 			$success = false;

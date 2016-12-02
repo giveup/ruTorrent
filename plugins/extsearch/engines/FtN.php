@@ -18,7 +18,7 @@ class FtNEngine extends commonEngine
 			$cat = $categories['all'];
 		else
 			$cat = $categories[$cat];
-		for($pg = 0; $pg<10; $pg++)
+		for ($pg = 0; $pg<10; $pg++)
 		{
 			$cli = $this->fetch( $url.'/browse.php?search='.$what.'&sort=seeders&d=DESC&incldead=0&titleonly=1&page='.$pg.$cat );
 			if ( ($cli==false) || (strpos($cli->results, "<h3>Nothing found!</h3>")!==false) ||
@@ -36,7 +36,7 @@ class FtNEngine extends commonEngine
 				count($matches["seeds"])==count($matches["date"]) &&
 				count($matches["date"])==count($matches["leech"]) )
 			{
-				for($i=0; $i<count($matches["id"]); $i++)
+				for ($i=0; $i<count($matches["id"]); $i++)
 				{
 					$name = self::removeTags($matches["name"][$i]);
 					$link = $url.'/download.php/'.$matches["id"][$i].'/'.str_replace(" ","_",trim($name)).'.torrent';

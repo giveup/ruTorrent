@@ -345,13 +345,13 @@ class XMPPHP_XMPP extends XMPPHP_XMLStream {
 	protected function roster_iq_handler($xml) {
 		$status = "result";
 		$xmlroster = $xml->sub('query');
-		foreach($xmlroster->subs as $item) {
-			$groups = array();
+		foreach ($xmlroster->subs as $item) {
+			$groups = [];
 			if ($item->name == 'item') {
 				$jid = $item->attrs['jid']; //REQUIRED
 				$name = $item->attrs['name']; //MAY
 				$subscription = $item->attrs['subscription'];
-				foreach($item->subs as $subitem) {
+				foreach ($item->subs as $subitem) {
 					if ($subitem->name == 'group') {
 						$groups[] = $subitem->data;
 					}
@@ -362,7 +362,7 @@ class XMPPHP_XMPP extends XMPPHP_XMLStream {
 			}
 		}
 		if ($status == "result") { //No errors, add contacts
-			foreach($contacts as $contact) {
+			foreach ($contacts as $contact) {
 				$this->roster->addContact($contact[0], $contact[1], $contact[2], $contact[3]);
 			}
 		}
@@ -413,12 +413,12 @@ class XMPPHP_XMPP extends XMPPHP_XMLStream {
 	* @param XML Object $xml
 	*/
 	protected function vcard_get_handler($xml) {
-		$vcard_array = array();
+		$vcard_array = [];
 		$vcard = $xml->sub('vcard');
 		// go through all of the sub elements and add them to the vcard array
 		foreach ($vcard->subs as $sub) {
 			if ($sub->subs) {
-				$vcard_array[$sub->name] = array();
+				$vcard_array[$sub->name] = [];
 				foreach ($sub->subs as $sub_child) {
 					$vcard_array[$sub->name][$sub_child->name] = $sub_child->data;
 				}

@@ -3,6 +3,6 @@ $(document).ready(function(){
 	$('#flabel').text(theUILang.mnu_search);
 
 	$('[ru-string]').each(function(){
-		$(this).text(theUILang[$(this).attr('ru-string')])
+		$(this).text(theUILang[$(this).attr('ru-string')]);
 	});
 });

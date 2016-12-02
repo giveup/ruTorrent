@@ -2,7 +2,7 @@
 
 require_once( "task.php" );
 
-$ret = array();
+$ret = [];
 
 switch ($_REQUEST['cmd'])
 {
@@ -16,12 +16,10 @@ switch ($_REQUEST['cmd'])
         $ret = rTaskManager::obtain();
         break;
     case "remove":
-        $list = array();
-        if (!isset($HTTP_RAW_POST_DATA)) {
-            $HTTP_RAW_POST_DATA = file_get_contents("php://input");
-        }
-        if (isset($HTTP_RAW_POST_DATA)) {
-            $vars = explode('&', $HTTP_RAW_POST_DATA);
+        $list = [];
+        $rawData = file_get_contents("php://input");
+        if (isset($rawData)) {
+            $vars = explode('&', $rawData);
             foreach ($vars as $var) {
                 $parts = explode("=", $var);
                 if ($parts[0]=="no") {

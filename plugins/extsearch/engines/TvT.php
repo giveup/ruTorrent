@@ -21,7 +21,7 @@ class TvTEngine extends commonEngine
 		else
 			$cat = $categories[$cat];
 
-		for($pg = 0; $pg<10; $pg++)
+		for ($pg = 0; $pg<10; $pg++)
 		{
 			$cli = $this->fetch( $url.'/browse.php?search='.$what.'&sort=seeders&d=DESC&incldead=0&page='.$pg.'&cat='.$cat );
 			if ( ($cli==false) || (strpos($cli->results, "<strong>Nothing found</strong>")!==false) ||
@@ -33,7 +33,7 @@ class TvTEngine extends commonEngine
 				'<td class="table_seeders">(?P<seeds>.*)<\/td><td class="table_leechers">(?P<leech>.*)<\/td>/siU', $cli->results, $matches);
 			if ($res)
 			{
-				for($i=0; $i<$res; $i++)
+				for ($i=0; $i<$res; $i++)
 				{
 					$link = $url."/download.php?id=".$matches["id"][$i]."&type=torrent";
 					if (!array_key_exists($link,$ret))

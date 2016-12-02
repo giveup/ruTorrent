@@ -100,7 +100,7 @@ class KinozalTVEngine extends commonEngine
 		else
 			$cat = $categories[$cat];
 		$what = rawurlencode(self::fromUTF(rawurldecode($what),"CP1251"));
-		for($pg = 0; $pg<11; $pg++)
+		for ($pg = 0; $pg<11; $pg++)
 		{
 			$cli = $this->fetch( $url.'/browse.php?s='.$what.'&a=3&page='.$pg.'&c='.$cat );
 			if ( ($cli==false) || 
@@ -119,7 +119,7 @@ class KinozalTVEngine extends commonEngine
 				
 			if ($res)
 			{
-				for($i=0; $i<$res; $i++)
+				for ($i=0; $i<$res; $i++)
 				{
 					$link = $url."/download.php?id=".$matches["id"][$i];
 					if (!array_key_exists($link,$ret))

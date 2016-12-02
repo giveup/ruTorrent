@@ -17,7 +17,7 @@ class MininovaEngine extends commonEngine
 		if (!array_key_exists($cat,$categories))
 			$cat = 'all';
 
-		for($pg = 1; $pg<11; $pg++)
+		for ($pg = 1; $pg<11; $pg++)
 		{
 			$itemsOnPage = 0;
 			$cli = $this->fetch( $url.'/search/'.$what.'/'.$categories[$cat].'/seeds/'.$pg );
@@ -29,7 +29,7 @@ class MininovaEngine extends commonEngine
 			$offs = (($cat=='all') ? 2 : 1);
 			if ($res)
 			{
-				for( $i=0; $i<$res; $i+=$delta)
+				for ( $i=0; $i<$res; $i+=$delta)
 				{
 					if (preg_match( "`<a href=\"/tor/(?P<id>\d+)[^\"]*\">(?P<name>.*)</a>`si", $items[2][$i+$offs], $matches )==1)
 					{

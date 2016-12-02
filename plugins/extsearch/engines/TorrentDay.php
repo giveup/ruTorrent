@@ -21,7 +21,7 @@ class TorrentDayEngine extends commonEngine
 			$cat = $categories['all'];
 		else
 			$cat = $categories[$cat];
-		for($pg = 0; $pg<10; $pg++)
+		for ($pg = 0; $pg<10; $pg++)
 		{
 			$cli = $this->fetch( $url.'/browse.php?search='.$what.'&sort=7&type=desc&page='.$pg.$cat );
 			if ( ($cli==false) || (strpos($cli->results, "<h2>Nothing found!</h2>")!==false) ||
@@ -35,7 +35,7 @@ class TorrentDayEngine extends commonEngine
 				'<td class=.*>(?P<leech>.*)<\/td>/siU', $cli->results, $matches);
 			if ($res)
 			{
-				for($i=0; $i<$res; $i++)
+				for ($i=0; $i<$res; $i++)
 				{
 					$link = $url."/download.php/".$matches["id"][$i]."/".$matches["tname"][$i];
 					if (!array_key_exists($link,$ret))

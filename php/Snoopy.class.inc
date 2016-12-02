@@ -35,8 +35,8 @@ http://snoopy.sourceforge.com
 
 *************************************************/
 
-require_once( 'util.php' );
-require_once( 'settings.php' );
+require_once('util.php');
+require_once('settings.php');
 
 class Snoopy
 {
@@ -50,9 +50,9 @@ class Snoopy
 	var $proxy_port		=	"";			// proxy port to use
 	var $agent		=	"Snoopy v1.0";		// agent we masquerade as
 	var $referer		=	"";			// referer info to pass
-	var $cookies		=	array();		// array of cookies to pass
+	var $cookies		=	[];		// array of cookies to pass
 								// $cookies["username"]="joe";
-	var $rawheaders		=	array();		// array of raw headers to send
+	var $rawheaders		=	[];		// array of raw headers to send
 								// $rawheaders["Content-type"]="text/html";
 
 	var $maxredirs		=	5;			// http redirection depth maximum. 0 = disallow
@@ -69,7 +69,7 @@ class Snoopy
 
 	var $error		=	"";			// error messages sent here
 	var $response_code	=	"";			// response code returned from server
-	var $headers		=	array();		// headers returned from server sent here
+	var $headers		=	[];		// headers returned from server sent here
 	var $maxlength		=	4194304;		// max return data length (body)
 	var $read_timeout	=	0;			// timeout on read operations, in seconds
 
@@ -140,7 +140,7 @@ class Snoopy
 		{
 			$arr = preg_split("/([\/;=])/", $path, -1, PREG_SPLIT_DELIM_CAPTURE);
 			$path = "";
-			foreach($arr as $var)
+			foreach ($arr as $var)
 			{
 				switch ($var)
 				{
@@ -163,7 +163,7 @@ class Snoopy
 		{
 			$arr = preg_split("/([&=;])/", $query, -1, PREG_SPLIT_DELIM_CAPTURE);
 			$query = "?";
-			foreach($arr as $var)
+			foreach ($arr as $var)
 			{
 				switch ($var)
 				{
@@ -184,12 +184,12 @@ class Snoopy
 
 	static public function getURLCookies(&$url)
 	{
-		$cookies = array();
+		$cookies = [];
 		$pos = strpos($url,':COOKIE:');
 		if ($pos!==false)
 		{
 			$tmp = explode(";",substr($url,$pos+8));
-			foreach($tmp as $item)
+			foreach ($tmp as $item)
 			{
 				list($name,$val) = explode("=",$item);
 				$cookies[$name] = $val;
@@ -287,7 +287,7 @@ class Snoopy
 
 	function get_header( $name )
 	{
-		foreach( $this->headers as $i=>$header )
+		foreach ( $this->headers as $i=>$header )
 			if (preg_match_all("/^$name:\s*(.*)/i",$header,$matches))
 				return( $matches[1][0] );
 		return(false);
@@ -295,7 +295,7 @@ class Snoopy
 
 	function get_filename()
 	{
-		foreach( $this->headers as $i=>$header )
+		foreach ( $this->headers as $i=>$header )
 			if (preg_match_all("/^Content-Disposition:.*(\s|;)filename=\"(.*)\.torrent\"/i",$header,$matches) && (count($matches)>2))
 				return( str_replace( '/', '_', $matches[2][0].".torrent" ) );
 		return(false);
@@ -327,11 +327,11 @@ class Snoopy
 		if (count($this->cookies))
 		{
 			$cookie_headers = 'Cookie: ';
-			foreach( $this->cookies as $cookieKey => $cookieVal )
+			foreach ( $this->cookies as $cookieKey => $cookieVal )
 				$cookie_headers .= $cookieKey."=".$cookieVal."; ";
 			$headers .= substr($cookie_headers,0,-2) . "\r\n";
 		}
-		foreach( $this->rawheaders as $headerKey => $headerVal )
+		foreach ( $this->rawheaders as $headerKey => $headerVal )
 			$headers .= $headerKey.": ".$headerVal."\r\n";
 		if (!empty($content_type))
 		{
@@ -354,7 +354,7 @@ class Snoopy
 		fwrite($fp,$headers.$body,strlen($headers.$body));
 //toLog($headers.$body);
 		$this->_redirectaddr = false;
-		$this->headers = array();
+		$this->headers = [];
 		$is_gzipped = false;
 
 		while($currentHeader = fgets($fp,$this->_maxlinelen))
@@ -450,7 +450,7 @@ class Snoopy
 		if ($this->passcookies && $this->_redirectaddr)
 			$this->setcookies();
 
-		$headers = array();
+		$headers = [];
 		if (!empty($this->agent))
 			$headers[] = "User-Agent: ".$this->agent;
 		if (!empty($this->host) && !isset($this->rawheaders['Host']))
@@ -462,11 +462,11 @@ class Snoopy
 		if ( count($this->cookies) )
 		{
 			$cookie_str = 'Cookie: ';
-			foreach( $this->cookies as $cookieKey => $cookieVal )
+			foreach ( $this->cookies as $cookieKey => $cookieVal )
 				$cookie_str .= $cookieKey."=".$cookieVal."; ";
 			$headers[] = substr($cookie_str,0,-2);
 		}
-		foreach( $this->rawheaders as $headerKey => $headerVal )
+		foreach ( $this->rawheaders as $headerKey => $headerVal )
 			$headers[] = $headerKey.": ".$headerVal;
 		if (!empty($content_type))
 		{
@@ -481,7 +481,7 @@ class Snoopy
 			$headers[] = "Authorization: Basic ".base64_encode($this->user.":".$this->pass);
 
 		$cmdline_params = '';
-		foreach( $headers as $header )
+		foreach ( $headers as $header )
 			$cmdline_params .= " -H ".escapeshellarg($header);
 
 		if (!empty($body))
@@ -503,7 +503,7 @@ class Snoopy
 		$cmdline_params .= " -k -s";
 		exec(escapeshellarg(getExternal('curl'))." -g -D ".escapeshellarg($headerfile)." -o ".escapeshellarg($contfile)." ".$cmdline_params." ".escapeshellarg($url),$results,$return);
 		$this->_redirectaddr = false;
-		$this->headers = array();
+		$this->headers = [];
 		$is_gzipped = false;
 
 		if ($return)
@@ -512,7 +512,7 @@ class Snoopy
 		{
 			$results = @file_get_contents($contfile);
 			$result_headers = file($headerfile);
-			foreach($result_headers as $header)
+			foreach ($result_headers as $header)
 			{
 				// if a header begins with Location: or URI:, set the redirect
 				if (preg_match("/^(Location:|URI:|Refresh:)/i",$header))
@@ -578,7 +578,7 @@ class Snoopy
 
 	function setcookies()
 	{
-		foreach($this->headers as $header)
+		foreach ($this->headers as $header)
 		{
 			if (preg_match("/^set-cookie:[\s]+([^=]+)=([^;]+)/i", $header,$match))
 			{

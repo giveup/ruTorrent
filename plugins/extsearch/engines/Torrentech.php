@@ -8,7 +8,7 @@ class TorrentechEngine extends commonEngine
 	{
 		$added = 0;
 		$url = 'http://www.torrentech.org';
-		for($pg = 0; $pg<10; $pg++)
+		for ($pg = 0; $pg<10; $pg++)
 		{
 			$cli = $this->fetch( $url.'/index.php?forums=all&act=search&CODE=01&search_in=titles&result_type=topics&torrents-only=1&keywords='.$what.'&st='.($pg*25) );
 			if ($cli==false || (strpos($cli->results, ' type="password"')!==false)) 
@@ -26,7 +26,7 @@ class TorrentechEngine extends commonEngine
 				if ( preg_match( "`hash'>(?P<authkey>.*)</div>`",$cli->results, $matches1 ) )
 					$myhash = $matches1["authkey"];
 
-				for($i=0; $i<$res; $i++)
+				for ($i=0; $i<$res; $i++)
 				{
 					$link = $url."/index.php?act=attach&type=post&passkey=".$myhash."&id=".$matches["id"][$i].".torrent";
 

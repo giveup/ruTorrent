@@ -31,7 +31,7 @@ class jpopsukiEngine extends commonEngine
 		else
 			$cat = $categories[$cat];
 
-		for($pg = 1; $pg<11; $pg++)
+		for ($pg = 1; $pg<11; $pg++)
 		{
 			$cli = $this->fetch( $url.'/torrents.php?searchstr='.$what.$cat.'&order_by=s6&order_way=DESC&disablegrouping=1&page='.$pg );			
 			if ( ($cli==false) || (strpos($cli->results, ">Your search did not match anything.<")!==false) ||
@@ -50,7 +50,7 @@ class jpopsukiEngine extends commonEngine
 				'`siU', $cli->results, $matches);
 			if ($res)
 			{
-				for($i=0; $i<$res; $i++)
+				for ($i=0; $i<$res; $i++)
 				{
 					$link = $url."/torrents.php?action=download&".self::removeTags($matches["link"][$i]);
 					if (!array_key_exists($link,$ret))

@@ -41,11 +41,11 @@ class rAutoTools
     }
     public function set()
     {
-        if (!isset( $HTTP_RAW_POST_DATA )) {
-            $HTTP_RAW_POST_DATA = file_get_contents("php://input");
+        if (!isset( $rawData )) {
+            $rawData = file_get_contents("php://input");
         }
-        if (isset( $HTTP_RAW_POST_DATA )) {
-            $vars = explode('&', $HTTP_RAW_POST_DATA);
+        if (isset( $rawData )) {
+            $vars = explode('&', $rawData);
             $this->enable_label = 0;
             $this->label_template = "{DIR}";
             $this->enable_move = 0;

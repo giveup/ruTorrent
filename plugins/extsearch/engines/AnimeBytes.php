@@ -31,7 +31,7 @@ class AnimeBytesEngine extends commonEngine
 			$cat = $categories[$cat];
 
 
-		for($pg = 1; $pg<10; $pg++)
+		for ($pg = 1; $pg<10; $pg++)
 		{
 			$itemsFound = false;
                         $cli = $this->fetch( $url.'/torrents.php?searchstr='.$what.'&tags_type=1&order_by=time_added&way=desc&page='.$pg.$cat );
@@ -53,7 +53,7 @@ class AnimeBytesEngine extends commonEngine
 			if ($res)
 			{
 				$itemsFound = true;
-				for($i=0; $i<$res; $i++)
+				for ($i=0; $i<$res; $i++)
 				{
 					$link = $url."/torrents.php?".self::removeTags($matches["link"][$i]);
 					if (!array_key_exists($link,$ret))

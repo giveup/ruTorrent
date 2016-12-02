@@ -18,7 +18,7 @@ class DemonoidEngine extends commonEngine
 			$cat = $categories['all'];
 		else
 			$cat = $categories[$cat];
-		for($pg = 1; $pg<11; $pg++)
+		for ($pg = 1; $pg<11; $pg++)
 		{
 			$cli = $this->fetch( $url.'/files/?subcategory=All&quality=All&seeded=0&external=2&uid=0&sort=S&query='.$what.'&category='.$cat.'&page='.$pg );
 			
@@ -28,7 +28,7 @@ class DemonoidEngine extends commonEngine
 			$res = preg_match_all('/<td colspan="10" class="added_today">Added on (?P<date>.*)<\/td>(?P<item>.*)(<tr align="left" bgcolor="#CCCCCC">|<\!-- end torrent list -->)/siU', $cli->results, $items);
                         if (($res!==false) && ($res>0))
 			{
-				for($i=0; $i<count($items["date"]); $i++)
+				for ($i=0; $i<count($items["date"]); $i++)
 				{
 					$res = preg_match_all('/<!-- tstart --><a href=".*"><img src=".*" height="30" alt="(?P<cat>.*)".*<\/a><!-- tend --><\/td>.*'.
 						'<a href="\/files\/details\/(?P<id>.*)">(?P<name>.*)<\/a>.*<\/td>.*'.
@@ -45,7 +45,7 @@ class DemonoidEngine extends commonEngine
 						count($matches["size"])==count($matches["seeds"]) &&
 						count($matches["seeds"])==count($matches["leech"]) )
 					{
-						for($j=0; $j<count($matches["id"]); $j++)
+						for ($j=0; $j<count($matches["id"]); $j++)
 						{
                 					$link = $url."/files/download/".$matches["id"][$j];
 							if (!array_key_exists($link,$ret))

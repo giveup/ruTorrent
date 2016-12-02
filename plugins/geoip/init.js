@@ -9,7 +9,7 @@ var thePeersCache =
 
 	add: function( data )
 	{
-		for( var i = 0; i< data.length; i++ )
+		for ( var i = 0; i< data.length; i++ )
 		{
 			this.ips.push(data[i].ip);
 			this.info[data[i].ip] = data[i].info;
@@ -20,7 +20,7 @@ var thePeersCache =
 	{
 		if (this.ips.length>=this.MAX_SIZE)
 		{
-			for(var i=0; i<this.MAX_SIZE/2; i++)
+			for (var i=0; i<this.MAX_SIZE/2; i++)
 				delete this.info[this.ips[i]];
 			this.ips.splice(0,this.MAX_SIZE/2);
 		}
@@ -69,7 +69,7 @@ theWebUI.config = function(data)
 		theWebUI.tables.prs.format = function(table,arr)
 		{
 			if (plugin.allStuffLoaded)
-				for(var i in arr)
+				for (var i in arr)
 				{
 					if (arr[i]==null)
 						arr[i] = '';

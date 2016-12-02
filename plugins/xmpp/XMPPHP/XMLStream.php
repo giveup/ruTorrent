@@ -96,11 +96,11 @@ class XMPPHP_XMLStream {
 	/**
 	 * @var array
 	 */
-	protected $ns_map = array();
+	protected $ns_map = [];
 	/**
 	 * @var array
 	 */
-	protected $current_ns = array();
+	protected $current_ns = [];
 	/**
 	 * @var array
 	 */
@@ -108,19 +108,19 @@ class XMPPHP_XMLStream {
 	/**
 	 * @var array
 	 */
-	protected $nshandlers = array();
+	protected $nshandlers = [];
 	/**
 	 * @var array
 	 */
-	protected $xpathhandlers = array();
+	protected $xpathhandlers = [];
 	/**
 	 * @var array
 	 */
-	protected $idhandlers = array();
+	protected $idhandlers = [];
 	/**
 	 * @var array
 	 */
-	protected $eventhandlers = array();
+	protected $eventhandlers = [];
 	/**
 	 * @var integer
 	 */
@@ -144,7 +144,7 @@ class XMPPHP_XMLStream {
 	/**
 	 * @var array
 	 */
-	protected $until_payload = array();
+	protected $until_payload = [];
 	/**
 	 * @var XMPPHP_Log
 	 */
@@ -268,7 +268,7 @@ class XMPPHP_XMLStream {
 		} else {
 			$ns_tags = array($xpath);
 		}
-		foreach($ns_tags as $ns_tag) {
+		foreach ($ns_tags as $ns_tag) {
 			list($l, $r) = explode("}", $ns_tag);
 			if ($r != null) {
 				$xpart = array(substr($l, 1), $r);
@@ -398,12 +398,12 @@ class XMPPHP_XMLStream {
 		do {
 			$starttime = (microtime(true) * 1000000);
 			$read = array($this->socket);
-			$write = array();
-			$except = array();
+			$write = [];
+			$except = [];
 			if (is_null($maximum)) {
 				$secs = NULL;
 				$usecs = NULL;
-			} else if ($maximum == 0) {
+			} elseif ($maximum == 0) {
 				$secs = 0;
 				$usecs = 0;
 			} else {
@@ -420,7 +420,7 @@ class XMPPHP_XMLStream {
 					$this->socket = NULL;
 					return false;
 				}
-			} else if ($updated > 0) {
+			} elseif ($updated > 0) {
 				# XXX: Is this big enough?
 				$buff = @fread($this->socket, 4096);
 				if (!$buff) { 
@@ -492,7 +492,7 @@ class XMPPHP_XMLStream {
 			unset($this->until_count[$event_key]);
 			unset($this->until[$event_key]);
 		} else {
-			$payload = array();
+			$payload = [];
 		}
 		return $payload;
 	}
@@ -525,7 +525,7 @@ class XMPPHP_XMLStream {
 			if (!$this->current_ns[$this->xml_depth]) $this->current_ns[$this->xml_depth] = $this->default_ns;
 		}
 		$ns = $this->current_ns[$this->xml_depth];
-		foreach($attr as $key => $value) {
+		foreach ($attr as $key => $value) {
 			if (strstr($key, ":")) {
 				$key = explode(':', $key);
 				$key = $key[1];
@@ -564,12 +564,12 @@ class XMPPHP_XMLStream {
 		if ($this->xml_depth == 1) {
 			#clean-up old objects
 			#$found = false; #FIXME This didn't appear to be in use --Gar
-			foreach($this->xpathhandlers as $handler) {
+			foreach ($this->xpathhandlers as $handler) {
 				if (is_array($this->xmlobj) && array_key_exists(2, $this->xmlobj)) {
 					$searchxml = $this->xmlobj[2];
 					$nstag = array_shift($handler[0]);
 					if (($nstag[0] == null or $searchxml->ns == $nstag[0]) and ($nstag[1] == "*" or $nstag[1] == $searchxml->name)) {
-						foreach($handler[0] as $nstag) {
+						foreach ($handler[0] as $nstag) {
 							if ($searchxml !== null and $searchxml->hasSub($nstag[1], $ns=$nstag[0])) {
 								$searchxml = $searchxml->sub($nstag[1], $ns=$nstag[0]);
 							} else {
@@ -585,7 +585,7 @@ class XMPPHP_XMLStream {
 					}
 				}
 			}
-			foreach($this->nshandlers as $handler) {
+			foreach ($this->nshandlers as $handler) {
 				if ($handler[4] != 1 and array_key_exists(2, $this->xmlobj) and  $this->xmlobj[2]->hasSub($handler[0])) {
 					$searchxml = $this->xmlobj[2]->sub($handler[0]);
 				} elseif (is_array($this->xmlobj) and array_key_exists(2, $this->xmlobj)) {
@@ -597,7 +597,7 @@ class XMPPHP_XMLStream {
 					$handler[3]->$handler[2]($this->xmlobj[2]);
 				}
 			}
-			foreach($this->idhandlers as $id => $handler) {
+			foreach ($this->idhandlers as $id => $handler) {
 				if (array_key_exists('id', $this->xmlobj[2]->attrs) and $this->xmlobj[2]->attrs['id'] == $id) {
 					if ($handler[1] === null) $handler[1] = $this;
 					$handler[1]->$handler[0]($this->xmlobj[2]);
@@ -651,7 +651,7 @@ class XMPPHP_XMLStream {
 	 */
 	public function event($name, $payload = null) {
 		$this->log->log("EVENT: $name",  XMPPHP_Log::LEVEL_DEBUG);
-		foreach($this->eventhandlers as $handler) {
+		foreach ($this->eventhandlers as $handler) {
 			if ($name == $handler[0]) {
 				if ($handler[2] === null) {
 					$handler[2] = $this;
@@ -659,7 +659,7 @@ class XMPPHP_XMLStream {
 				$handler[2]->$handler[1]($payload);
 			}
 		}
-		foreach($this->until as $key => $until) {
+		foreach ($this->until as $key => $until) {
 			if (is_array($until)) {
 				if (in_array($name, $until)) {
 					$this->until_payload[$key][] = array($name, $payload);
@@ -700,7 +700,7 @@ class XMPPHP_XMLStream {
 		if (is_null($timeout)) {
 			$secs = NULL;
 			$usecs = NULL;
-		} else if ($timeout == 0) {
+		} elseif ($timeout == 0) {
 			$secs = 0;
 			$usecs = 0;
 		} else {
@@ -709,9 +709,9 @@ class XMPPHP_XMLStream {
 			$secs = floor(($maximum - $usecs) / 1000000);
 		}
 		
-		$read = array();
+		$read = [];
 		$write = array($this->socket);
-		$except = array();
+		$except = [];
 		
 		$select = @stream_select($read, $write, $except, $secs, $usecs);
 		
@@ -749,7 +749,7 @@ class XMPPHP_XMLStream {
 	public function reset() {
 		$this->xml_depth = 0;
 		unset($this->xmlobj);
-		$this->xmlobj = array();
+		$this->xmlobj = [];
 		$this->setupParser();
 		if (!$this->is_server) {
 			$this->send($this->stream_start);
@@ -771,8 +771,8 @@ class XMPPHP_XMLStream {
 
 	public function readyToProcess() {
 		$read = array($this->socket);
-		$write = array();
-		$except = array();
+		$write = [];
+		$except = [];
 		$updated = @stream_select($read, $write, $except, 0);
 		return (($updated !== false) && ($updated > 0));
 	}

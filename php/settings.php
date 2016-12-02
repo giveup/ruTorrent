@@ -9,13 +9,13 @@ class rTorrentSettings
     public $linkExist = false;
     public $directory = '/tmp';
     public $session = null;
-    public $gid = array();
+    public $gid = [];
     public $uid = -1;
     public $version;
     public $libVersion;
     public $apiVersion = 0;
-    public $plugins = array();
-    public $hooks = array();
+    public $plugins = [];
+    public $hooks = [];
     public $aliases = array(
         "execute_raw"       =>  array( "name"=>"execute.raw", "prm"=>1 ),
         "execute_raw_nothrow"   =>  array( "name"=>"execute.raw_nothrow", "prm"=>1 ),

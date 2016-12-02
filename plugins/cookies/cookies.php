@@ -4,7 +4,7 @@ require_once( __DIR__."/../../php/cache.php" );
 class rCookies
 {
     public $hash = "cookies.dat";
-    public $list = array();
+    public $list = [];
 
     public static function load()
     {
@@ -20,12 +20,10 @@ class rCookies
     }
     public function set()
     {
-        if (!isset($HTTP_RAW_POST_DATA)) {
-            $HTTP_RAW_POST_DATA = file_get_contents("php://input");
-        }
-        if (isset($HTTP_RAW_POST_DATA)) {
-            $vars = explode('&', $HTTP_RAW_POST_DATA);
-            $this->list = array();
+        $rawData = file_get_contents("php://input");
+        if (isset($rawData)) {
+            $vars = explode('&', $rawData);
+            $this->list = [];
             foreach ($vars as $var) {
                 $parts = explode("=", $var);
                 if ($parts[0]=="cookie") {
@@ -33,7 +31,7 @@ class rCookies
                     if (strlen($value)) {
                         $tmp = explode("|", $value);
                         if (count($tmp>1) && (trim($tmp[1])!='')) {
-                            $cookies = array();
+                            $cookies = [];
                             $tmp1 = explode(";", $tmp[1]);
                             foreach ($tmp1 as $item) {
                                 $tmp2 = explode("=", $item);
@@ -82,11 +80,11 @@ class rCookies
         if (array_key_exists($host, $this->list)) {
             return($this->list[$host]);
         }
-        return(array());
+        return([]);
     }
     public function add($host, $values)
     {
-        $cookies = array();
+        $cookies = [];
         $tmp = explode(";", $values);
         foreach ($tmp as $item) {
             $tmp2 = explode("=", $item);

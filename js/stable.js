@@ -127,7 +127,7 @@ dxSTable.prototype.create = function(ele, styles, aName)
 	if (this.sIndex>=styles.length)
 		this.sIndex = -1;
 
-	for(var i in this.colOrder)
+	for (var i in this.colOrder)
 	{
 		if (this.colOrder[i]>=styles.length)
 		{
@@ -135,7 +135,7 @@ dxSTable.prototype.create = function(ele, styles, aName)
 			break;
 		}
 	}
-	for(var i = 0, l = styles.length; i < l; i++)
+	for (var i = 0, l = styles.length; i < l; i++)
 	{
 		if (!$type(this.colOrder[i]))
 			this.colOrder[i] = i;
@@ -214,7 +214,7 @@ dxSTable.prototype.create = function(ele, styles, aName)
 
 	cg = $("<colgroup>");
 	this.tBody.appendChild(cg.get(0));
-	for(var i = 0; i < styles.length; i++)
+	for (var i = 0; i < styles.length; i++)
 	{
 		cl = $("<col>").width(this.colsdata[i].width);
 		cg.append(cl);
@@ -273,7 +273,7 @@ dxSTable.prototype.removeColumn = function(no)
 
 		this.ids.splice(no,1);
 		this.colOrder.splice(i,1);
-		for(var j = 0; j < this.cols; j++)
+		for (var j = 0; j < this.cols; j++)
 			if (this.colOrder[j] > no)
 				this.colOrder[j]--;
 
@@ -295,7 +295,7 @@ dxSTable.prototype.removeColumn = function(no)
 dxSTable.prototype.onRightClick = function(e)
 {
 	theContextMenu.clear();
-	for(var i = 0; i<this.colsdata.length; i++)
+	for (var i = 0; i<this.colsdata.length; i++)
 	{
 		if (this.colOrder[i])
 		{
@@ -338,7 +338,7 @@ dxSTable.prototype.calcSize = function()
 		this.rowCover.style.width = this.dHead.style.width;
 		if ((this.cols > 0) && (!this.isResizing))
 		{
-			for(var i = 0, l = this.cols; i < l; i++)
+			for (var i = 0, l = this.cols; i < l; i++)
 			{
 				var _9a = iv(this.tBodyCols[i].style.width);
 				if (!_9a)
@@ -359,7 +359,7 @@ dxSTable.prototype.resizeColumn = function()
 	var _e = this.tBody.getElementsByTagName("colgroup")[0].getElementsByTagName("col");
 	var needCallHandler = false;
 	var w = 0, c;
-	for(var i = 0, l = _e.length; i < l; i++)
+	for (var i = 0, l = _e.length; i < l; i++)
 	{
                 c = this.tHeadCols[i];
 		w = this.colsdata[i].width;
@@ -377,7 +377,7 @@ dxSTable.prototype.resizeColumn = function()
 				this.tBody.rows[0].cells[i].width=w;
 				needCallHandler = true;
 			}
-//			for( var j=0; j<this.tBody.rows.length; j++ )
+//			for ( var j=0; j<this.tBody.rows.length; j++ )
 //				this.tBody.rows[j].cells[i].style.textAlign = c.style.textAlign;
 		}
 
@@ -448,7 +448,7 @@ var moveColumn = function(_11, _12)
 	var aO = new Array();
 	oCol = this.tHeadCols[_11];
 	var _18 = this.tBodyCols[_11];
-	for(i = 0; i < this.cols; i++)
+	for (i = 0; i < this.cols; i++)
 	{
 		if (i == _11)
 			continue;
@@ -475,7 +475,7 @@ var moveColumn = function(_11, _12)
 	this.tBodyCols = aBC.slice(0);
 	this.colsdata = aC.slice(0);
 	this.colOrder = aO.slice(0);
-	for(i = 0; i < this.cols; i++)
+	for (i = 0; i < this.cols; i++)
 		this.tHeadCols[i].setAttribute("index", i);
 	if ((_12 == this.sIndex) && (_11 > _12))
 		this.sIndex = _12 + 1;
@@ -588,7 +588,7 @@ dxSTable.ColumnMove.prototype =
 		o.style.left = l + "px";
 		var ox = 0;
 		var orx = ex + self.parent.dBody.scrollLeft - self.rx;
-		for(i = 0; i < c; i++)
+		for (i = 0; i < c; i++)
 		{
 		        if (self.parent.colsdata[i].enabled)
 		        {
@@ -788,11 +788,11 @@ dxSTable.prototype.init = function()
 dxSTable.prototype.setBodyState = function(v)
 {
     this.tBody.style.visibility = v;
-	for(var i = 0; i < this.cols; i++)
+	for (var i = 0; i < this.cols; i++)
 	{
 		if ((this.colsdata[i].type==TYPE_PROGRESS) && this.colsdata[i].enabled)
 		{
-                        for(var j = 0; j < this.rows; j++)
+                        for (var j = 0; j < this.rows; j++)
                         {
 				var id = this.rowIDs[j];
 				if ($$(id))
@@ -936,7 +936,7 @@ dxSTable.prototype.scrollPos = function()
 		mid = this.viewRows - 1;
 	var vr =- 1;
 	var str = "";
-	for(var i = 0; i < this.rows; i++)
+	for (var i = 0; i < this.rows; i++)
 	{
 		var id = this.rowIDs[i];
 		var r = this.rowdata[id];
@@ -1004,7 +1004,7 @@ dxSTable.prototype.refreshRows = function( height, fromScroll )
 	this.bpad.style.height = hb + "px";
 	var tb = this.tBody.tb, vr =- 1, i = 0, c = 0, obj = null;
 
-	for(i = 0; i < this.rows; i++)
+	for (i = 0; i < this.rows; i++)
 	{
 		var id = this.rowIDs[i];
 		var r = this.rowdata[id];
@@ -1112,7 +1112,7 @@ dxSTable.prototype.selectRow = function(e, row)
 			{
 				this.selCount = 0;
 				var _81 = false, passedCID = false, k = "";
-				for(var i = 0, l = this.rowIDs.length; i < l; i++)
+				for (var i = 0, l = this.rowIDs.length; i < l; i++)
 				{
 					k = this.rowIDs[i];
 					this.rowSel[k] = false;
@@ -1178,7 +1178,7 @@ dxSTable.prototype.selectRow = function(e, row)
 			{
 				this.stSel = id;
 				this.selCount = 0;
-				for(var k in this.rowSel)
+				for (var k in this.rowSel)
 				{
 					if (k == id)
 					{
@@ -1202,9 +1202,9 @@ dxSTable.prototype.selectRow = function(e, row)
 dxSTable.prototype.addRowById = function(ids, sId, icon, attr)
 {
         var cols = [];
-        for(var i=0; i<this.cols; i++)
+        for (var i=0; i<this.cols; i++)
 		cols.push(null);
-	for(var i in ids)
+	for (var i in ids)
 	{
 		var no = this.getColById(i);
 		if (no>=0)
@@ -1250,13 +1250,13 @@ dxSTable.prototype.createRow = function(cols, sId, icon, attr)
 	if ($type(this.ondblclick) == "function")
 		tr.dblclick( function(e) { return(self.ondblclick(this)); });
 
-	for(var k in attr)
+	for (var k in attr)
 		tr.attr(k, attr[k]);
 	var data = this.rowdata[sId].fmtdata;
 	var s = "";
 	var div;
 	var ret;
-	for(var i = 0; i < this.cols; i++)
+	for (var i = 0; i < this.cols; i++)
 	{
 		var ind = this.colOrder[i];
 		s+="<td";
@@ -1286,7 +1286,7 @@ dxSTable.prototype.createRow = function(cols, sId, icon, attr)
 	}
 	ret = tr.append(s).get(0);
 	var _e = this.tBody.getElementsByTagName("colgroup")[0].getElementsByTagName("col");
-	for(var i = 0, l = _e.length; i < l; i++)
+	for (var i = 0, l = _e.length; i < l; i++)
 		ret.cells[i].style.textAlign = this.tHeadCols[i].style.textAlign;
 	return(ret);
 }
@@ -1306,7 +1306,7 @@ dxSTable.prototype.removeRow = function(sId)
 	} catch(ex) {}
 	delete this.rowSel[sId];
 	delete this.rowdata[sId];
-	for(var i in this.rowIDs)
+	for (var i in this.rowIDs)
 	{
 		if (this.rowIDs[i] == sId)
 		{
@@ -1345,7 +1345,7 @@ dxSTable.prototype.setAlignment = function()
 {
 	var i, aRows, aAlign, j, align;
 	var aAlign = [];
-	for(i = 0; i < this.cols; i++)
+	for (i = 0; i < this.cols; i++)
 	{
 		switch (this.colsdata[i].align)
 		{
@@ -1366,7 +1366,7 @@ dxSTable.prototype.setAlignment = function()
 		this.tHeadCols[i].style.textAlign = align;
 	}
 	var col = this.tBody.getElementsByTagName("colgroup")[0].getElementsByTagName("col");
-		for(var i = 0; i < col.length; i++)
+		for (var i = 0; i < col.length; i++)
 			col[i].align = aAlign[i];
 }
 
@@ -1401,7 +1401,7 @@ dxSTable.prototype.refreshSelection = function()
 
 dxSTable.prototype.clearSelection = function()
 {
-	for(var k in this.rowSel)
+	for (var k in this.rowSel)
 		this.rowSel[k] = false;
 	this.selCount = 0;
 	this.refreshSelection();
@@ -1410,7 +1410,7 @@ dxSTable.prototype.clearSelection = function()
 dxSTable.prototype.fillSelection = function()
 {
 	this.selCount = 0;
-	for(var k in this.rowSel)
+	for (var k in this.rowSel)
 		if (this.rowdata[k].enabled)
 		{
 			this.rowSel[k] = true;
@@ -1424,7 +1424,7 @@ dxSTable.prototype.getCache = function(col)
 	var a = new Array(0);
 	if (this.tBody)
 	{
-		for(var k in this.rowdata)
+		for (var k in this.rowdata)
 			a.push( {"key" : k, "v" : this.getValue(this.rowdata[k], col), "e" : this.rowdata[k]} );
 		this.rowdata = [];
 	}
@@ -1434,7 +1434,7 @@ dxSTable.prototype.getCache = function(col)
 dxSTable.prototype.clearCache = function(a)
 {
 	var l = a.length;
-	for(var i = 0; i < l; i++)
+	for (var i = 0; i < l; i++)
 	{
 		a[i].v = null;
 		a[i].e = null;
@@ -1444,7 +1444,7 @@ dxSTable.prototype.clearCache = function(a)
 
 dxSTable.prototype.getColOrder = function(col)
 {
-	for(var i = 0; i < this.cols; i++)
+	for (var i = 0; i < this.cols; i++)
 		if (this.colOrder[i] == col)
 			return(i);
 	return(-1);
@@ -1452,7 +1452,7 @@ dxSTable.prototype.getColOrder = function(col)
 
 dxSTable.prototype.getColById = function(id)
 {
-        for(var i = 0; i < this.ids.length; i++)
+        for (var i = 0; i < this.ids.length; i++)
         	if (this.ids[i]==id)
 			return(i);
 	return(-1);
@@ -1466,7 +1466,7 @@ dxSTable.prototype.getIdByCol = function(col)
 dxSTable.prototype.updateRowFrom = function(tbl,tblRow,row)
 {
 	var updated = this.setIcon(row,tbl.getIcon(tblRow));
-	for(var i = 0; i < this.cols; i++)
+	for (var i = 0; i < this.cols; i++)
 	{
 		if (this.setValue(row,i,tbl.getRawValue(tblRow,i)))
 			updated = true;
@@ -1492,7 +1492,7 @@ dxSTable.prototype.getRawValue = function(row, col)
 dxSTable.prototype.getValues = function(row)
 {
 	var ret = new Array();
-	for(var i = 0; i < this.cols; i++)
+	for (var i = 0; i < this.cols; i++)
 		ret.push(this.getRawValue(row,i));
 	return(ret);
 }
@@ -1500,7 +1500,7 @@ dxSTable.prototype.getValues = function(row)
 dxSTable.prototype.setValuesById = function(row,ids,zeroFill)
 {
 	var ret = false;
-	for(var i = 0; i < this.cols; i++)
+	for (var i = 0; i < this.cols; i++)
 	{
 		var id = this.ids[i];
 		if ( $type(ids[id]) )
@@ -1515,7 +1515,7 @@ dxSTable.prototype.setValuesById = function(row,ids,zeroFill)
 dxSTable.prototype.setValues = function(row,arr)
 {
 	var ret = false;
-	for(var i = 0; i < this.cols; i++)
+	for (var i = 0; i < this.cols; i++)
 		ret = this.setValue(row,i,arr[i]) || ret;
 	return(ret);
 }
@@ -1594,11 +1594,11 @@ dxSTable.prototype.setAttr = function(row, attr)
         {
 		if (!this.rowdata[row].attr)
 			this.rowdata[row].attr = {};
-		for(var name in attr)
+		for (var name in attr)
 			this.rowdata[row].attr[name] = attr[name];
 		var r = $$(row);
 		if (r)
-			for(var name in attr)
+			for (var name in attr)
 				r.setAttribute(name, attr[name]);
 	}
 }
@@ -1633,7 +1633,7 @@ dxSTable.prototype.getColWidth = function(i)
 dxSTable.prototype.getFirstSelected = function()
 {
 	var ret = null;
-	for( var k in this.rowSel )
+	for ( var k in this.rowSel )
 	{
 		if ( this.rowSel[k] )
 		{

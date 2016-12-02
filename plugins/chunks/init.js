@@ -49,10 +49,10 @@ plugin.drawChunks = function( d )
 		var k = mode;
 		var sumAvail = 0;
 		var sumBitAvail = 0;
-		for(var i=0; i < numRows; i++)
+		for (var i=0; i < numRows; i++)
 		{
 			var tRow = mustInsert ? table.insertRow(-1) : table.rows[i];
-			for(var j=0; j < numCols && (k<cells.length); j++, k++)
+			for (var j=0; j < numCols && (k<cells.length); j++, k++)
 			{
 	    			var tCell = mustInsert ? tRow.insertCell(-1) : tRow.cells[j];
 				var chunk = cells.charAt( k );
@@ -96,7 +96,7 @@ rTorrentStub.prototype.getchunks = function()
 {
 	var commands = ["d.bitfield", "d.chunk_size", "d.size_chunks"];
 	commands.push("d.chunks_seen");
-	for(var i in commands)
+	for (var i in commands)
 	{
 		var cmd = new rXMLRPCCommand( commands[i] );
 		cmd.addParameter("string",plugin.hash);

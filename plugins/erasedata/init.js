@@ -29,7 +29,7 @@ theWebUI.createMenu = function( e, id )
 
 rTorrentStub.prototype.removewithdata = function()
 {
-	for( var i = 0; i < this.hashes.length; i++ )
+	for ( var i = 0; i < this.hashes.length; i++ )
 	{
 
 		cmd = new rXMLRPCCommand( "d.delete_files" );

@@ -8,7 +8,7 @@ theWebUI.config = function(data)
 	plugin.trtFormat = this.tables.trt.format;
 	this.tables.trt.format = function(table,arr)
 	{
-		for(var i in arr)
+		for (var i in arr)
 		{
 		        var s = table.getIdByCol(i);
 			if (s=="seedingtime")

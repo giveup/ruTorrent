@@ -14,7 +14,7 @@ theWebUI.toggleSchIgnore = function()
 {
 	var h = "";
 	var sr = theWebUI.getTable("trt").rowSel;
-	for(var k in sr)
+	for (var k in sr)
 		if ((sr[k] == true) && (k.length==40))
 		{
 			var state = theWebUI.torrents[k].sch_ignore ? '' : 1;
@@ -50,7 +50,7 @@ theWebUI.createMenu = function( e, id )
 
 rTorrentStub.prototype.schignore = function()
 {
-	for(var i=0; i<this.hashes.length; i++)
+	for (var i=0; i<this.hashes.length; i++)
 	{
 		var needRestart = (theWebUI.torrents[this.hashes[i]].status==theUILang.Seeding) || (theWebUI.torrents[this.hashes[i]].status==theUILang.Downloading);
 		if (needRestart)
@@ -85,16 +85,16 @@ theWebUI.addAndShowSettings = function(arg)
 	if (plugin.enabled)
 	{
 		var tbl = $$('sch_graph');
-		for(var i=0; i<7; i++)
+		for (var i=0; i<7; i++)
 		{
-			for(var j=1; j<25; j++)
+			for (var j=1; j<25; j++)
 			{
 				cell = tbl.rows[i].cells[j];
 				cell.setAttribute("clr",theWebUI.scheduleTable.week[i][j-1]);
 			}
 		}
 		$$('sch_enable').checked = theWebUI.scheduleTable.enabled;
-		for(var i=0; i<3; i++)
+		for (var i=0; i<3; i++)
 		{
 			$$('restrictedUL'+(i+1)).value = theWebUI.scheduleTable.UL[i];
 			$$('restrictedDL'+(i+1)).value = theWebUI.scheduleTable.DL[i];
@@ -108,13 +108,13 @@ theWebUI.schedulerWasChanged = function()
 {
 	if ($$('sch_enable').checked != theWebUI.scheduleTable.enabled)
 		return(true);
-	for(var i=0; i<3; i++)
+	for (var i=0; i<3; i++)
 		if (($$('restrictedUL'+(i+1)).value!=theWebUI.scheduleTable.UL[i]) ||
 			($$('restrictedDL'+(i+1)).value!=theWebUI.scheduleTable.DL[i]))
 				return(true);
 	var tbl = $$('sch_graph');
-	for(var i=0; i<7; i++)
-		for(var j=1; j<25; j++)
+	for (var i=0; i<7; i++)
+		for (var j=1; j<25; j++)
 			if (tbl.rows[i].cells[j].getAttribute("clr")!=theWebUI.scheduleTable.week[i][j-1])
 				return(true);
 	return(false);
@@ -132,15 +132,15 @@ rTorrentStub.prototype.setschedule = function()
 {
 	this.content = "dummy=1";
 	var tbl = $$('sch_graph');
-	for(var i=0; i<7; i++)
+	for (var i=0; i<7; i++)
 	{
-		for(var j=1; j<25; j++)
+		for (var j=1; j<25; j++)
 		{
 			var cell = tbl.rows[i].cells[j];
 			this.content += ('&day_'+i+'_'+(j-1)+'='+cell.getAttribute("clr"));
 		}
 	}
-	for(var i=0; i<3; i++)
+	for (var i=0; i<3; i++)
 	{
 		this.content += ('&UL'+i+'='+$$('restrictedUL'+(i+1)).value);
 		this.content += ('&DL'+i+'='+$$('restrictedDL'+(i+1)).value);
@@ -187,11 +187,11 @@ theWebUI.linkedSch = function(obj, lst)
 	linked(obj,0,lst);
 	var tbl = $$('sch_graph');
 	var isChecked = $$('sch_enable').checked;
-	for(var i=0; i<7; i++)
+	for (var i=0; i<7; i++)
 	{
 		var cell = tbl.rows[i].cells[0];
 		cell.className = isChecked ? 'sch_week' : 'sch_week disabled';
-		for(var j=1; j<25; j++)
+		for (var j=1; j<25; j++)
 		{
 			cell = tbl.rows[i].cells[j];
 			var clr = schClasses[cell.getAttribute("clr")];
@@ -199,9 +199,9 @@ theWebUI.linkedSch = function(obj, lst)
 		}
 	}
 	tbl = $$('sch_legend');
-	for(var i=0; i<2; i++)
+	for (var i=0; i<2; i++)
 	{
-        	for(var j=0; j<6; j++)
+        	for (var j=0; j<6; j++)
 	        {
 		        var cell = tbl.rows[i].cells[j];
 			var clr = schClasses[cell.getAttribute("clr")];
@@ -226,10 +226,10 @@ plugin.onLangLoaded = function()
 		"<fieldset>"+
 			"<legend>"+theUILang.schedulerGraph+"</legend>"+
 		"<table id='sch_graph'>";
-	for(var i=0; i<7; i++)
+	for (var i=0; i<7; i++)
 	{
 		s += "<tr><td class='sch_week disabled'>"+theUILang.schShortWeek[i]+"</td>";
-		for(var j=0; j<24; j++)
+		for (var j=0; j<24; j++)
 		{
 			var day = theWebUI.scheduleTable.week[i][j];
 			s+="<td class='"+schClasses[day]+"dis' clr='"+day+"' onmouseover='theWebUI.schMouseOver("+i+","+j+");' onmouseout='theWebUI.schMouseOut();' onclick='theWebUI.schClick(this,"+i+","+j+");'></td>";

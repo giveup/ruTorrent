@@ -24,7 +24,7 @@ class ILoveTorrentsEngine extends commonEngine
 		else
 			$cat = $categories[$cat];
 		$what = rawurlencode(self::fromUTF(rawurldecode($what),"ISO-8859-1"));
-		for($pg = 0; $pg<10; $pg++)
+		for ($pg = 0; $pg<10; $pg++)
 		{
 			$cli = $this->fetch( $url.'/browse.php?search='.$what.'&sort=7&type=desc&page='.$pg.$cat );
 			if ( ($cli==false) || (strpos($cli->results, ">Nothing found!<")!==false) 
@@ -45,7 +45,7 @@ class ILoveTorrentsEngine extends commonEngine
 
 			if ($res)
 			{
-				for($i=0; $i<$res; $i++)
+				for ($i=0; $i<$res; $i++)
 				{
 					$link = $url."/download.php/".$matches["link"][$i];
 					if (!array_key_exists($link,$ret))

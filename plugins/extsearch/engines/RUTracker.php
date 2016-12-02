@@ -20,7 +20,7 @@ class RUTrackerEngine extends commonEngine
 			'/siU', $results, $matches);
 		if ($res)
 		{
-			for($i=0; $i<$res; $i++)
+			for ($i=0; $i<$res; $i++)
 			{
 				$link = $matches["link"][$i];
 				if (!array_key_exists($link,$ret))
@@ -68,7 +68,7 @@ class RUTrackerEngine extends commonEngine
 		{
 			$res = preg_match_all('/<a class="pg" href="tracker.php\?search_id=(?P<next>[^"]*)">/siU', $cli->results, $next);
 			$next = array_unique($next["next"]);
-			for($pg = 0; $pg<count($next); $pg++)	
+			for ($pg = 0; $pg<count($next); $pg++)	
 			{
 				$cli = $this->fetch( $url.'/forum/tracker.php?search_id='.self::removeTags($next[$pg]) );
 				if (($cli==false) || !$this->parseTList($cli->results,$added,$ret,$limit))

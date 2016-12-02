@@ -98,7 +98,7 @@ class PuntoTorrentEngine extends commonEngine
 		else
 			$cat = $categories[$cat];
 
-		for($pg = 1; $pg<10; $pg++)
+		for ($pg = 1; $pg<10; $pg++)
 		{
 			$cli = $this->fetch( $url.'/index.php?page=torrents&search='.$what.'&active=1&category='.$cat.'&pages='.$pg );
 			
@@ -116,7 +116,7 @@ class PuntoTorrentEngine extends commonEngine
 
 			if ($res)
 			{
-				for($i=0; $i<$res; $i++)
+				for ($i=0; $i<$res; $i++)
 				{
 					$link = $url."/download.php".$matches["link"][$i];
 					if (!array_key_exists($link,$ret))

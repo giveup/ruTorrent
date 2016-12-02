@@ -19,7 +19,7 @@ class KickAssTorrentsEngine extends commonEngine
 		else
 			$cat = $categories[$cat];
 
-		for($pg = 1; $pg<11; $pg++)
+		for ($pg = 1; $pg<11; $pg++)
 		{
 			$cli = $this->fetch( $url.'/usearch/'.$what.$cat.'/'.$pg.'/?field=seeders&sorder=desc' );
 			if ( ($cli==false) || (strpos($cli->results, "<h2>Nothing found!</h2>")!==false) )
@@ -35,7 +35,7 @@ class KickAssTorrentsEngine extends commonEngine
 				'`siU', $cli->results, $matches);
 			if ($res)
 			{
-				for($i=0; $i<$res; $i++)
+				for ($i=0; $i<$res; $i++)
 				{
 					$link = "magnet:".$matches["link"][$i];
 					if (!array_key_exists($link,$ret) && intval($matches["seeds"][$i]))

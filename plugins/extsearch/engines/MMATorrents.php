@@ -29,7 +29,7 @@ class MMATorrentsEngine extends commonEngine
 		else
 			$cat = $categories[$cat];
 		$what = rawurlencode(self::fromUTF(rawurldecode($what),"ISO-8859-1"));
-		for($pg = 0; $pg<10; $pg++)
+		for ($pg = 0; $pg<10; $pg++)
 		{
 			$cli = $this->fetch( $url.'/torrents.php?search='.$what.'&incldead=0&sort=seeders&order=desc&page='.$pg.$cat );
 
@@ -45,7 +45,7 @@ class MMATorrentsEngine extends commonEngine
 				'.*<td .*>(?P<seeds>.*)<\/td>.*<td .*>(?P<leech>.*)<\/td>/siU', $cli->results, $matches);
 			if ($res)
 			{
-				for($i=0; $i<$res; $i++)
+				for ($i=0; $i<$res; $i++)
 				{
 					$link = $url."/download.php?id=".$matches["tname"][$i];
 					if (!array_key_exists($link,$ret))

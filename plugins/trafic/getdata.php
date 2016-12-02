@@ -9,19 +9,18 @@ if (isset($_REQUEST['tracker']))
 {
 	if ($_REQUEST['tracker']=="none")
 	{
-		if (!isset($HTTP_RAW_POST_DATA))
-			$HTTP_RAW_POST_DATA = file_get_contents("php://input");
-		$tstorages = array();
-		if (isset($HTTP_RAW_POST_DATA))
+		$rawData = file_get_contents("php://input");
+		$tstorages = [];
+		if (isset($rawData))
 		{
-			$vars = explode('&', $HTTP_RAW_POST_DATA);
-			foreach($vars as $var)
+			$vars = explode('&', $rawData);
+			foreach ($vars as $var)
 			{
-				$parts = explode("=",$var);
+				$parts = explode("=", $var);
 				if ($parts[0]=="hash")
 					$tstorages[] = 'torrents/'.$parts[1].".csv";
 			}
-		}	
+		}
 		if ( count($tstorages) )
 			$storages = $tstorages;
 	}
@@ -38,10 +37,10 @@ function sum($e1, $e2)
 if (isset($_REQUEST['mode']))
 {
 	$mode = $_REQUEST['mode'];
-	if ($mode=='clear') 
+	if ($mode=='clear')
 	{
 		if (!$disableClearButton)
-		foreach( $storages as $storage )
+		foreach ( $storages as $storage )
 			@unlink(getSettingsPath().'/trafic/'.$storage);
 		if ($_REQUEST['tracker']!="none")
 		{
@@ -49,8 +48,8 @@ if (isset($_REQUEST['mode']))
 			$storages = array( "global.csv" );
 		}
 	}
-	$ret = array();
-	foreach( $storages as $storage )
+	$ret = [];
+	foreach ( $storages as $storage )
 	{
 		$st = new rStat($storage);
 		if ($mode=='day')
@@ -63,7 +62,7 @@ if (isset($_REQUEST['mode']))
 			$val = $st->getYear();
 		if (empty($ret))
 			$ret = $val;
-		else			
+		else
 		{
 			$ret["up"] = array_map("sum", $val["up"], $ret["up"]);
 			$ret["down"] = array_map("sum", $val["down"], $ret["down"]);
@@ -73,4 +72,3 @@ if (isset($_REQUEST['mode']))
 }
 
 cachedEcho(json_encode($ret),"application/json");
-                	

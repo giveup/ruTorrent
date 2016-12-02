@@ -39,7 +39,7 @@ class rpcCache
         }
         }
     
-        protected function store($torrents = array())
+        protected function store($torrents = [])
         {
             $cid = 0;
             $result = serialize($torrents);
@@ -55,13 +55,13 @@ class rpcCache
 
         protected function load($cid)
         {
-            $torrents = array();
+            $torrents = [];
             if ($cid) {
                 $ret = @file_get_contents($this->dir.'/'.dechex($cid));
                 if ($ret!==false) {
                     $torrents = unserialize($ret);
                     if ($torrents===false) {
-                        $torrents = array();
+                        $torrents = [];
                     }
                 }
             }
@@ -71,7 +71,7 @@ class rpcCache
         protected function strip()
         {
             if ($dh = opendir($this->dir)) {
-                $files = array();
+                $files = [];
                 while (($file = readdir($dh)) !== false) {
                     $filename = $this->dir.'/'.$file;
                     if (is_file($filename)) {
@@ -102,7 +102,7 @@ class rpcCache
             foreach ($del as $hash => $val) {
                 $dTorrents[] = $hash;
             }
-            $torrents = ($mod===false) ? array() : $mod;
+            $torrents = ($mod===false) ? [] : $mod;
             return(count($oldTorrents)>0);
         }
 }

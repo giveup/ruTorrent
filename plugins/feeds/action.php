@@ -4,7 +4,7 @@ require_once( '../../php/settings.php' );
 eval( getPluginConf('feeds') );
 
 $lang = (isset($_REQUEST['lang']) && is_file('lang/'.$_REQUEST['lang'].'.php')) ? $_REQUEST['lang'] : 'en';
-$theUILang = array();
+$theUILang = [];
 require_once( 'lang/'.$lang.'.php' );
 
 function bytes($bt)
@@ -164,7 +164,7 @@ if ($showItemDescription) {
 $req = new rXMLRPCRequest(new rXMLRPCCommand("d.multicall2", $prm));
 
 if ($req->success()) {
-    $items = array();
+    $items = [];
     for ($i = 0; $i<count($req->val); $i+=21) {
         $item = [
             "guid"=>$req->val[$i],

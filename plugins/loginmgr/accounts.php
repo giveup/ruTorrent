@@ -127,7 +127,7 @@ abstract class commonAccount
 class accountManager
 {
     public $hash = "loginmgr.dat";
-    public $accounts = array();
+    public $accounts = [];
 
     public static function load()
     {
@@ -145,7 +145,7 @@ class accountManager
     public function obtain($dir = '../plugins/loginmgr/accounts')
     {
         $oldAccounts = $this->accounts;
-        $this->accounts = array();
+        $this->accounts = [];
         if ($handle = opendir($dir)) {
             while (false !== ($file = readdir($handle))) {
                 if (is_file($dir.'/'.$file)) {
@@ -230,7 +230,7 @@ class accountManager
 
         public function getInfo()
         {
-            $ret = array();
+            $ret = [];
             foreach ($this->accounts as $name => $nfo) {
                 require_once( $nfo["path"] );
                 $nfo["name"] = $name;

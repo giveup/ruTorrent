@@ -16,7 +16,7 @@ if (chdir($path)) {
     if ($req->run() && !$req->fault) {
         $dir = getSettingsPath().'/trafic/';
         $was = array(0,0,0);
-        $wasTorrents = array();
+        $wasTorrents = [];
         if ($file=@fopen($dir.'last.csv', "r")) {
             $was = fgetcsv($file, 100);
             while (($data = fgetcsv($file, 1000)) !== false) {
@@ -28,7 +28,7 @@ if (chdir($path)) {
         $needUpdate = ($was[2]+3600>=$tm);
         $now = array_slice($req->i8s, 0, 2);
         $now[2] = $tm;
-        $nowTorrents = array();
+        $nowTorrents = [];
         for ($i = 0; $i<count($req->strings); $i++) {
             $nowTorrents[$req->strings[$i]] = array_slice($req->i8s, ($i+1)*2, 2);
         }
@@ -57,7 +57,7 @@ if (chdir($path)) {
             }
         }
         if ($needUpdate) {
-            $needTorrents = array();
+            $needTorrents = [];
             foreach ($nowTorrents as $key => $data) {
                 if (array_key_exists($key, $wasTorrents)) {
                     $delta_up = floatval($data[0])-floatval($wasTorrents[$key][0]);
@@ -78,7 +78,7 @@ if (chdir($path)) {
                     $needTorrents[$key] = $data;
                 }
             }
-                            $trackers = array();
+                            $trackers = [];
             foreach ($needTorrents as $key => $data) {
                             $req = new rXMLRPCRequest(array(
                     new rXMLRPCCommand(
@@ -87,7 +87,7 @@ if (chdir($path)) {
                     )));
                     $req->setParseByTypes();
                     if ($req->run() && !$req->fault) {
-                        $checkedDomains = array();
+                        $checkedDomains = [];
                         $lastGroup = 65535;
                         for ($i = 0; $i<count($req->strings); $i++) {
                             if ($req->i8s[$i*3+2]>$lastGroup) {
@@ -150,7 +150,7 @@ if (chdir($path)) {
             }
 
             if ($collectStatForTorrents) {
-                            $existingStats = array();
+                            $existingStats = [];
                 $dh = @opendir($dir."torrents");
                 if ($dh) {
                     while (false !== ($file = readdir($dh))) {

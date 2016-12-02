@@ -27,7 +27,7 @@ rTraficGraph.prototype.create = function( aOwner )
 rTraficGraph.prototype.getDataSets = function()
 {
 	var ret = new Array();
-	for( var i in this.checked ) {
+	for ( var i in this.checked ) {
 		if (this.checked[i])
 			ret.push(this.datasets[i]);
 		else
@@ -137,7 +137,7 @@ rTraficGraph.prototype.setData = function( arr )
 	this.oldDown.data = new Array();
 	this.oldUp.data = new Array();
 	this.ticks = new Array();
-	for(var i=0; i<arr.up.length; i++) {
+	for (var i=0; i<arr.up.length; i++) {
 		if (arr.labels[i]!=0) {
 			var dt = new Date(arr.labels[i]*1000);
 			var month = dt.getMonth()+1;
@@ -211,7 +211,7 @@ theWebUI.showTrafic = function(d)
 		$('#tracker_mode option').remove();
 		var tMode = plugin.collectStatForTorrents ? "<option value='none'>"+theUILang.selectedTorrent+"</option>" : "";
 		$('#tracker_mode').append(tMode+"<option value='global' selected>"+theUILang.allTrackers+"</option>");
-		for(var i=0; i<d.trackers.length; i++)
+		for (var i=0; i<d.trackers.length; i++)
 			$('#tracker_mode').append("<option value='"+d.trackers[i]+"'>"+d.trackers[i]+"</option>");
 		$('#tracker_mode').val(s);
 		if (s!=$('#tracker_mode').val())

@@ -19,7 +19,7 @@ class WhatCDEngine extends commonEngine
 		else
 			$cat = $categories[$cat];
 
-		for($pg = 1; $pg<10; $pg++)
+		for ($pg = 1; $pg<10; $pg++)
 		{
 			$itemsFound = false;
 			$cli = $this->fetch( $url.'/torrents.php?searchstr='.$what.'&tags_type=1&order_by=seeders&order_way=desc&page='.$pg.$cat );
@@ -39,7 +39,7 @@ class WhatCDEngine extends commonEngine
 			if ($res)
 			{
 				$itemsFound = true;
-				for($i=0; $i<$res; $i++)
+				for ($i=0; $i<$res; $i++)
 				{
 					$link = $url."/torrents.php?".self::removeTags($matches["link"][$i]);
 					if (!array_key_exists($link,$ret))
@@ -67,8 +67,8 @@ class WhatCDEngine extends commonEngine
 				'/siU', $cli->results, $matches);
 			if ($res)
 			{
-				$groups = array();
-                                for($i=0; $i<$res; $i++)
+				$groups = [];
+                                for ($i=0; $i<$res; $i++)
 					$groups[intval($matches["id"][$i])] = array( "name" => self::removeTags(trim($matches["name"][$i])), "cat" => self::removeTags($matches["cat"][$i]) );
 
 				$res = preg_match_all('/<tr class="group_torrent groupid_(?P<id>\d+)[ "].*<td colspan="3">.*\[ <a href="torrents.php\?(?P<link>.*)" class ="tooptip" title="Download">DL<\/a>.*'.
@@ -80,7 +80,7 @@ class WhatCDEngine extends commonEngine
 				if ($res)
 				{
 					$itemsFound = true;
-					for($i=0; $i<$res; $i++)
+					for ($i=0; $i<$res; $i++)
 					{
 						$link = $url."/torrents.php?".self::removeTags($matches["link"][$i]);
 						if (!array_key_exists($link,$ret))

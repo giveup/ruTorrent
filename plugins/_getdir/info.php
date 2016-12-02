@@ -23,12 +23,12 @@ function compareEntries($a, $b)
 }
 
 if (isset($_REQUEST['mode'])) {
-    $output = array();
+    $output = [];
     $modes = explode(';', $_REQUEST['mode']);
     $theSettings = rTorrentSettings::get();
     if (in_array("labels", $modes)) {
         $req = new rXMLRPCRequest(new rXMLRPCCommand("d.multicall2", ["", "", getCmd("d.custom1=")]));
-        $labels = array();
+        $labels = [];
         if ($req->run() && !$req->fault) {
             for ($i=0; $i<count($req->val); $i++) {
                 $val = trim(rawurldecode($req->val[$i]));
@@ -65,7 +65,7 @@ if (isset($_REQUEST['mode'])) {
             $dh = @opendir($dir);
         }
         if ($dh) {
-            $files = array();
+            $files = [];
             $dir = addslash($dir);
             while (false !== ($file = readdir($dh))) {
                 $path = fullpath($dir . $file);
@@ -88,7 +88,7 @@ if (isset($_REQUEST['mode'])) {
     if (in_array("channels", $modes) && $theSettings->isPluginRegistered('throttle')) {
         require_once( '../throttle/throttle.php' );
         $trt = rThrottle::load();
-        $tnames = array();
+        $tnames = [];
         foreach ($trt->thr as $thr) {
             $tnames[] = $thr["name"];
         }
@@ -97,7 +97,7 @@ if (isset($_REQUEST['mode'])) {
     if (in_array("ratios", $modes) && $theSettings->isPluginRegistered('ratio')) {
         require_once( '../ratio/ratio.php' );
         $rat = rRatio::load();
-        $rnames = array();
+        $rnames = [];
         foreach ($rat->rat as $r) {
             $rnames[] = $r["name"];
         }

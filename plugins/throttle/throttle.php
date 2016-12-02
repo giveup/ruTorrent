@@ -6,7 +6,7 @@ eval(getPluginConf('throttle'));
 class rThrottle
 {
     public $hash = "throttle.dat";
-    public $thr = array();
+    public $thr = [];
     public $default = 0;
 
     public static function load()
@@ -20,7 +20,7 @@ class rThrottle
     }
     public function fillArray()
     {
-        $this->thr = array();
+        $this->thr = [];
         $v = 16;
         for ($i=0; $i<MAX_THROTTLE/2; $i++) {
             $this->thr[] = array( "up"=>$v, "down"=>0, "name"=>"up".$v );
@@ -72,7 +72,7 @@ class rThrottle
     }
     public function correct()
     {
-        $toCorrect = array();
+        $toCorrect = [];
         $req = new rXMLRPCRequest(
             new rXMLRPCCommand("d.multicall2", [
                 "",
@@ -137,7 +137,7 @@ class rThrottle
     }
     public function set()
     {
-        $this->thr = array();
+        $this->thr = [];
         $this->default = 0;
         for ($i = 0; $i<MAX_THROTTLE; $i++) {
             $arr = array( "up"=>0, "down"=>0, "name"=>"" );

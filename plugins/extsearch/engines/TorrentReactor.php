@@ -19,7 +19,7 @@ class TorrentReactorEngine extends commonEngine
 		else
 			$cat = $categories[$cat];
 
-		for($pg = 0; $pg<10; $pg++)
+		for ($pg = 0; $pg<10; $pg++)
 		{
 
 			$cli = $this->fetch( $url.'/torrent-search/'.$what.'/'.($pg*35).'?type=all&period=none&categories='.$cat.'&sort=seeders.desc&ajax=torrent-list' );
@@ -34,7 +34,7 @@ class TorrentReactorEngine extends commonEngine
 				'`siU', $cli->results, $matches);
 			if ($res)
 			{
-				for($i=0; $i<$res; $i++)
+				for ($i=0; $i<$res; $i++)
 				{
 					$link = urldecode($matches["link"][$i]);
 					

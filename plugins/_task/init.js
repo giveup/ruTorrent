@@ -34,7 +34,7 @@ theWebUI.getConsoleTask = function()
 
 theWebUI.setConsoleTaskState = function( options )
 {
-	for( var name in options )
+	for ( var name in options )
 	{
 		switch (name)
 		{
@@ -55,20 +55,20 @@ plugin.start = function()
 	$('#tskcmderrors').empty();
 	theDialogManager.setModalState();
 	var req = '';
-	for( var i in this.foreground.params )
+	for ( var i in this.foreground.params )
 	{
 		var parameter = this.foreground.params[i];
 		switch ($type(parameter))
 		{
 			case "array":
 			{
-				for( var k in parameter )
+				for ( var k in parameter )
 					req+=('&v='+i+'[]&s='+encodeURIComponent(parameter[k]));
 				break;
 			}
 			case "object":
 			{
-				for( var property in  parameter )
+				for ( var property in  parameter )
 				{
 					if ( parameter.hasOwnProperty(property) )
 						req+=('&v='+i+'['+property+']&s='+encodeURIComponent(parameter[property]));
@@ -236,7 +236,7 @@ plugin.fillConsole = function(id,arr)
     if (arr) {
 		var s = '';
 		var requester = thePlugins.get(this.foreground.requester);
-		for(var i = 0; i<arr.length; i++)
+		for (var i = 0; i<arr.length; i++)
 			s += (requester && $type(requester["onTaskShowLog"])=="function") ?
 				requester.onTaskShowLog(this.foreground,arr[i],id,i) : escapeHTML(arr[i])+'\n';
 		var crc = getCRC( s, 0 );
@@ -254,7 +254,7 @@ plugin.fillConsole = function(id,arr)
 rTorrentStub.prototype.taskstart = function()
 {
 	this.content = "cmd="+this.hashes[0];
-	for(var i=0; i<this.ss.length; i++)
+	for (var i=0; i<this.ss.length; i++)
 		this.content += ('&'+this.vs[i]+'='+this.ss[i]);
         this.contentType = "application/x-www-form-urlencoded";
 	this.mountPoint = "plugins/"+this.hashes[1]+"/action.php";
@@ -280,7 +280,7 @@ rTorrentStub.prototype.taskkill = function()
 rTorrentStub.prototype.taskremove = function()
 {
 	this.content = "cmd=remove";
-	for(var i=0; i<this.hashes.length; i++)
+	for (var i=0; i<this.hashes.length; i++)
 		this.content += ('&no='+this.hashes[i]);
         this.contentType = "application/x-www-form-urlencoded";
 	this.mountPoint = "plugins/_task/action.php";
@@ -323,7 +323,7 @@ theWebUI.config = function(data)
    		        },
    	        	format:	function(table,arr)
 		{
-			for(var i in arr)
+			for (var i in arr)
 			{
 				if (arr[i]==null)
 					arr[i] = '';
@@ -402,7 +402,7 @@ dxSTable.prototype.tasksRemove = function()
 dxSTable.prototype.tasksRemovePrim = function(cmd)
 {
 	var req = '';
-	for( var k in this.rowSel ) {
+	for ( var k in this.rowSel ) {
 		if ( this.rowSel[k] ) {
 			var id = k.substr(6);
 			req+=("&hash=" + id);
@@ -469,7 +469,7 @@ plugin.onGetTasks = function(d)
 
 		plugin.running = 0;
 
-		for( var id in d )
+		for ( var id in d )
 		{
 			var item = d[id];
 			if (!$type(plugin.background[id]))
@@ -506,7 +506,7 @@ plugin.onGetTasks = function(d)
 				if (plugin.background[id] && (plugin.background[id].status<0))
 					plugin.callNotification("Finished",item,true);
 		}
-               	for( var id in plugin.background )
+               	for ( var id in plugin.background )
 		{
 			if (!$type(d[id]))
 			{

@@ -32,7 +32,7 @@ class HDTorrentsEngine extends commonEngine
 		else
 			$cat = $categories[$cat];
 
-		for($pg = 0; $pg<11; $pg++)
+		for ($pg = 0; $pg<11; $pg++)
 		{
 			$cli = $this->fetch( $url.'/torrents.php?active=1'.$cat.'&search='.$what.'&options=0&order=seeds&by=DESC&page='.$pg );
 			if ( ($cli==false) || (strpos($cli->results, ">No torrents here...</td>")!==false) ||
@@ -57,7 +57,7 @@ class HDTorrentsEngine extends commonEngine
 
 			if ($res)
 			{
-				for($i=0; $i<$res; $i++)
+				for ($i=0; $i<$res; $i++)
 				{
 					$link = $url."/download.php?id=".$matches["id"][$i];
 					if (!array_key_exists($link,$ret))

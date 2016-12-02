@@ -57,14 +57,14 @@ class XMPPHP_XMLObj {
 	 *
 	 * @var array
 	 */
-	public $attrs = array();
+	public $attrs = [];
 	
 	/**
 	 * Subs?
 	 *
 	 * @var array
 	 */
-	public $subs = array();
+	public $subs = [];
 	
 	/**
 	 * Node data
@@ -81,11 +81,11 @@ class XMPPHP_XMLObj {
 	 * @param array  $attrs
 	 * @param string $data
 	 */
-	public function __construct($name, $ns = '', $attrs = array(), $data = '') {
+	public function __construct($name, $ns = '', $attrs = [], $data = '') {
 		$this->name = strtolower($name);
 		$this->ns   = $ns;
 		if (is_array($attrs) && count($attrs)) {
-			foreach($attrs as $key => $value) {
+			foreach ($attrs as $key => $value) {
 				$this->attrs[strtolower($key)] = $value;
 			}
 		}
@@ -100,7 +100,7 @@ class XMPPHP_XMLObj {
 	public function printObj($depth = 0) {
 		print str_repeat("\t", $depth) . $this->name . " " . $this->ns . ' ' . $this->data;
 		print "\n";
-		foreach($this->subs as $sub) {
+		foreach ($this->subs as $sub) {
 			$sub->printObj($depth + 1);
 		}
 	}
@@ -112,14 +112,14 @@ class XMPPHP_XMLObj {
 	 */
 	public function toString($str = '') {
 		$str .= "<{$this->name} xmlns='{$this->ns}' ";
-		foreach($this->attrs as $key => $value) {
+		foreach ($this->attrs as $key => $value) {
 			if ($key != 'xmlns') {
 				$value = htmlspecialchars($value);
 				$str .= "$key='$value' ";
 			}
 		}
 		$str .= ">";
-		foreach($this->subs as $sub) {
+		foreach ($this->subs as $sub) {
 			$str .= $sub->toString();
 		}
 		$body = htmlspecialchars($this->data);
@@ -134,7 +134,7 @@ class XMPPHP_XMLObj {
 	 * @return boolean
 	 */
 	public function hasSub($name, $ns = null) {
-		foreach($this->subs as $sub) {
+		foreach ($this->subs as $sub) {
 			if (($name == "*" or $sub->name == $name) and ($ns == null or $sub->ns == $ns)) return true;
 		}
 		return false;
@@ -149,7 +149,7 @@ class XMPPHP_XMLObj {
 	 */
 	public function sub($name, $attrs = null, $ns = null) {
 		#TODO attrs is ignored
-		foreach($this->subs as $sub) {
+		foreach ($this->subs as $sub) {
 			if ($sub->name == $name and ($ns == null or $sub->ns == $ns)) {
 				return $sub;
 			}

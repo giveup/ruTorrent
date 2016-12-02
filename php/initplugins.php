@@ -20,13 +20,13 @@ if (!chdir(__DIR__)) {
 function getPluginInfo($name)
 {
         $info = array(
-        'rtorrent.php.error'=>array(),
-        'rtorrent.external.error'=>array(),
-        'rtorrent.script.error'=>array(),
+        'rtorrent.php.error'=>[],
+        'rtorrent.external.error'=>[],
+        'rtorrent.script.error'=>[],
         'rtorrent.version'=>0x802,
         'plugin.runlevel'=>10.0,
-        'plugin.dependencies'=>array(),
-        'php.extensions.error'=>array(),
+        'plugin.dependencies'=>[],
+        'php.extensions.error'=>[],
         'plugin.may_be_shutdowned'=>1,
         'plugin.may_be_launched'=>1,
         );
@@ -75,8 +75,8 @@ if (count($argv) > 1) {
     $_SERVER['REMOTE_USER'] = $argv[1];
 }
 
-require_once( "util.php" );
-require_once( "settings.php" );
+require_once('util.php');
+require_once('settings.php');
 
 $tmp = getTempDirectory();
 if ($tmp!='/tmp/') {
@@ -85,8 +85,8 @@ if ($tmp!='/tmp/') {
 
 $theSettings = rTorrentSettings::get(true);
 if ($theSettings->linkExist && ($handle = opendir('../plugins'))) {
-    $init = array();
-    $names = array();
+    $init = [];
+    $names = [];
     $phpVersion = phpversion();
     if (($pos=strpos($phpVersion, '-'))!==false) {
         $phpVersion = substr($phpVersion, 0, $pos);

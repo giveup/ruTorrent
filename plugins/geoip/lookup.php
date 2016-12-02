@@ -10,24 +10,22 @@ function isValidCode($country)
 
     $retrieveCountry = ($retrieveCountry && function_exists("geoip_country_code_by_name"));
     $retrieveComments = ($retrieveComments && function_exists("sqlite_open"));
-    $ret = array();
+    $ret = [];
     $dns = null;
-if (!isset($HTTP_RAW_POST_DATA)) {
-    $HTTP_RAW_POST_DATA = file_get_contents("php://input");
-}
-if (isset($HTTP_RAW_POST_DATA)) {
+$rawData = file_get_contents("php://input");
+if (isset($rawData)) {
     if ($dnsResolver && $retrieveHost) {
         $dns = fsockopen("udp://".$dnsResolver, 53);
         $randbase = rand(0, 32000);
         $idx = 0;
     }
-    $vars = explode('&', $HTTP_RAW_POST_DATA);
+    $vars = explode('&', $rawData);
     foreach ($vars as $var) {
         $parts = explode("=", $var);
         if ($parts[0]=="ip") {
             $value = trim($parts[1]);
             if (strlen($value)) {
-                $city = array();
+                $city = [];
                 if ($retrieveCountry) {
                     $country = '';
                     if (geoip_db_avail(GEOIP_CITY_EDITION_REV1) || geoip_db_avail(GEOIP_CITY_EDITION_REV0)) {
@@ -100,7 +98,7 @@ if (isset($HTTP_RAW_POST_DATA)) {
         stream_set_timeout($dns, $dnsResolverTimeout);
         while ($idx && ($buf=@fread($dns, 512))) {
             $pos = 12;
-            $ip = array();
+            $ip = [];
             while ($count = ord($buf[$pos++])) {
                 if (count($ip) < 4) {
                     array_unshift($ip, substr($buf, $pos, $count));
@@ -113,7 +111,7 @@ if (isset($HTTP_RAW_POST_DATA)) {
             }
             $idx--;
             $pos += 16;
-            $host = array();
+            $host = [];
             while ($count = ord($buf[$pos++])) {
                 if ($count >= 0xc0) {
                     $count = (($count&0x3f) << 8) | ord($buf[$pos]);

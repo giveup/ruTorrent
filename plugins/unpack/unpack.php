@@ -28,11 +28,9 @@ class rUnpack
     }
     public function set()
     {
-        if (!isset( $HTTP_RAW_POST_DATA )) {
-            $HTTP_RAW_POST_DATA = file_get_contents("php://input");
-        }
-        if (isset( $HTTP_RAW_POST_DATA )) {
-            $vars = explode('&', $HTTP_RAW_POST_DATA);
+        $rawData = file_get_contents("php://input");
+        if (isset($rawData)) {
+            $vars = explode('&', $rawData);
             $this->enabled = 0;
             $this->path = "";
             foreach ($vars as $var) {
@@ -83,25 +81,25 @@ class rUnpack
         $zipPresent = false;
         $rarPresent = false;
         $outPath = $this->path;
-        
+
         if (($outPath!='') && !rTorrentSettings::get()->correctDirectory($outPath)) {
             $outPath = '';
         }
-        
+
         if (is_dir($basename)) {
             $postfix = "_dir";
             if ($outPath=='') {
                 $outPath = $basename;
             }
             $basename = addslash($basename);
-            
+
             $filesToDelete = "";
             $downloadname = addslash($downloadname);
             $Directory = new RecursiveDirectoryIterator($basename);
             $Iterator = new RecursiveIteratorIterator($Directory);
             $rarRegex = new RegexIterator($Iterator, '/.*\.(rar|r\d\d|\d\d\d)$/si');
             $zipRegex = new RegexIterator($Iterator, '/.*\.zip$/si');
-            
+
             if (USE_UNRAR && (sizeof(iterator_to_array($rarRegex)) > 0)) {
                 $rarPresent = true;
                 if ($deleteAutoArchives) {
@@ -302,7 +300,7 @@ class rUnpack
     public function startTask($hash, $outPath, $mode, $fileno)
     {
         global $rootPath;
-        $ret = array( "no"=>-1, "pid"=>0, "status"=>255, "log"=>array(), "errors"=>array("Unknown error.") );
+        $ret = array( "no"=>-1, "pid"=>0, "status"=>255, "log"=>[], "errors"=>array("Unknown error.") );
 
         if (rTorrentSettings::get()->isPluginRegistered('quotaspace')) {
             require_once( __DIR__."/../quotaspace/rquota.php" );
@@ -346,7 +344,7 @@ class rUnpack
                     $outPath = dirname($filename);
                 }
 
-                $commands = array();
+                $commands = [];
                 $arh = getExternal(($mode == "zip") ? 'unzip' : 'unrar');
                 $commands[] = escapeshellarg($rootPath.'/plugins/unpack/un'.$mode.'_file.sh')." ".
                     escapeshellarg($arh)." ".

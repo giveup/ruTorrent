@@ -27,7 +27,7 @@ if (theWebUI.theme)
 plugin.onLangLoaded = function()
 {
 	var themes = '<option value="" '+(theWebUI.theme ? '' : 'selected')+'>'+theUILang.themeStandard+'</option>';
-	for( var i in plugin.themes )
+	for ( var i in plugin.themes )
 		themes += '<option value="'+plugin.themes[i]+'"'+(theWebUI.theme==plugin.themes[i] ? 'selected' : '')+'>'+plugin.themes[i]+'</option>';
 	$($$("webui.lang")).parent().after(
 		'<div class="op50l algnright">'+

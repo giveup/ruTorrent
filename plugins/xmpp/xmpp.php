@@ -31,11 +31,9 @@ class rXmpp
 
     public function set()
     {
-        if (!isset( $HTTP_RAW_POST_DATA )) {
-            $HTTP_RAW_POST_DATA = file_get_contents("php://input");
-        }
-        if (isset( $HTTP_RAW_POST_DATA )) {
-            $vars = explode('&', $HTTP_RAW_POST_DATA);
+        $rawData = file_get_contents("php://input");
+        if (isset($rawData)) {
+            $vars = explode('&', $rawData);
             $this->jabberHost = "";
             $this->jabberPort = 5222;
             ;

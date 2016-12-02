@@ -33,7 +33,7 @@ class rRatioRule
 	static public function isTrackerPrivate( $trackers )
 	{
 		$trks = explode( '#', $trackers );
-		foreach( $trks as $trk )
+		foreach ( $trks as $trk )
 		{
 			$ret = null;
 			rTorrentSettings::get()->pushEvent( "CheckTracker", array( "announce"=>$trk, "result"=>&$ret ) );
@@ -83,7 +83,7 @@ class rRatioRule
 class rRatioRulesList
 {
 	public $hash = "ratiorules.dat";
-        public $lst = array();
+        public $lst = [];
 
 	static public function load()
 	{
@@ -103,16 +103,15 @@ class rRatioRulesList
 	}
         public function set()
 	{
-		if (!isset($HTTP_RAW_POST_DATA))
-			$HTTP_RAW_POST_DATA = file_get_contents("php://input");
-		$this->lst = array();
+		$rawData = file_get_contents("php://input");
+		$this->lst = [];
 		$rule = null;
-		if (isset($HTTP_RAW_POST_DATA))
+		if (isset($rawData))
 		{
-			$vars = explode('&', $HTTP_RAW_POST_DATA);
-			foreach($vars as $var)
+			$vars = explode('&', $rawData);
+			foreach ($vars as $var)
 			{
-				$parts = explode("=",$var);
+				$parts = explode("=", $var);
 				if ($parts[0]=="name")
 				{
 					if ($rule)
@@ -168,7 +167,7 @@ class rRatioRulesList
 	}
 	public function getRule( $label, $trackers )
 	{
-		foreach( $this->lst as $item )
+		foreach ( $this->lst as $item )
 		{
 			if ($item->isApplicable( $label, $trackers ))
 				return($item);
@@ -178,7 +177,7 @@ class rRatioRulesList
 	public function checkLabels( $hashes )
 	{
 		$req = new rXMLRPCRequest();
-		foreach( $hashes as $hash )
+		foreach ( $hashes as $hash )
 		{
 			$req->addCommand( new rXMLRPCCommand( "d.custom1", $hash ) );
 			$req->addCommand( new rXMLRPCCommand( "d.state", $hash ) );
@@ -188,7 +187,7 @@ class rRatioRulesList
 		if ($req->getCommandsCount() && $req->success())
 		{
 			$out = new rXMLRPCRequest();
-			foreach( $hashes as $ndx=>$hash )
+			foreach ( $hashes as $ndx=>$hash )
 			{
 				$label = rawurldecode($req->val[$ndx*4]);
 				$state = !empty($req->val[$ndx*4+1]);
@@ -235,7 +234,7 @@ class rRatioRulesList
 		global $rootPath;
 	        $throttleRulesExist = false;
 	        $ratioRulesExist = false;
-		foreach( $this->lst as $item )
+		foreach ( $this->lst as $item )
 		{
 			if ($item->ratio!='')
 				$ratioRulesExist = true;
@@ -246,7 +245,7 @@ class rRatioRulesList
 		{
 			eval(getPluginConf('ratio'));
 			$insCmd = '';
-			for($i=0; $i<MAX_RATIO; $i++)
+			for ($i=0; $i<MAX_RATIO; $i++)
 				$insCmd .= (getCmd('d.views.has=').'rat_'.$i.',,');
 			$ratCmd =
                                 getCmd('d.custom.set').'=x-extratio1,"$'.'execute.capture'.

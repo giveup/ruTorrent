@@ -49,7 +49,7 @@ plugin.loadRules = function( rle )
 	{
 		$('#dst_throttle option').remove();
 		fltThrottle.append("<option value=''>"+theUILang.dontSet+"</option>");
-		for(var i=0; i<theWebUI.maxThrottle; i++)
+		for (var i=0; i<theWebUI.maxThrottle; i++)
 			if (theWebUI.isCorrectThrottle(i))
 				fltThrottle.append("<option value='thr_"+i+"'>"+theWebUI.throttles[i].name+"</option>");
 	}
@@ -58,7 +58,7 @@ plugin.loadRules = function( rle )
 	{
 		$('#dst_ratio option').remove();
 		fltRatio.append("<option value=''>"+theUILang.dontSet+"</option>");
-		for(var i=0; i<theWebUI.maxRatio; i++)
+		for (var i=0; i<theWebUI.maxRatio; i++)
 			if (theWebUI.isCorrectRatio(i))
 				fltRatio.append("<option value='rat_"+i+"'>"+theWebUI.ratios[i].name+"</option>");
 	}
@@ -67,7 +67,7 @@ plugin.loadRules = function( rle )
 	list.empty();
 	plugin.rules = rle;
 	plugin.maxRuleNo = 0;
-	for(var i=0; i<plugin.rules.length; i++)
+	for (var i=0; i<plugin.rules.length; i++)
 	{
 		var f = plugin.rules[i];
 		if (plugin.maxRuleNo<f.no)
@@ -77,7 +77,7 @@ plugin.loadRules = function( rle )
 		if (f.enabled)
 			$("#_rre"+i).prop("checked",true);
 	}
-	for(var i=0; i<plugin.rules.length; i++)
+	for (var i=0; i<plugin.rules.length; i++)
 	{
 		var f = plugin.rules[i];
 		if (f.no<0)
@@ -185,7 +185,7 @@ theWebUI.deleteCurrentRatioRule = function()
 		plugin.curRule = null;
 		if (plugin.rules.length)
 		{
-			for(var i=no+1; i<plugin.rules.length+1; i++)
+			for (var i=no+1; i<plugin.rules.length+1; i++)
 			{
 				$("#_rrn"+i).prop("id", "_rrn"+(i-1));
 				$("#_rre"+i).prop("id", "_rre"+(i-1));
@@ -212,7 +212,7 @@ rTorrentStub.prototype.setratiorules = function()
 {
 	this.content = "mode=setrules";
 	plugin.storeRuleParams();
-	for(var i=0; i<plugin.rules.length; i++)
+	for (var i=0; i<plugin.rules.length; i++)
 	{
 		var rle = plugin.rules[i];
 		var enabled = $("#_rre"+i).prop("checked") ? 1 : 0;
@@ -239,7 +239,7 @@ rTorrentStub.prototype.getratiorules = function()
 rTorrentStub.prototype.checklabels = function()
 {
 	this.content = "mode=checklabels";
-	for(var i=0; i<this.hashes.length; i++)
+	for (var i=0; i<this.hashes.length; i++)
 		this.content += ("&hash="+this.hashes[i]);
 	this.contentType = "application/x-www-form-urlencoded";
 	this.mountPoint = "plugins/extratio/action.php";
@@ -252,7 +252,7 @@ rTorrentStub.prototype.setlabelResponse = function( data )
 	if (this.hashes.length)
 	{
 		var req = "?action=checklabels";
-		for(var i=0; i<this.hashes.length; i++)
+		for (var i=0; i<this.hashes.length; i++)
 			req+=("&hash="+this.hashes[i]);
 		theWebUI.request(req);
 	}

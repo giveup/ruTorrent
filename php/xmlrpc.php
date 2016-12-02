@@ -1,7 +1,7 @@
 <?php
 
-require_once( 'util.php' );
-require_once( 'settings.php' );
+require_once('util.php');
+require_once('settings.php');
 
 class rXMLRPCParam
 {
@@ -27,7 +27,7 @@ class rXMLRPCCommand
     public function __construct($cmd, $args = null)
     {
         $this->command = getCmd($cmd);
-        $this->params = array();
+        $this->params = [];
         rTorrentSettings::get()->patchDeprecatedCommand($this, $cmd);
         if ($args!==null) {
             if (is_array($args)) {
@@ -75,11 +75,11 @@ class rXMLRPCCommand
 
 class rXMLRPCRequest
 {
-    protected $commands = array();
+    protected $commands = [];
     protected $content = "";
-    public $i8s = array();
-    public $strings = array();
-    public $val = array();
+    public $i8s = [];
+    public $strings = [];
+    public $val = [];
     public $fault = false;
     public $parseByTypes = false;
     public $important = true;
@@ -184,9 +184,9 @@ class rXMLRPCRequest
     public function run()
     {
             $ret = false;
-        $this->i8s = array();
-        $this->strings = array();
-        $this->val = array();
+        $this->i8s = [];
+        $this->strings = [];
+        $this->val = [];
         if ($this->makeCall()) {
             $answer = self::send($this->content);
             if (!empty($answer)) {
@@ -226,7 +226,7 @@ class rXMLRPCRequest
             }
         }
         $this->content = "";
-        $this->commands = array();
+        $this->commands = [];
         return($ret);
     }
 

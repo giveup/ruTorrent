@@ -158,7 +158,7 @@ class XMPPHP_BOSH extends XMPPHP_XMPP {
 		public function reset() {
 			$this->xml_depth = 0;
 			unset($this->xmlobj);
-			$this->xmlobj = array();
+			$this->xmlobj = [];
 			$this->setupParser();
 			#$this->send($this->stream_start);
 			$body = $this->__buildBody();

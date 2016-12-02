@@ -17,7 +17,7 @@ function clearCanvas( target )
 	var cnv = target.getElementsByTagName('canvas');
 	if (cnv)
 	{
-		for(var i=0; i<cnv.length; i++)
+		for (var i=0; i<cnv.length; i++)
 		{
 			cnv[i].onmousemove = null;
 			cnv[i].onpropertychange = null;
@@ -49,7 +49,7 @@ rSpeedGraph.prototype.create = function( aOwner )
 rSpeedGraph.prototype.getData = function()
 {
 	var ret = new Array();		
-	for( var i in this.checked )
+	for ( var i in this.checked )
 	{
 		if (this.checked[i])
 			ret.push(this.datasets[i]);

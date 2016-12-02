@@ -24,7 +24,7 @@ class ImmortalSeedEngine extends commonEngine
 			$cat = $categories['all'];
 		else
 			$cat = $categories[$cat];
-		for($pg = 1; $pg<10; $pg++)
+		for ($pg = 1; $pg<10; $pg++)
 		{
 			$cli = $this->fetch( $url.'/browse.php?include_dead_torrents=no&keywords='.$what.'&search_type=t_name&page='.$pg.'&category='.$cat );
 			if ($cli==false || (strpos($cli->results, '<input type="password" name="password" class="inputPassword"')!==false)) 
@@ -41,7 +41,7 @@ class ImmortalSeedEngine extends commonEngine
 
 			if ($res)
 			{
-				for($i=0; $i<$res; $i++)
+				for ($i=0; $i<$res; $i++)
 				{
 					$link = $url."/download.php?id=".$matches["id"][$i];
 					if (!array_key_exists($link,$ret))

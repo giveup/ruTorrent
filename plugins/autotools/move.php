@@ -39,7 +39,7 @@ function operationOnTorrentFiles($torrent, &$base_path, $base_file, $is_multy_fi
     Debug("from ".$base_path);
     Debug("to   ".$dest_path);
 
-        $files = array();
+        $files = [];
         $info = $torrent->info;
     if (isset($info['files'])) {
         foreach ($info['files'] as $key => $file) {

@@ -41,7 +41,7 @@ class TorrentLeechEngine extends commonEngine
 			$cat = $categories['all'];
 		else
 			$cat = $categories[$cat];
-		for($pg = 1; $pg<11; $pg++)
+		for ($pg = 1; $pg<11; $pg++)
 		{
 			$cli = $this->fetch( Snoopy::linkencode($url.'/torrents/browse/index/query/'.$what.'/orderby/seeders/order/desc/page/'.$pg).$cat, false );
                         if ( ($cli==false) || 
@@ -62,7 +62,7 @@ class TorrentLeechEngine extends commonEngine
 
 			if ($res)
 			{
-				for($i=0; $i<$res; $i++)
+				for ($i=0; $i<$res; $i++)
 				{
 					$link = $url."/download/".$matches["id"][$i].'/dummy';
 					if (!array_key_exists($link,$ret))

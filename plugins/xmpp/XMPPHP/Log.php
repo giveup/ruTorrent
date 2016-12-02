@@ -47,7 +47,7 @@ class XMPPHP_Log {
 	/**
 	 * @var array
 	 */
-	protected $data = array();
+	protected $data = [];
 
 	/**
 	 * @var array
@@ -101,13 +101,13 @@ class XMPPHP_Log {
 		if ($runlevel === null) {
 			$runlevel = $this->runlevel;
 		}
-		foreach($this->data as $data) {
+		foreach ($this->data as $data) {
 			if ($runlevel <= $data[0]) {
 				$this->writeLine($data[1], $runlevel, $data[2]);
 			}
 		}
 		if ($clear) {
-			$this->data = array();
+			$this->data = [];
 		}
 	}
 	

@@ -15,8 +15,8 @@ if (count($argv) > 1) {
     if (is_file($fname) && is_readable($fname)) {
         $request = unserialize(file_get_contents($fname));
         $comment = '';
-        $announce_list = array();
-        $trackers = array();
+        $announce_list = [];
+        $trackers = [];
         $trackersCount = 0;
         if (isset($request['trackers'])) {
             $arr = explode("\r", $request['trackers']);
@@ -28,7 +28,7 @@ if (count($argv) > 1) {
                 } else {
                     if (count($trackers)>0) {
                         $announce_list[] = $trackers;
-                        $trackers = array();
+                        $trackers = [];
                     }
                 }
             }
@@ -51,7 +51,7 @@ if (count($argv) > 1) {
                 $torrent->announce_list($announce_list);
             }
         } else {
-            $torrent = new Torrent($path_edit, array(), $piece_size, $callback_log, $callback_err);
+            $torrent = new Torrent($path_edit, [], $piece_size, $callback_log, $callback_err);
         }
 
         if (isset($request['comment'])) {

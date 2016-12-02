@@ -17,7 +17,7 @@ if (isset($_REQUEST['result'])) {
         cachedEcho($js, "text/html");
     }
 } else {
-    $uploaded_files = array();
+    $uploaded_files = [];
     $label = null;
     if (isset($_REQUEST['label'])) {
         $label = trim($_REQUEST['label']);

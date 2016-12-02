@@ -7,7 +7,7 @@ theWebUI.addAndShowSettings = function(arg)
 	if (plugin.enabled)
 	{
 		var s = '';
-		for(var i=0; i<hostCookies.length; i++)
+		for (var i=0; i<hostCookies.length; i++)
 		{
 			s+=(hostCookies[i].host+'|'+hostCookies[i].cookies);
 			if (i<hostCookies.length-1)
@@ -25,7 +25,7 @@ theWebUI.cookiesWasChanged = function()
 	{
 		return(true);
 	}
-	for(var i = 0; i<arr.length; i++)
+	for (var i = 0; i<arr.length; i++)
 	{
 		var tmp = arr[i].trim();
 		tmp = tmp.split("\|",2);
@@ -49,7 +49,7 @@ rTorrentStub.prototype.setcookies = function()
 {
 	this.content = 'dummy=1';
 	var arr = $('#hostcookies').val().split("\n");
-	for(var i = 0; i<arr.length; i++)
+	for (var i = 0; i<arr.length; i++)
 		this.content = 	this.content+"&cookie="+encodeURIComponent(arr[i]);
 	this.contentType = "application/x-www-form-urlencoded";
 	this.mountPoint = "plugins/cookies/action.php";

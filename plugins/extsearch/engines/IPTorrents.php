@@ -36,7 +36,7 @@ class IPTorrentsEngine extends commonEngine
 			$cat = $categories['all'];
 		else
 			$cat = $categories[$cat];
-		for($pg = 1; $pg<11; $pg++)
+		for ($pg = 1; $pg<11; $pg++)
 		{
 			$cli = $this->fetch( $url.'/torrents/?'.$cat.'o=seeders;q='.$what.';qf=ti;p='.$pg );
 			if ( ($cli==false) || (strpos($cli->results, ">Nothing found!<")!==false) ||
@@ -56,7 +56,7 @@ class IPTorrentsEngine extends commonEngine
 			if ($res)
 			{
 				$now = time();
-				for($i=0; $i<$res; $i++)
+				for ($i=0; $i<$res; $i++)
 				{
 					$link = $url."/download.php/".$matches["id"][$i]."/".$matches["tname"][$i];
 					if (!array_key_exists($link,$ret))

@@ -1,6 +1,6 @@
 <?php
 
-require_once( 'util.php' );
+require_once('util.php');
 
 if (isset($_REQUEST['v'])) {
     $name = getSettingsPath()."/uisettings.json";

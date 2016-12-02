@@ -33,7 +33,7 @@ class TorrentDownloadsEngine extends commonEngine
 		else
 			$cat = $categories[$cat];
 
-		for($pg = 1; $pg<11; $pg++)
+		for ($pg = 1; $pg<11; $pg++)
 		{
 			$cli = $this->fetch( $url.'/search/?page='.$pg.'&search='.$what.'&s_cat='.$cat.'&srt=seeds&order=desc' );
 			if ( ($cli==false) || (strpos($cli->results, "</ul>No torrents</div>")!==false) )
@@ -45,7 +45,7 @@ class TorrentDownloadsEngine extends commonEngine
 				'`siU', $cli->results, $matches );
 			if ($res)
 			{
-				for( $i=0; $i<$res; $i++)
+				for ( $i=0; $i<$res; $i++)
 				{
 					$link = $url."/download/".$matches["id"][$i];
 					if (!array_key_exists($link,$ret))

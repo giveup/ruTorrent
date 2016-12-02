@@ -22,7 +22,7 @@ class BlackcatsGamesEngine extends commonEngine
 			$cat = $categories['all'];
 		else
 			$cat = $categories[$cat];
-		for($pg = 0; $pg<10; $pg++)
+		for ($pg = 0; $pg<10; $pg++)
 		{
 			$cli = $this->fetch( $url.'/browse.php?search='.$what.'&incldead=0&blah=0&sort=7&type=desc&page='.$pg.$cat );
 			
@@ -43,7 +43,7 @@ class BlackcatsGamesEngine extends commonEngine
 				count($matches["seeds"])==count($matches["tname"]) &&
 				count($matches["date"])==count($matches["leech"]) )
 			{
-				for($i=0; $i<count($matches["id"]); $i++)
+				for ($i=0; $i<count($matches["id"]); $i++)
 				{
 					$link = $url."/download.php/".$matches["id"][$i]."/".$matches["tname"][$i];
 					if (!array_key_exists($link,$ret))

@@ -47,7 +47,7 @@ theWebUI.isTrackerInActualLabel = function(hash)
         var ret = false;
 	if ($type(this.torrents[hash]) && $type(this.trackers) && $type(this.trackers[hash]))
 	{
-		for( var i=0; i<this.trackers[hash].length; i++)
+		for ( var i=0; i<this.trackers[hash].length; i++)
 		{
 			if (this.trackers[hash][i].group==0)
 			{
@@ -153,13 +153,13 @@ theWebUI.rebuildTrackersLabels = function()
 		var table = this.getTable('trt');
 		var trackersLabels = new Object();
 		var counted = new Object();
-		for(var hash in this.trackers)
+		for (var hash in this.trackers)
 		{
 			if ($type(this.torrents[hash]))
 			{
 			        this.torrents[hash].tracker = null;
 				counted[hash] = new Array();
-				for( var i=0; i<this.trackers[hash].length; i++)
+				for ( var i=0; i<this.trackers[hash].length; i++)
 				{
 					if (this.trackers[hash][i].group==0)
 					{
@@ -190,11 +190,11 @@ theWebUI.rebuildTrackersLabels = function()
 		var ul = $("#torrl");
 
 		var keys = new Array();
-		for(var lbl in trackersLabels)
+		for (var lbl in trackersLabels)
 			keys.push(lbl);
 		keys.sort();
 
-		for(var i=0; i<keys.length; i++)
+		for (var i=0; i<keys.length; i++)
 		{
 			var lbl = keys[i];
 			var li = null;
@@ -215,7 +215,7 @@ theWebUI.rebuildTrackersLabels = function()
 				li.addClass("sel");
 		}
 		var needSwitch = false;
-		for(var lbl in this.trackersLabels)
+		for (var lbl in this.trackersLabels)
 			if (!(lbl in trackersLabels))
 			{
 				$($$('i'+lbl)).remove();

@@ -26,7 +26,7 @@ class TorrentzEngine extends commonEngine
 
 		$maxPage = 10;
 		$updateMaxPage = true;
-		for($pg = 0; $pg<$maxPage; $pg++)
+		for ($pg = 0; $pg<$maxPage; $pg++)
 		{
 			$cli = $this->fetch( $url.'/search?q='.$what.$cat.'&p='.$pg );
 			if ($cli===false)
@@ -51,7 +51,7 @@ class TorrentzEngine extends commonEngine
 
 			if ($res)
 			{
-				for($i=0; $i<$res; $i++)
+				for ($i=0; $i<$res; $i++)
 				{
 					$link = "http://torcache.net/torrent/".strtoupper($matches["hash"][$i]).".torrent";
 					if (!array_key_exists($link,$ret))

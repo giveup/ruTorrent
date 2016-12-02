@@ -88,7 +88,7 @@ function win2utf($str)
     );
     $and=0x3F;
     for ($i=0; $i<strlen($str); $i++) {
-        $octet=array();
+        $octet=[];
         if (ord($str[$i])<0x80) {
             $strhex=ord($str[$i]);
         } else {
@@ -274,7 +274,7 @@ function fullpath($path, $base = '')
         return(fullpath(addslash($base).$path, getcwd()));
     }
     $path=explode('/', $path);
-    $newpath=array();
+    $newpath=[];
     foreach ($path as $p) {
         if ($p === '' || $p === '.') {
             continue;
@@ -607,7 +607,7 @@ function getTempDirectory()
 {
     global $tempDirectory;
     if (empty($tempDirectory)) {
-        $directories = array();
+        $directories = [];
         if (ini_get('upload_tmp_dir')) {
             $directories[] = ini_get('upload_tmp_dir');
         }

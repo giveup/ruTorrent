@@ -50,13 +50,13 @@ theWebUI.loadRules = function( rle )
 	list.empty();
 	$('#RLS_rss option').remove();
 	$('#RLS_rss').append("<option value=''>"+theUILang.allFeeds+"</option>");
-	for(var lbl in this.rssGroups)
+	for (var lbl in this.rssGroups)
 		$('#RLS_rss').append("<option value='"+lbl+"'>"+this.rssGroups[lbl].name+"</option>");
-	for(var lbl in this.rssLabels)
+	for (var lbl in this.rssLabels)
 		$('#RLS_rss').append("<option value='"+lbl+"'>"+this.rssLabels[lbl].name+"</option>");
 	this.rules = rle;
 	theWebUI.maxRuleNo = 0;
-	for(var i=0; i<this.rules.length; i++)
+	for (var i=0; i<this.rules.length; i++)
 	{
 		var f = this.rules[i];
 		if (theWebUI.maxRuleNo<f.no)
@@ -66,7 +66,7 @@ theWebUI.loadRules = function( rle )
 		if (f.enabled)
 			$("#_re"+i).prop("checked",true);
 	}
-	for(var i=0; i<this.rules.length; i++)
+	for (var i=0; i<this.rules.length; i++)
 	{
 		var f = this.rules[i];
 		if (f.no<0)
@@ -104,7 +104,7 @@ theWebUI.deleteCurrentRule = function()
 		this.curRule = null;
 		if (this.rules.length)
 		{
-			for(var i=no+1; i<this.rules.length+1; i++)
+			for (var i=no+1; i<this.rules.length+1; i++)
 			{
 				$("#_rn"+i).prop("id", "_rn"+(i-1));
 				$("#_re"+i).prop("id", "_re"+(i-1));
@@ -144,7 +144,7 @@ rTorrentStub.prototype.setrules = function()
 {
 	this.content = "mode=setrules";
 	theWebUI.storeRuleParams();
-	for(var i=0; i<theWebUI.rules.length; i++) {
+	for (var i=0; i<theWebUI.rules.length; i++) {
 		var rle = theWebUI.rules[i];
 		var enabled = $("#_re"+i).prop("checked") ? 1 : 0;
 		var name = $("#_rn"+i).val();

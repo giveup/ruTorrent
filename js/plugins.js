@@ -72,7 +72,7 @@ var thePlugins =
 
 	checkLoad: function()
 	{
-		for( var i in this.list )
+		for ( var i in this.list )
 		{
 			var plg = this.list[i];
 			if (plg.enabled && ($type(plg["onLangLoaded"])=="function") && !plg.allStuffLoaded)

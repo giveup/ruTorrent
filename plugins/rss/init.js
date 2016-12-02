@@ -93,7 +93,7 @@ theWebUI.switchRSSLabel = function(el)
 			(theWebUI.isGroupSelected() ? "RSSGroup" : "RSS") : "disRSS");
 	var table = theWebUI.getTable("rss");
 	table.scrollTo(0);
-	for(var k in theWebUI.rssItems)
+	for (var k in theWebUI.rssItems)
 	{
 		if ((theWebUI.actRSSLbl == "_rssAll_") ||
 			(theWebUI.isGroupSelected() &&
@@ -210,7 +210,7 @@ theWebUI.RSSMarkState = function( state )
 
 theWebUI.RSSOpen = function()
 {
-	for(var i = 0; i<this.rssArray.length; i++)
+	for (var i = 0; i<this.rssArray.length; i++)
 		window.open(this.rssArray[i],"_blank");
 }
 
@@ -286,7 +286,7 @@ theWebUI.fillRSSGroups = function()
 	var content = $("#rssGroupSet");
 	content.children().remove();
 	var s = '';
-	for(var lbl in this.rssLabels)
+	for (var lbl in this.rssLabels)
 		s += ("<input type=checkbox id='grp_"+lbl+"'><label for='grp_"+lbl+"' id='lbl_grp_"+lbl+"'>"+this.rssLabels[lbl].name+"</label><br/>");
 	content.html(s);
 }
@@ -295,7 +295,7 @@ theWebUI.RSSEditGroup = function()
 {
 	theWebUI.fillRSSGroups();
 	var grp = theWebUI.rssGroups[this.actRSSLbl];
-	for(var i=0; i<grp.lst.length; i++)
+	for (var i=0; i<grp.lst.length; i++)
 		$('#grp_'+grp.lst[i]).prop('checked',true);
 	$("#rssGroupLabel").val(grp.name);
 	$("#dlgAddRSSGroup-header").html(theUILang.editRSSGroup);
@@ -419,7 +419,7 @@ theWebUI.createRSSMenu = function(e, id)
 	var trtArray = [];
 	this.rssArray = [];
 	var sr = this.getTable("rss").rowSel;
-	for(var k in sr)
+	for (var k in sr)
 	{
 		if (sr[k] == true)
 		{
@@ -443,10 +443,10 @@ theWebUI.createRSSMenu = function(e, id)
 	if (trtArray.length)
 	{
 	        var table = this.getTable("trt");
-		for(var k in table.rowSel)
+		for (var k in table.rowSel)
 			table.rowSel[k] = false;
 		table.selCount = trtArray.length;
-		for(var i = 0; i<trtArray.length; i++)
+		for (var i = 0; i<trtArray.length; i++)
 			table.rowSel[trtArray[i]] = true;
 		table.refreshSelection();
 		this.dID = trtArray[0];
@@ -462,7 +462,7 @@ theWebUI.rssSelect = function(e, id)
 {
 	var sr = theWebUI.getTable("rss").rowSel;
 	var trtArray = [];
-	for(var k in sr)
+	for (var k in sr)
 	{
 		if (sr[k] == true)
 		{
@@ -472,10 +472,10 @@ theWebUI.rssSelect = function(e, id)
 		}
 	}
 	var table = theWebUI.getTable("trt");
-	for(var k in table.rowSel)
+	for (var k in table.rowSel)
 		table.rowSel[k] = false;
 	table.selCount = trtArray.length;
-	for(var i = 0; i<trtArray.length; i++)
+	for (var i = 0; i<trtArray.length; i++)
 		table.rowSel[trtArray[i]] = true;
 	table.refreshSelection();
 	if (id && $type(theWebUI.torrents[theWebUI.rssItems[id].hash]))
@@ -502,7 +502,7 @@ theWebUI.loadTorrents = function(needSort)
 	{
 		var updated = false;
 		var table = this.getTable("rss");
-		for(var href in this.rssItems)
+		for (var href in this.rssItems)
 		{
 			var item = this.rssItems[href];
 			if ((item.hash!="") && $type(this.torrents[item.hash]))
@@ -573,7 +573,7 @@ theWebUI.editRSS = function()
 
 theWebUI.isGroupContain = function( rssGroup, rssItem )
 {
-	for( var i=0; i<rssGroup.lst.length; i++ )
+	for ( var i=0; i<rssGroup.lst.length; i++ )
 		if (rssItem.rss[rssGroup.lst[i]])
 			return(true);
 	return(false);
@@ -582,14 +582,14 @@ theWebUI.isGroupContain = function( rssGroup, rssItem )
 theWebUI.updateCounters = function( rssGroup, rssLabels )
 {
 	var hrefs = {};
-	for( var href in theWebUI.rssItems )
+	for ( var href in theWebUI.rssItems )
 	{
 		if ( theWebUI.isGroupContain(rssGroup, theWebUI.rssItems[href]) )
 			hrefs[href] = true;
 	}
 	rssGroup.cnt = propsCount(hrefs);
 	rssGroup.enabled = 0;
-	for( var i=0; i<rssGroup.lst.length; i++ )
+	for ( var i=0; i<rssGroup.lst.length; i++ )
 		if ( $type(rssLabels[rssGroup.lst[i]]) && rssLabels[rssGroup.lst[i]].enabled )
 		{
 			rssGroup.enabled = 1;
@@ -607,7 +607,7 @@ theWebUI.updateRSSLabels = function(rssLabels,rssGroups)
 	var ul = $("#rssl");
 	var needSwitch = false;
 
-	for( var lbl in rssGroups )
+	for ( var lbl in rssGroups )
 	{
 		var li = null;
 		this.updateCounters( rssGroups[lbl], rssLabels );
@@ -629,7 +629,7 @@ theWebUI.updateRSSLabels = function(rssLabels,rssGroups)
 		else
 			li[0].className = (rssGroups[lbl].enabled==1) ?  "RSSGroup cat" : "disRSS cat";
 	}
-	for(var lbl in this.rssGroups)
+	for (var lbl in this.rssGroups)
 		if (!(lbl in rssGroups))
 		{
 			$($$(lbl)).remove();
@@ -642,7 +642,7 @@ theWebUI.updateRSSLabels = function(rssLabels,rssGroups)
 	this.rssGroups = rssGroups;
 
 	var keys = [];
-	for(var lbl in rssLabels)
+	for (var lbl in rssLabels)
 		keys.push(lbl);
 	keys.sort( function(a,b) {  return((rssLabels[a].name>rssLabels[b].name) ? 1 : (rssLabels[a].name<rssLabels[b].name) ? -1 : 0); } );
 
@@ -650,7 +650,7 @@ theWebUI.updateRSSLabels = function(rssLabels,rssGroups)
 	$("#_rssAll_c").text(allCnt);
 	$("#_rssAll_").prop("title",theUILang.allFeeds+" ("+allCnt+")");
 
-	for(var i=0; i<keys.length; i++)
+	for (var i=0; i<keys.length; i++)
 	{
 		var lbl = keys[i];
 		var li = null;
@@ -672,7 +672,7 @@ theWebUI.updateRSSLabels = function(rssLabels,rssGroups)
 		else
 			li[0].className = (rssLabels[lbl].enabled==1) ?  "RSS cat" : "disRSS cat";
 	}
-	for(var lbl in this.rssLabels)
+	for (var lbl in this.rssLabels)
 		if (!(lbl in rssLabels))
 		{
 			$($$(lbl)).remove();
@@ -705,7 +705,7 @@ theWebUI.showRSS = function()
 
 theWebUI.showErrors = function(d)
 {
-	for( var i=0; i<d.errors.length; i++)
+	for ( var i=0; i<d.errors.length; i++)
 	{
 		var s = '';
 		if (d.errors[i].time)
@@ -721,18 +721,18 @@ theWebUI.addRSSItems = function(d)
 {
 	if (!this.rssUpdateInProgress)
 	{
-		for(var href in this.rssItems)
+		for (var href in this.rssItems)
 			this.rssItems[href].rss = {};
 		var updated = false;
 		this.rssUpdateInProgress = true;
 		this.showErrors(d);
 		var rssLabels = {};
 		var table = this.getTable("rss");
-		for( var i=0; i<d.list.length; i++)
+		for ( var i=0; i<d.list.length; i++)
 		{
 			var rss = d.list[i];
 			rssLabels[rss.hash] = { name: rss.label, cnt: rss.items.length, enabled: rss.enabled, url: rss.url };
-			for( var j=0; j<rss.items.length; j++)
+			for ( var j=0; j<rss.items.length; j++)
 			{
 				var item = rss.items[j];
 				if ($type(theWebUI.rssItems[item.href]))
@@ -777,7 +777,7 @@ theWebUI.addRSSItems = function(d)
 				theWebUI.rssItems[item.href] = item;
 			}
 		}
-		for(var href in this.rssItems)
+		for (var href in this.rssItems)
 		{
 			if (!plugin.getFirstRSS(this.rssItems[href]))
 			{
@@ -871,7 +871,7 @@ theWebUI.loadFiltersWithAdditions = function( flt )
 	{
 		var ret = "/^";
 		var specChars = "?*+#\^$.[]|(){}/";
-		for(var i = 0; i<s.length; i++)
+		for (var i = 0; i<s.length; i++)
 		{
 			var c = s.charAt(i);
 			if (specChars.indexOf(c)>=0)
@@ -882,7 +882,7 @@ theWebUI.loadFiltersWithAdditions = function( flt )
 	}
 
 	var additions = [];
-	for(var i = 0; i<this.rssArray.length; i++)
+	for (var i = 0; i<this.rssArray.length; i++)
 	{
 		var s = this.rssItems[this.rssArray[i]].title;
 		additions.push( { name: s, enabled: 1,
@@ -899,16 +899,16 @@ theWebUI.loadFilters = function( flt, additions )
 	list.empty();
 	$('#FLT_rss option').remove();
 	$('#FLT_rss').append("<option value=''>"+theUILang.allFeeds+"</option>");
-	for(var lbl in this.rssGroups)
+	for (var lbl in this.rssGroups)
 		$('#FLT_rss').append("<option value='"+lbl+"'>"+this.rssGroups[lbl].name+"</option>");
-	for(var lbl in this.rssLabels)
+	for (var lbl in this.rssLabels)
 		$('#FLT_rss').append("<option value='"+lbl+"'>"+this.rssLabels[lbl].name+"</option>");
 	var fltThrottle = $('#FLT_throttle');
 	if (fltThrottle.length)
 	{
 		$('#FLT_throttle option').remove();
 		fltThrottle.append("<option value=''>"+theUILang.mnuUnlimited+"</option>");
-		for(var i=0; i<theWebUI.maxThrottle; i++)
+		for (var i=0; i<theWebUI.maxThrottle; i++)
 			if (theWebUI.isCorrectThrottle(i))
 				fltThrottle.append("<option value='thr_"+i+"'>"+theWebUI.throttles[i].name+"</option>");
 	}
@@ -917,7 +917,7 @@ theWebUI.loadFilters = function( flt, additions )
 	{
 		$('#FLT_ratio option').remove();
 		fltRatio.append("<option value=''>"+theUILang.mnuRatioUnlimited+"</option>");
-		for(var i=0; i<theWebUI.maxRatio; i++)
+		for (var i=0; i<theWebUI.maxRatio; i++)
 			if (theWebUI.isCorrectRatio(i))
 				fltRatio.append("<option value='rat_"+i+"'>"+theWebUI.ratios[i].name+"</option>");
 	}
@@ -925,7 +925,7 @@ theWebUI.loadFilters = function( flt, additions )
 	if (additions)
 		this.filters = additions.concat(this.filters);
 	theWebUI.maxFilterNo = 0;
-	for(var i=0; i<this.filters.length; i++)
+	for (var i=0; i<this.filters.length; i++)
 	{
 		var f = this.filters[i];
 		if (theWebUI.maxFilterNo<f.no)
@@ -935,7 +935,7 @@ theWebUI.loadFilters = function( flt, additions )
 		if (f.enabled)
 			$("#_fe"+i).prop("checked",true);
 	}
-	for(var i=0; i<this.filters.length; i++)
+	for (var i=0; i<this.filters.length; i++)
 	{
 		var f = this.filters[i];
 		if (f.no<0)
@@ -977,7 +977,7 @@ theWebUI.deleteCurrentFilter = function()
 	this.curFilter = null;
 	if (this.filters.length)
 	{
-		for(var i=no+1; i<this.filters.length+1; i++)
+		for (var i=no+1; i<this.filters.length+1; i++)
 		{
 			$("#_fn"+i).prop("id", "_fn"+(i-1));
 			$("#_fe"+i).prop("id", "_fe"+(i-1));
@@ -1012,12 +1012,12 @@ theWebUI.showFilterResults = function( d )
 	else
 		this.switchLabel($$('_rssAll_'));
 	var table = this.getTable("rss");
-	for(var k in table.rowSel)
+	for (var k in table.rowSel)
 		table.rowSel[k] = false;
 	this.getTable("trt").selCount = d.count;
 	var labels = [];
 	var dirs = [];
-	for(var i in d.list)
+	for (var i in d.list)
 	{
 		table.rowSel[i] = true;
 		if (d.list[i].dir.length)
@@ -1065,7 +1065,7 @@ theWebUI.rssClearFilter = function()
 plugin.getFirstRSS = function(item)
 {
 	var ret = '';
-	for(var k in item.rss)
+	for (var k in item.rss)
 	{
 		ret = k;
 		break;
@@ -1118,7 +1118,7 @@ rTorrentStub.prototype.setfilters = function()
 {
 	this.content = "mode=setfilters";
 	theWebUI.storeFilterParams();
-	for(var i=0; i<theWebUI.filters.length; i++)
+	for (var i=0; i<theWebUI.filters.length; i++)
 	{
 		var flt = theWebUI.filters[i];
 		var enabled = $("#_fe"+i).prop("checked") ? 1 : 0;
@@ -1165,7 +1165,7 @@ rTorrentStub.prototype.addrss = function()
 rTorrentStub.prototype.addrssgroup = function()
 {
 	this.content = "mode=addgroup&label="+encodeURIComponent( $('#rssGroupLabel').val() )+"&hash="+$("#rssGroupHash").val();
-	for(var lbl in theWebUI.rssLabels)
+	for (var lbl in theWebUI.rssLabels)
 		if ($('#grp_'+lbl).prop('checked'))
 			this.content += ('&rss='+lbl);
 	this.contentType = "application/x-www-form-urlencoded";
@@ -1204,7 +1204,7 @@ rTorrentStub.prototype.loadrsstorrents = function()
 	var lbl = $("#RSS_label").val().trim();
 	if (lbl.length)
 		this.content = this.content + '&label='+encodeURIComponent(lbl);
-	for(var i = 0; i<theWebUI.rssArray.length; i++)
+	for (var i = 0; i<theWebUI.rssArray.length; i++)
 	{
 		var item = theWebUI.rssItems[theWebUI.rssArray[i]];
 		this.content = this.content + '&rss='+plugin.getFirstRSS(item)+'&url='+encodeURIComponent(item.href);
@@ -1264,7 +1264,7 @@ rTorrentStub.prototype.rsstoggle = function()
 rTorrentStub.prototype.rssmarkstate = function()
 {
 	this.content = "mode=mark&state="+this.ss[0];
-	for( var i=0; i<theWebUI.rssArray.length; i++)
+	for ( var i=0; i<theWebUI.rssArray.length; i++)
 	{
 		var href = theWebUI.rssArray[i];
 		this.content+=("&url="+encodeURIComponent(href));

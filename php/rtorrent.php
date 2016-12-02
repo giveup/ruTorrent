@@ -1,6 +1,6 @@
 <?php
 
-require_once( 'util.php' );
+require_once('util.php');
 require_once( 'xmlrpc.php' );
 require_once( 'Torrent.php' );
 
@@ -159,7 +159,7 @@ class rTorrent
 
     public static function fastResume($torrent, $base, $add_path = true)
     {
-            $files = array();
+            $files = [];
             $info = $torrent->info;
             $psize = intval($info['piece length']);
         $base = trim($base);
@@ -184,7 +184,7 @@ class rTorrent
             $chunks = intval(($tsize + $psize - 1) / $psize);
             $torrent->{'libtorrent_resume'}['bitfield'] = intval($chunks);
             if (!isset($torrent->{'libtorrent_resume'}['files'])) {
-                $torrent->{'libtorrent_resume'}['files'] = array();
+                $torrent->{'libtorrent_resume'}['files'] = [];
             }
             foreach ($files as $key => $file) {
                 $ss = stat($base.$file);

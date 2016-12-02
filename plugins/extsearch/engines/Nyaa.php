@@ -59,7 +59,7 @@ class NyaaEngine extends commonEngine
 
 		$maxPage = 10;
 
-		for($pg = 1; $pg<=$maxPage; $pg++)
+		for ($pg = 1; $pg<=$maxPage; $pg++)
 		{
 			#Example of research "Fairy Tail" in all categories page 2:
 			#http://www.nyaa.se/?page=search&cats=0_0&term=fairy+tail&offset=2

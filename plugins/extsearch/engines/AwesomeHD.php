@@ -18,7 +18,7 @@ class AwesomeHDEngine extends commonEngine
 		else
 			$cat = $categories[$cat];
 
-		for($pg = 1; $pg<11; $pg++)
+		for ($pg = 1; $pg<11; $pg++)
 		{
 			$itemsFound = false;
 			$cli = $this->fetch( $url.'/torrents.php?searchstr='.$what.$cat.'&action=basic&order_by=seeders&order_way=desc&page='.$pg );			
@@ -34,8 +34,8 @@ class AwesomeHDEngine extends commonEngine
 			if (($res!==false) && ($res>0) &&
 				count($matches["id"])==count($matches["name"]))
 			{
-				$groups = array();
-                                for($i=0; $i<count($matches["id"]); $i++)
+				$groups = [];
+                                for ($i=0; $i<count($matches["id"]); $i++)
 					$groups[intval($matches["id"][$i])] = array( "name" => self::removeTags($matches["name"][$i]), "cat" => self::removeTags($matches["cat"][$i]) );
 
 				$res = preg_match_all('/<tr class="group_torrent groupid_(?P<id>\d+)">'.
@@ -56,7 +56,7 @@ class AwesomeHDEngine extends commonEngine
 					count($matches["name"])==count($matches["leech"]))
 				{
 					$itemsFound = true;
-					for($i=0; $i<count($matches["link"]); $i++)
+					for ($i=0; $i<count($matches["link"]); $i++)
 					{
 						$link = $url."/torrents.php?".self::removeTags($matches["link"][$i]);
 						if (!array_key_exists($link,$ret))

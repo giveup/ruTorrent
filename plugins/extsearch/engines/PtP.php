@@ -26,7 +26,7 @@ class PtPEngine extends commonEngine
 		else
 			$cat = $categories[$cat];
 
-		for($pg = 1; $pg<11; $pg++)
+		for ($pg = 1; $pg<11; $pg++)
 		{
 			$itemsFound = false;
 			$cli = $this->fetch( $url.'/torrents.php?searchstr='.$what.$cat.'&order_by=seeders&grouping=1&page='.$pg );			
@@ -41,8 +41,8 @@ class PtPEngine extends commonEngine
 
 			if ($res)
 			{
-				$groups = array();
-                                for($i=0; $i<$res; $i++)
+				$groups = [];
+                                for ($i=0; $i<$res; $i++)
 					$groups[intval($matches["id"][$i])] = self::removeTags($matches["name"][$i]);
 
 				$res = preg_match_all('`<tr class="group_torrent groupid_(?P<id>\d+)[ "].*'.
@@ -57,7 +57,7 @@ class PtPEngine extends commonEngine
 				if ($res)
 				{
 					$itemsFound = true;
-					for($i=0; $i<$res; $i++)
+					for ($i=0; $i<$res; $i++)
 					{
 						$link = $url."/torrents.php?".self::removeTags($matches["link"][$i]);
 						if (!array_key_exists($link,$ret))
@@ -97,7 +97,7 @@ class PtPEngine extends commonEngine
 					$title = '';
 					if ( preg_match( '`<title>(?P<title>.*)::`',$cli->results, $matches1 ) )
 						$title = $matches1["title"];
-					for($i=0; $i<$res; $i++)
+					for ($i=0; $i<$res; $i++)
 					{
 						$link = $url."/torrents.php?".self::removeTags($matches["link"][$i]);
 						if (!array_key_exists($link,$ret))

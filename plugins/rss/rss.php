@@ -7,12 +7,12 @@ eval(getPluginConf('rss'));
 
 class rRSS
 {
-	public $items = array();
-	public $channel = array();
+	public $items = [];
+	public $channel = [];
 	public $url = null;
 	public $srcURL = null;
 	public $hash = null;
-	public $cookies = array();
+	public $cookies = [];
 	public $lastModified = null;
 	public $etag = null;
 	public $encoding = null;
@@ -33,7 +33,7 @@ class rRSS
 			{
 				$this->url = substr($url,0,$pos);
 				$tmp = explode(";",substr($url,$pos+8));
-				foreach($tmp as $item)
+				foreach ($tmp as $item)
 				{
 					list($name,$val) = explode("=",$item);
 					$this->cookies[$name] = $val;
@@ -46,7 +46,7 @@ class rRSS
 			if (count($this->cookies))
 			{
 				$this->srcURL = $this->srcURL.':COOKIE:';
-				foreach($this->cookies as $name=>$val)
+				foreach ($this->cookies as $name=>$val)
 					$this->srcURL = $this->srcURL.$name.'='.$val.';';
 				$this->srcURL = substr($this->srcURL,0,strlen($this->srcURL)-1);
 			}
@@ -102,8 +102,8 @@ class rRSS
 			"enabled"=>intval($enabled),
 			"hash"=>$this->hash,
 			"url"=>self::quoteInvalidURI($this->srcURL),
-			"items"=>array() );
-		foreach($this->items as $href=>$item)
+			"items"=>[] );
+		foreach ($this->items as $href=>$item)
 		{
 			$ret["items"][] = array(
 				"time"=>($item['timestamp']>0) ? intval($item['timestamp']) : null,
@@ -119,7 +119,7 @@ class rRSS
 
 	public function fetch( $history )
 	{
-		$headers = array();
+		$headers = [];
 		if ($this->etag) 
 			$headers['If-None-Match'] = trim($this->etag);
 		if ($this->lastModified)
@@ -131,7 +131,7 @@ class rRSS
 		$this->lastModified = null;
 		if ($cli->status>=200 && $cli->status<300)
 		{
-			foreach($cli->headers as $h) 
+			foreach ($cli->headers as $h) 
 			{
 				$h = trim($h);
 				if (strpos($h, ": "))
@@ -151,13 +151,13 @@ class rRSS
 			$this->encoding = strtolower($this->search("'encoding=[\'\"](.*?)[\'\"]'si", $cli->results));
 			if ($this->encoding=='')
 				$this->encoding = null;
-			$this->channel = array();
-			$this->items = array();
+			$this->channel = [];
+			$this->items = [];
 			if (preg_match("'<channel.*?>(.*?)</channel>'si", $cli->results, $out) || 
 				preg_match("'<channel.*?>(.*?)'si", $cli->results, $out))	// for damned lostfilm.tv with broken rss
 			{
 				$this->isValid=true; //We have a RSS feed here.
-				foreach($this->channeltags as $channeltag)
+				foreach ($this->channeltags as $channeltag)
 				{
 					$temp = $this->search("'<$channeltag.*?>(.*?)</$channeltag>'si", $out[1], ($channeltag=='title'));
 					if ($temp!='')
@@ -172,10 +172,10 @@ class rRSS
 				$ret = preg_match_all("'<item(| .*?)>(.*?)</item>'si", $cli->results, $items);
 				if (($ret!==false) && ($ret>0))
 				{
-					foreach($items[2] as $rssItem)
+					foreach ($items[2] as $rssItem)
 					{
-						$item = array();
-						foreach($this->itemtags as $itemtag)
+						$item = [];
+						foreach ($this->itemtags as $itemtag)
 						{
 							if ($itemtag=='enclosure')
 								$temp = $this->search("'<enclosure.*url\s*=\s*[\"|\'](.*?)[\"|\'].*>'si", $rssItem);
@@ -241,7 +241,7 @@ class rRSS
 				$urlPrefix = '';
 				if (preg_match('#<feed.*\s+xml:base\s*=\s*[\"|\'](.*?)[\"|\'].*>#si', $cli->results, $items))
 					$urlPrefix = $items[1];
-				foreach($this->atomtags as $atomtag)
+				foreach ($this->atomtags as $atomtag)
 				{
 					$temp = $this->search("'<$atomtag.*?>(.*?)</$atomtag>'si", $cli->results, ($atomtag=='title'));
 					if ($temp!='')
@@ -262,10 +262,10 @@ class rRSS
 				$ret = preg_match_all("'<entry(| .*?)>(.*?)</entry>'si", $cli->results, $items);
 				if (($ret!==false) && ($ret>0))
 				{
-					foreach($items[2] as $rssItem)
+					foreach ($items[2] as $rssItem)
 					{
-						$item = array();
-						foreach($this->entrytags as $itemtag)
+						$item = [];
+						foreach ($this->entrytags as $itemtag)
 						{
 							if ($itemtag=='title')
 							{
@@ -309,11 +309,11 @@ class rRSS
 			{
 				rTorrentSettings::get()->pushEvent( "RSSFetched", array( "rss"=>&$this ) );
 				if (!$this->hasIncorrectTimes())
-					foreach( $this->items as $href=>$item )
+					foreach ( $this->items as $href=>$item )
 						$history->correct($href,$item['timestamp']);
 				return(true);
 			}
-			else if ($this->isValid)
+			elseif ($this->isValid)
                 		return true;
 		}
 		return(false);
@@ -325,7 +325,7 @@ class rRSS
 		$ret = false;
 		$uparts = @parse_url($this->url);
 		$host = $uparts['host'];
-		foreach( $feedsWithIncorrectTimes as $url )
+		foreach ( $feedsWithIncorrectTimes as $url )
 		{
 			if ( stripos($host,$url)!==false )
 			{
@@ -402,8 +402,8 @@ class rRSS
 class rRSSHistory
 {
 	public $hash = "history";
-	public $lst = array();
-	public $filtersTime = array();
+	public $lst = [];
+	public $filtersTime = [];
 	public $changed = false;
 	public $version = 0;
 
@@ -465,7 +465,7 @@ class rRSSHistory
 	public function clear()
 	{
 	        $this->changed = (count($this->lst)>0);
-		$this->lst = array();
+		$this->lst = [];
 	}
 	public function isOverflow()
 	{
@@ -492,8 +492,8 @@ class rRSSHistory
 	}
 	public function removeOldFilters( $filters )
 	{
-	        $newFiltesTime = array();
-		foreach($filters->lst as $filter)
+	        $newFiltesTime = [];
+		foreach ($filters->lst as $filter)
 			if (array_key_exists($filter->no,$this->filtersTime))
                         	$newFiltesTime[$filter->no] = $this->filtersTime[$filter->no];
 		if (count($newFiltesTime)!=count($this->filtersTime))
@@ -522,7 +522,7 @@ class rRSSFilter
 	public $linkCheck = 0;
 	public $no = -1;
 	public $interval = -1;
-	public $matches = array();
+	public $matches = [];
 	private static $search = array
 	( 
 		null,
@@ -552,7 +552,7 @@ class rRSSFilter
 		$this->ratio = $ratio;
 		$this->no = $no;
 		$this->interval = $interval;
-		$this->matches = array();
+		$this->matches = [];
 	}
 	public function isApplicable( $rss, $history, $groups )
 	{
@@ -572,7 +572,7 @@ class rRSSFilter
 	}	
 	protected function isOK( $string )
 	{
-		$this->matches = array();
+		$this->matches = [];
 		return(	(($this->pattern!='') || ($this->exclude!='')) &&
 			(($this->pattern=='') || (@preg_match($this->pattern.'u',$string,$this->matches)==1)) &&
 			(($this->exclude=='') || (@preg_match($this->exclude.'u',$string)!=1)));
@@ -634,7 +634,7 @@ class rRSSFilter
 class rRSSFilterList
 {
 	public $hash = "filters";
-        public $lst = array();
+        public $lst = [];
 	
 	public function add( $filter )
 	{
@@ -646,8 +646,8 @@ class rRSSFilterList
 	}
 	public function getContents()
 	{
-		$ret = array();
-		foreach( $this->lst as $item )
+		$ret = [];
+		foreach ( $this->lst as $item )
 			$ret[] = $item->getContents();
 		return( $ret );
 	}
@@ -657,7 +657,7 @@ class rRSSGroup
 {
 	public $name;
 	public $hash;
-	public $lst = array();
+	public $lst = [];
 
 	public function	__construct( $name, $hash = null )
 	{
@@ -670,7 +670,7 @@ class rRSSGroup
 	public function check( $rssList )	
 	{
 		$changed = false;
-		foreach( $this->lst as $ndx=>$item )
+		foreach ( $this->lst as $ndx=>$item )
 			if (!array_key_exists( $item, $rssList->lst ))
 			{
 				unset($this->lst[$ndx]);
@@ -689,7 +689,7 @@ class rRSSGroup
 class rRSSGroupList
 {
 	public $hash = "groups";
-        public $lst = array();
+        public $lst = [];
 	
 	public function add( $grp )
 	{
@@ -701,15 +701,15 @@ class rRSSGroupList
 	}
 	public function getContents()
 	{
-		$ret = array();
-		foreach( $this->lst as $item )
+		$ret = [];
+		foreach ( $this->lst as $item )
 			$ret[$item->hash] = array( "name"=>$item->name, "lst"=>$item->lst );
 		return( $ret );
 	}
 	public function check( $rssList )
 	{
 		$changed = false;
-		foreach( $this->lst as $item )
+		foreach ( $this->lst as $item )
 			if ($item->check($rssList))
 				$changed = true;
 		return($changed);
@@ -735,9 +735,9 @@ class rRSSGroupList
 class rRSSMetaList
 {
 	public $hash = "info";
-	public $lst = array();
+	public $lst = [];
 	public $updatedAt = 0;
-	public $err = array();
+	public $err = [];
 	public $loadedErrors = 0;
 
 	public function merge($instance,$mergeErrorsOnly)
@@ -745,7 +745,7 @@ class rRSSMetaList
 		if ($this->isErrorsOccured())
 		{
 			$mergedErrors = $instance->err;
-			for($i = $this->loadedErrors; $i<count($this->err); $i++)
+			for ($i = $this->loadedErrors; $i<count($this->err); $i++)
 				$mergedErrors[] = $this->err[$i];
 			$this->err = $mergedErrors;
 		}
@@ -814,7 +814,7 @@ class rRSSMetaList
 	}
 	public function clearErrors()
 	{
-		$this->err = array();
+		$this->err = [];
 	}
 }
 
@@ -877,7 +877,7 @@ class rRSSManager
 		$flts = new rRSSFilterList();
                 $this->cache->get($flts);
 		$changed = false;
-		foreach($flts->lst as $filter)
+		foreach ($flts->lst as $filter)
 		{
 			if (!empty($filter->rssHash) &&
 				!$this->rssList->isExist($filter->rssHash) &&
@@ -899,7 +899,7 @@ class rRSSManager
 	{
 	        $flts->sort();
                 $this->cache->set($flts);
-		foreach($this->rssList->lst as $hash=>$info)
+		foreach ($this->rssList->lst as $hash=>$info)
 		{
 			$rss = new rRSS();
 			$rss->hash = $hash;
@@ -916,7 +916,7 @@ class rRSSManager
 	}
 	public function setHistoryState( $urls, $times, $state )
 	{
-		foreach( $urls as $ndx=>$url )
+		foreach ( $urls as $ndx=>$url )
 		{
 			if ($state)
 				$this->history->add($url,'Loaded',$times[$ndx]);
@@ -929,9 +929,9 @@ class rRSSManager
 	{
 		if ($filters===null)
 			$filters = $this->loadFilters();
-		foreach($filters->lst as $filter)
+		foreach ($filters->lst as $filter)
 		{
-			foreach($rss->items as $href=>$item)
+			foreach ($rss->items as $href=>$item)
 			{
 				if (!$filter->isApplicable( $rss, $this->history, $this->groups ))
 					break;
@@ -954,10 +954,10 @@ class rRSSManager
 	{
 		$rss = new rRSS();
 		$rss->hash = $hash;
-		$hrefs = array();
+		$hrefs = [];
 		if ($this->rssList->isExist($rss) && $this->cache->get($rss))
 		{
-			foreach($rss->items as $href=>$item)
+			foreach ($rss->items as $href=>$item)
 			{
 				if ( $filter->checkItem($href, $item) )
 				{
@@ -971,7 +971,7 @@ class rRSSManager
 	}
 	public function testFilter($filter,$hash = null)
 	{
-		$hrefs = array();
+		$hrefs = [];
 		if (!$filter->isCorrect())
 			$this->rssList->addError("theUILang.rssIncorrectFilter",$filter->pattern);
 		else
@@ -983,14 +983,14 @@ class rRSSManager
 			{
 				$grp = $this->groups->get($hash);
 				if ($grp)
-					foreach($grp->lst as $hsh)
+					foreach ($grp->lst as $hsh)
 						$hrefs = array_merge($hrefs,$this->testOneFilter($filter,$hsh));
 				else
 					$hrefs = $this->testOneFilter($filter,$hash);
 			}
 			else
 			{
-				foreach($this->rssList->lst as $hsh=>$info)
+				foreach ($this->rssList->lst as $hsh=>$info)
 					$hrefs = array_merge($hrefs,$this->testOneFilter($filter,$hsh));
 				$hash = '';
 			}
@@ -1015,7 +1015,7 @@ class rRSSManager
 		$rss = new rRSS();
 		if (!is_array($hash))
 			$hash = array( $hash );
-		foreach( $hash as $item )
+		foreach ( $hash as $item )
 		{
 			$rss->hash = $item;
 			if ($this->rssList->isExist($rss))
@@ -1044,7 +1044,7 @@ class rRSSManager
         public function update( $manual = false )
 	{
 		$filters = $this->loadFilters();
-		foreach($this->rssList->lst as $hash=>$info)
+		foreach ($this->rssList->lst as $hash=>$info)
 		{
 			$rss = new rRSS();
 			$rss->hash = $hash;
@@ -1073,8 +1073,8 @@ class rRSSManager
 	public function get()
 	{
 		$corrected = false;
-		$ret = array( "errors"=>$this->rssList->formatErrors(), "list"=>array(), "groups"=>array() );
-		foreach($this->rssList->lst as $hash=>$info)
+		$ret = array( "errors"=>$this->rssList->formatErrors(), "list"=>[], "groups"=>[] );
+		foreach ($this->rssList->lst as $hash=>$info)
 		{
 			$rss = new rRSS(array_key_exists('url',$info) ? $info['url'] : null);
 			$rss->hash = $hash;
@@ -1134,7 +1134,7 @@ class rRSSManager
 	{
 		if (is_array($hash))
 		{
-			foreach($hash as $item)
+			foreach ($hash as $item)
 				$this->remove($item,false);
 			$this->saveState(false);
 		}
@@ -1157,7 +1157,7 @@ class rRSSManager
 		$grp = $this->groups->get($hash);
 		if ($grp)
 		{
-			foreach( $grp->lst as $item )
+			foreach ( $grp->lst as $item )
 				$this->rssList->lst[$item]['enabled'] = $enable;
 			$this->saveState(false);
 		}
@@ -1243,7 +1243,7 @@ class rRSSManager
 		$ret = $rss->getTorrent( $url );
 		if ($ret!==false)
 		{
-			$addition = array();
+			$addition = [];
 			if (!empty($throttle))
 				$addition[] = getCmd("d.throttle_name.set=").$throttle;
 			if (!empty($ratio))
@@ -1269,19 +1269,19 @@ class rRSSManager
 	{
 		if ($this->history->isOverflow())
 		{
-			$urls = array();
-			foreach($this->rssList->lst as $hash=>$info)
+			$urls = [];
+			foreach ($this->rssList->lst as $hash=>$info)
 			{
 				$rss = new rRSS();
 				$rss->hash = $hash;
 				if ($this->cache->get($rss))
 				{
-					foreach($rss->items as $href=>$item)
+					foreach ($rss->items as $href=>$item)
 						$urls[$href] = true;
 				}
 			}
 			if (count($urls))
-				foreach($this->history->lst as $href=>$hash)
+				foreach ($this->history->lst as $href=>$hash)
 				{
 					if (!array_key_exists($href,$urls))
 						$this->history->del($href);

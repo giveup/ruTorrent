@@ -24,7 +24,7 @@ class PirateBayEngine extends commonEngine
 		else
 			$cat = $categories[$cat];
 		$maxPage = 10;
-		for($pg = 0; $pg<$maxPage; $pg++)
+		for ($pg = 0; $pg<$maxPage; $pg++)
 		{
 			$cli = $this->fetch( Snoopy::linkencode($url.'/search/'.$what.'/'.$pg).'/7/'.$cat,false );
 			if ($cli==false || !preg_match('/<\/span>&nbsp;Displaying hits from \d+ to \d+ \(approx (?P<cnt>\d+) found\)/siU',$cli->results, $matches))
@@ -47,7 +47,7 @@ class PirateBayEngine extends commonEngine
 				count($matches["size"])==count($matches["seeds"]) &&
 				count($matches["seeds"])==count($matches["leech"]) )
 			{
-				for($i=0; $i<count($matches["link"]); $i++)
+				for ($i=0; $i<count($matches["link"]); $i++)
 				{
 					$link = "magnet:".$matches["link"][$i];
 					if (!array_key_exists($link,$ret))

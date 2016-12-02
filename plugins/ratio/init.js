@@ -10,10 +10,10 @@ plugin.allDone = function()
 	}
 	if (thePlugins.isInstalled("throttle"))
 	{
-		for(var i=0; i<theWebUI.maxThrottle; i++)
+		for (var i=0; i<theWebUI.maxThrottle; i++)
 			if (theWebUI.isCorrectThrottle(i))
 			{
-				for(var j=0; j<theWebUI.maxRatio; j++)
+				for (var j=0; j<theWebUI.maxRatio; j++)
 					$('#rat_action'+j).append("<option value='"+(i+10)+"'>"+theUILang.setThrottleTo+" "+theWebUI.throttles[i].name+"</option>");
 			}
 	}
@@ -26,7 +26,7 @@ theWebUI.config = function(data)
 	plugin.trtFormat = this.tables.trt.format;
 	theWebUI.tables.trt.format = function(table,arr)
 	{
-		for(var i in arr)
+		for (var i in arr)
 		{
 			if ((table.getIdByCol(i)=="ratiogroup") && arr[i])
 			{
@@ -81,7 +81,7 @@ theWebUI.addAndShowSettings = function(arg)
 {
 	if (plugin.enabled)
 	{
-	        for(var i=0; i<theWebUI.maxRatio; i++)
+	        for (var i=0; i<theWebUI.maxRatio; i++)
 		{
 			$('#rat_min'+i).val( theWebUI.ratios[i].min );
 		        $('#rat_max'+i).val( theWebUI.ratios[i].max );
@@ -97,7 +97,7 @@ theWebUI.addAndShowSettings = function(arg)
 
 theWebUI.ratioWasChanged = function()
 {
-	for(var i=0; i<theWebUI.maxRatio; i++)
+	for (var i=0; i<theWebUI.maxRatio; i++)
 	{
 		if ( 	(theWebUI.ratios[i].min != $('#rat_min'+i).val()) ||
 			(theWebUI.ratios[i].max != $('#rat_max'+i).val()) ||
@@ -121,7 +121,7 @@ theWebUI.setSettings = function()
 rTorrentStub.prototype.setratioprm = function()
 {
 	this.content = "default="+iv($('#ratDefault').val());
-	for(var i=0; i<theWebUI.maxRatio; i++)
+	for (var i=0; i<theWebUI.maxRatio; i++)
 	{
 		var name = $('#rat_name'+i).val().trim();
 		var upload = iv($('#rat_upload'+i).val());
@@ -165,7 +165,7 @@ theWebUI.createMenu = function(e, id)
 			var down = [];
 			down.push([theUILang.mnuRatioUnlimited,(curNo==-1) ? null : "theWebUI.setRatio('-1')"]);
 			down.push([CMENU_SEP]);
-			for(var i=0; i<theWebUI.maxRatio; i++)
+			for (var i=0; i<theWebUI.maxRatio; i++)
 				if (theWebUI.isCorrectRatio(i))
 					down.push([theWebUI.ratios[i].name,(i!=curNo) ? "theWebUI.setRatio('"+i+"')" : null]);
 			theContextMenu.add(el,[CMENU_CHILD, theUILang.mnuRatio, down]);
@@ -177,7 +177,7 @@ theWebUI.setRatio = function(ratio)
 {
 	var sr = this.getTable("trt").rowSel;
 	var req = '';
-	for(var k in sr)
+	for (var k in sr)
        		if (sr[k] && (k.length==40))
 			req += ("&hash=" + k + "&v="+ratio);
 	if (req.length>0)
@@ -186,7 +186,7 @@ theWebUI.setRatio = function(ratio)
 
 rTorrentStub.prototype.setratio = function()
 {
-	for(var i=0; i<this.vs.length; i++)
+	for (var i=0; i<this.vs.length; i++)
 	{
 		var wasNo = theWebUI.getRatioData(this.hashes[i]);
 		if (wasNo!=this.vs[i])
@@ -239,7 +239,7 @@ plugin.onLangLoaded = function()
 					"<td class='ratio_time' align=center><b>"+theUILang.maxTime+","+theUILang.time_h.substr(0,theUILang.time_h.length-1)+"</b></td>"+
 					"<td align=center><b>"+theUILang.ratioAction+"</b></td>"+
 				"</tr>";
-	for(var i=0; i<theWebUI.maxRatio; i++)
+	for (var i=0; i<theWebUI.maxRatio; i++)
 		s +=
 			"<tr>"+
 				"<td class='alr'><b>"+(i+1)+".</b></td>"+
@@ -252,7 +252,7 @@ plugin.onLangLoaded = function()
 			"</tr>";
 	s+="</table></div></fieldset>";
 	s+="<div class='aright'><label>"+theUILang.ratioDefault+":</label><select id='ratDefault'><option value='0'>"+theUILang.dontSet+"</option>";
-	for(var i=1; i<=theWebUI.maxRatio; i++)
+	for (var i=1; i<=theWebUI.maxRatio; i++)
 		s+="<option value='"+i+"'>"+i+"</option>";
 	s+="</select></div>";
 	this.attachPageToOptions($("<div>").attr("id","st_ratio").html(s).get(0),theUILang.ratios);

@@ -29,7 +29,7 @@ class HDVnbitsEngine extends commonEngine
 			$cat = $categories['all'];
 		else
 			$cat = $categories[$cat];
-		for($pg = 0; $pg<10; $pg++)
+		for ($pg = 0; $pg<10; $pg++)
 		{
 			$cli = $this->fetch( $url.'/torrents.php?search='.$what.'&incldead=1&sort=7&type=desc&page='.$pg.'&sltCategory='.$cat );
 			if ( ($cli==false) || (strpos($cli->results, "Nothing found! Try again with a refined search string")!==false))
@@ -47,7 +47,7 @@ class HDVnbitsEngine extends commonEngine
 				'`siU', $result, $matches);
 			if ($res)
 			{
-				for($i=0; $i<$res; $i++)
+				for ($i=0; $i<$res; $i++)
 				{
 					$link = $url."/download.php?id=".$matches["id"][$i];
 					if (!array_key_exists($link,$ret))

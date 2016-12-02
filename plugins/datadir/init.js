@@ -74,7 +74,7 @@ theWebUI.sendDataDir = function()
 {
 	$('#btn_datadir_ok').prop("disabled",true);
 	var sr = this.getTable("trt").rowSel;
-	for( var k in sr )
+	for ( var k in sr )
 	{
 		if ( sr[k] && (k.length==40))
 		{
@@ -95,7 +95,7 @@ theWebUI.receiveDataDir = function( d )
 	if ( !d.errors.length )
 		theDialogManager.hide( 'dlg_datadir' );
 	else
-		for( var i = 0; i < d.errors.length; i++ )
+		for ( var i = 0; i < d.errors.length; i++ )
 		{
 			var s = eval(d.errors[i].desc);
 			if ( d.errors[i].prm )

@@ -200,7 +200,7 @@ rTorrentStub.prototype.loadtegtorrents = function()
 		this.content += '&label='+encodeURIComponent(lbl);
 	if ($("#tegfast_resume").prop("checked"))
 		this.content += 'fast_resume=1&';
-	for(var i = 0; i<plugin.tegArray.length; i++)
+	for (var i = 0; i<plugin.tegArray.length; i++)
 	{
 		var item = plugin.tegArray[i];
 		this.content += ('&url='+encodeURIComponent(item.data.link)+'&eng='+item.data.src+'&teg='+item.id+'&ndx='+item.ndx);
@@ -224,7 +224,7 @@ plugin.reloadData = function(id)
 		table.scrollTo(0);
 		var data = plugin.tegs[id].data;
 		var count = 0;
-		for( var i = 0; i<data.length; i++ )
+		for ( var i = 0; i<data.length; i++ )
 		{
 			var item = data[i];
 			if (!item.deleted)
@@ -287,7 +287,7 @@ plugin.correctCounter = function(id,count)
 		{
 			count = 0;
 			var data = plugin.tegs[id].data;
-			for( var i = 0; i<data.length; i++ )
+			for ( var i = 0; i<data.length; i++ )
 				if (!data[i].deleted)
 					count++;
 		}
@@ -317,7 +317,7 @@ theWebUI.setTagsHash = function(d)
 {
 	if ($type(plugin.tegs[d.teg]))
 	{
-		for( var i=0; i<d.data.length; i++ )
+		for ( var i=0; i<d.data.length; i++ )
 		{
 			var item = plugin.tegs[d.teg].data[ d.data[i].ndx ];
 			item.hash = d.data[i].hash;
@@ -339,14 +339,14 @@ theWebUI.extTegLoad = function()
 
 theWebUI.extTegOpen = function()
 {
-	for(var i = 0; i<plugin.tegArray.length; i++)
+	for (var i = 0; i<plugin.tegArray.length; i++)
 		window.open(plugin.tegArray[i].data.desc,"_blank");
 }
 
 theWebUI.tegItemRemove = function()
 {
 	var table = theWebUI.getTable("teg");
-	for(var i = 0; i<plugin.tegArray.length; i++)
+	for (var i = 0; i<plugin.tegArray.length; i++)
 	{
 		plugin.tegs[theWebUI.actLbl].data[plugin.tegArray[i].ndx].deleted = true;
 		table.removeRow( theWebUI.actLbl+"$"+plugin.tegArray[i].ndx );
@@ -358,7 +358,7 @@ theWebUI.tegItemRemove = function()
 theWebUI.showTegURLInfo = function()
 {
 	var table = theWebUI.getTable("teg");
-	for(var i = 0; i<plugin.tegArray.length; i++)
+	for (var i = 0; i<plugin.tegArray.length; i++)
 	{
 		log(theUILang.exsURLGUID+": "+plugin.tegs[theWebUI.actLbl].data[plugin.tegArray[i].ndx].desc);
 		log(theUILang.exsURLHref+": "+plugin.tegs[theWebUI.actLbl].data[plugin.tegArray[i].ndx].link);
@@ -379,7 +379,7 @@ plugin.createExtTegMenu = function(e, id)
 	plugin.tegArray = new Array();
 
 	var sr = theWebUI.getTable("teg").rowSel;
-	for(var k in sr)
+	for (var k in sr)
 	{
 		if (sr[k] == true)
 		{
@@ -406,10 +406,10 @@ plugin.createExtTegMenu = function(e, id)
 	if (trtArray.length)
 	{
 	        var table = theWebUI.getTable("trt");
-		for(var k in table.rowSel)
+		for (var k in table.rowSel)
 			table.rowSel[k] = false;
 		table.selCount = trtArray.length;
-		for(var i = 0; i<trtArray.length; i++)
+		for (var i = 0; i<trtArray.length; i++)
 			table.rowSel[trtArray[i]] = true;
 		table.refreshSelection();
 		theWebUI.dID = trtArray[0];
@@ -448,7 +448,7 @@ theWebUI.setExtSearchTag = function( d )
 	$("#query").removeAttr("readonly");
 	var what = $("#query").val().trim();
 	var str = theSearchEngines.getEngName(d.eng)+"/"+($type(theUILang["excat"+d.cat]) ? theUILang["excat"+d.cat] : d.cat)+": "+what;
-	for( var id in plugin.tegs )
+	for ( var id in plugin.tegs )
 		if (plugin.tegs[id].val==str)
 		{
 			plugin.tegs[id].data = d.data;
@@ -487,7 +487,7 @@ theWebUI.loadTorrents = function(needSort)
 	{
 		var updated = false;
 		var tegItems = plugin.tegs[this.actLbl].data;
-		for(var i=0; i<tegItems.length; i++)
+		for (var i=0; i<tegItems.length; i++)
 		{
 			var item = tegItems[i];
 			var ndx = this.actLbl+'$'+i;
@@ -530,7 +530,7 @@ theWebUI.tegItemSelect = function(e,id)
 {
 	var sr = theWebUI.getTable("teg").rowSel;
 	var trtArray = new Array();
-	for(var k in sr)
+	for (var k in sr)
 	{
 		if (sr[k] == true)
 		{
@@ -540,10 +540,10 @@ theWebUI.tegItemSelect = function(e,id)
 		}
 	}
 	var table = theWebUI.getTable("trt");
-	for(var k in table.rowSel)
+	for (var k in table.rowSel)
 		table.rowSel[k] = false;
 	table.selCount = trtArray.length;
-	for(var i = 0; i<trtArray.length; i++)
+	for (var i = 0; i<trtArray.length; i++)
 		table.rowSel[trtArray[i]] = true;
 	table.refreshSelection();
 	if (id && (nfo = plugin.getTegByRowId(id)) &&
@@ -676,7 +676,7 @@ plugin.refreshCategories = function()
 	{
 		if (plugin.allStuffLoaded)
 		{
-			for( var i=0; i<plugin.categories.length; i++)
+			for ( var i=0; i<plugin.categories.length; i++)
 				$('#exscategory').append("<option value='"+plugin.categories[i]+"'>"+theUILang["excat"+plugin.categories[i]]+"</option>");
 		}
 		else
@@ -685,7 +685,7 @@ plugin.refreshCategories = function()
 	else
         if ($type(theSearchEngines.sites[theSearchEngines.current]))
 	{
-		for( var i=0; i<theSearchEngines.sites[theSearchEngines.current].cats.length; i++)
+		for ( var i=0; i<theSearchEngines.sites[theSearchEngines.current].cats.length; i++)
 			$('#exscategory').append("<option value='"+theSearchEngines.sites[theSearchEngines.current].cats[i]+"'>"+theSearchEngines.sites[theSearchEngines.current].cats[i]+"</option>");
 	}
 	$("#exscategory").prop("disabled",(theSearchEngines.current == -1));
@@ -805,7 +805,7 @@ plugin.onLangLoaded = function()
 	if (styles.length)
 		injectCSSText(styles);
 	this.attachPageToOptions($("<div>").attr("id","st_extsearch").html(s)[0],theUILang.exsSearch);
-	for( var i in toDisable )
+	for ( var i in toDisable )
 	{
 		$('#'+toDisable[i]+'_enabled').prop("disabled",true).prop("checked",false);
 		$('#lbl_'+toDisable[i]+'_enabled').addClass("disabled");
@@ -835,7 +835,7 @@ plugin.onRemove = function()
 	theSearchEngines.current = -1;
 	theWebUI.save();
 	theWebUI.switchLabel($$("-_-_-all-_-_-"));
-	for( var teg in plugin.tegs )
+	for ( var teg in plugin.tegs )
 		$("#"+teg).remove();
 	plugin.tegs = {};
 	$("#TegList").remove();

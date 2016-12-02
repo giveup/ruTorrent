@@ -32,7 +32,7 @@ class MyAnonamouseEngine extends commonEngine
 		else
 			$cat = $categories[$cat];
 
-		for($pg = 0; $pg<10; $pg++)
+		for ($pg = 0; $pg<10; $pg++)
 		{
 			$cli = $this->fetch( $url.'/tor/js/loadSearch.php?tor[text]='.$what.
 				'&tor[srchIn]=0&tor[fullTextType]=old&tor[author]=&tor[series]=&tor[narrator]=&tor[searchType]=active&tor[searchIn]=torrents&tor[browseFlags][]=16&tor[hash]=&tor[sortType]=seedersDesc'.
@@ -48,7 +48,7 @@ class MyAnonamouseEngine extends commonEngine
 	                        '`siU', $cli->results, $matches);
 			if ($res)
 			{
-				for($i=0; $i<$res; $i++)
+				for ($i=0; $i<$res; $i++)
 				{
 					$link = $url.$matches["link"][$i];
 					if (!array_key_exists($link,$ret))

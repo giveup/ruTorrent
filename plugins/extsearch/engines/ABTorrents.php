@@ -24,7 +24,7 @@ class ABTorrentsEngine extends commonEngine
 		else
 			$cat = $categories[$cat];
 		$what = rawurlencode(self::fromUTF(rawurldecode($what),"ISO-8859-1"));
-		for($pg = 0; $pg<10; $pg++)
+		for ($pg = 0; $pg<10; $pg++)
 		{
 			$cli = $this->fetch( $url.'/pages/torrents/browse.php?q='.$what.'&sort=seeders&dir=desc&nd=1&page='.$pg.'&cat='.$cat );
 
@@ -45,7 +45,7 @@ class ABTorrentsEngine extends commonEngine
 				'`siU', $cli->results, $matches);
 			if ($res)
 			{
-				for($i=0; $i<$res; $i++)
+				for ($i=0; $i<$res; $i++)
 				{
 					$link = $url."/pages/torrents/download.php/".$matches["id"][$i]."/dummy.torrent";
 					if (!array_key_exists($link,$ret))

@@ -1,7 +1,7 @@
 <?php
 
-require_once( "util.php" );
-require_once( "settings.php" );
+require_once('util.php');
+require_once('settings.php');
 
 function getPluginInfo($name)
 {

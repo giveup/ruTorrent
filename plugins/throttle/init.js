@@ -8,7 +8,7 @@ theWebUI.config = function(data)
 	plugin.trtFormat = this.tables.trt.format;
 	this.tables.trt.format = function(table,arr)
 	{
-		for(var i in arr)
+		for (var i in arr)
 		{
 			if ((table.getIdByCol(i)=="throttle") && arr[i])
 				{
@@ -62,7 +62,7 @@ theWebUI.addAndShowSettings = function(arg)
 {
 	if (plugin.enabled)
 	{
-	        for(var i=0; i<theWebUI.maxThrottle; i++)
+	        for (var i=0; i<theWebUI.maxThrottle; i++)
 		{
     			if (theWebUI.isCorrectThrottle(i))
 			{
@@ -80,7 +80,7 @@ theWebUI.addAndShowSettings = function(arg)
 
 theWebUI.throttleWasChanged = function()
 {
-	for(var i=0; i<theWebUI.maxThrottle; i++)
+	for (var i=0; i<theWebUI.maxThrottle; i++)
 	{
 		if ( 	(theWebUI.throttles[i].up!=$('#thr_up'+i).val()) ||
 			(theWebUI.throttles[i].down!=$('#thr_down'+i).val()) ||
@@ -101,7 +101,7 @@ theWebUI.setSettings = function()
 rTorrentStub.prototype.setthrottleprm = function()
 {
 	this.content = "default="+iv($('#chDefault').val());
-	for(var i=0; i<theWebUI.maxThrottle; i++)
+	for (var i=0; i<theWebUI.maxThrottle; i++)
 	{
 		var name = $('#thr_name'+i).val().trim();
 		var up = iv($('#thr_up'+i).val());
@@ -142,7 +142,7 @@ theWebUI.createMenu = function(e, id)
 			var down = [];
 			down.push([theUILang.mnuUnlimited, (curNo==-1) ? null : "theWebUI.setThrottle('-1')"]);
 			down.push([CMENU_SEP]);
-			for(var i=0; i<theWebUI.maxThrottle; i++)
+			for (var i=0; i<theWebUI.maxThrottle; i++)
 			{
 				if (theWebUI.isCorrectThrottle(i))
 					down.push([theWebUI.throttles[i].name,(i!=curNo) ? "theWebUI.setThrottle('"+i+"')" : null]);
@@ -156,7 +156,7 @@ theWebUI.setThrottle = function(throttle)
 {
 	var sr = this.getTable("trt").rowSel;
 	var req = '';
-	for(var k in sr)
+	for (var k in sr)
    			if (sr[k] && (k.length==40))
 			req += ("&hash=" + k + "&v="+throttle);
 	if (req.length>0)
@@ -165,7 +165,7 @@ theWebUI.setThrottle = function(throttle)
 
 rTorrentStub.prototype.setthrottle = function()
 {
-	for(var i=0; i<this.vs.length; i++)
+	for (var i=0; i<this.vs.length; i++)
 	{
 		var needRestart = (theWebUI.torrents[this.hashes[i]].status==theUILang.Seeding) || (theWebUI.torrents[this.hashes[i]].status==theUILang.Downloading);
 		var name = (this.vs[i]>=0) ? "thr_"+this.vs[i] : "";
@@ -209,7 +209,7 @@ plugin.onLangLoaded = function()
 					"<td><b>"+theUILang.UL+" ("+theUILang.KB+"/"+theUILang.s+")</b></td>"+
 					"<td><b>"+theUILang.DL+" ("+theUILang.KB+"/"+theUILang.s+")</b></td>"+
 				"</tr>";
-	for(var i=0; i<theWebUI.maxThrottle; i++)
+	for (var i=0; i<theWebUI.maxThrottle; i++)
 		s +=
 			"<tr>"+
 			        "<td class='alr'><b>"+(i+1)+".</b></td>"+
@@ -219,7 +219,7 @@ plugin.onLangLoaded = function()
 			"</tr>";
 	s+="</table></div></fieldset>";
 	s+="<div class='aright'><label>"+theUILang.channelDefault+":</label><select id='chDefault'><option value='0'>"+theUILang.dontSet+"</option>";
-	for(var i=1; i<=theWebUI.maxThrottle; i++)
+	for (var i=1; i<=theWebUI.maxThrottle; i++)
 		s+="<option value='"+i+"'>"+i+"</option>";
 	s+="</select></div>";
 	this.attachPageToOptions($("<div>").attr("id","st_throttle").html(s).get(0),theUILang.throttles);

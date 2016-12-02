@@ -145,7 +145,7 @@ function rtIsFile($path)
 
     //if ( is_file( $path ) )
     //	return true;
-    //$out = array();
+    //$out = [];
     //$ret = "1";
     //exec( 'test -f '.escapeshellarg( $path ), $out, $ret );
     //return (int)$ret == 0;
@@ -309,7 +309,7 @@ function rtScanFiles($path, $mask, $subdir = '')
     if ($subdir != '') {
         $subdir = rtAddTailSlash($subdir);
     }
-    $ret = array();
+    $ret = [];
     if (is_dir($path.$subdir)) {
         $handle = opendir($path.$subdir);
         while (false !== ( $item = readdir($handle) )) {

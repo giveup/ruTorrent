@@ -19,7 +19,7 @@ class SceneHDEngine extends commonEngine
 		else
 			$cat = $categories[$cat];
 
-		for($pg = 0; $pg<11; $pg++)
+		for ($pg = 0; $pg<11; $pg++)
 		{
 			$cli = $this->fetch( Snoopy::linkencode($url.'/browse.php?search='.$what.'&sort=9&page='.$pg).'&cat='.$cat,false );
 			if ( ($cli==false) || (strpos($cli->results, "<h2>No torrents found!</h2>")!==false) ||
@@ -40,7 +40,7 @@ class SceneHDEngine extends commonEngine
 				count($matches["size"])==count($matches["date"]) &&
 				count($matches["seeds"])==count($matches["leech"]) )
 			{
-				for($i=0; $i<count($matches["id"]); $i++)
+				for ($i=0; $i<count($matches["id"]); $i++)
 				{
 					$link = $url."/download.php?id=".$matches["id"][$i];
 					if (!array_key_exists($link,$ret))

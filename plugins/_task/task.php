@@ -18,7 +18,7 @@ class rTask
 	const FLG_NO_LOG	= 0x0100;
 	const FLG_REMOVE_ASCII	= 0x0200;
 
-	public $params = array();
+	public $params = [];
 	public $id = 0;
 
 	public function __construct( $params, $taskNo = null )
@@ -64,7 +64,7 @@ class rTask
 				fputs($sh,'chmod a+rw "${dir}"/log'."\n");
 				fputs($sh,'last=0'."\n");
 				$err = ($flags & self::FLG_ONE_LOG) ? "log" : "errors";
-				foreach( $commands as $ndx=>$cmd )
+				foreach ( $commands as $ndx=>$cmd )
 				{
 					if ($cmd=='{')
 						fputs($sh,'if [ $last -eq 0 ] ; then '."\n");
@@ -104,7 +104,7 @@ class rTask
 			}
 			self::clean($dir);
 		}
-		return(array( "no"=>$this->id, "pid"=>0, "status"=>255, "log"=>array(), "errors"=>array(count($commands) ? "Can't start operation" : "Incorrect target directory") ));
+		return(array( "no"=>$this->id, "pid"=>0, "status"=>255, "log"=>[], "errors"=>array(count($commands) ? "Can't start operation" : "Incorrect target directory") ));
 	}
 
 	static public function clean( $dir )
@@ -125,7 +125,7 @@ class rTask
 		if (is_file($dir.'/'.$logName) && is_readable($dir.'/'.$logName))
 		{
 			$lines = file($dir.'/'.$logName);
-			foreach( $lines as $line )
+			foreach ( $lines as $line )
 			{
 //				if ($stripConsole)
 				{
@@ -139,8 +139,8 @@ class rTask
 					if (strrpos($line,chr(8))!==false)
 					{
 						$len = strlen($line);
-						$res = array();
-						for($i=0; $i<$len; $i++)
+						$res = [];
+						for ($i=0; $i<$len; $i++)
 						{
 							if ($line[$i]==chr(8))
 								array_pop($res);
@@ -162,7 +162,7 @@ class rTask
 	static public function check( $taskNo, $flags = null )
 	{
 		$dir = self::formatPath($taskNo);
-		$ret = array( "no"=>$taskNo, "pid"=>0, "status"=>-1, "log"=>array(), "errors"=>array(), "params"=>null, "start"=>@filemtime($dir.'/pid'), "finish"=>0 );
+		$ret = array( "no"=>$taskNo, "pid"=>0, "status"=>-1, "log"=>[], "errors"=>[], "params"=>null, "start"=>@filemtime($dir.'/pid'), "finish"=>0 );
 		if (is_file($dir.'/pid') && is_readable($dir.'/pid'))
 		{
 			if (is_null($flags))
@@ -213,7 +213,7 @@ class rTask
 	static public function kill( $taskNo, $flags = null )
 	{
 		$dir = self::formatPath($taskNo);
-		$ret = array( "no"=>$taskNo, "pid"=>0, "status"=>-1, "log"=>array(), "errors"=>array() );
+		$ret = array( "no"=>$taskNo, "pid"=>0, "status"=>-1, "log"=>[], "errors"=>[] );
 		if (is_file($dir.'/pid') && is_readable($dir.'/pid'))
 		{
 			if (is_file($dir.'/status') && is_readable($dir.'/status'))
@@ -239,7 +239,7 @@ class rTaskManager
 {
 	static public function obtain()
 	{
-		$tasks = array();
+		$tasks = [];
 		$dir = getSettingsPath().'/tasks/';
 		if ( $handle = @opendir($dir) )
 		{
@@ -267,7 +267,7 @@ class rTaskManager
 	static public function cleanup()
 	{
 		$tasks = self::obtain();
-		foreach( $tasks as $id=>$task )
+		foreach ( $tasks as $id=>$task )
 		{
 			if ( ($task["status"]<0) && (!$task["pid"] || !self::isPIDExists($task["pid"])) )
 				rTask::clean(rTask::formatPath($id));
@@ -276,7 +276,7 @@ class rTaskManager
 
 	static public function remove( $list )
 	{
-		$tasks = array();
+		$tasks = [];
 		$dir = getSettingsPath().'/tasks/';
 		if ( $handle = @opendir($dir) )
 		{
@@ -286,7 +286,7 @@ class rTaskManager
 					$tasks[] = $file;
 			}
 			closedir($handle);
-			foreach( $tasks as $id )
+			foreach ( $tasks as $id )
 				rTask::kill( $id );
 			$tasks = self::obtain();
 	        }

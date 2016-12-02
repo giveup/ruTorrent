@@ -62,7 +62,7 @@ theWebUI.createMenu = function( e, id )
 	        this.uID = ((this.getTable("trt").selCount == 1) && !(thePlugins.isInstalled("quotaspace") && theWebUI.quotaAlreadyWarn)) ? (id || this.dID) : null;
 		if (this.uID && (this.torrents[this.uID].done==1000) && $type(this.files[this.uID]))
 		{
-			for(var i in this.files[this.uID])
+			for (var i in this.files[this.uID])
 			{
 				var file = this.files[this.uID][i];
 				if (plugin.useUnrar && (/.*\.(rar|r\d\d|\d\d\d)$/i).test(file.name))

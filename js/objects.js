@@ -310,7 +310,7 @@ var theContextMenu =
 				{
 					li.append( $("<a></a>").addClass("exp").text(val[1]) );
 					var ul = $("<ul>").addClass("CMenu");
-					for(var j = 0, len = val[2].length; j < len; j++)
+					for (var j = 0, len = val[2].length; j < len; j++)
 					{
 						self.add(ul, val[2][j]);
 					}
