@@ -414,9 +414,9 @@ function rtMakeStrParam($param)
 function rtAddTorrent($fname, $isStart, $directory, $label, $dbg = false)
 {
     if ($isStart) {
-        $method = 'load_start_verbose';
+        $method = 'load.start_verbose';
     } else {
-        $method = 'load_verbose';
+        $method = 'load.verbose';
     }
 
     if ($dbg) {
@@ -469,6 +469,7 @@ function rtAddTorrent($fname, $isStart, $directory, $label, $dbg = false)
         '<methodCall>'.
         '<methodName>'.$method.'</methodName>'.
         '<params>'.
+            '<param><value><string></string></value></param>'.
             '<param><value><string>'.$fname.'</string></value></param>'.
             $directory.
             $comment.

@@ -37,7 +37,7 @@ class rTorrent
                     @unlink($filename);
                 }
             } else {
-                $cmd = new rXMLRPCCommand($isStart ? 'load.start' : 'load');
+                $cmd = new rXMLRPCCommand($isStart ? 'load.start' : 'load.normal');
                 $cmd->addParameter("");
                 $cmd->addParameter($filename);
             }
@@ -98,7 +98,7 @@ class rTorrent
             }
             if (strlen($hash)==40) {
                 $req = new rXMLRPCRequest();
-                $cmd = new rXMLRPCCommand($isStart ? 'load.start' : 'load');
+                $cmd = new rXMLRPCCommand($isStart ? 'load.start' : 'load.normal');
                 $cmd->addParameter("");
                 $cmd->addParameter($magnet);
                 if ($directory && (strlen($directory)>0)) {

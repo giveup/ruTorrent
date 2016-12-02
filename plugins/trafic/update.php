@@ -7,11 +7,11 @@ if (chdir($path)) {
     require_once( __DIR__.'/../../php/xmlrpc.php' );
     require_once( 'stat.php' );
     eval(getPluginConf('trafic'));
-        
+
     $req = new rXMLRPCRequest(array(
         new rXMLRPCCommand("get_up_total"),
         new rXMLRPCCommand("get_down_total"),
-        new rXMLRPCCommand("d.multicall", array("main",getCmd("d.hash="),getCmd("d.up.total="),getCmd("d.down.total=")))));
+        new rXMLRPCCommand("d.multicall2", ["", "main","d.hash=",getCmd("d.up.total="),getCmd("d.down.total=")])));
     $req->setParseByTypes();
     if ($req->run() && !$req->fault) {
         $dir = getSettingsPath().'/trafic/';

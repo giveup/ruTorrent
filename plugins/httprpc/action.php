@@ -111,7 +111,7 @@ switch ($mode) {
             "d.is_private=",
             "d.is_multi_file="
         );
-        $cmd = new rXMLRPCCommand("d.multicall", "main");
+        $cmd = new rXMLRPCCommand("d.multicall2", ["", "main"]);
         $cmd->addParameters(array_map("getCmd", $cmds));
         foreach ($add as $prm) {
             $cmd->addParameter($prm);
@@ -347,7 +347,7 @@ switch ($mode) {
         );
         $result = array();
         if (empty($hash)) {
-            $prm = getCmd("cat").'="$'.getCmd("t.multicall=").getCmd("d.hash=").",";
+            $prm = getCmd("cat").'="$'.getCmd("t.multicall=")."d.hash=".",";
             foreach ($cmds as $tcmd) {
                 $prm.=getCmd($tcmd).','.getCmd("cat=#").',';
             }
@@ -357,11 +357,12 @@ switch ($mode) {
             $prm = substr($prm, 0, -1).'"';
             $cnt = count($cmds)+count($add);
             $req = new rXMLRPCRequest();
-            $req->addCommand(new rXMLRPCCommand("d.multicall", array(
+            $req->addCommand(new rXMLRPCCommand("d.multicall2", [
+                "",
                 "main",
-                getCmd("d.hash="),
+                "d.hash=",
                 $prm
-            )));
+            ]));
             if ($req->success()) {
                 for ($i = 0; $i< count($req->val); $i+=2) {
                     $tracker = explode('#', $req->val[$i+1]);

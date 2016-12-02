@@ -363,7 +363,8 @@ rTorrentStub.prototype.settrackerstate = function()
 
 rTorrentStub.prototype.list = function()
 {
-	var cmd = new rXMLRPCCommand("d.multicall");
+	var cmd = new rXMLRPCCommand("d.multicall2");
+	cmd.addParameter("string","");
 	cmd.addParameter("string","main");
 	for ( var i in theRequestManager.trt.commands )
 	{

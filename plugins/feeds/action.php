@@ -134,8 +134,9 @@ switch($mode)
 }
 
 $prm = [
+    "",
     $view,
-    getCmd("d.hash="),
+    "d.hash=",
     getCmd("d.name="),
     getCmd("d.message="),
     getCmd("d.up.rate="),
@@ -160,7 +161,7 @@ if ($showItemDescription) {
         getCmd("d.peers_accounted="),
         getCmd("d.peers_complete=")));
 }
-$req = new rXMLRPCRequest(new rXMLRPCCommand("d.multicall", $prm));
+$req = new rXMLRPCRequest(new rXMLRPCCommand("d.multicall2", $prm));
 
 if ($req->success()) {
     $items = array();

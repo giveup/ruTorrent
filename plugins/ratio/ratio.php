@@ -70,7 +70,7 @@ class rRatio
         $times = $this->getTimes();
         $cnt = count($times);
         if ($cnt) {
-            $cmd = new rXMLRPCCommand("d.multicall", array("complete",getCmd("d.hash="),getCmd("d.custom=")."seedingtime",getCmd("d.is_active=") ));
+            $cmd = new rXMLRPCCommand("d.multicall2", ["", "complete", "d.hash=", getCmd("d.custom=")."seedingtime", getCmd("d.is_active=") ]);
             foreach ($times as $i) {
                 $cmd->addParameters(array( getCmd("cat")."=".$i, getCmd("d.views.has")."=rat_".$i));
             }
@@ -120,7 +120,7 @@ class rRatio
     }
     public function correct()
     {
-        $cmd = new rXMLRPCCommand("d.multicall", array("default",getCmd("d.hash=")));
+        $cmd = new rXMLRPCCommand("d.multicall2", ["", "default", "d.hash="]);
         for ($i=0; $i<MAX_RATIO; $i++) {
             $cmd->addParameters(array( getCmd("d.views.has")."=rat_".$i, getCmd("view.set_not_visible")."=rat_".$i ));
         }

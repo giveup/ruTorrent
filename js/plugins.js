@@ -271,17 +271,15 @@ rPlugin.prototype.removePageFromOptions = function(id)
 
 rPlugin.prototype.attachPageToTabs = function(dlg,name)
 {
-        if(this.canChangeTabs())
-        {
-                if(!dlg.className)
+    if(this.canChangeTabs()) {
+        if(!dlg.className) {
 			dlg.className = "tab";
+		}
 		theTabs.tabs[dlg.id] = name;
 		var newLbl = document.createElement("li");
 		newLbl.id = "tab_"+dlg.id;
 		newLbl.innerHTML = "<a href=\"#\" onmousedown=\"theTabs.show('"+dlg.id+"');\" onfocus=\"this.blur();\">" + name + "</a>";
-		$$("lcont").parentNode.insertBefore(dlg,$$("lcont"));
-		var beforeLbl = $$("tab_lcont");
-		beforeLbl.parentNode.insertBefore(newLbl,beforeLbl);
+		$$('tabbar').appendChild(newLbl);
 		theTabs.show("lcont");
 	}
 	return(this);

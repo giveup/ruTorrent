@@ -5,7 +5,7 @@
 function getRatiosStat()
 {
     $req = new rXMLRPCRequest(
-        new rXMLRPCCommand("d.multicall", array("main",getCmd("d.hash=")))
+        new rXMLRPCCommand("d.multicall2", ["", "main", "d.hash="])
     );
     $ret = 'theWebUI.ratiosStat = {';
     if ($req->run() && !$req->fault) {

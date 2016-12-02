@@ -74,12 +74,13 @@ class rThrottle
     {
         $toCorrect = array();
         $req = new rXMLRPCRequest(
-            new rXMLRPCCommand("d.multicall", array(
-                    "",
-                getCmd("d.hash="),
+            new rXMLRPCCommand("d.multicall2", [
+                "",
+                "",
+                "d.hash=",
                 getCmd("d.throttle_name="),
                 getCmd('cat').'=$'.getCmd("get_throttle_up_max").'=$'.getCmd("d.throttle_name="),
-                getCmd('cat').'=$'.getCmd("get_throttle_down_max").'=$'.getCmd("d.throttle_name=")))
+                getCmd('cat').'=$'.getCmd("get_throttle_down_max").'=$'.getCmd("d.throttle_name=")])
         );
         if ($req->run() && !$req->fault) {
             for ($i=0; $i<count($req->val); $i+=4) {
