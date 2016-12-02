@@ -89,11 +89,11 @@ class PuntoTorrentEngine extends commonEngine
 		$added = 0;
 		$url = 'http://xbt.puntotorrent.com';
 
-		if($useGlobalCats)
+		if ($useGlobalCats)
 			$categories = array( 'all'=>'&category=0' );
 		else
 			$categories = &$this->categories;
-		if(!array_key_exists($cat,$categories))
+		if (!array_key_exists($cat,$categories))
 			$cat = $categories['all'];
 		else
 			$cat = $categories[$cat];
@@ -102,7 +102,7 @@ class PuntoTorrentEngine extends commonEngine
 		{
 			$cli = $this->fetch( $url.'/index.php?page=torrents&search='.$what.'&active=1&category='.$cat.'&pages='.$pg );
 			
-			if( ($cli==false) )		break;
+			if ( ($cli==false) )		break;
 
 			$res = preg_match_all('`<td align="center".*<img src="http://xbt.puntotorrent.com/style/xbtit_default/images/categories/.*" border="0"  alt="(?P<cat>[^"]*)".*'.
 				'<td align="left" class="lista" style="white-space:wrap;padding-left:10px;"><a class="enlace" id="\d*" href="javascript:void\(\);" >(?P<name>.*)</a>.*'.
@@ -114,12 +114,12 @@ class PuntoTorrentEngine extends commonEngine
 				'<td align="center" width="30".*title="Click aqui para ver los detalles de los peers">(?P<leech>.*)</a></td>.*'.
 				'`siU', $cli->results, $matches);
 
-			if($res)
+			if ($res)
 			{
 				for($i=0; $i<$res; $i++)
 				{
 					$link = $url."/download.php".$matches["link"][$i];
-					if(!array_key_exists($link,$ret))
+					if (!array_key_exists($link,$ret))
 					{
 						$item = $this->getNewEntry();
 						$item["cat"] = self::removeTags($matches["cat"][$i]);
@@ -131,7 +131,7 @@ class PuntoTorrentEngine extends commonEngine
 						$item["peers"] = intval(trim(self::removeTags($matches["leech"][$i])));
 						$ret[$link] = $item;
 						$added++;
-						if($added>=$limit)
+						if ($added>=$limit)
 							return;
 					}
 				}

@@ -60,21 +60,21 @@ function GetActiveLanguage()
 {
 	var DefaultLanguage = 'en';
 	var LC = readLangCookie();
-	if(LC != null)
+	if (LC != null)
 		return LC;
 	var A;
-	if(navigator.userLanguage)
+	if (navigator.userLanguage)
 		A = navigator.userLanguage.toLowerCase();
 	else
-		if(navigator.language)
+		if (navigator.language)
 			A = navigator.language.toLowerCase();
-	if(A.length >= 5)
+	if (A.length >= 5)
 	{
 		A = A.substr(0,5);
-		if(AvailableLanguages[A])
+		if (AvailableLanguages[A])
 			return A;
 	}
-	if(A.length >= 2)
+	if (A.length >= 2)
 	{
 		A = A.substr(0,2);
 		if (AvailableLanguages[A])

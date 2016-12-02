@@ -40,7 +40,7 @@ class NyaaEngine extends commonEngine
 		$added = 0;
 		$url = 'http://www.nyaa.se';
 
-		if($useGlobalCats)
+		if ($useGlobalCats)
 			$categories = array(
 			'all' => '0_0',
 			'movies' => '1_0',
@@ -51,7 +51,7 @@ class NyaaEngine extends commonEngine
 		else
 			$categories = &$this->categories;
 
-		if(!array_key_exists($cat,$categories))
+		if (!array_key_exists($cat,$categories))
 			$cat = $categories['all'];
 		else
 			$cat = $categories[$cat];

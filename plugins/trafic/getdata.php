@@ -5,28 +5,28 @@ eval(getPluginConf('trafic'));
 $ret = null;
 $storages = array( "global.csv" );
 
-if(isset($_REQUEST['tracker']))
+if (isset($_REQUEST['tracker']))
 {
-	if($_REQUEST['tracker']=="none")
+	if ($_REQUEST['tracker']=="none")
 	{
-		if(!isset($HTTP_RAW_POST_DATA))
+		if (!isset($HTTP_RAW_POST_DATA))
 			$HTTP_RAW_POST_DATA = file_get_contents("php://input");
 		$tstorages = array();
-		if(isset($HTTP_RAW_POST_DATA))
+		if (isset($HTTP_RAW_POST_DATA))
 		{
 			$vars = explode('&', $HTTP_RAW_POST_DATA);
 			foreach($vars as $var)
 			{
 				$parts = explode("=",$var);
-				if($parts[0]=="hash")
+				if ($parts[0]=="hash")
 					$tstorages[] = 'torrents/'.$parts[1].".csv";
 			}
 		}	
-		if( count($tstorages) )
+		if ( count($tstorages) )
 			$storages = $tstorages;
 	}
 	else
-		if($_REQUEST['tracker']!="global")
+		if ($_REQUEST['tracker']!="global")
 			$storages = array( "trackers/".$_REQUEST['tracker'].".csv" );
 }
 
@@ -35,15 +35,15 @@ function sum($e1, $e2)
 	return($e1+$e2);
 }
 
-if(isset($_REQUEST['mode']))
+if (isset($_REQUEST['mode']))
 {
 	$mode = $_REQUEST['mode'];
-	if($mode=='clear') 
+	if ($mode=='clear') 
 	{
-		if(!$disableClearButton)
+		if (!$disableClearButton)
 		foreach( $storages as $storage )
 			@unlink(getSettingsPath().'/trafic/'.$storage);
-		if($_REQUEST['tracker']!="none")
+		if ($_REQUEST['tracker']!="none")
 		{
 			$mode='day';
 			$storages = array( "global.csv" );
@@ -53,15 +53,15 @@ if(isset($_REQUEST['mode']))
 	foreach( $storages as $storage )
 	{
 		$st = new rStat($storage);
-		if($mode=='day')
+		if ($mode=='day')
 			$val = $st->getDay();
 		else
-		if($mode=='month')
+		if ($mode=='month')
 			$val = $st->getMonth();
 		else
-		if($mode=='year')
+		if ($mode=='year')
 			$val = $st->getYear();
-		if(empty($ret))
+		if (empty($ret))
 			$ret = $val;
 		else			
 		{

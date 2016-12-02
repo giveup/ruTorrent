@@ -70,7 +70,7 @@ plugin.start = function()
 			{
 				for( var property in  parameter )
 				{
-					if( parameter.hasOwnProperty(property) )
+					if ( parameter.hasOwnProperty(property) )
 						req+=('&v='+i+'['+property+']&s='+encodeURIComponent(parameter[property]));
 				}
 				break;
@@ -100,7 +100,7 @@ plugin.callNotification = function( type, data, status )
 	var ret = null;
 	type = "onTask"+type;
 	var requester = thePlugins.get(this.foreground.requester);
-	if(requester && $type(requester[type])=="function")
+	if (requester && $type(requester[type])=="function")
 		ret = requester[type](data || this.foreground, status || false);
 	return(ret);
 }
@@ -118,7 +118,7 @@ plugin.fromBackground = function( no )
 
 plugin.toBackground = function()
 {
-       	if(!plugin.isInBackground())
+       	if (!plugin.isInBackground())
 		plugin.background[ plugin.foreground.no ] = cloneObject( this.foreground );
 	plugin.callNotification("HideInterface");
 	plugin.clear();
@@ -136,7 +136,7 @@ plugin.shutdown = function()
 
 plugin.clearForeTimeout = function()
 {
-	if(this.foreTimeout)
+	if (this.foreTimeout)
 	{
 		window.clearTimeout(this.foreTimeout);
 		this.foreTimeout = null;
@@ -145,7 +145,7 @@ plugin.clearForeTimeout = function()
 
 plugin.clearBackTimeout = function()
 {
-	if(this.backTimeout)
+	if (this.backTimeout)
 	{
 		window.clearTimeout(this.backTimeout);
 		this.backTimeout = null;
@@ -155,14 +155,14 @@ plugin.clearBackTimeout = function()
 plugin.onStart = function(data)
 {
         theDialogManager.clearModalState();
-	if(data.status || this.foreground.options.noclose || this.isInBackground()) {
-		if(!this.isInBackground())
+	if (data.status || this.foreground.options.noclose || this.isInBackground()) {
+		if (!this.isInBackground())
 			plugin.refreshTasks();
 		plugin.callNotification("ShowInterface",$.extend(this.foreground,data));
 	        $("#tskConsole-header").html(theUILang.tskCommand);
 	        theDialogManager.show("tskConsole");
 		this.check(data);
-	} else if(!data.status) {
+	} else if (!data.status) {
 			this.foreground.no = data.no;
 			this.kill();
 			this.callNotification("Shutdown");
@@ -178,14 +178,14 @@ plugin.check = function(data)
 	this.foreground.status = data.status;
 	this.fillConsole('tskcmdlog',data.log);
 	this.setConsoleControls( this.fillConsole('tskcmderrors',data.errors) );
-	if(this.foreground.status<0) {
+	if (this.foreground.status<0) {
 		var self = this;
 		this.foreTimeout = setTimeout( function() {
 			theWebUI.requestWithoutTimeout("?action=taskcheck&hash="+self.foreground.no,[self.check,self]);
 		},1000);
 	} else {
 		plugin.callNotification("Finished");
-		if(!this.foreground.status && !this.foreground.options.noclose && !this.isInBackground())
+		if (!this.foreground.status && !this.foreground.options.noclose && !this.isInBackground())
 			theDialogManager.hide("tskConsole");
 	}
 }
@@ -203,21 +203,21 @@ plugin.isInBackground = function()
 plugin.kill = function()
 {
 	theWebUI.requestWithoutTimeout("?action=taskkill&hash="+this.foreground.no);
-	if(this.foreground.status<0)
+	if (this.foreground.status<0)
 		plugin.callNotification("Finished");
 }
 
 plugin.setConsoleControls = function( errPresent )
 {
 	$('#tskBackground').prop( 'disabled', !plugin.canDetachTask() );
-	if(plugin.foreground.status>=0)
+	if (plugin.foreground.status>=0)
 	{
 		$('#tsk_btns').css( "background", "none" );
 		$("#tskConsole-header").html(theUILang.tskCommandDone);
 	}
 	else
 		$('#tsk_btns').css( "background", "transparent url(./plugins/_task/images/ajax-loader.gif) no-repeat 5px 7px" );
-	if(errPresent)
+	if (errPresent)
 	{
 		$('#tskcmdlog').height(plugin.cHeight-18).parent().height(plugin.cHeight);
 		$('#tskcmderrors').show();
@@ -233,17 +233,17 @@ plugin.setConsoleControls = function( errPresent )
 
 plugin.fillConsole = function(id,arr)
 {
-    if(arr) {
+    if (arr) {
 		var s = '';
 		var requester = thePlugins.get(this.foreground.requester);
 		for(var i = 0; i<arr.length; i++)
 			s += (requester && $type(requester["onTaskShowLog"])=="function") ?
 				requester.onTaskShowLog(this.foreground,arr[i],id,i) : escapeHTML(arr[i])+'\n';
 		var crc = getCRC( s, 0 );
-		if(plugin.foreground[id]!=crc) {
+		if (plugin.foreground[id]!=crc) {
 			plugin.foreground[id] = crc;
 			$('#'+id).text(s);
-			if(!this.foreground.options.noclose)
+			if (!this.foreground.options.noclose)
 				$('#'+id)[0].scrollTop = $('#'+id)[0].scrollHeight;
 		}
 		return(s!='');
@@ -295,77 +295,74 @@ rTorrentStub.prototype.tasklist = function()
 	this.dataType = "json";
 }
 
-if(plugin.canChangeTabs())
+plugin.tasksConfig = theWebUI.config;
+theWebUI.config = function(data)
 {
-	plugin.tasksConfig = theWebUI.config;
-	theWebUI.config = function(data)
+    	plugin.attachPageToTabs($('<div>').attr("id","tasks").addClass("table_tab stable").get(0),"Tasks","lcont");
+	theWebUI.tables["tasks"] =
 	{
-        	plugin.attachPageToTabs($('<div>').attr("id","tasks").addClass("table_tab stable").get(0),"Tasks","lcont");
-		theWebUI.tables["tasks"] =
+    		obj:		new dxSTable(),
+		container:	"tasks",
+		columns:
+		[
+			{ text: theUILang.Name, 		width: "100px", id: "name",		type: TYPE_STRING },
+			{ text: "Plugin",	 		width: "100px", id: "plugin",		type: TYPE_STRING },
+			{ text: "Parameter",	 		width: "200px", id: "arg",		type: TYPE_STRING },
+			{ text: theUILang.Status, 		width: "100px", id: "status",		type: TYPE_NUMBER },
+			{ text: "Started", 			width: "110px", id: "start",		type: TYPE_NUMBER },
+			{ text: "Elapsed", 			width: "110px", id: "elapsed",		type: TYPE_NUMBER },
+			{ text: "Finished", 			width: "110px", id: "finish",		type: TYPE_NUMBER }
+		],
+   		        onselect:	function(e,id) { this.tasksSelect(e,id) },
+   		        ondelete:	function() { this.tasksRemove(); },
+   		        ondblclick:	function(obj)
+   		        {
+   		        	var id = obj.id.substr(6);
+			plugin.fromBackground(id);
+   		        	return(false);
+   		        },
+   	        	format:	function(table,arr)
 		{
-        		obj:		new dxSTable(),
-			container:	"tasks",
-			columns:
-			[
-				{ text: theUILang.Name, 		width: "100px", id: "name",		type: TYPE_STRING },
-				{ text: "Plugin",	 		width: "100px", id: "plugin",		type: TYPE_STRING },
-				{ text: "Parameter",	 		width: "200px", id: "arg",		type: TYPE_STRING },
-				{ text: theUILang.Status, 		width: "100px", id: "status",		type: TYPE_NUMBER },
-				{ text: "Started", 			width: "110px", id: "start",		type: TYPE_NUMBER },
-				{ text: "Elapsed", 			width: "110px", id: "elapsed",		type: TYPE_NUMBER },
-				{ text: "Finished", 			width: "110px", id: "finish",		type: TYPE_NUMBER }
-			],
-       		        onselect:	function(e,id) { this.tasksSelect(e,id) },
-       		        ondelete:	function() { this.tasksRemove(); },
-       		        ondblclick:	function(obj)
-       		        {
-       		        	var id = obj.id.substr(6);
-				plugin.fromBackground(id);
-       		        	return(false);
-       		        },
-       	        	format:	function(table,arr)
+			for(var i in arr)
 			{
-				for(var i in arr)
+				if (arr[i]==null)
+					arr[i] = '';
+				var s = table.getIdByCol(i);
+				switch(s)
 				{
-					if(arr[i]==null)
-						arr[i] = '';
-					var s = table.getIdByCol(i);
-					switch(s)
+					case 'finish':
+					case 'start':
 					{
-						case 'finish':
-						case 'start':
-						{
-							arr[i] = (arr[i]>3600*24*365) ? theConverter.date(iv(arr[i])) : "";
-							break;
-						}
-						case 'elapsed':
-						{
-							arr[i] = arr[i] ? theConverter.time(iv(arr[i]),true) : "";
-							break;
-						}
-						case 'status':
-						{
-							arr[i] = (arr[i]<0) ? theUILang.tskRunning : (arr[i]>0) ? theUILang.Error : theUILang.ok;
-							break;
-						}
+						arr[i] = (arr[i]>3600*24*365) ? theConverter.date(iv(arr[i])) : "";
+						break;
+					}
+					case 'elapsed':
+					{
+						arr[i] = arr[i] ? theConverter.time(iv(arr[i]),true) : "";
+						break;
+					}
+					case 'status':
+					{
+						arr[i] = (arr[i]<0) ? theUILang.tskRunning : (arr[i]>0) ? theUILang.Error : theUILang.ok;
+						break;
 					}
 				}
-				return(arr);
 			}
-		};
-		plugin.tasksConfig.call(theWebUI,data);
-		if(!plugin.showTabAlways)
-		{
-			$('li#tab_tasks').hide();
-			$(theWebUI.tables["tasks"].container).hide();
+			return(arr);
 		}
-		plugin.renameTasksStuff();
+	};
+	plugin.tasksConfig.call(theWebUI,data);
+	if (!plugin.showTabAlways)
+	{
+		$('li#tab_tasks').hide();
+		$(theWebUI.tables["tasks"].container).hide();
 	}
+	plugin.renameTasksStuff();
 }
 
 plugin.renameTasksStuff = function()
 {
-	if(plugin.allStuffLoaded)
+	if (plugin.allStuffLoaded)
 	{
 		plugin.renameTab("tasks",theUILang.tskTasks);
 		var table = theWebUI.getTable("tasks");
@@ -376,7 +373,7 @@ plugin.renameTasksStuff = function()
 		table.renameColumnById("arg",theUILang.tskArg);
 		$("#tasks .stable-body").mouseclick( function(e)
 		{
-			if((e.which==3) && plugin.allStuffLoaded && plugin.canChangeMenu()) {
+			if ((e.which==3) && plugin.allStuffLoaded) {
 				table.tasksSelect(e,null);
 				return(true);
 			}
@@ -396,7 +393,7 @@ plugin.refreshTasks = function()
 
 dxSTable.prototype.tasksRemove = function()
 {
-	if(theWebUI.settings["webui.confirm_when_deleting"])
+	if (theWebUI.settings["webui.confirm_when_deleting"])
 		askYesNo( theUILang.tskDelete, theUILang.tskDeletePrompt, "theWebUI.getTable('tasks').tasksRemovePrim()" );
 	else
 		this.tasksRemovePrim();
@@ -406,15 +403,15 @@ dxSTable.prototype.tasksRemovePrim = function(cmd)
 {
 	var req = '';
 	for( var k in this.rowSel ) {
-		if( this.rowSel[k] ) {
+		if ( this.rowSel[k] ) {
 			var id = k.substr(6);
 			req+=("&hash=" + id);
-			if(id==plugin.foreground.no)
+			if (id==plugin.foreground.no)
 				plugin.callNotification("HideInterface");
 			plugin.callNotification("Shutdown", plugin.background[id]);
 		}
 	}
-	if(req.length)
+	if (req.length)
 		theWebUI.request("?action=taskremove"+req,[plugin.onGetTasks, plugin]);
 	plugin.clear();
 	theDialogManager.hide('tskConsole');
@@ -422,9 +419,9 @@ dxSTable.prototype.tasksRemovePrim = function(cmd)
 
 dxSTable.prototype.tasksSelect = function(e,id)
 {
-	if(plugin.enabled && plugin.allStuffLoaded && (e.which==3)) {
+	if (plugin.enabled && plugin.allStuffLoaded && (e.which==3)) {
 		theContextMenu.clear();
-		if(this.selCount) {
+		if (this.selCount) {
 			id = this.getFirstSelected().substr(6);
 			theContextMenu.add([theUILang.tskActivate, this.selCount==1 ? function() {
 				plugin.fromBackground( id );
@@ -440,10 +437,10 @@ dxSTable.prototype.tasksSelect = function(e,id)
 plugin.tasksOnShow = theTabs.onShow;
 theTabs.onShow = function(id)
 {
-	if(id=="tasks")
+	if (id=="tasks")
 	{
 		var table = theWebUI.getTable("tasks");
-		if(table)
+		if (table)
 		{
 			table.refreshRows();
 			plugin.refreshTasks();
@@ -462,12 +459,12 @@ plugin.canDetachTask = function()
 
 plugin.onGetTasks = function(d)
 {
-	if($type(d))
+	if ($type(d))
 	{
 		var updated = false;
 		var table = theWebUI.getTable("tasks");
 
-		if( d[ plugin.foreground.no ] && !plugin.isInBackground() )
+		if ( d[ plugin.foreground.no ] && !plugin.isInBackground() )
 			delete d[ plugin.foreground.no ];
 
 		plugin.running = 0;
@@ -475,7 +472,7 @@ plugin.onGetTasks = function(d)
 		for( var id in d )
 		{
 			var item = d[id];
-			if(!$type(plugin.background[id]))
+			if (!$type(plugin.background[id]))
 			{
 				table.addRowById(
 				{
@@ -503,33 +500,33 @@ plugin.onGetTasks = function(d)
 				},true) || updated;
 				updated = table.setIcon("tasks_"+id,(item.status<0) ? "Status_Down" : (item.status==0) ? "Status_Completed" : "Status_Error") || updated;
 			}
-			if(item.status<0)
+			if (item.status<0)
 				plugin.running++;
 			else
-				if(plugin.background[id] && (plugin.background[id].status<0))
+				if (plugin.background[id] && (plugin.background[id].status<0))
 					plugin.callNotification("Finished",item,true);
 		}
                	for( var id in plugin.background )
 		{
-			if(!$type(d[id]))
+			if (!$type(d[id]))
 			{
 				table.removeRow( "tasks_"+id );
 				updated = true;
 			}
 		}
 		plugin.background = d;
-		if(updated)
+		if (updated)
 		{
-			if(!plugin.isInBackground())
+			if (!plugin.isInBackground())
 				$('#tskBackground').prop( 'disabled', !plugin.canDetachTask() );
 			$('li#tab_tasks').show();
 			$(theWebUI.tables["tasks"].container).show();
 			table.refreshRows();
-			if(table.sIndex !=- 1)
+			if (table.sIndex !=- 1)
 				table.Sort();
 		}
 	}
-	if( ((theWebUI.activeView=='tasks')  && plugin.running ) || plugin.foreground.no )
+	if ( ((theWebUI.activeView=='tasks')  && plugin.running ) || plugin.foreground.no )
 	{
 		plugin.clearBackTimeout();
 		plugin.backTimeout = setTimeout(plugin.refreshTasks,theWebUI.settings["webui.update_interval"]);
@@ -555,9 +552,9 @@ plugin.onLangLoaded = function()
 		"</div>",true);
 	theDialogManager.setHandler('tskConsole','afterHide',function()
 	{
-		if( plugin.foreground.no )
+		if ( plugin.foreground.no )
 		{
-			if(!plugin.isInBackground())
+			if (!plugin.isInBackground())
 				plugin.shutdown();
 			else
 				theWebUI.getTable('tasks').tasksRemovePrim();
@@ -565,7 +562,7 @@ plugin.onLangLoaded = function()
 	});
 	theDialogManager.setHandler('tskConsole','afterShow',function()
 	{
-		if(!plugin.cHeight)
+		if (!plugin.cHeight)
 			plugin.cHeight = $('#tskcmderrors').parent().height();
 	});
 	$('#tskBackground').click( plugin.toBackground );

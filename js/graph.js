@@ -15,7 +15,7 @@ function clearElement(target)
 function clearCanvas( target )
 {
 	var cnv = target.getElementsByTagName('canvas');
-	if(cnv)
+	if (cnv)
 	{
 		for(var i=0; i<cnv.length; i++)
 		{
@@ -51,7 +51,7 @@ rSpeedGraph.prototype.getData = function()
 	var ret = new Array();		
 	for( var i in this.checked )
 	{
-		if(this.checked[i])
+		if (this.checked[i])
 			ret.push(this.datasets[i]);
 		else
 		{
@@ -74,7 +74,7 @@ rSpeedGraph.prototype.draw = function()
 	var self = this;
 	$(function() 
 	{
-		if((theWebUI.activeView=='Speed') &&
+		if ((theWebUI.activeView=='Speed') &&
 			self.owner.height() && self.owner.width())
 		{
 			clearCanvas( self.owner.get(0) );
@@ -142,9 +142,9 @@ rSpeedGraph.prototype.draw = function()
 			self.owner.on("plothover", 
 				function (event, pos, item) 
 				{ 
-					if(item)
+					if (item)
 					{
-						if(previousSpeedPoint != item.datapoint)
+						if (previousSpeedPoint != item.datapoint)
 						{
 							previousSpeedPoint = item.datapoint;
 							$("#tooltip").remove();
@@ -177,11 +177,11 @@ rSpeedGraph.prototype.draw = function()
 
 rSpeedGraph.prototype.resize = function( newWidth, newHeight )
 {
-	if(this.owner)
+	if (this.owner)
 	{
-		if(newWidth)
+		if (newWidth)
 			this.owner.width(newWidth);
-		if(newHeight)
+		if (newHeight)
 			this.owner.height(newHeight);
 		this.draw();
 	}

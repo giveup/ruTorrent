@@ -4,16 +4,16 @@ plugin.loadMainCSS();
 plugin.setValue = function( full, free )
 {
         var percent = iv(full ? (full-free)/full*100 : 0);
-        if(percent>100)
+        if (percent>100)
 	        percent = 100;
 	$("#meter-disk-value").width( percent+"%" ).css( { "background-color": (new RGBackground()).setGradient(this.prgStartColor,this.prgEndColor,percent).getColor(),
 		visibility: !percent ? "hidden" : "visible" } );
 	$("#meter-disk-text").text(percent+'%');
 	$("#meter-disk-td").prop("title", theConverter.bytes(free)+"/"+theConverter.bytes(full));
 
-	if($.noty && plugin.allStuffLoaded)
+	if ($.noty && plugin.allStuffLoaded)
 	{
-		if((free<plugin.notifySpaceLimit) && !plugin.noty)
+		if ((free<plugin.notifySpaceLimit) && !plugin.noty)
 			plugin.noty = $.noty(
 			{
 				text: theUILang.diskNotification, 
@@ -22,7 +22,7 @@ plugin.setValue = function( full, free )
 				timeout : false,
 				closeOnSelfClick: false
 			});
-		if((free>plugin.notifySpaceLimit) && plugin.noty)
+		if ((free>plugin.notifySpaceLimit) && plugin.noty)
 		{
 			$.noty.close(plugin.noty);
 			plugin.noty = null;
@@ -32,7 +32,7 @@ plugin.setValue = function( full, free )
 
 plugin.init = function()
 {
-	if(getCSSRule("#meter-disk-holder"))
+	if (getCSSRule("#meter-disk-holder"))
 	{
 		plugin.prgStartColor = new RGBackground("#99D699");
 		plugin.prgEndColor = new RGBackground("#E69999");
@@ -71,7 +71,7 @@ plugin.init = function()
 plugin.onRemove = function()
 {
 	plugin.removePaneFromStatusbar("meter-disk-td");
-	if(plugin.diskTimeout)
+	if (plugin.diskTimeout)
 	{
 		window.clearTimeout(plugin.diskTimeout);
 		plugin.diskTimeout = null;

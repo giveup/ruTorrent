@@ -84,7 +84,7 @@ class XMPPHP_XMLObj {
 	public function __construct($name, $ns = '', $attrs = array(), $data = '') {
 		$this->name = strtolower($name);
 		$this->ns   = $ns;
-		if(is_array($attrs) && count($attrs)) {
+		if (is_array($attrs) && count($attrs)) {
 			foreach($attrs as $key => $value) {
 				$this->attrs[strtolower($key)] = $value;
 			}
@@ -113,7 +113,7 @@ class XMPPHP_XMLObj {
 	public function toString($str = '') {
 		$str .= "<{$this->name} xmlns='{$this->ns}' ";
 		foreach($this->attrs as $key => $value) {
-			if($key != 'xmlns') {
+			if ($key != 'xmlns') {
 				$value = htmlspecialchars($value);
 				$str .= "$key='$value' ";
 			}
@@ -135,7 +135,7 @@ class XMPPHP_XMLObj {
 	 */
 	public function hasSub($name, $ns = null) {
 		foreach($this->subs as $sub) {
-			if(($name == "*" or $sub->name == $name) and ($ns == null or $sub->ns == $ns)) return true;
+			if (($name == "*" or $sub->name == $name) and ($ns == null or $sub->ns == $ns)) return true;
 		}
 		return false;
 	}
@@ -150,7 +150,7 @@ class XMPPHP_XMLObj {
 	public function sub($name, $attrs = null, $ns = null) {
 		#TODO attrs is ignored
 		foreach($this->subs as $sub) {
-			if($sub->name == $name and ($ns == null or $sub->ns == $ns)) {
+			if ($sub->name == $name and ($ns == null or $sub->ns == $ns)) {
 				return $sub;
 			}
 		}

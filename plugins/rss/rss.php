@@ -26,10 +26,10 @@ class rRSS
 	public function __construct( $url = null )
 	{
 		$this->version = 1;
-		if($url)
+		if ($url)
 		{
 			$pos = strpos($url,':COOKIE:');
-			if($pos!==false)
+			if ($pos!==false)
 			{
 				$this->url = substr($url,0,$pos);
 				$tmp = explode(";",substr($url,$pos+8));
@@ -43,7 +43,7 @@ class rRSS
 				$this->url = $url;
 			$this->url = Snoopy::linkencode($this->url);
 			$this->srcURL = $this->url;
-			if(count($this->cookies))
+			if (count($this->cookies))
 			{
 				$this->srcURL = $this->srcURL.':COOKIE:';
 				foreach($this->cookies as $name=>$val)
@@ -57,28 +57,28 @@ class rRSS
 	public function getMaskedURL()
 	{
 		$ret = $this->srcURL;
-		if(preg_match("`^(?P<sheme>[^:]*)://.*@(?P<url>.*)$`i",$ret,$matches))
+		if (preg_match("`^(?P<sheme>[^:]*)://.*@(?P<url>.*)$`i",$ret,$matches))
 			$ret = $matches["sheme"]."://".$matches["url"];
 		$pos = strpos($ret,':COOKIE:');
-		if($pos!==false)
+		if ($pos!==false)
 			$ret = substr($ret,0,$pos);
 		return($ret);
 	}
 
 	public function getTorrent( $href )
 	{
-		if(strpos($href,"magnet:")===0)
+		if (strpos($href,"magnet:")===0)
 			return("magnet");
 		global $profileMask;
 		$cli = self::fetchURL(Snoopy::linkencode($href),$this->cookies);
-		if($cli && $cli->status>=200 && $cli->status<300)
+		if ($cli && $cli->status>=200 && $cli->status<300)
 		{
 			$name = $cli->get_filename();
-			if($name===false)
+			if ($name===false)
 				$name = md5($href).".torrent";
 			$name = getUniqueUploadedFilename($name);
 			$f = @fopen($name,"w");
-			if($f!==false)
+			if ($f!==false)
 			{
 				@fwrite($f,$cli->results,strlen($cli->results));
 				fclose($f);
@@ -120,110 +120,110 @@ class rRSS
 	public function fetch( $history )
 	{
 		$headers = array();
-		if($this->etag) 
+		if ($this->etag) 
 			$headers['If-None-Match'] = trim($this->etag);
-		if($this->lastModified)
+		if ($this->lastModified)
 	                $headers['If-Last-Modified'] = trim($this->lastModified);
 		$cli = self::fetchURL($this->url,$this->cookies,$headers);
-		if($cli->status==304)
+		if ($cli->status==304)
 			return(true);
 		$this->etag = null;
 		$this->lastModified = null;
-		if($cli->status>=200 && $cli->status<300)
+		if ($cli->status>=200 && $cli->status<300)
 		{
 			foreach($cli->headers as $h) 
 			{
 				$h = trim($h);
-				if(strpos($h, ": "))
+				if (strpos($h, ": "))
 					list($name, $val) = explode(": ", $h, 2);
 				else
 				{
 					$name = $h;
 					$val = "";
 				}
-				if( $name == 'ETag' ) 
+				if ( $name == 'ETag' ) 
 					$this->etag = $val;
 				else				
-				if( $name == 'Last-Modified' )
+				if ( $name == 'Last-Modified' )
 					$this->lastModified = $val;
 			}
 			ini_set( "pcre.backtrack_limit", max(strlen($cli->results),100000) );
 			$this->encoding = strtolower($this->search("'encoding=[\'\"](.*?)[\'\"]'si", $cli->results));
-			if($this->encoding=='')
+			if ($this->encoding=='')
 				$this->encoding = null;
 			$this->channel = array();
 			$this->items = array();
-			if(preg_match("'<channel.*?>(.*?)</channel>'si", $cli->results, $out) || 
+			if (preg_match("'<channel.*?>(.*?)</channel>'si", $cli->results, $out) || 
 				preg_match("'<channel.*?>(.*?)'si", $cli->results, $out))	// for damned lostfilm.tv with broken rss
 			{
 				$this->isValid=true; //We have a RSS feed here.
 				foreach($this->channeltags as $channeltag)
 				{
 					$temp = $this->search("'<$channeltag.*?>(.*?)</$channeltag>'si", $out[1], ($channeltag=='title'));
-					if($temp!='')
+					if ($temp!='')
 						$this->channel[$channeltag] = $temp;
 				}
-				if( array_key_exists('lastBuildDate',$this->channel) &&
+				if ( array_key_exists('lastBuildDate',$this->channel) &&
 				        (($timestamp = strtotime($this->channel['lastBuildDate'])) !==-1))
 					$this->channel['timestamp'] = $timestamp;
 				else
 					$this->channel['timestamp'] = 0;
 						
 				$ret = preg_match_all("'<item(| .*?)>(.*?)</item>'si", $cli->results, $items);
-				if(($ret!==false) && ($ret>0))
+				if (($ret!==false) && ($ret>0))
 				{
 					foreach($items[2] as $rssItem)
 					{
 						$item = array();
 						foreach($this->itemtags as $itemtag)
 						{
-							if($itemtag=='enclosure')
+							if ($itemtag=='enclosure')
 								$temp = $this->search("'<enclosure.*url\s*=\s*[\"|\'](.*?)[\"|\'].*>'si", $rssItem);
 							else
-							if($itemtag=='source')
+							if ($itemtag=='source')
 								$temp = $this->search("'<source\s*url\s*=\s*[\"|\'](.*?)[\"|\'].*>.*</source>'si", $rssItem);
 							else
-							if($itemtag=='title')
+							if ($itemtag=='title')
 							{
 								$temp = $this->search("'<$itemtag.*?>(.*?)</$itemtag>'si", $rssItem, true);
 								$temp = preg_replace("/\s+/u"," ",$temp);
 							}
 							else
 								$temp = $this->search("'<$itemtag.*?>(.*?)</$itemtag>'si", $rssItem, false);
-							if($itemtag=='description')
+							if ($itemtag=='description')
 								$temp = html_entity_decode( $temp, ENT_QUOTES, "UTF-8" );
-							if($temp != '')
+							if ($temp != '')
 							{
 								$item[$itemtag] = $temp;
-								if( (($itemtag=='pubDate') || ($itemtag=='dc:date')) &&
+								if ( (($itemtag=='pubDate') || ($itemtag=='dc:date')) &&
 									(($timestamp = strtotime($temp)) !==-1))
 									$item['timestamp'] = $timestamp;
 							}
 						}
 						$href = '';
-						if(array_key_exists('enclosure',$item))
+						if (array_key_exists('enclosure',$item))
 							$href = $item['enclosure'];
 						else
-						if(array_key_exists('link',$item))
+						if (array_key_exists('link',$item))
 							$href = $item['link'];
 						else
-						if(array_key_exists('guid',$item))
+						if (array_key_exists('guid',$item))
 							$href = $item['guid'];
 						else
-						if(array_key_exists('source',$item))
+						if (array_key_exists('source',$item))
 							$href = $item['source'];
 						$guid = $href;
-						if(array_key_exists('guid',$item) && preg_match('|^http(s)?://[a-z0-9-]+(.[a-z0-9-]+)*(:[0-9]+)?(/.*)?$|i', $item['guid']))
+						if (array_key_exists('guid',$item) && preg_match('|^http(s)?://[a-z0-9-]+(.[a-z0-9-]+)*(:[0-9]+)?(/.*)?$|i', $item['guid']))
 							$guid = $item['guid'];
 						else
-						if(array_key_exists('link',$item) && preg_match('|^http(s)?://[a-z0-9-]+(.[a-z0-9-]+)*(:[0-9]+)?(/.*)?$|i', $item['link']))
+						if (array_key_exists('link',$item) && preg_match('|^http(s)?://[a-z0-9-]+(.[a-z0-9-]+)*(:[0-9]+)?(/.*)?$|i', $item['link']))
 							$guid = $item['link'];
 						$item['guid'] = self::removeTegs( $guid );
-						if(!array_key_exists('timestamp',$item))
+						if (!array_key_exists('timestamp',$item))
 						{
 // hack for iptorrents.com
 // Category: Movies/Non-English  Size: 707.38 MB Uploaded: 2009-10-21 07:42:37
-							if(array_key_exists('description',$item) && 
+							if (array_key_exists('description',$item) && 
 								(strlen($item['description'])<255) &&
 								(($pos = strpos($item['description'],'Uploaded: '))!==false) &&
 								(($timestamp = strtotime(substr($item['description'],$pos+10)))!==-1))
@@ -231,7 +231,7 @@ class rRSS
 							else
 								$item['timestamp'] = 0;
 						}
-						if(!empty($href))
+						if (!empty($href))
 							$this->items[self::removeTegs( $href )] = $item;
 					}
 				}
@@ -239,76 +239,76 @@ class rRSS
 			else	// Atom 
 			{
 				$urlPrefix = '';
-				if(preg_match('#<feed.*\s+xml:base\s*=\s*[\"|\'](.*?)[\"|\'].*>#si', $cli->results, $items))
+				if (preg_match('#<feed.*\s+xml:base\s*=\s*[\"|\'](.*?)[\"|\'].*>#si', $cli->results, $items))
 					$urlPrefix = $items[1];
 				foreach($this->atomtags as $atomtag)
 				{
 					$temp = $this->search("'<$atomtag.*?>(.*?)</$atomtag>'si", $cli->results, ($atomtag=='title'));
-					if($temp!='')
+					if ($temp!='')
 					{
 						$this->channel[$atomtag] = $temp;
 					}
 				}
 				$validID = $this->search("'<id.*?>(.*?)</id>'si", $cli->results); //If we find an "id" tag, which is mandatory in Atom feed, we assume that it's a valid feed.
-				if($validID!='')
+				if ($validID!='')
 				{
 					$this->isValid = true;
 				}
-				if( array_key_exists('updated',$this->channel) &&
+				if ( array_key_exists('updated',$this->channel) &&
 				        (($timestamp = strtotime($this->channel['updated'])) !==-1))
 					$this->channel['timestamp'] = $timestamp;
 				else
 					$this->channel['timestamp'] = 0;
 				$ret = preg_match_all("'<entry(| .*?)>(.*?)</entry>'si", $cli->results, $items);
-				if(($ret!==false) && ($ret>0))
+				if (($ret!==false) && ($ret>0))
 				{
 					foreach($items[2] as $rssItem)
 					{
 						$item = array();
 						foreach($this->entrytags as $itemtag)
 						{
-							if($itemtag=='title')
+							if ($itemtag=='title')
 							{
 								$temp = $this->search("'<$itemtag.*?>(.*?)</$itemtag>'si", $rssItem, true);
 								$temp = preg_replace("/\s+/u"," ",$temp);
 							}
 							else
-							if($itemtag=='link')
+							if ($itemtag=='link')
 								$temp = $this->search("'<link.*\s+href\s*=\s*[\"|\'](.*?)[\"|\'].*>'si", $rssItem);
 							else
 								$temp = $this->search("'<$itemtag.*?>(.*?)</$itemtag>'si", $rssItem, false);
-							if(($itemtag=='content') || ($itemtag=='summary'))
+							if (($itemtag=='content') || ($itemtag=='summary'))
 								$temp = html_entity_decode( $temp, ENT_QUOTES, "UTF-8" );
-							if($temp != '')
+							if ($temp != '')
 							{
 								$item[$itemtag] = $temp;
-								if( ($itemtag=='updated') &&
+								if ( ($itemtag=='updated') &&
 									(($timestamp = strtotime($temp)) !==-1))
 									$item['timestamp'] = $timestamp;
 							}
 						}
 						$href = '';
-						if(array_key_exists('link',$item))
+						if (array_key_exists('link',$item))
 						{
 							$href = self::removeTegs( $urlPrefix.$item['link'] );
 							$item['guid'] = $href;
 						}
-						if(array_key_exists('content',$item))
+						if (array_key_exists('content',$item))
 							$item['description'] = $item['content'];
 						else
-						if(array_key_exists('summary',$item))
+						if (array_key_exists('summary',$item))
 							$item['description'] = $item['summary'];
-						if(!array_key_exists('timestamp',$item))
+						if (!array_key_exists('timestamp',$item))
 							$item['timestamp'] = 0;
-						if(!empty($href))
+						if (!empty($href))
 							$this->items[$href] = $item;
 					}
 				}
 			}
-			if( !empty($this->items) )
+			if ( !empty($this->items) )
 			{
 				rTorrentSettings::get()->pushEvent( "RSSFetched", array( "rss"=>&$this ) );
-				if(!$this->hasIncorrectTimes())
+				if (!$this->hasIncorrectTimes())
 					foreach( $this->items as $href=>$item )
 						$history->correct($href,$item['timestamp']);
 				return(true);
@@ -327,7 +327,7 @@ class rRSS
 		$host = $uparts['host'];
 		foreach( $feedsWithIncorrectTimes as $url )
 		{
-			if( stripos($host,$url)!==false )
+			if ( stripos($host,$url)!==false )
 			{
 				$ret = true;
 				break;
@@ -350,15 +350,15 @@ class rRSS
 	protected function search($pattern, $subject, $needTranslate = false)
 	{
 		preg_match($pattern, $subject, $out);
-		if(isset($out[1]))
+		if (isset($out[1]))
 		{
 			$out[1] = strtr($out[1], array('<![CDATA['=>'', ']]>'=>''));
-			if($this->encoding && $this->encoding!="utf-8")
+			if ($this->encoding && $this->encoding!="utf-8")
 				$out[1] = $this->convert($out[1], $needTranslate);
 			else
-			if($needTranslate)
+			if ($needTranslate)
 				$out[1] = self::removeTegs( $out[1] );
-			if( isInvalidUTF8( $out[1] ) )
+			if ( isInvalidUTF8( $out[1] ) )
 				$out[1] = win2utf($out[1]);
 			return(trim($out[1]));
 		}
@@ -368,12 +368,12 @@ class rRSS
 
 	protected function convert($out,$needTranslate = false)
 	{
-		if($needTranslate)
+		if ($needTranslate)
 			$out = self::removeTegs( $out );
-		if(function_exists('iconv'))
+		if (function_exists('iconv'))
 			$out = iconv($this->encoding, 'UTF-8//TRANSLIT', $out);
 		else
-                if(function_exists('mb_convert_encoding'))
+                if (function_exists('mb_convert_encoding'))
 			$out = mb_convert_encoding($out, 'UTF-8', $this->encoding );
 		else
 			$out = win2utf($out);
@@ -390,9 +390,9 @@ class rRSS
 	static protected function fetchURL($url, $cookies = null, $headers = null )
 	{
 		$client = new Snoopy();
-		if(is_array($headers) && count($headers))
+		if (is_array($headers) && count($headers))
 			$client->rawheaders = $headers;
-		if(is_array($cookies) && count($cookies))
+		if (is_array($cookies) && count($cookies))
 			$client->cookies = $cookies;
 		@$client->fetchComplex($url);
 		return $client;
@@ -415,16 +415,16 @@ class rRSSHistory
 	public function add( $url, $hash, $timestamp )
 	{
 		$cnt = 0;
-		if(array_key_exists($url,$this->lst))
+		if (array_key_exists($url,$this->lst))
 			$cnt = ($this->lst[$url]["time"]==$timestamp) ? $this->lst[$url]["cnt"] : 0;
 		$this->lst[$url] = array( "hash"=>$hash, "time"=>$timestamp, "cnt"=>$cnt );
-		if($hash=='Failed')
+		if ($hash=='Failed')
 			$this->lst[$url]["cnt"] = $cnt+1;
 		$this->changed = true;
 	}
         public function correct( $url, $timestamp )
 	{
-		if( array_key_exists($url,$this->lst) && 
+		if ( array_key_exists($url,$this->lst) && 
 			($this->lst[$url]["time"]!=$timestamp) )
 		{
 			unset($this->lst[$url]);
@@ -433,7 +433,7 @@ class rRSSHistory
 	}
 	public function del( $href )
 	{
-		if(array_key_exists($href,$this->lst))
+		if (array_key_exists($href,$this->lst))
 		{
 			unset($this->lst[$href]);
 			$this->changed = true;
@@ -445,20 +445,20 @@ class rRSSHistory
 	}
 	public function getCounter( $url )
 	{
-		if(array_key_exists($url,$this->lst))
+		if (array_key_exists($url,$this->lst))
 			return(intval($this->lst[$url]["cnt"]));
 		return(0);
 	}
 	public function wasLoaded( $url )
 	{
 		$ret = false;
-		if(array_key_exists($url,$this->lst))
+		if (array_key_exists($url,$this->lst))
 			$ret = ($this->lst[$url]["hash"]!=='Failed') || ($this->getCounter( $url )>HISTORY_MAX_TRY);
 		return($ret);
 	}
 	public function getHash( $url )
 	{
-		if(array_key_exists($url,$this->lst))
+		if (array_key_exists($url,$this->lst))
 			return($this->lst[$url]["hash"]);
 		return("");
 	}
@@ -484,7 +484,7 @@ class rRSSHistory
 	}
 	public function clearFilterTime( $filterNo )
 	{
-		if(array_key_exists($filterNo,$this->filtersTime))
+		if (array_key_exists($filterNo,$this->filtersTime))
 		{
 			unset($this->filtersTime[$filterNo]);
 			$this->changed = true;
@@ -494,9 +494,9 @@ class rRSSHistory
 	{
 	        $newFiltesTime = array();
 		foreach($filters->lst as $filter)
-			if(array_key_exists($filter->no,$this->filtersTime))
+			if (array_key_exists($filter->no,$this->filtersTime))
                         	$newFiltesTime[$filter->no] = $this->filtersTime[$filter->no];
-		if(count($newFiltesTime)!=count($this->filtersTime))
+		if (count($newFiltesTime)!=count($this->filtersTime))
 		{
 			$this->changed = true;
 			$this->filtersTime = $newFiltesTime;
@@ -580,21 +580,21 @@ class rRSSFilter
 	public function checkItem( $href, $rssItem )
 	{
 		$content = '';
-                if(($this->titleCheck == 1) && 
+                if (($this->titleCheck == 1) && 
 			array_key_exists('title',$rssItem))
 			$content = $rssItem['title'];
-		if(($this->descCheck == 1) && 
+		if (($this->descCheck == 1) && 
 			array_key_exists('description',$rssItem))
 		{
 			$temp = rRSS::removeTegs( $rssItem['description'] );
 			$temp = preg_replace("/\s+/u"," ",$temp);
-			if(!empty($content))
+			if (!empty($content))
 				$content.=' ';
 			$content.=$temp;
 		}	
-		if($this->linkCheck == 1)
+		if ($this->linkCheck == 1)
 		{
-			if(!empty($content))
+			if (!empty($content))
 				$content.=' ';
 			$content.=$href;
 		}
@@ -662,7 +662,7 @@ class rRSSGroup
 	public function	__construct( $name, $hash = null )
 	{
 		$this->name = $name;
-		if(is_null($hash))
+		if (is_null($hash))
 			$this->hash = 'grp_'.uniqid(time());
 		else
 			$this->hash = $hash;
@@ -671,12 +671,12 @@ class rRSSGroup
 	{
 		$changed = false;
 		foreach( $this->lst as $ndx=>$item )
-			if(!array_key_exists( $item, $rssList->lst ))
+			if (!array_key_exists( $item, $rssList->lst ))
 			{
 				unset($this->lst[$ndx]);
 				$changed = true;
 			}
-		if($changed)
+		if ($changed)
 			$this->lst = array_merge($this->lst);
 		return($changed);
 	}
@@ -710,7 +710,7 @@ class rRSSGroupList
 	{
 		$changed = false;
 		foreach( $this->lst as $item )
-			if($item->check($rssList))
+			if ($item->check($rssList))
 				$changed = true;
 		return($changed);
 	}
@@ -720,13 +720,13 @@ class rRSSGroupList
 	}
 	public function remove( $hash )
 	{
-		if(array_key_exists($hash,$this->lst))
+		if (array_key_exists($hash,$this->lst))
 			unset($this->lst[$hash]);
 	}
 	public function hashPresent( $grpHash, $rssHash )
 	{
 		$grp = $this->get($grpHash);
-		if($grp)
+		if ($grp)
 			return($grp->hashPresent($rssHash));
 		return(false);
 	}	
@@ -742,7 +742,7 @@ class rRSSMetaList
 
 	public function merge($instance,$mergeErrorsOnly)
 	{
-		if($this->isErrorsOccured())
+		if ($this->isErrorsOccured())
 		{
 			$mergedErrors = $instance->err;
 			for($i = $this->loadedErrors; $i<count($this->err); $i++)
@@ -751,7 +751,7 @@ class rRSSMetaList
 		}
 		else
 			$this->err = $instance->err;
-		if($mergeErrorsOnly)
+		if ($mergeErrorsOnly)
 			$this->lst = $instance->lst;
 		return(true);
 	}
@@ -783,9 +783,9 @@ class rRSSMetaList
 	}
 	public function toggleStatus( $hash )
 	{
-		if(array_key_exists($hash,$this->lst))
+		if (array_key_exists($hash,$this->lst))
 		{
-			if($this->lst[$hash]['enabled']==1)
+			if ($this->lst[$hash]['enabled']==1)
 				$this->lst[$hash]['enabled'] = 0;
 			else
 				$this->lst[$hash]['enabled'] = 1;
@@ -793,7 +793,7 @@ class rRSSMetaList
 	}
 	public function getEnabled( $rss )
 	{
-		if($this->isExist( $rss ))
+		if ($this->isExist( $rss ))
 			return($this->lst[$rss->hash]['enabled']);
 		return(0);
 	}
@@ -808,7 +808,7 @@ class rRSSMetaList
 	public function addError( $desc, $prm = null )
 	{
 		$e = array( 'time'=>time(), 'desc'=>$desc, 'prm'=>'' );
-		if($prm)
+		if ($prm)
 			$e['prm'] = $prm;
 		$this->err[] = $e;
 	}
@@ -848,9 +848,9 @@ class rRSSManager
 	public function setInterval($interval)
 	{
 		global $minInterval;
-		if(!isset($minInterval))
+		if (!isset($minInterval))
 			$minInterval = 2;
-		if($interval<$minInterval)
+		if ($interval<$minInterval)
 			$interval = $minInterval;
 		$this->data->interval = $interval;
 		$this->cache->set($this->data);
@@ -861,7 +861,7 @@ class rRSSManager
 	        $startAt = 0;
 		$req = new rXMLRPCRequest( rTorrentSettings::get()->getScheduleCommand("rss",$this->data->interval,
 			getCmd('execute').'={sh,-c,'.escapeshellarg(getPHP()).' '.escapeshellarg(__DIR__.'/update.php').' '.escapeshellarg(getUser()).' & exit 0}', $startAt) );
-		if($req->success())
+		if ($req->success())
 		{
 			$this->setStartTime($startAt);
 			return(true);
@@ -879,7 +879,7 @@ class rRSSManager
 		$changed = false;
 		foreach($flts->lst as $filter)
 		{
-			if(!empty($filter->rssHash) &&
+			if (!empty($filter->rssHash) &&
 				!$this->rssList->isExist($filter->rssHash) &&
 				!$this->groups->get( $filter->rssHash ))
 			{
@@ -887,7 +887,7 @@ class rRSSManager
 				$changed = true;
 			}
 		}
-		if($changed)
+		if ($changed)
 			$this->cache->set($flts);
 		return($flts);
 	}
@@ -903,7 +903,7 @@ class rRSSManager
 		{
 			$rss = new rRSS();
 			$rss->hash = $hash;
-			if($this->cache->get($rss) && $info['enabled'])
+			if ($this->cache->get($rss) && $info['enabled'])
 				$this->checkFilters($rss,$flts);
 		}
 		$this->history->removeOldFilters($flts);
@@ -918,7 +918,7 @@ class rRSSManager
 	{
 		foreach( $urls as $ndx=>$url )
 		{
-			if($state)
+			if ($state)
 				$this->history->add($url,'Loaded',$times[$ndx]);
 			else
 				$this->history->del($url);
@@ -927,15 +927,15 @@ class rRSSManager
 	}
 	public function checkFilters($rss,$filters = null)
 	{
-		if($filters===null)
+		if ($filters===null)
 			$filters = $this->loadFilters();
 		foreach($filters->lst as $filter)
 		{
 			foreach($rss->items as $href=>$item)
 			{
-				if(!$filter->isApplicable( $rss, $this->history, $this->groups ))
+				if (!$filter->isApplicable( $rss, $this->history, $this->groups ))
 					break;
-				if(     !$this->history->wasLoaded($href) &&
+				if (     !$this->history->wasLoaded($href) &&
 					$filter->checkItem($href, $item) )
 				{
 				        $this->history->applyFilter( $filter->no );
@@ -944,7 +944,7 @@ class rRSSManager
 
 					$this->getTorrents( $rss, $href, 
 						$filter->start, $filter->addPath, $filter->getDirectory(), $filter->getLabel(), $filter->throttle, $filter->ratio, false );
-					if(WAIT_AFTER_LOADING)
+					if (WAIT_AFTER_LOADING)
 						sleep(WAIT_AFTER_LOADING);
 				}
 			}
@@ -955,11 +955,11 @@ class rRSSManager
 		$rss = new rRSS();
 		$rss->hash = $hash;
 		$hrefs = array();
-		if($this->rssList->isExist($rss) && $this->cache->get($rss))
+		if ($this->rssList->isExist($rss) && $this->cache->get($rss))
 		{
 			foreach($rss->items as $href=>$item)
 			{
-				if( $filter->checkItem($href, $item) )
+				if ( $filter->checkItem($href, $item) )
 				{
 					$hrefs[$href] = array( 'label'=>$filter->getLabel(), 'dir'=>$filter->getDirectory() );
 				}
@@ -972,17 +972,17 @@ class rRSSManager
 	public function testFilter($filter,$hash = null)
 	{
 		$hrefs = array();
-		if(!$filter->isCorrect())
+		if (!$filter->isCorrect())
 			$this->rssList->addError("theUILang.rssIncorrectFilter",$filter->pattern);
 		else
-		if(!$filter->isCorrectExclude())
+		if (!$filter->isCorrectExclude())
 			$this->rssList->addError("theUILang.rssIncorrectFilter",$filter->exclude);
 		else
 		{
-			if($hash)
+			if ($hash)
 			{
 				$grp = $this->groups->get($hash);
-				if($grp)
+				if ($grp)
 					foreach($grp->lst as $hsh)
 						$hrefs = array_merge($hrefs,$this->testOneFilter($filter,$hsh));
 				else
@@ -1006,24 +1006,24 @@ class rRSSManager
 	public function updateRSSGroup($hash)
 	{
 		$grp = $this->groups->get($hash);
-		if($grp)
+		if ($grp)
 			$this->updateRSS($grp->lst);
 	}
 	public function updateRSS($hash)
 	{
 		$filters = $this->loadFilters();
 		$rss = new rRSS();
-		if(!is_array($hash))
+		if (!is_array($hash))
 			$hash = array( $hash );
 		foreach( $hash as $item )
 		{
 			$rss->hash = $item;
-			if($this->rssList->isExist($rss))
+			if ($this->rssList->isExist($rss))
 			{
 				$info = $this->rssList->lst[$item];
-	                        if($this->cache->get($rss) && $info['enabled'])
+	                        if ($this->cache->get($rss) && $info['enabled'])
 				{
-					if($rss->fetch($this->history) && $this->cache->set($rss))
+					if ($rss->fetch($this->history) && $this->cache->set($rss))
 					{
 						$this->checkFilters($rss,$filters);
 						$this->saveHistory();
@@ -1048,15 +1048,15 @@ class rRSSManager
 		{
 			$rss = new rRSS();
 			$rss->hash = $hash;
-			if($this->cache->get($rss) && $info['enabled'])
+			if ($this->cache->get($rss) && $info['enabled'])
 			{
-				if($rss->fetch($this->history) && $this->cache->set($rss))
+				if ($rss->fetch($this->history) && $this->cache->set($rss))
 					$this->checkFilters($rss,$filters);
 				else
 					$this->rssList->addError( "theUILang.cantFetchRSS", $rss->getMaskedURL() );
 			}
 		}
-		if(!$manual)
+		if (!$manual)
 		{
 			$this->rssList->touch();
                 	$this->saveState(true);
@@ -1066,7 +1066,7 @@ class rRSSManager
 	public function getIntervals()
 	{
 		$nextTouch = $this->data->interval*60;
-		if($this->rssList->updatedAt)
+		if ($this->rssList->updatedAt)
 			$nextTouch = $nextTouch-(time()-$this->rssList->updatedAt)+45;
 		return(array( "next"=>$nextTouch, "interval"=>$this->data->interval ));
 	}
@@ -1078,15 +1078,15 @@ class rRSSManager
 		{
 			$rss = new rRSS(array_key_exists('url',$info) ? $info['url'] : null);
 			$rss->hash = $hash;
-			if(!$this->cache->get($rss) && !empty($rss->srcURL) && $rss->fetch($this->history))
+			if (!$this->cache->get($rss) && !empty($rss->srcURL) && $rss->fetch($this->history))
 			{
 				$this->cache->set($rss);
 				$this->saveHistory();
 			}
-			if(!empty($rss->srcURL))
+			if (!empty($rss->srcURL))
 			{
 				$ret["list"][] = $rss->getContents($info['label'],$info['auto'],$info['enabled'],$this->history);
-				if(!array_key_exists('url',$info))
+				if (!array_key_exists('url',$info))
 				{
 					$this->rssList->lst[$hash]['url'] = $rss->srcURL;
 					$corrected = true;
@@ -1098,9 +1098,9 @@ class rRSSManager
 				$this->remove($hash,false);
 			}
 		}
-		if($corrected)
+		if ($corrected)
 			$this->cache->set($this->rssList);
-		if($this->groups->check($this->rssList))
+		if ($this->groups->check($this->rssList))
 			$this->saveGroups();
 		$ret["groups"] = $this->groups->getContents();
 		return($ret);
@@ -1109,7 +1109,7 @@ class rRSSManager
 	{
 		$rss = new rRSS();
 		$rss->hash = $hash;
-		if($this->rssList->isExist($rss) && 
+		if ($this->rssList->isExist($rss) && 
 			$this->cache->get($rss) && 
 			array_key_exists($href,$rss->items) &&
 			array_key_exists('description',$rss->items[$href]))
@@ -1124,15 +1124,15 @@ class rRSSManager
 	public function removeGroupContents( $hash )
 	{
 		$grp = $this->groups->get($hash);
-		if($grp)
+		if ($grp)
 			$this->remove($grp->lst);
 		$this->removeGroup($hash);
-		if($this->groups->check($this->rssList))
+		if ($this->groups->check($this->rssList))
 			$this->saveGroups();
 	}
 	public function remove( $hash, $needFlush = true )
 	{
-		if(is_array($hash))
+		if (is_array($hash))
 		{
 			foreach($hash as $item)
 				$this->remove($item,false);
@@ -1142,10 +1142,10 @@ class rRSSManager
 		{
 			$rss = new rRSS();
 			$rss->hash = $hash;
-			if($this->rssList->isExist($rss))
+			if ($this->rssList->isExist($rss))
 			{
 				$this->rssList->remove($rss);
-				if($needFlush)
+				if ($needFlush)
 					$this->saveState(false);
         			$this->cache->remove($rss);
 			}
@@ -1155,7 +1155,7 @@ class rRSSManager
 	public function setStatusGroup( $hash, $enable )
 	{
 		$grp = $this->groups->get($hash);
-		if($grp)
+		if ($grp)
 		{
 			foreach( $grp->lst as $item )
 				$this->rssList->lst[$item]['enabled'] = $enable;
@@ -1170,7 +1170,7 @@ class rRSSManager
 	public function changeGroup( $hash, $label, $rssList )
 	{
 		$grp = $this->groups->get($hash);
-		if($grp)
+		if ($grp)
 		{
 			$grp->name = $label;
 			$grp->lst = $rssList;
@@ -1183,12 +1183,12 @@ class rRSSManager
 		$rssOld = new rRSS();
 		$rssOld->hash = $hash;
 		$rssLabel = trim($rssLabel);
-		if(!$this->rssList->isExist($rssOld))
+		if (!$this->rssList->isExist($rssOld))
 			return($this->add($rssURL, $rssLabel, $rssAuto, 1));
 		else
 		{
 			$rssNew = new rRSS($rssURL);
-			if($rssNew->hash==$hash)
+			if ($rssNew->hash==$hash)
 			{
 				$this->rssList->change($rssNew,$rssLabel,$rssAuto);
 				$this->saveState(false);
@@ -1213,15 +1213,15 @@ class rRSSManager
 	public function add( $rssURL, $rssLabel = null, $rssAuto = 0, $enabled = 1 )
 	{
 		$rss = new rRSS($rssURL);
-		if(!$this->rssList->isExist($rss))
+		if (!$this->rssList->isExist($rss))
 		{
-			if($rss->fetch($this->history) && $this->cache->set($rss))
+			if ($rss->fetch($this->history) && $this->cache->set($rss))
 			{
-			        if($rssLabel)
+			        if ($rssLabel)
 			        	$rssLabel = trim($rssLabel);
-				if(!$rssLabel || !strlen($rssLabel))
+				if (!$rssLabel || !strlen($rssLabel))
 				{
-					if(array_key_exists('title',$rss->channel))
+					if (array_key_exists('title',$rss->channel))
 						$rssLabel = $rss->channel['title'];
 					else
 						$rssLabel = 'New RSS';
@@ -1241,53 +1241,53 @@ class rRSSManager
 	{
 		$thash = 'Failed';
 		$ret = $rss->getTorrent( $url );
-		if($ret!==false)
+		if ($ret!==false)
 		{
 			$addition = array();
-			if(!empty($throttle))
+			if (!empty($throttle))
 				$addition[] = getCmd("d.throttle_name.set=").$throttle;
-			if(!empty($ratio))
+			if (!empty($ratio))
 				$addition[] = getCmd("view.set_visible=").$ratio;
 			global $saveUploadedTorrents;
 			$thash = ($ret==='magnet') ?
 				rTorrent::sendMagnet($url, $isStart, $isAddPath, $directory, $label, $addition) :
 				rTorrent::sendTorrent($ret, $isStart, $isAddPath, $directory, $label, $saveUploadedTorrents, false, true, $addition);
-			if($thash===false)
+			if ($thash===false)
 			{
 				$thash = 'Failed';
 				@unlink($ret);
 				$ret = false;
 			}
 		}
-		if($ret===false)
+		if ($ret===false)
 			$this->rssList->addError( "theUILang.rssCantLoadTorrent", $url );
 		$this->history->add($url,$thash,$rss->getItemTimestamp( $url ));
-		if($needFlush)
+		if ($needFlush)
 			$this->saveHistory();
 	}
 	public function saveHistory()
 	{
-		if($this->history->isOverflow())
+		if ($this->history->isOverflow())
 		{
 			$urls = array();
 			foreach($this->rssList->lst as $hash=>$info)
 			{
 				$rss = new rRSS();
 				$rss->hash = $hash;
-				if($this->cache->get($rss))
+				if ($this->cache->get($rss))
 				{
 					foreach($rss->items as $href=>$item)
 						$urls[$href] = true;
 				}
 			}
-			if(count($urls))
+			if (count($urls))
 				foreach($this->history->lst as $href=>$hash)
 				{
-					if(!array_key_exists($href,$urls))
+					if (!array_key_exists($href,$urls))
 						$this->history->del($href);
 				}
 		}
-		if($this->history->isChanged())
+		if ($this->history->isChanged())
 		{
 			$this->history->changed = false;
 			$this->cache->set($this->history);

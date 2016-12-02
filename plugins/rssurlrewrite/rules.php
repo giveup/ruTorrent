@@ -34,9 +34,9 @@ class rURLRewriteRule
 	{
 		$src = $this->hrefAsSrc ? $href : $guid;
 		$dst = @preg_replace($this->pattern,$this->replacement,$src);
-		if(($dst!==false) && ($dst!=$src))
+		if (($dst!==false) && ($dst!=$src))
 		{
-			if($this->hrefAsDest)
+			if ($this->hrefAsDest)
 				$href = $dst;
 			else 				
 				$guid = $dst;
@@ -55,17 +55,17 @@ class rURLRewriteRulesList
 		$cache = new rCache();
 		$ar = new rURLRewriteRulesList();
 		$cache->get($ar);
-		if(rTorrentSettings::get()->isPluginRegistered("rss"))
+		if (rTorrentSettings::get()->isPluginRegistered("rss"))
 		{
 			$changed = false;
-			if(is_null($mngr))
+			if (is_null($mngr))
 			{
 				require_once( __DIR__.'/../rss/rss.php' );
 				$mngr = new rRSSManager();	
 			}
 			foreach($ar->lst as $rule)
 			{
-				if(!empty($rule->rssHash) &&
+				if (!empty($rule->rssHash) &&
 					!$mngr->rssList->isExist($rule->rssHash) &&
 					!$mngr->groups->get( $rule->rssHash ))
 				{
@@ -73,7 +73,7 @@ class rURLRewriteRulesList
 					$changed = true;
 				}
 			}
-			if($changed)
+			if ($changed)
 				$ar->store();
 		}			
 		return($ar);
@@ -89,66 +89,66 @@ class rURLRewriteRulesList
 	}
         public function set()
 	{
-		if(!isset($HTTP_RAW_POST_DATA))
+		if (!isset($HTTP_RAW_POST_DATA))
 			$HTTP_RAW_POST_DATA = file_get_contents("php://input");
 		$this->lst = array();
 		$rule = null;
-		if(isset($HTTP_RAW_POST_DATA))
+		if (isset($HTTP_RAW_POST_DATA))
 		{
 			$vars = explode('&', $HTTP_RAW_POST_DATA);
 			foreach($vars as $var)
 			{
 				$parts = explode("=",$var);
-				if($parts[0]=="name")
+				if ($parts[0]=="name")
 				{
-					if($rule)
+					if ($rule)
 						$this->lst[] = $rule;
 					$rule = new rURLRewriteRule(rawurldecode($parts[1]));
 				}
 				else
-				if($parts[0]=="pattern")
+				if ($parts[0]=="pattern")
 				{
-					if($rule)
+					if ($rule)
 						$rule->pattern = trim(rawurldecode($parts[1]));
 				}
 				else
-				if($parts[0]=="replacement")
+				if ($parts[0]=="replacement")
 				{
-					if($rule)
+					if ($rule)
 						$rule->replacement = trim(rawurldecode($parts[1]));
 				}
 				else
-				if($parts[0]=="enabled")
+				if ($parts[0]=="enabled")
 				{
-					if($rule)
+					if ($rule)
 						$rule->enabled = intval($parts[1]);
 				}
 				else
-				if($parts[0]=="no")
+				if ($parts[0]=="no")
 				{
-					if($rule)
+					if ($rule)
 						$rule->no = intval($parts[1]);
 				}
 				else
-				if($parts[0]=="hash")
+				if ($parts[0]=="hash")
 				{
-					if($rule)
+					if ($rule)
 						$rule->rssHash = $parts[1];
 				}
 				else
-				if($parts[0]=="hrefAsSrc")
+				if ($parts[0]=="hrefAsSrc")
 				{
-					if($rule)
+					if ($rule)
 						$rule->hrefAsSrc = intval($parts[1]);
 				}
 				else
-				if($parts[0]=="hrefAsDest")
+				if ($parts[0]=="hrefAsDest")
 				{
-					if($rule)
+					if ($rule)
 						$rule->hrefAsDest = intval($parts[1]);
 				}
   	                }
-			if($rule)
+			if ($rule)
 				$this->lst[] = $rule;
 			usort($this->lst, function($a, $b) { return(strcmp($a->name, $b->name)); });
 			$this->store();
@@ -162,7 +162,7 @@ class rURLRewriteRulesList
 	{
 		foreach( $this->lst as $item )
 		{
-			if($item->isApplicable( $rss, $groups ))
+			if ($item->isApplicable( $rss, $groups ))
 				$item->apply( $href, $guid );
 		}
 	}

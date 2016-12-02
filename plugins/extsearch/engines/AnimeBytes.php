@@ -21,11 +21,11 @@ class AnimeBytesEngine extends commonEngine
 		$added = 0;
 		$url = 'https://animebytes.tv';
 
-		if($useGlobalCats)
+		if ($useGlobalCats)
 			$categories = array( 'all'=>'', 'anime'=>'&filter_cat[1]=1', 'books'=>'&filter_cat[2]=1', 'games'=>'&filter_cat[3]=1', 'live action'=>'&filter_cat[4]=1', 'packs'=>'&filter_cat[5]=1' );
 		else
 			$categories = &$this->categories;
-		if(!array_key_exists($cat,$categories))
+		if (!array_key_exists($cat,$categories))
 			$cat = $categories['all'];
 		else
 			$cat = $categories[$cat];
@@ -36,7 +36,7 @@ class AnimeBytesEngine extends commonEngine
 			$itemsFound = false;
                         $cli = $this->fetch( $url.'/torrents.php?searchstr='.$what.'&tags_type=1&order_by=time_added&way=desc&page='.$pg.$cat );
 
-			if( ($cli==false) || (strpos($cli->results, "<h2>Your search did not match anything.</h2>")!==false) ||
+			if ( ($cli==false) || (strpos($cli->results, "<h2>Your search did not match anything.</h2>")!==false) ||
 				(strpos($cli->results, "<td>Password&nbsp;</td>")!==false))
 				break;
 
@@ -50,13 +50,13 @@ class AnimeBytesEngine extends commonEngine
 
 
 
-			if($res)
+			if ($res)
 			{
 				$itemsFound = true;
 				for($i=0; $i<$res; $i++)
 				{
 					$link = $url."/torrents.php?".self::removeTags($matches["link"][$i]);
-					if(!array_key_exists($link,$ret))
+					if (!array_key_exists($link,$ret))
 					{
 						$item = $this->getNewEntry();
 						$item["cat"] = self::removeTags($matches["cat"][$i]);
@@ -67,13 +67,13 @@ class AnimeBytesEngine extends commonEngine
 						$item["peers"] = intval(self::removeTags($matches["leech"][$i]));
 						$ret[$link] = $item;
 						$added++;
-						if($added>=$limit)
+						if ($added>=$limit)
 							return;
 					}
 				}
 			}
 
-                        if(!$itemsFound)
+                        if (!$itemsFound)
                              break;
                 }
         }

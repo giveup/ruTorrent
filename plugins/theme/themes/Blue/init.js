@@ -15,7 +15,7 @@ plugin.showShadow = function(id,callback)
 	shadow.find(".xstc,.xsmc,.xsbc").width(p.width()-4);
 	shadow.find(".xsc").height(p.height()-12);
 	shadow.width( p.width()+8 ).height( p.height() ).css({ left: p.offset().left-4, top: p.offset().top+4 }).show();
-	if(callback)
+	if (callback)
 		callback();
 }
 
@@ -27,7 +27,7 @@ plugin.allDone = function()
 	{
 		plugin.correctCheckboxes();
 
-		if(thePlugins.isInstalled('rss'))
+		if (thePlugins.isInstalled('rss'))
 		{
 			plugin.loadFilters = theWebUI.loadFilters;
 			theWebUI.loadFilters = function( flt, additions )
@@ -57,7 +57,7 @@ plugin.allDone = function()
 				plugin.correctCheckboxes();
 			}
 		}
-		if(thePlugins.isInstalled('rssurlrewrite'))
+		if (thePlugins.isInstalled('rssurlrewrite'))
 		{
 			plugin.loadRules = theWebUI.loadRules;
 			theWebUI.loadRules = function( rle )
@@ -84,7 +84,7 @@ plugin.allDone = function()
 	plugin.show = theDialogManager.show;
 	theDialogManager.show = function( id, callback )
 	{
-		if(this.divider && !$('#'+id).data("modal"))
+		if (this.divider && !$('#'+id).data("modal"))
 			plugin.show.call(theDialogManager,id, function()
 			{
 				plugin.showShadow(id,callback);
@@ -109,7 +109,7 @@ plugin.allDone = function()
 		plugin.bringToTop.call(theDialogManager,id);
 		var p = $("#"+id);
 		var shadow = $("#"+id+"-shadow")
-		if(p.length && shadow.length)
+		if (p.length && shadow.length)
 		{
 			shadow.css("z-index",theDialogManager.maxZ);
 			p.css("z-index",++theDialogManager.maxZ);

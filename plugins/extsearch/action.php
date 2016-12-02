@@ -5,13 +5,13 @@ require_once( "engines.php" );
 
 set_time_limit(0);
 $em = engineManager::load();
-if($em===false)
+if ($em===false)
 {
 	$em = new engineManager();
 	$em->obtain("./engines");
 }
 
-if(isset($_REQUEST['mode']))
+if (isset($_REQUEST['mode']))
 {
 	$cmd = $_REQUEST['mode'];
 	switch($cmd)
@@ -29,9 +29,9 @@ if(isset($_REQUEST['mode']))
 		}
 		case "loadtorrents":
 		{
-			if(!isset($HTTP_RAW_POST_DATA))
+			if (!isset($HTTP_RAW_POST_DATA))
 				$HTTP_RAW_POST_DATA = file_get_contents("php://input");
-			if(isset($HTTP_RAW_POST_DATA))
+			if (isset($HTTP_RAW_POST_DATA))
 			{
 				$vars = explode('&', $HTTP_RAW_POST_DATA);
 				$lbl = null;
@@ -46,31 +46,31 @@ if(isset($_REQUEST['mode']))
 				foreach($vars as $var)
 				{
 					$parts = explode("=",$var);
-					if($parts[0]=="torrents_start_stopped")
+					if ($parts[0]=="torrents_start_stopped")
 						$isStart = false;
 					else
-					if($parts[0]=="not_add_path")
+					if ($parts[0]=="not_add_path")
 						$isAddPath = false;
 					else
-					if($parts[0]=="dir_edit")
+					if ($parts[0]=="dir_edit")
 						$dir = rawurldecode($parts[1]);
 					else
-					if($parts[0]=="label")
+					if ($parts[0]=="label")
 						$lbl = rawurldecode($parts[1]);
 					else
-					if($parts[0]=="fast_resume")
+					if ($parts[0]=="fast_resume")
 						$fast = $parts[1];
 					else
-					if($parts[0]=="teg")
+					if ($parts[0]=="teg")
 						$teg = $parts[1];
 					else
-					if($parts[0]=="url")
+					if ($parts[0]=="url")
 						$urls[] = rawurldecode($parts[1]);
 					else
-					if($parts[0]=="eng")
+					if ($parts[0]=="eng")
 						$engs[] = $parts[1];
 					else
-					if($parts[0]=="ndx")
+					if ($parts[0]=="ndx")
 						$ndx[] = $parts[1];
 				}
 				$status = $em->getTorrents( $engs, $urls, $isStart, $isAddPath, $dir, $lbl, $fast );

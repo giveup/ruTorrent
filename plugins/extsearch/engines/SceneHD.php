@@ -10,11 +10,11 @@ class SceneHDEngine extends commonEngine
 	{
 		$added = 0;
 		$url = 'http://scenehd.org';
-		if($useGlobalCats)
+		if ($useGlobalCats)
 			$categories = array( 'all'=>'', 'movies'=>'&cat=1,4,8,22', 'tv'=>'&cat=5,7' );
 		else
 			$categories = &$this->categories;
-		if(!array_key_exists($cat,$categories))
+		if (!array_key_exists($cat,$categories))
 			$cat = $categories['all'];
 		else
 			$cat = $categories[$cat];
@@ -22,7 +22,7 @@ class SceneHDEngine extends commonEngine
 		for($pg = 0; $pg<11; $pg++)
 		{
 			$cli = $this->fetch( Snoopy::linkencode($url.'/browse.php?search='.$what.'&sort=9&page='.$pg).'&cat='.$cat,false );
-			if( ($cli==false) || (strpos($cli->results, "<h2>No torrents found!</h2>")!==false) ||
+			if ( ($cli==false) || (strpos($cli->results, "<h2>No torrents found!</h2>")!==false) ||
 				(strpos($cli->results, "<td>Password</td>")!==false))
 				break;
 			$res = preg_match_all('`<img border="0" src="[^"]*" title="(?P<cat>[^"]*)"><\/a><\/td>.*'.
@@ -32,7 +32,7 @@ class SceneHDEngine extends commonEngine
 				'<span.*>(?P<seeds>.*\d++)<\/span>.*'.
 				'\/.\n.*<span.*>(?P<leech>\d++)'.
 				'`siU', $cli->results, $matches);
-			if(($res!==false) && ($res>0) &&
+			if (($res!==false) && ($res>0) &&
 				count($matches["cat"])==count($matches["id"]) &&
 				count($matches["id"])==count($matches["name"]) && 
 				count($matches["name"])==count($matches["size"]) &&
@@ -43,7 +43,7 @@ class SceneHDEngine extends commonEngine
 				for($i=0; $i<count($matches["id"]); $i++)
 				{
 					$link = $url."/download.php?id=".$matches["id"][$i];
-					if(!array_key_exists($link,$ret))
+					if (!array_key_exists($link,$ret))
 					{
 						$item = $this->getNewEntry();
 						$item["cat"] = $matches["cat"][$i];
@@ -55,7 +55,7 @@ class SceneHDEngine extends commonEngine
 						$item["peers"] = intval(self::removeTags($matches["leech"][$i]));
 						$ret[$link] = $item;
 						$added++;
-						if($added>=$limit)
+						if ($added>=$limit)
 							return;
 					}
 				}

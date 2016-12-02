@@ -15,11 +15,11 @@ class PirateBayEngine extends commonEngine
 	{
 		$added = 0;
 		$url = 'http://thepiratebay.org';
-		if($useGlobalCats)
+		if ($useGlobalCats)
 			$categories = array( 'all'=>'100,200,300,400,500,600', 'movies'=>'200', 'tv'=>'205', 'music'=>'100', 'games'=>'400', 'anime'=>'0', 'software'=>'300', 'pictures'=>'603', 'books'=>'601' );
 		else
 			$categories = &$this->categories;
-		if(!array_key_exists($cat,$categories))
+		if (!array_key_exists($cat,$categories))
 			$cat = $categories['all'];
 		else
 			$cat = $categories[$cat];
@@ -27,7 +27,7 @@ class PirateBayEngine extends commonEngine
 		for($pg = 0; $pg<$maxPage; $pg++)
 		{
 			$cli = $this->fetch( Snoopy::linkencode($url.'/search/'.$what.'/'.$pg).'/7/'.$cat,false );
-			if($cli==false || !preg_match('/<\/span>&nbsp;Displaying hits from \d+ to \d+ \(approx (?P<cnt>\d+) found\)/siU',$cli->results, $matches))
+			if ($cli==false || !preg_match('/<\/span>&nbsp;Displaying hits from \d+ to \d+ \(approx (?P<cnt>\d+) found\)/siU',$cli->results, $matches))
 				break;
 			$maxPage = ceil(intval($matches["cnt"])/30);
 			$res = preg_match_all('/<td class="vertTh"><a href="\/browse.*>(?P<cat>.*)<\/a><\/td>.*'.
@@ -38,7 +38,7 @@ class PirateBayEngine extends commonEngine
 				'<td align="right">(?P<seeds>.*)<\/td>.*'.
 				'<td align="right">(?P<leech>.*)<\/td>'.
 				'/siU', $cli->results, $matches);
-			if(($res!==false) && ($res>0) &&
+			if (($res!==false) && ($res>0) &&
 				count($matches["desc"])==count($matches["name"]) &&
 				count($matches["cat"])==count($matches["name"]) && 
 				count($matches["name"])==count($matches["date"]) &&
@@ -50,7 +50,7 @@ class PirateBayEngine extends commonEngine
 				for($i=0; $i<count($matches["link"]); $i++)
 				{
 					$link = "magnet:".$matches["link"][$i];
-					if(!array_key_exists($link,$ret))
+					if (!array_key_exists($link,$ret))
 					{
 						$item = $this->getNewEntry();
 						$item["cat"] = self::removeTags($matches["cat"][$i]);
@@ -61,14 +61,14 @@ class PirateBayEngine extends commonEngine
 						$item["peers"] = intval(self::removeTags($matches["leech"][$i]));
 
 						$tms = self::removeTags($matches["date"][$i]);
-						if(strpos($tms,":")!==false)
+						if (strpos($tms,":")!==false)
 						{
 							$tm = strptime($tms,"%m-%d %H:%M");
-							if($tm===false)
+							if ($tm===false)
 							{
 								$tms = str_replace( "Y-day", "-1 day", $tms );
 								$tm = strtotime($tms);
-								if($tm!==false)
+								if ($tm!==false)
 									$tm = localtime($tm,true);
 							}
 							else
@@ -76,22 +76,22 @@ class PirateBayEngine extends commonEngine
 						}
 						else
 						{
-							if(preg_match( '/^(\d+) mins? ago$/i', $tms, $match ))
+							if (preg_match( '/^(\d+) mins? ago$/i', $tms, $match ))
 							{
 								$tms = "-".$match[1]." minute";
 								$tm = strtotime($tms);
-								if($tm!==false)
+								if ($tm!==false)
 									$tm = localtime($tm,true);
 							}
 							else
 								$tm = strptime($tms,"%m-%d %Y");
 						}
 
-						if($tm!==false)
+						if ($tm!==false)
 							$item["time"] = mktime(	$tm["tm_hour"], $tm["tm_min"], $tm["tm_sec"], $tm["tm_mon"]+1, $tm["tm_mday"], $tm["tm_year"]+1900 );
 						$ret[$link] = $item;
 						$added++;
-						if($added>=$limit)
+						if ($added>=$limit)
 							return;
 					}
 				}

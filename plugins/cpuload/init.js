@@ -19,7 +19,7 @@ rLoadGraph.prototype.draw = function( percent )
 	var self = this;
 	$(function() 
 	{
-		if(self.owner.height() && self.owner.width())
+		if (self.owner.height() && self.owner.width())
 		{
 			clearCanvas( self.owner.get(0) );
 			self.owner.empty();
@@ -74,7 +74,7 @@ rLoadGraph.prototype.addData = function( percent )
 
 plugin.init = function()
 {
-	if(getCSSRule("#meter-cpu-holder"))
+	if (getCSSRule("#meter-cpu-holder"))
 	{
 		plugin.prgStartColor = new RGBackground("#99D699");
 		plugin.prgEndColor = new RGBackground("#E69999");

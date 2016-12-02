@@ -16,18 +16,18 @@ class ImmortalSeedEngine extends commonEngine
 	{
 		$url = 'https://immortalseed.tv';
 		$added = 0;
-		if($useGlobalCats)
+		if ($useGlobalCats)
 			$categories = array( 'all'=>'0', 'music'=>'30', 'anime'=>'32', 'software'=>'23', 'pictures'=>'31', 'books'=>'22' );
 		else
 			$categories = &$this->categories;
-		if(!array_key_exists($cat,$categories))
+		if (!array_key_exists($cat,$categories))
 			$cat = $categories['all'];
 		else
 			$cat = $categories[$cat];
 		for($pg = 1; $pg<10; $pg++)
 		{
 			$cli = $this->fetch( $url.'/browse.php?include_dead_torrents=no&keywords='.$what.'&search_type=t_name&page='.$pg.'&category='.$cat );
-			if($cli==false || (strpos($cli->results, '<input type="password" name="password" class="inputPassword"')!==false)) 
+			if ($cli==false || (strpos($cli->results, '<input type="password" name="password" class="inputPassword"')!==false)) 
 				break;
 
 			$res = preg_match_all('`<img src="'.$url.'/images/categories/.*" border="0" alt="(?P<cat>.*)".*'.
@@ -39,12 +39,12 @@ class ImmortalSeedEngine extends commonEngine
 				'title="Leechers">(?P<leech>.*)</a>'.
 				'`siU', $cli->results, $matches);
 
-			if($res)
+			if ($res)
 			{
 				for($i=0; $i<$res; $i++)
 				{
 					$link = $url."/download.php?id=".$matches["id"][$i];
-					if(!array_key_exists($link,$ret))
+					if (!array_key_exists($link,$ret))
 					{
 						$item = $this->getNewEntry();
 						$item["cat"] = self::removeTags($matches["cat"][$i]);
@@ -56,7 +56,7 @@ class ImmortalSeedEngine extends commonEngine
 						$item["peers"] = intval(self::removeTags($matches["leech"][$i]));
 						$ret[$link] = $item;
 						$added++;
-						if($added>=$limit)
+						if ($added>=$limit)
 							return;
 					}
 				}

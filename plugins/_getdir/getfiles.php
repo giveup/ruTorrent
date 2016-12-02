@@ -123,10 +123,10 @@ function keyHandler(e)
 {
 	e = e || window.event;
 	var charCode = (e.which == null) ? e.keyCode : ((e.which!=0 && e.charCode!=0) ? e.which : 0);
-	if(charCode>=32)
+	if (charCode>=32)
 	{
 		var elements = document.getElementsByName('i'+e.charCode);
-		if( elements.length )
+		if ( elements.length )
 		{
 			var el = elements[0];
 			menuClick(el);
@@ -154,12 +154,12 @@ selected = null;
 
 function menuClick(obj)
 {
-	if(selected)
+	if (selected)
 		selected.className = 'rmenuitem';
 	obj.className = 'rmenuitemselected';
 	selected = obj;
 	var code = obj.getAttribute('code');
-	if(code && doc)
+	if (code && doc)
 	{
 		var el = doc.getElementById(<?php echo $edit_id;?>);
 		el.value = decodeURIComponent(code);

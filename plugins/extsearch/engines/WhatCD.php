@@ -10,11 +10,11 @@ class WhatCDEngine extends commonEngine
 	{
 		$added = 0;
 		$url = 'https://what.cd';
-		if($useGlobalCats)
+		if ($useGlobalCats)
 			$categories = array( 'all'=>'', 'music'=>'&filter_cat[1]=1', 'software'=>'&filter_cat[2]=1', 'books'=>'&filter_cat[3]=1' );
 		else
 			$categories = &$this->categories;
-		if(!array_key_exists($cat,$categories))
+		if (!array_key_exists($cat,$categories))
 			$cat = $categories['all'];
 		else
 			$cat = $categories[$cat];
@@ -23,7 +23,7 @@ class WhatCDEngine extends commonEngine
 		{
 			$itemsFound = false;
 			$cli = $this->fetch( $url.'/torrents.php?searchstr='.$what.'&tags_type=1&order_by=seeders&order_way=desc&page='.$pg.$cat );
-			if( ($cli==false) || (strpos($cli->results, "<h2>Your search did not match anything.</h2>")!==false) ||
+			if ( ($cli==false) || (strpos($cli->results, "<h2>Your search did not match anything.</h2>")!==false) ||
 				(strpos($cli->results, "<td>Password&nbsp;</td>")!==false))
 				break;
 
@@ -36,13 +36,13 @@ class WhatCDEngine extends commonEngine
 				'/siU', $cli->results, $matches);
 
 
-			if($res)
+			if ($res)
 			{
 				$itemsFound = true;
 				for($i=0; $i<$res; $i++)
 				{
 					$link = $url."/torrents.php?".self::removeTags($matches["link"][$i]);
-					if(!array_key_exists($link,$ret))
+					if (!array_key_exists($link,$ret))
 					{
 						$item = $this->getNewEntry();
 						$item["cat"] = self::removeTags($matches["cat"][$i]);
@@ -54,7 +54,7 @@ class WhatCDEngine extends commonEngine
 						$item["peers"] = intval(self::removeTags($matches["leech"][$i]));
 						$ret[$link] = $item;
 						$added++;
-						if($added>=$limit)
+						if ($added>=$limit)
 							return;
 					}
 				}
@@ -65,7 +65,7 @@ class WhatCDEngine extends commonEngine
 				'<td class="center cats_col">.*<div title="(?P<cat>.*)".*'.
 				'<td colspan="2">(?P<name>.*)<span'.
 				'/siU', $cli->results, $matches);
-			if($res)
+			if ($res)
 			{
 				$groups = array();
                                 for($i=0; $i<$res; $i++)
@@ -77,13 +77,13 @@ class WhatCDEngine extends commonEngine
 					'<td class="number_column nobr">(?P<size>.*)<\/td>.*'.
 					'<td class="number_column">.*<\/td>.*<td class="number_column">(?P<seeds>.*)<\/td>.*<td class="number_column">(?P<leech>.*)<\/td>'.
 					'/siU', $cli->results, $matches);					
-				if($res)
+				if ($res)
 				{
 					$itemsFound = true;
 					for($i=0; $i<$res; $i++)
 					{
 						$link = $url."/torrents.php?".self::removeTags($matches["link"][$i]);
-						if(!array_key_exists($link,$ret))
+						if (!array_key_exists($link,$ret))
 						{
 							$item = $this->getNewEntry();
 							$item["desc"] = $url."/torrents.php?id=".self::removeTags($matches["desc"][$i]);
@@ -92,7 +92,7 @@ class WhatCDEngine extends commonEngine
 							$item["seeds"] = intval(self::removeTags($matches["seeds"][$i]));
 							$item["peers"] = intval(self::removeTags($matches["leech"][$i]));
 							$grp = intval($matches["id"][$i]);
-							if(array_key_exists($grp,$groups))
+							if (array_key_exists($grp,$groups))
 							{
 								$item["cat"] = $groups[$grp]["cat"];
 								$item["name"] = $groups[$grp]["name"].self::removeTags($matches["name"][$i]);
@@ -101,13 +101,13 @@ class WhatCDEngine extends commonEngine
 								$item["name"] = self::removeTags($matches["name"][$i]);
 							$ret[$link] = $item;
 							$added++;
-							if($added>=$limit)
+							if ($added>=$limit)
 								return;
 						}
 					}
 				}
 			}
-			if(!$itemsFound)
+			if (!$itemsFound)
 				break;
 		}
 	}

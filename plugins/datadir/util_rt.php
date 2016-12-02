@@ -143,7 +143,7 @@ function rtIsFile($path)
     // use Novik's implementation
     return LFS::is_file($path);
 
-    //if( is_file( $path ) )
+    //if ( is_file( $path ) )
     //	return true;
     //$out = array();
     //$ret = "1";
@@ -478,7 +478,7 @@ function rtAddTorrent($fname, $isStart, $directory, $label, $dbg = false)
             $delete_tied.
         '</params></methodCall>';
 
-    //if( $dbg ) rtDbg( __FUNCTION__, $content );
+    //if ( $dbg ) rtDbg( __FUNCTION__, $content );
     $res = rXMLRPCRequest::send($content);
 
     if ($dbg && !empty($res)) {

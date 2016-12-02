@@ -95,21 +95,21 @@ class Snoopy
 	public function __construct()
 	{
 		global $httpIP;
-		if(@constant('HTTP_USER_AGENT')!==null)
+		if (@constant('HTTP_USER_AGENT')!==null)
 			$this->agent = @constant('HTTP_USER_AGENT');
-		if(@constant('HTTP_TIME_OUT')!==null)
+		if (@constant('HTTP_TIME_OUT')!==null)
 		{
 			$this->_fp_timeout = @constant('HTTP_TIME_OUT');
 			$this->read_timeout = @constant('HTTP_TIME_OUT');
 		}
 		$this->use_gzip = @constant('HTTP_USE_GZIP');
-		if(isset($httpIP))
+		if (isset($httpIP))
 			$this->IP = $httpIP;
 	}
 
 	static public function linkencode($p_url)
 	{
-		if(preg_match("/\%([0-9,A-F]{2})/i",$p_url)==1)
+		if (preg_match("/\%([0-9,A-F]{2})/i",$p_url)==1)
 			return($p_url);
 		$p_url = str_replace("\t","%09",$p_url);
 		$uparts = @parse_url($p_url);
@@ -122,21 +122,21 @@ class Snoopy
 		$query = array_key_exists('query',$uparts) ? $uparts['query']  : "";
 		$fragment = array_key_exists('fragment',$uparts) ? $uparts['fragment']  : "";
 
-		if(!empty($scheme))
+		if (!empty($scheme))
 			$scheme .= '://';
 
-		if(!empty($pass) && !empty($user))
+		if (!empty($pass) && !empty($user))
 		{
 			$user = rawurlencode($user).':';
 			$pass = rawurlencode($pass).'@';
 		}
-		elseif(!empty($user))
+		elseif (!empty($user))
 			$user .= '@';
 
-		if(!empty($port) && !empty($host))
+		if (!empty($port) && !empty($host))
 			$host = ''.$host.':';
 
-		if(!empty($path))
+		if (!empty($path))
 		{
 			$arr = preg_split("/([\/;=])/", $path, -1, PREG_SPLIT_DELIM_CAPTURE);
 			$path = "";
@@ -159,7 +159,7 @@ class Snoopy
 		else
 		    $path="/";
 
-		if(!empty($query))
+		if (!empty($query))
 		{
 			$arr = preg_split("/([&=;])/", $query, -1, PREG_SPLIT_DELIM_CAPTURE);
 			$query = "?";
@@ -177,7 +177,7 @@ class Snoopy
 				}
 			}
 		}
-		if(!empty($fragment))
+		if (!empty($fragment))
 			$fragment = '#'.urlencode($fragment);
 		return implode('', array($scheme, $user, $pass, $host, $port, $path, $query, $fragment));
 	}
@@ -186,7 +186,7 @@ class Snoopy
 	{
 		$cookies = array();
 		$pos = strpos($url,':COOKIE:');
-		if($pos!==false)
+		if ($pos!==false)
 		{
 			$tmp = explode(";",substr($url,$pos+8));
 			foreach($tmp as $item)
@@ -204,24 +204,24 @@ class Snoopy
 		global $rootPath;
 		$parts = parse_url($URI);
 		$this->host = $parts["host"];
-		if(rTorrentSettings::get()->isPluginRegistered('cookies') && !empty($this->host))
+		if (rTorrentSettings::get()->isPluginRegistered('cookies') && !empty($this->host))
 		{
 			require_once($rootPath."/plugins/cookies/cookies.php");
 			$cookies = rCookies::load();
 			$this->cookies = array_merge($this->cookies,$cookies->getCookiesForHost($this->host));
 		}
 		$this->cookies = array_merge($this->cookies,self::getURLCookies($URI));
-		if(rTorrentSettings::get()->isPluginRegistered('loginmgr'))
+		if (rTorrentSettings::get()->isPluginRegistered('loginmgr'))
 		{
 			require_once($rootPath."/plugins/loginmgr/accounts.php");
 			$am = accountManager::load();
-			if($am===false)
+			if ($am===false)
 			{
 				$am = new accountManager();
 				$am->obtain($rootPath."/plugins/loginmgr/accounts");
 			}
 			$acc = $am->getAccount($URI);
-			if($acc)
+			if ($acc)
 				return($am->fetch( $acc, $this, $URI, $method, $content_type, $body ));
 		}
 		return($this->fetch($URI,$method,$content_type,$body));
@@ -232,9 +232,9 @@ class Snoopy
 		rTorrentSettings::get()->pushEvent( "HostConnect", array( "client"=>&$this, "uri"=>&$URI, "method"=>&$method, "content_type"=>&$content_type, "body"=>&$body ) );
 		$parts = parse_url($URI);
 		$this->port = empty($parts["port"]) ? (($parts["scheme"]=="https") ? 443 : 80) : $parts["port"];
-		if(!empty($parts["user"]))
+		if (!empty($parts["user"]))
 			$this->user = $parts["user"];
-		if(!empty($parts["pass"]))
+		if (!empty($parts["pass"]))
 			$this->pass = $parts["pass"];
 		$this->host = $parts["host"];
 		$this->_isproxy = (!empty($this->proxy_host) && !empty($this->proxy_port));
@@ -247,7 +247,7 @@ class Snoopy
 			}
 			case "http":
 			{
-				if(($fp = $this->connect())!==false)
+				if (($fp = $this->connect())!==false)
 				{
 					$path = (isset($parts["path"]) ? $parts["path"] : "/").(isset($parts["query"]) ? "?".$parts["query"] : "");
 					$ret = ( $this->_isproxy ?
@@ -272,10 +272,10 @@ class Snoopy
 				break;
 			}
 		}
-		if($ret && $this->_redirectaddr)
+		if ($ret && $this->_redirectaddr)
 		{
 			/* url was redirected, check if we've hit the max depth */
-			if($this->maxredirs > $this->_redirectdepth)
+			if ($this->maxredirs > $this->_redirectdepth)
 			{
 				$this->_redirectdepth++;
 				$this->lastredirectaddr=$this->_redirectaddr;
@@ -288,7 +288,7 @@ class Snoopy
 	function get_header( $name )
 	{
 		foreach( $this->headers as $i=>$header )
-			if(preg_match_all("/^$name:\s*(.*)/i",$header,$matches))
+			if (preg_match_all("/^$name:\s*(.*)/i",$header,$matches))
 				return( $matches[1][0] );
 		return(false);
 	}
@@ -296,7 +296,7 @@ class Snoopy
 	function get_filename()
 	{
 		foreach( $this->headers as $i=>$header )
-			if(preg_match_all("/^Content-Disposition:.*(\s|;)filename=\"(.*)\.torrent\"/i",$header,$matches) && (count($matches)>2))
+			if (preg_match_all("/^Content-Disposition:.*(\s|;)filename=\"(.*)\.torrent\"/i",$header,$matches) && (count($matches)>2))
 				return( str_replace( '/', '_', $matches[2][0].".torrent" ) );
 		return(false);
 	}
@@ -309,22 +309,22 @@ class Snoopy
 
 	function _httprequest($url,$fp,$URI,$http_method,$content_type="",$body="")
 	{
-		if($this->passcookies && $this->_redirectaddr)
+		if ($this->passcookies && $this->_redirectaddr)
 			$this->setcookies();
-		if(empty($url))
+		if (empty($url))
 			$url = "/";
 		$headers = $http_method." ".$url." ".$this->_httpversion."\r\n";
-		if(!empty($this->agent))
+		if (!empty($this->agent))
 			$headers .= "User-Agent: ".$this->agent."\r\n";
-		if(!empty($this->host) && !isset($this->rawheaders['Host']))
+		if (!empty($this->host) && !isset($this->rawheaders['Host']))
 			$headers .= "Host: ".$this->host."\r\n";
-		if(!empty($this->accept))
+		if (!empty($this->accept))
 			$headers .= "Accept: ".$this->accept."\r\n";
-		if($this->use_gzip && function_exists("gzinflate"))
+		if ($this->use_gzip && function_exists("gzinflate"))
 			$headers .= "Accept-encoding: gzip\r\n";
-		if(!empty($this->referer))
+		if (!empty($this->referer))
 			$headers .= "Referer: ".$this->referer."\r\n";
-		if(count($this->cookies))
+		if (count($this->cookies))
 		{
 			$cookie_headers = 'Cookie: ';
 			foreach( $this->cookies as $cookieKey => $cookieVal )
@@ -333,16 +333,16 @@ class Snoopy
 		}
 		foreach( $this->rawheaders as $headerKey => $headerVal )
 			$headers .= $headerKey.": ".$headerVal."\r\n";
-		if(!empty($content_type))
+		if (!empty($content_type))
 		{
 			$headers .= "Content-type: $content_type";
 			if ($content_type == "multipart/form-data")
 				$headers .= "; boundary=".$this->_mime_boundary;
 			$headers .= "\r\n";
 		}
-		if(!empty($body))
+		if (!empty($body))
 			$headers .= "Content-length: ".strlen($body)."\r\n";
-		if(!empty($this->user) || !empty($this->pass))
+		if (!empty($this->user) || !empty($this->pass))
 			$headers .= "Authorization: Basic ".base64_encode($this->user.":".$this->pass)."\r\n";
 
 		$headers .= "\r\n";
@@ -366,22 +366,22 @@ class Snoopy
 				return false;
 			}
 
-			if(preg_match("/^\r?\n$/", $currentHeader))
+			if (preg_match("/^\r?\n$/", $currentHeader))
 			      break;
 
 			// if a header begins with Location: or URI:, set the redirect
-			if(preg_match("/^(Location:|URI:|Refresh:)/i",$currentHeader))
+			if (preg_match("/^(Location:|URI:|Refresh:)/i",$currentHeader))
 			{
 				// get URL portion of the redirect
-				if(!preg_match("/^(Location:|URI:)\s+(.*)/i",chop($currentHeader),$matches))
+				if (!preg_match("/^(Location:|URI:)\s+(.*)/i",chop($currentHeader),$matches))
 					preg_match("/(^Refresh:\s+\d+\s*;\s*url\s*=\s*)(.*)/i",chop($currentHeader),$matches);
 				// look for :// in the Location header to see if hostname is included
-				if(!preg_match("|\:\/\/|",$matches[2]))
+				if (!preg_match("|\:\/\/|",$matches[2]))
 				{
 					$host = isset($this->rawheaders['Host']) ? $this->rawheaders['Host'] : $this->host;
 					$this->_redirectaddr = "http://".$host.":".$this->port;
 					// eliminate double slash
-					if(!preg_match("|^/|",$matches[2]))
+					if (!preg_match("|^/|",$matches[2]))
 						$this->_redirectaddr .= "/".$matches[2];
 					else
 						$this->_redirectaddr .= $matches[2];
@@ -389,9 +389,9 @@ class Snoopy
 				else
 					$this->_redirectaddr = $matches[2];
 			}
-			if(preg_match("|^HTTP/|",$currentHeader))
+			if (preg_match("|^HTTP/|",$currentHeader))
 			{
-		                if(preg_match("|^HTTP/[^\s]*\s(.*?)\s|",$currentHeader, $status))
+		                if (preg_match("|^HTTP/[^\s]*\s(.*?)\s|",$currentHeader, $status))
 				{
 					$this->status= $status[1];
                 		}
@@ -408,13 +408,13 @@ class Snoopy
 		while( $data = fread($fp, 4096) )
 		{
 			$results .= $data;
-			if( strlen($results) > $this->maxlength )
+			if ( strlen($results) > $this->maxlength )
 			        break;
 		}
 		// gunzip
 		if ( $is_gzipped )
 		{
-			if(function_exists("gzinflate"))
+			if (function_exists("gzinflate"))
 			{
 				$results = substr($results, 10);
 				$results = gzinflate($results);
@@ -424,7 +424,7 @@ class Snoopy
 				$randName = uniqid(getTempDirectory()."rutorrent-gz-");
 				file_put_contents($randName.".gz",$results);
 				exec(escapeshellarg(getExternal('gzip'))." -d ".$randName.".gz",$results,$return);
-				if(is_file($randName))
+				if (is_file($randName))
 				{
 					$results = file_get_contents($randName);
 					unlink($randName);
@@ -447,19 +447,19 @@ class Snoopy
 
 	function _httpsrequest($url,$content_type="",$body="")
 	{
-		if($this->passcookies && $this->_redirectaddr)
+		if ($this->passcookies && $this->_redirectaddr)
 			$this->setcookies();
 
 		$headers = array();
-		if(!empty($this->agent))
+		if (!empty($this->agent))
 			$headers[] = "User-Agent: ".$this->agent;
-		if(!empty($this->host) && !isset($this->rawheaders['Host']))
+		if (!empty($this->host) && !isset($this->rawheaders['Host']))
 			$headers[] = "Host: ".$this->host;
-		if(!empty($this->accept))
+		if (!empty($this->accept))
 			$headers[] = "Accept: ".$this->accept;
-		if(!empty($this->referer))
+		if (!empty($this->referer))
 			$headers[] = "Referer: ".$this->referer;
-		if( count($this->cookies) )
+		if ( count($this->cookies) )
 		{
 			$cookie_str = 'Cookie: ';
 			foreach( $this->cookies as $cookieKey => $cookieVal )
@@ -468,32 +468,32 @@ class Snoopy
 		}
 		foreach( $this->rawheaders as $headerKey => $headerVal )
 			$headers[] = $headerKey.": ".$headerVal;
-		if(!empty($content_type))
+		if (!empty($content_type))
 		{
 			if ($content_type == "multipart/form-data")
 				$headers[] = "Content-type: $content_type; boundary=".$this->_mime_boundary;
 			else
 				$headers[] = "Content-type: $content_type";
 		}
-		if(!empty($body))
+		if (!empty($body))
 			$headers[] = "Content-length: ".strlen($body);
-		if(!empty($this->user) || !empty($this->pass))
+		if (!empty($this->user) || !empty($this->pass))
 			$headers[] = "Authorization: Basic ".base64_encode($this->user.":".$this->pass);
 
 		$cmdline_params = '';
 		foreach( $headers as $header )
 			$cmdline_params .= " -H ".escapeshellarg($header);
 
-		if(!empty($body))
+		if (!empty($body))
 			$cmdline_params .= " -d ".escapeshellarg($body);
 
-		if($this->read_timeout > 0)
+		if ($this->read_timeout > 0)
 			$cmdline_params .= " -m ".$this->read_timeout;
 
-		if(!is_null($this->IP))
+		if (!is_null($this->IP))
 			$cmdline_params .= " --interface ".$this->IP;
 
-		if($this->_isproxy)
+		if ($this->_isproxy)
 			$cmdline_params .= " --proxy ".$this->proxy_host.":".$this->proxy_port;
 
 		$headerfile = uniqid(getTempDirectory()."rutorrent-https-hdr-");
@@ -506,7 +506,7 @@ class Snoopy
 		$this->headers = array();
 		$is_gzipped = false;
 
-		if($return)
+		if ($return)
 			$this->error = "Error: cURL could not retrieve the document, error $return.";
 		else
 		{
@@ -515,20 +515,20 @@ class Snoopy
 			foreach($result_headers as $header)
 			{
 				// if a header begins with Location: or URI:, set the redirect
-				if(preg_match("/^(Location:|URI:|Refresh:)/i",$header))
+				if (preg_match("/^(Location:|URI:|Refresh:)/i",$header))
 				{
 					// get URL portion of the redirect
-					if(!preg_match("/^(Location: |URI:)(.*)/i",chop($header),$matches))
+					if (!preg_match("/^(Location: |URI:)(.*)/i",chop($header),$matches))
 						preg_match("/(^Refresh:\s+\d+\s*;\s*url\s*=\s*)(.*)/i",chop($header),$matches);
 
 					// look for :// in the Location header to see if hostname is included
-					if(!preg_match("|\:\/\/|",$matches[2]))
+					if (!preg_match("|\:\/\/|",$matches[2]))
 					{
 						// no host in the path, so prepend
 						$host = isset($this->rawheaders['Host']) ? $this->rawheaders['Host'] : $this->host;
 						$this->_redirectaddr = "https://".$host.":".$this->port;
 						// eliminate double slash
-						if(!preg_match("|^/|",$matches[2]))
+						if (!preg_match("|^/|",$matches[2]))
 							$this->_redirectaddr .= "/".$matches[2];
 						else
 							$this->_redirectaddr .= $matches[2];
@@ -536,10 +536,10 @@ class Snoopy
 					else
 						$this->_redirectaddr = $matches[2];
 				}
-				if(preg_match("|^HTTP/|",$header))
+				if (preg_match("|^HTTP/|",$header))
 				{
 					$this->response_code = $header;
-					if(preg_match("|^HTTP/[^\s]*\s(.*?)\s|",$this->response_code, $match))
+					if (preg_match("|^HTTP/[^\s]*\s(.*?)\s|",$this->response_code, $match))
 						$this->status= $match[1];
 				}
 				if (preg_match("/Content-Encoding: gzip/", $header) )
@@ -549,7 +549,7 @@ class Snoopy
 			// gunzip
 			if ( $is_gzipped )
 			{
-				if(function_exists("gzinflate"))
+				if (function_exists("gzinflate"))
 				{
 					$results = substr($results, 10);
 					$results = gzinflate($results);
@@ -559,7 +559,7 @@ class Snoopy
 					$randName = uniqid(getTempDirectory()."tmp/rutorrent-gz-");
 					file_put_contents($randName.".gz",$results);
 					exec(escapeshellarg(getExternal('gzip'))." -d ".$randName.".gz",$results,$return);
-					if(is_file($randName))
+					if (is_file($randName))
 					{
 						$results = file_get_contents($randName);
 						unlink($randName);
@@ -580,9 +580,9 @@ class Snoopy
 	{
 		foreach($this->headers as $header)
 		{
-			if(preg_match("/^set-cookie:[\s]+([^=]+)=([^;]+)/i", $header,$match))
+			if (preg_match("/^set-cookie:[\s]+([^=]+)=([^;]+)/i", $header,$match))
 			{
-				if($match[2]=="deleted")
+				if ($match[2]=="deleted")
 					unset($this->cookies[$match[1]]);
 				else
 					$this->cookies[$match[1]] = $match[2];
@@ -607,7 +607,7 @@ class Snoopy
 	function connect()
 	{
 		$fp = false;
-		if($this->_isproxy)
+		if ($this->_isproxy)
 		{
 			$host = $this->proxy_host;
 			$port = $this->proxy_port;
@@ -618,7 +618,7 @@ class Snoopy
 			$port = $this->port;
 		}
 		$this->status = 0;
-		if(function_exists("stream_socket_client") && !is_null($this->IP))
+		if (function_exists("stream_socket_client") && !is_null($this->IP))
 		{
 			$opts = array('socket' => array('bindto' => $this->IP.':0'));
 			$context = stream_context_create($opts);
@@ -626,7 +626,7 @@ class Snoopy
 		}
 		else
 			$fp = fsockopen($host,$port,$errno,$errstr,$this->_fp_timeout);
-		if(!$fp)
+		if (!$fp)
 		{
 			// socket connection failed
 			$this->status = $errno;

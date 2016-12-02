@@ -44,7 +44,7 @@ require_once "XMPP.php";
 
 		public function __construct($host, $port, $user, $password, $resource, $server = null, $printlog = false, $loglevel = null) {
 			parent::__construct($host, $port, $user, $password, $resource, $server, $printlog, $loglevel);
-			if(!$server) $server = $host;
+			if (!$server) $server = $host;
 			$this->stream_start = '<stream:stream to="' . $server . '" xmlns:stream="http://etherx.jabber.org/streams" xmlns="jabber:client">';
 			$this->fulljid = "{$user}@{$server}/{$resource}";
 		}
@@ -57,7 +57,7 @@ require_once "XMPP.php";
 		 * @param array $attr
 		 */
 		public function startXML($parser, $name, $attr) {
-			if($this->xml_depth == 0) {
+			if ($this->xml_depth == 0) {
 				$this->session_id = $attr['ID'];
 				$this->authenticate();
 			}
@@ -82,7 +82,7 @@ require_once "XMPP.php";
 		public function authFieldsHandler($xml) {
 			$id = $this->getId();
 			$this->addidhandler($id, 'oldAuthResultHandler');
-			if($xml->sub('query')->hasSub('digest')) {
+			if ($xml->sub('query')->hasSub('digest')) {
 				$hash = sha1($this->session_id . $this->password);
 				print "{$this->session_id} {$this->password}\n";
 				$out = "<iq type='set' id='$id'><query xmlns='jabber:iq:auth'><username>{$this->user}</username><digest>{$hash}</digest><resource>{$this->resource}</resource></query></iq>";
@@ -99,7 +99,7 @@ require_once "XMPP.php";
 		 * @param XMLObj $xml
 		 */
 		public function oldAuthResultHandler($xml) {
-			if($xml->attrs['type'] != 'result') {
+			if ($xml->attrs['type'] != 'result') {
 				$this->log->log("Auth failed!",  XMPPHP_Log::LEVEL_ERROR);
 				$this->disconnect();
 				throw new XMPPHP_Exception('Auth failed!');

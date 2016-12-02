@@ -15,11 +15,11 @@ class ILoveTorrentsEngine extends commonEngine
 	{
 		$added = 0;
 		$url = 'http://www.ilovetorrents.me';
-		if($useGlobalCats)
+		if ($useGlobalCats)
 			$categories = array( 'all'=>'&cat=0', 'anime'=>'&cat=23', 'books'=>'&cat=24' );
 		else
 			$categories = &$this->categories;
-		if(!array_key_exists($cat,$categories))
+		if (!array_key_exists($cat,$categories))
 			$cat = $categories['all'];
 		else
 			$cat = $categories[$cat];
@@ -27,7 +27,7 @@ class ILoveTorrentsEngine extends commonEngine
 		for($pg = 0; $pg<10; $pg++)
 		{
 			$cli = $this->fetch( $url.'/browse.php?search='.$what.'&sort=7&type=desc&page='.$pg.$cat );
-			if( ($cli==false) || (strpos($cli->results, ">Nothing found!<")!==false) 
+			if ( ($cli==false) || (strpos($cli->results, ">Nothing found!<")!==false) 
 				|| (strpos($cli->results, '>Not logged in!<')!==false))
 				break;
 			$res = preg_match_all('`<tr>\n<td width=46 height=42 class=rowhead style=\'padding: 0px\'><a href="browse.php\?cat=[^"]*"><img border="0" src="/pic/[^"]*" alt="(?P<cat>[^"]*)" /></a></td>\n'.
@@ -43,12 +43,12 @@ class ILoveTorrentsEngine extends commonEngine
 				'<td class=rowhead align=center>(?P<leech>.*)</td>'.
 				'`siU', $cli->results, $matches);
 
-			if($res)
+			if ($res)
 			{
 				for($i=0; $i<$res; $i++)
 				{
 					$link = $url."/download.php/".$matches["link"][$i];
-					if(!array_key_exists($link,$ret))
+					if (!array_key_exists($link,$ret))
 					{
 						$item = $this->getNewEntry();
 						$item["cat"] = self::removeTags($matches["cat"][$i]);
@@ -60,7 +60,7 @@ class ILoveTorrentsEngine extends commonEngine
 						$item["peers"] = intval(self::removeTags($matches["leech"][$i]));
 						$ret[$link] = $item;
 						$added++;
-						if($added>=$limit)
+						if ($added>=$limit)
 							return;
 					}
 				}

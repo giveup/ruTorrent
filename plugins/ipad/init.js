@@ -10,7 +10,7 @@ plugin.accel = 1.1;
 
 plugin.emulateRightClick = function()
 {
-	if(( (Math.abs(plugin.rightClick.screenX - plugin.holdMouse.x)<8) &&
+	if (( (Math.abs(plugin.rightClick.screenX - plugin.holdMouse.x)<8) &&
 		(Math.abs(plugin.rightClick.screenY - plugin.holdMouse.y)<8)))
 	{
 		var mouseEvent = document.createEvent("MouseEvent");
@@ -26,7 +26,7 @@ plugin.emulateRightClick = function()
 
 plugin.cancelHold = function() 
 {
-	if(plugin.rightClick) 
+	if (plugin.rightClick) 
 	{
 		window.clearTimeout(plugin.holdTimeout);
 		plugin.rightClick = null;
@@ -35,7 +35,7 @@ plugin.cancelHold = function()
 
 plugin.startHold = function(touch)
 {
-	if(!plugin.rightClick)
+	if (!plugin.rightClick)
 	{
 		plugin.holdMouse = { x: touch.screenX, y: touch.screenY };
 		plugin.rightClick = touch;
@@ -64,16 +64,16 @@ plugin.cancelTarget = function()
 
 plugin.touchStart = function(event)
 {
-	if(event.changedTouches.length)
+	if (event.changedTouches.length)
 	{
 		plugin.stopScroll();
-		if($(event.changedTouches[0].target).is("select") || $(event.changedTouches[0].target).is("input"))
+		if ($(event.changedTouches[0].target).is("select") || $(event.changedTouches[0].target).is("input"))
 			return;
 		plugin.dispatchMouse(event,"mousemove");
 		var touch = plugin.dispatchMouse(event,"mousedown");;
-		if(plugin.targetTimeout)
+		if (plugin.targetTimeout)
 			window.clearTimeout(plugin.targetTimeout);
-		if(!plugin.target || (plugin.target != touch.target))
+		if (!plugin.target || (plugin.target != touch.target))
 		{
 			plugin.target = touch.target;
 			plugin.targetTimeout = window.setTimeout(plugin.cancelTarget, 600);
@@ -81,7 +81,7 @@ plugin.touchStart = function(event)
 		}
 		else 
 		{
-			if(plugin.target) 
+			if (plugin.target) 
 			{
 				plugin.cancelTarget();
 				plugin.dispatchMouse(event,"click");
@@ -96,7 +96,7 @@ plugin.touchStart = function(event)
 
 plugin.stopScroll = function()
 {
-	if(plugin.scrollTimeout)
+	if (plugin.scrollTimeout)
 		window.clearTimeout(plugin.scrollTimeout);
 	plugin.scrollTimeout = null;
 }
@@ -104,11 +104,11 @@ plugin.stopScroll = function()
 plugin.startScroll = function( prop, speed, target )
 {
 	plugin.speed = speed;
-	if((plugin.prop!=prop) || (plugin.target!=target))
+	if ((plugin.prop!=prop) || (plugin.target!=target))
 		plugin.stopScroll();
 	plugin.prop = prop;
 	plugin.target = target;
-	if(!plugin.scrollTimeout)
+	if (!plugin.scrollTimeout)
 		plugin.scrollTimeout = window.setTimeout( function() 
 		{
 			var pos = target[prop];
@@ -116,7 +116,7 @@ plugin.startScroll = function( prop, speed, target )
 			var scrollEvent = document.createEvent("HTMLEvents");
 			scrollEvent.initEvent( 'scroll', true, true )
 			target.dispatchEvent(scrollEvent);
-			if(pos!=target[prop])
+			if (pos!=target[prop])
 				plugin.scrollTimeout = window.setTimeout( arguments.callee, plugin.scrollInterval );
 			else
 				plugin.scrollTimeout = null;
@@ -125,32 +125,32 @@ plugin.startScroll = function( prop, speed, target )
 
 plugin.touchMove = function(event)
 {
-	if(event.changedTouches.length)
+	if (event.changedTouches.length)
 	{
 		var touch = plugin.dispatchMouse(event,"mousemove");
-		if(plugin.rightClick && 
+		if (plugin.rightClick && 
 			(plugin.rightClick.target!=touch.target))
 			plugin.cancelMouseUp = false;
-		if(plugin.curMouse)
+		if (plugin.curMouse)
 		{
 			var delta = { x:touch.screenX-plugin.curMouse.x, y:touch.screenY-plugin.curMouse.y, tm: touch.timeStamp-plugin.curMouse.timeStamp };
-			if((delta.x || delta.y) && delta.tm)
+			if ((delta.x || delta.y) && delta.tm)
 			{
 				var target = $(touch.target);
 				var mode = { x: true, y: true };
 				try {
 				while(target.length)
 				{
-					if(target.css("overflow")=="auto")
+					if (target.css("overflow")=="auto")
 						break;
 					else
-					if(target.css("overflow-x")=="auto")
+					if (target.css("overflow-x")=="auto")
 					{
 						mode.y = false;
 						break;
 					}
 					else
-					if(target.css("overflow-y")=="auto")
+					if (target.css("overflow-y")=="auto")
 					{
 						mode.x = false;
 						break;
@@ -158,25 +158,25 @@ plugin.touchMove = function(event)
                         	        target = target.parent();
 				}
 				} catch(e) {}
-				if(target.length)
+				if (target.length)
 				{
-				        if(mode.x && mode.y)
+				        if (mode.x && mode.y)
 				        {
-				        	if(Math.abs(delta.x)>Math.abs(delta.y))
+				        	if (Math.abs(delta.x)>Math.abs(delta.y))
 				        		mode.y = false;
 						else
 				        		mode.x = false;
 				        }
 					target = target.get(0);
 
-					if(mode.x)
+					if (mode.x)
 						plugin.startScroll( "scrollLeft", delta.x/delta.tm*plugin.accel, target );
-					if(mode.y)
+					if (mode.y)
 						plugin.startScroll( "scrollTop", delta.y/delta.tm*plugin.accel, target );
 /*
-					if(mode.x)
+					if (mode.x)
 						target.scrollLeft = target.scrollLeft-delta.x;
-					if(mode.y)
+					if (mode.y)
 						target.scrollTop = target.scrollTop-delta.y;
 					var scrollEvent = document.createEvent("HTMLEvents");
 					scrollEvent.initEvent( 'scroll', true, true )
@@ -194,9 +194,9 @@ plugin.touchMove = function(event)
 
 plugin.touchEnd = function(event)
 {
-	if(event.changedTouches.length)
+	if (event.changedTouches.length)
 	{
-		if(plugin.cancelMouseUp) 
+		if (plugin.cancelMouseUp) 
 		{
 			plugin.cancelMouseUp = false;
 			event.preventDefault();
@@ -204,13 +204,13 @@ plugin.touchEnd = function(event)
 		}
 		plugin.cancelHold();
 		var touch = plugin.dispatchMouse(event,"mouseup");
-		if(plugin.target && (plugin.target == touch.target))
+		if (plugin.target && (plugin.target == touch.target))
 			plugin.dispatchMouse(event,"click");
 		plugin.curMouse = null;
 	}
 }
 
-if($.support.touchable) 
+if ($.support.touchable) 
 {
 	document.addEventListener("touchstart", plugin.touchStart, false);
 	document.addEventListener("touchmove", plugin.touchMove, false);

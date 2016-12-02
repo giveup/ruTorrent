@@ -1,38 +1,35 @@
 plugin.loadLang();
 
-if(plugin.canChangeMenu()) 
+theWebUI.mediaInfo = function( hash, no )
 {
-	theWebUI.mediaInfo = function( hash, no ) 
-	{
-		theWebUI.startConsoleTask( "mediainfo", plugin.name, { "hash": hash, "no": no }, { noclose: true } );
-	}
+	theWebUI.startConsoleTask( "mediainfo", plugin.name, { "hash": hash, "no": no }, { noclose: true } );
+}
 
-	plugin.createFileMenu = theWebUI.createFileMenu;
-	theWebUI.createFileMenu = function( e, id ) 
+plugin.createFileMenu = theWebUI.createFileMenu;
+theWebUI.createFileMenu = function( e, id )
+{
+	if (plugin.createFileMenu.call(this, e, id))
 	{
-		if(plugin.createFileMenu.call(this, e, id)) 
+		if (plugin.enabled)
 		{
-			if(plugin.enabled) 
-			{
 //				theContextMenu.add([CMENU_SEP]);
-				var fno = null;
-				var table = this.getTable("fls");
-				if((table.selCount == 1)  && (theWebUI.dID.length==40))
+			var fno = null;
+			var table = this.getTable("fls");
+			if ((table.selCount == 1)  && (theWebUI.dID.length==40))
+			{
+				var fid = table.getFirstSelected();
+				if (this.settings["webui.fls.view"])
 				{
-					var fid = table.getFirstSelected();
-					if(this.settings["webui.fls.view"])
-					{
-						var arr = fid.split('_f_');
-						fno = arr[1];
-					}
-					else
-					if(!this.dirs[this.dID].isDirectory(fid))
-						fno = fid.substr(3);
+					var arr = fid.split('_f_');
+					fno = arr[1];
 				}
-				theContextMenu.add( [theUILang.mediainfo,  (fno==null) ? null : "theWebUI.mediaInfo('" + theWebUI.dID + "',"+fno+")"] );
+				else
+				if (!this.dirs[this.dID].isDirectory(fid))
+					fno = fid.substr(3);
 			}
-			return(true);
+			theContextMenu.add( [theUILang.mediainfo,  (fno==null) ? null : "theWebUI.mediaInfo('" + theWebUI.dID + "',"+fno+")"] );
 		}
-		return(false);
+		return(true);
 	}
+	return(false);
 }

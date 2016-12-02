@@ -139,7 +139,7 @@ class Roster {
 	public function getPresence($jid) {
 		$split = explode("/", $jid);
 		$jid = $split[0];
-		if($this->isContact($jid)) {
+		if ($this->isContact($jid)) {
 			$current = array('resource' => '', 'active' => '', 'priority' => -129, 'show' => '', 'status' => ''); //Priorities can only be -128 = 127
 			foreach($this->roster_array[$jid]['presence'] as $resource => $presence) {
 				//Highest available priority or just highest priority

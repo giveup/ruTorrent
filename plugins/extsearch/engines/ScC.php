@@ -26,7 +26,7 @@ class ScCEngine extends commonEngine
 	{
 		$added = 0;
 		$url = 'https://www.sceneaccess.eu';
-		if($useGlobalCats)
+		if ($useGlobalCats)
 			$categories = array( 
 				'all'=>'', 'movies'=>'&c8=1&c22=1&c7=1', 
 				'tv'=>'&c17=1&c25=1&c27=1&c11=1', 
@@ -34,14 +34,14 @@ class ScCEngine extends commonEngine
 				'software'=>'&c1=1' );
 		else
 			$categories = &$this->categories;
-		if(!array_key_exists($cat,$categories))
+		if (!array_key_exists($cat,$categories))
 			$cat = $categories['all'];
 		else
 			$cat = $categories[$cat];
 		for($pg = 0; $pg<10; $pg++)
 		{
 			$cli = $this->fetch( $url.'/browse?method=2&search='.$what.'&sort=6&type=descC&page='.$pg.$cat );
-			if( ($cli==false) || (strpos($cli->results, "<h2>Nothing found!</h2>")!==false)
+			if ( ($cli==false) || (strpos($cli->results, "<h2>Nothing found!</h2>")!==false)
 				|| (strpos($cli->results, 'value="password"')!==false))
 				break;
 			$res = preg_match_all('`<td class="ttr_type"><a href=.*><img src="/pic/.* alt="(?P<cat>[^"]*)".*</td>.*'.
@@ -52,12 +52,12 @@ class ScCEngine extends commonEngine
 				'<td class="ttr_seeders">(?P<seeds>.*)</td>.*'.
 				'<td class="ttr_leechers">(?P<leech>.*)</td>'.
 				'`siU', $cli->results, $matches);
-			if($res)
+			if ($res)
 			{
 				for($i=0; $i<$res; $i++)
 				{
 					$link = $url."/download/".$matches["link"][$i];
-					if(!array_key_exists($link,$ret))
+					if (!array_key_exists($link,$ret))
 					{
 						$item = $this->getNewEntry();
 						$item["cat"] = self::removeTags($matches["cat"][$i]);
@@ -69,7 +69,7 @@ class ScCEngine extends commonEngine
 						$item["peers"] = intval(self::removeTags($matches["leech"][$i]));
 						$ret[$link] = $item;
 						$added++;
-						if($added>=$limit)
+						if ($added>=$limit)
 							return;
 					}
 				}

@@ -14,7 +14,7 @@ class rRetrackers
 		$cache = new rCache();
 		$rt = new rRetrackers();
 		$cache->get($rt);
-		if(!isset($rt->todelete))
+		if (!isset($rt->todelete))
 			$rt->todelete = array();
 		return($rt);
 	}
@@ -25,9 +25,9 @@ class rRetrackers
 	}
 	public function set()
 	{
-		if(!isset($HTTP_RAW_POST_DATA))
+		if (!isset($HTTP_RAW_POST_DATA))
 			$HTTP_RAW_POST_DATA = file_get_contents("php://input");
-		if(isset($HTTP_RAW_POST_DATA))
+		if (isset($HTTP_RAW_POST_DATA))
 		{
 			$vars = explode('&', $HTTP_RAW_POST_DATA);
 			$this->list = array(); 
@@ -37,23 +37,23 @@ class rRetrackers
 			foreach($vars as $var)
 			{
 				$parts = explode("=",$var);
-				if($parts[0]=="dont_private")
+				if ($parts[0]=="dont_private")
 					$this->dontAddPrivate = $parts[1];
 				else
-				if($parts[0]=="add_begin")
+				if ($parts[0]=="add_begin")
 					$this->addToBegin = $parts[1];
 				else
-				if($parts[0]=="todelete")
+				if ($parts[0]=="todelete")
 					$this->todelete[] = trim(rawurldecode($parts[1]));
 				else
-				if($parts[0]=="tracker")
+				if ($parts[0]=="tracker")
 				{
 					$value = trim(rawurldecode($parts[1]));
-					if(strlen($value))
+					if (strlen($value))
 						$trackers[] = $value;
 					else
 					{
-						if(count($trackers)>0)
+						if (count($trackers)>0)
 						{
 							$this->list[] = $trackers;
 							$trackers = array();
@@ -61,7 +61,7 @@ class rRetrackers
 					}
 				}
 			}
-			if(count($trackers)>0)
+			if (count($trackers)>0)
 				$this->list[] = $trackers;
 		}
 		$this->store();

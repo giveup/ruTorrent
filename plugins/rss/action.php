@@ -6,7 +6,7 @@ ignore_user_abort(true);
 set_time_limit(0);
 $val = null;
 $cmd = "get";
-if(isset($_REQUEST['mode']))
+if (isset($_REQUEST['mode']))
 	$cmd = $_REQUEST['mode'];
 $errorsReported = false;
 $dataType="application/json";
@@ -25,31 +25,31 @@ switch($cmd)
 	case "add":
 	{
 		$lbl = null;
-		if(isset($_REQUEST['label']))
+		if (isset($_REQUEST['label']))
 			$lbl = $_REQUEST['label'];
-		if(isset($_REQUEST['url']))
+		if (isset($_REQUEST['url']))
 			$mngr->add($_REQUEST['url'],$lbl);
 		break;
 	}
 	case "addgroup":
 	{
 		$lbl = "RSS Group";
-		if(isset($_REQUEST['label']) && ($_REQUEST['label']!=""))
+		if (isset($_REQUEST['label']) && ($_REQUEST['label']!=""))
 			$lbl = $_REQUEST['label'];
-		if(!isset($HTTP_RAW_POST_DATA))
+		if (!isset($HTTP_RAW_POST_DATA))
 			$HTTP_RAW_POST_DATA = file_get_contents("php://input");
 		$rssList = array();
-		if(isset($HTTP_RAW_POST_DATA))
+		if (isset($HTTP_RAW_POST_DATA))
 		{
 			$vars = explode('&', $HTTP_RAW_POST_DATA);
 			foreach($vars as $var)
 			{
 				$parts = explode("=",$var);
-				if($parts[0]=="rss")
+				if ($parts[0]=="rss")
 					$rssList[] = $parts[1];
 			}
 		}
-		if(isset($_REQUEST['hash']) && ($_REQUEST['hash']!=""))
+		if (isset($_REQUEST['hash']) && ($_REQUEST['hash']!=""))
 			$mngr->changeGroup($_REQUEST['hash'],$lbl,$rssList);
 		else
 			$mngr->addGroup($lbl,$rssList);
@@ -58,9 +58,9 @@ switch($cmd)
 	case "edit":
 	{
 		$lbl = "RSS Group";
-		if(isset($_REQUEST['label']) && ($_REQUEST['label']!=""))
+		if (isset($_REQUEST['label']) && ($_REQUEST['label']!=""))
 			$lbl = $_REQUEST['label'];
-		if(isset($_REQUEST['rss']) && isset($_REQUEST['url']))
+		if (isset($_REQUEST['rss']) && isset($_REQUEST['url']))
 			$mngr->change($_REQUEST['rss'],$_REQUEST['url'],$lbl);
 		break;
 	}
@@ -71,7 +71,7 @@ switch($cmd)
 	}
 	case "refresh":
 	{
-		if(isset($_REQUEST['rss']))
+		if (isset($_REQUEST['rss']))
 			$mngr->updateRSS($_REQUEST['rss']);
 		else
 			$mngr->update(true);
@@ -79,37 +79,37 @@ switch($cmd)
 	}
 	case "refreshgroup":
 	{
-		if(isset($_REQUEST['rss']))
+		if (isset($_REQUEST['rss']))
 			$mngr->updateRSSGroup($_REQUEST['rss']);
 		break;
 	}
 	case "toggle":
 	{
-		if(isset($_REQUEST['rss']))
+		if (isset($_REQUEST['rss']))
 			$mngr->toggleStatus($_REQUEST['rss']);
 		break;
 	}
 	case "setgroupstate":
 	{
-		if(isset($_REQUEST['rss']))
+		if (isset($_REQUEST['rss']))
 			$mngr->setStatusGroup($_REQUEST['rss'],$_REQUEST['state']);
 		break;
 	}
 	case "remove":
 	{
-		if(isset($_REQUEST['rss']))
+		if (isset($_REQUEST['rss']))
 			$mngr->remove($_REQUEST['rss']);
 		break;
 	}
 	case "removegroup":
 	{
-		if(isset($_REQUEST['rss']))
+		if (isset($_REQUEST['rss']))
 			$mngr->removeGroup($_REQUEST['rss']);
 		break;
 	}
 	case "removegroupcontents":
 	{
-		if(isset($_REQUEST['rss']))
+		if (isset($_REQUEST['rss']))
 			$mngr->removeGroupContents($_REQUEST['rss']);
 		break;
 	}
@@ -129,21 +129,21 @@ switch($cmd)
 		$label = '';
 		$dir = null;
 
-		if(isset($_REQUEST['rss']))
+		if (isset($_REQUEST['rss']))
 			$hash = $_REQUEST['rss'];
-		if(isset($_REQUEST['pattern']))		
+		if (isset($_REQUEST['pattern']))		
 			$pattern = trim($_REQUEST['pattern']);
-		if(isset($_REQUEST['exclude']))		
+		if (isset($_REQUEST['exclude']))		
 			$exclude = trim($_REQUEST['exclude']);
-		if(isset($_REQUEST['chktitle']))
+		if (isset($_REQUEST['chktitle']))
 			$checkTitle = $_REQUEST['chktitle'];
-		if(isset($_REQUEST['chkdesc']))
+		if (isset($_REQUEST['chkdesc']))
 			$checkDesc = $_REQUEST['chkdesc'];
-		if(isset($_REQUEST['chklink']))
+		if (isset($_REQUEST['chklink']))
 			$checkLink = $_REQUEST['chklink'];
-		if(isset($_REQUEST['directory']))
+		if (isset($_REQUEST['directory']))
 			$dir = $_REQUEST['directory'];
-		if(isset($_REQUEST['label']))
+		if (isset($_REQUEST['label']))
 			$label = $_REQUEST['label'];
 		$filter = new rRSSFilter( '', $pattern, $exclude, 1, '', 0, 1, $dir, $label, $checkTitle, $checkDesc, $checkLink );
         	$val = $mngr->testFilter($filter,$hash);
@@ -152,113 +152,113 @@ switch($cmd)
 	}
 	case "setfilters":
 	{
-		if(!isset($HTTP_RAW_POST_DATA))
+		if (!isset($HTTP_RAW_POST_DATA))
 			$HTTP_RAW_POST_DATA = file_get_contents("php://input");
 		$flts = new rRSSFilterList();
 		$flt = null;
-		if(isset($HTTP_RAW_POST_DATA))
+		if (isset($HTTP_RAW_POST_DATA))
 		{
 			$vars = explode('&', $HTTP_RAW_POST_DATA);
 			foreach($vars as $var)
 			{
 				$parts = explode("=",$var);
-				if($parts[0]=="name")
+				if ($parts[0]=="name")
 				{
-					if($flt)
+					if ($flt)
 						$flts->add($flt);
 					$flt = new rRSSFilter(rawurldecode($parts[1]));
 				}
 				else
-				if($parts[0]=="pattern")
+				if ($parts[0]=="pattern")
 				{
-					if($flt)
+					if ($flt)
 						$flt->pattern = trim(rawurldecode($parts[1]));
 				}
 				else
-				if($parts[0]=="exclude")
+				if ($parts[0]=="exclude")
 				{
-					if($flt)
+					if ($flt)
 						$flt->exclude = trim(rawurldecode($parts[1]));
 				}
 				else
-				if($parts[0]=="enabled")
+				if ($parts[0]=="enabled")
 				{
-					if($flt)
+					if ($flt)
 						$flt->enabled = $parts[1];
 				}
 				else
-				if($parts[0]=="no")
+				if ($parts[0]=="no")
 				{
-					if($flt)
+					if ($flt)
 						$flt->no = $parts[1];
 				}
 				else
-				if($parts[0]=="interval")
+				if ($parts[0]=="interval")
 				{
-					if($flt)
+					if ($flt)
 						$flt->interval = $parts[1];
 				}
 				else
-				if($parts[0]=="hash")
+				if ($parts[0]=="hash")
 				{
-					if($flt)
+					if ($flt)
 						$flt->rssHash = $parts[1];
 				}
 				else
-				if($parts[0]=="throttle")
+				if ($parts[0]=="throttle")
 				{
-					if($flt)
+					if ($flt)
 						$flt->throttle = $parts[1];
 				}
 				else
-				if($parts[0]=="ratio")
+				if ($parts[0]=="ratio")
 				{
-					if($flt)
+					if ($flt)
 						$flt->ratio = $parts[1];
 				}
 				else
-				if($parts[0]=="start")
+				if ($parts[0]=="start")
 				{
-					if($flt)
+					if ($flt)
 						$flt->start = $parts[1];
 				}
-				if($parts[0]=="addPath")
+				if ($parts[0]=="addPath")
 				{
-					if($flt)
+					if ($flt)
 						$flt->addPath = $parts[1];
 				}
 				else
-				if($parts[0]=="dir")
+				if ($parts[0]=="dir")
 				{
-					if($flt)
+					if ($flt)
 						$flt->directory = rawurldecode($parts[1]);
 				}
 				else
-				if($parts[0]=="label")
+				if ($parts[0]=="label")
 				{
-					if($flt)
+					if ($flt)
 						$flt->label = rawurldecode($parts[1]);
 				}
 				else
-				if($parts[0]=="chktitle")
+				if ($parts[0]=="chktitle")
 				{
-					if($flt)
+					if ($flt)
 						$flt->titleCheck = $parts[1];
 				}
 				else
-				if($parts[0]=="chkdesc")
+				if ($parts[0]=="chkdesc")
 				{
-					if($flt)
+					if ($flt)
 						$flt->descCheck = $parts[1];
 				}
 				else
-				if($parts[0]=="chklink")
+				if ($parts[0]=="chklink")
 				{
-					if($flt)
+					if ($flt)
 						$flt->linkCheck = $parts[1];
 				}
   	                }
-			if($flt)
+			if ($flt)
 				$flts->add($flt);
 			$mngr->setFilters($flts);
 		}
@@ -266,7 +266,7 @@ switch($cmd)
 	}
 	case "clearfiltertime":
 	{
-	        if(isset($_REQUEST['no']))
+	        if (isset($_REQUEST['no']))
 			$mngr->clearFilterTime( $_REQUEST['no'] );
 		$val = array();
 		break;
@@ -275,15 +275,15 @@ switch($cmd)
 	{
 		$dataType="text/xml";
 		$val = '';
-	        if(isset($_REQUEST['rss']) && isset($_REQUEST['href']))
+	        if (isset($_REQUEST['rss']) && isset($_REQUEST['href']))
 			$val = $mngr->getDescription($_REQUEST['rss'],$_REQUEST['href']);
 		break;
 	}
 	case "mark":
 	{
-		if(!isset($HTTP_RAW_POST_DATA))
+		if (!isset($HTTP_RAW_POST_DATA))
 			$HTTP_RAW_POST_DATA = file_get_contents("php://input");
-		if(isset($HTTP_RAW_POST_DATA) && isset($_REQUEST['state']))
+		if (isset($HTTP_RAW_POST_DATA) && isset($_REQUEST['state']))
 		{
 			$urls = array();
 			$times = array();
@@ -291,10 +291,10 @@ switch($cmd)
 			foreach($vars as $var)
 			{
 				$parts = explode("=",$var);
-				if($parts[0]=="url")
+				if ($parts[0]=="url")
 					$urls[] = rawurldecode($parts[1]);
 				else
-				if($parts[0]=="time")
+				if ($parts[0]=="time")
 					$times[] = $parts[1];
 			}
 			$mngr->setHistoryState( $urls, $times, $_REQUEST['state'] );
@@ -303,9 +303,9 @@ switch($cmd)
 	}
 	case "loadtorrents":
 	{
-		if(!isset($HTTP_RAW_POST_DATA))
+		if (!isset($HTTP_RAW_POST_DATA))
 			$HTTP_RAW_POST_DATA = file_get_contents("php://input");
-		if(isset($HTTP_RAW_POST_DATA))
+		if (isset($HTTP_RAW_POST_DATA))
 		{
 			set_time_limit(0);
 			$vars = explode('&', $HTTP_RAW_POST_DATA);
@@ -318,24 +318,24 @@ switch($cmd)
 			foreach($vars as $var)
 			{
 				$parts = explode("=",$var);
-				if($parts[0]=="torrents_start_stopped")
+				if ($parts[0]=="torrents_start_stopped")
 					$isStart = false;
 				else
-				if($parts[0]=="not_add_path")
+				if ($parts[0]=="not_add_path")
 					$isAddPath = false;
 				else
-				if($parts[0]=="dir_edit")
+				if ($parts[0]=="dir_edit")
 					$dir = rawurldecode($parts[1]);
 				else
-				if($parts[0]=="label")
+				if ($parts[0]=="label")
 					$lbl = rawurldecode($parts[1]);
 				else
-				if($parts[0]=="rss")
+				if ($parts[0]=="rss")
 					$curRSS = $parts[1];
 				else
-				if(($parts[0]=="url") && $curRSS)
+				if (($parts[0]=="url") && $curRSS)
 				{
-					if(!array_key_exists($curRSS,$rssArray) || !is_array($rssArray[$curRSS]))
+					if (!array_key_exists($curRSS,$rssArray) || !is_array($rssArray[$curRSS]))
 						$rssArray[$curRSS] = array();
 					$rssArray[$curRSS][] = rawurldecode($parts[1]);
 				}
@@ -344,12 +344,12 @@ switch($cmd)
 			{
 				$rss = new rRSS();
 				$rss->hash = $hash;
-				if($mngr->cache->get($rss))
+				if ($mngr->cache->get($rss))
 				{
 					foreach($urls as $url)
 					{
 						$mngr->getTorrents( $rss, $url, $isStart, $isAddPath, $dir, $lbl, null, null, false );
-						if(WAIT_AFTER_LOADING)
+						if (WAIT_AFTER_LOADING)
 							sleep(WAIT_AFTER_LOADING);
 					}
 				}
@@ -359,12 +359,12 @@ switch($cmd)
 		break;
 	}
 }
-if($val===null)
+if ($val===null)
 {
 	$val = $mngr->get();
 	$errorsReported = true;
 }
-if($dataType=="text/xml")
+if ($dataType=="text/xml")
 	cachedEcho('<?xml version="1.0" encoding="UTF-8"?><data><![CDATA['.$val.']]></data>',"text/xml",true,false);
 else
 	cachedEcho(json_encode($val),$dataType,true,false);
@@ -372,14 +372,14 @@ else
 ob_flush();
 flush();
 
-if(connection_aborted())
+if (connection_aborted())
 {
-	if($mngr->isErrorsOccured())
+	if ($mngr->isErrorsOccured())
 		$mngr->saveState(false);
 }
 else
 {
-	if($errorsReported && $mngr->hasErrors())
+	if ($errorsReported && $mngr->hasErrors())
 	{
 		$mngr->clearErrors();
 		$mngr->saveState(false);

@@ -34,9 +34,9 @@ class rHistoryData
 		$this->data[$e["hash"]] = $e;
 		uasort($this->data, function($a, $b) { return $b["action_time"]-$a["action_time"]; });
 		$count = count($this->data);
-		if($limit<3)
+		if ($limit<3)
 			$limit = 500;
-		if($count>$limit)
+		if ($count>$limit)
 		{
 			$keys = array_keys($this->data);
 			$values = array_values($this->data);
@@ -48,7 +48,7 @@ class rHistoryData
 	{
 		$ret = array();
 		foreach( $this->data as $hash=>$e )
-			if( $e["action_time"]>$mark )
+			if ( $e["action_time"]>$mark )
 				$ret[] = $e;
 			else
 				break;
@@ -65,7 +65,7 @@ class rHistory
 	{
 		$cache = new rCache();
 		$ar = new rHistory();
-		if($cache->get($ar) && !array_key_exists("autoclose",$ar->log))
+		if ($cache->get($ar) && !array_key_exists("autoclose",$ar->log))
 		{
 			$ar->log["autoclose"] = 1;
 			$ar->log["closeinterval"] = 5;
@@ -79,9 +79,9 @@ class rHistory
 	}
         public function set()
 	{
-		if(!isset($HTTP_RAW_POST_DATA))
+		if (!isset($HTTP_RAW_POST_DATA))
 			$HTTP_RAW_POST_DATA = file_get_contents("php://input");
-		if(isset($HTTP_RAW_POST_DATA))
+		if (isset($HTTP_RAW_POST_DATA))
 		{
 			$vars = explode('&', $HTTP_RAW_POST_DATA);
 			foreach($vars as $var)
@@ -100,7 +100,7 @@ class rHistory
 	public function setHandlers()
 	{
 		global $rootPath;
-		if($this->log["addition"])
+		if ($this->log["addition"])
 			$addCmd = getCmd('execute').'={'.getPHP().','.$rootPath.'/plugins/history/update.php'.',1,$'.
 				getCmd('d.name').'=,$'.getCmd('d.size_bytes').'=,$'.getCmd('d.bytes_done').'=,$'.
 				getCmd('d.up.total').'=,$'.getCmd('d.ratio').'=,$'.getCmd('d.creation_date').'=,$'.
@@ -110,7 +110,7 @@ class rHistory
 				getUser().'}';
 		else
 			$addCmd = getCmd('cat=');
-		if($this->log["finish"])
+		if ($this->log["finish"])
 			$finCmd = getCmd('execute').'={'.getPHP().','.$rootPath.'/plugins/history/update.php'.',2,$'.
 				getCmd('d.name').'=,$'.getCmd('d.size_bytes').'=,$'.getCmd('d.bytes_done').'=,$'.
 				getCmd('d.up.total').'=,$'.getCmd('d.ratio').'=,$'.getCmd('d.creation_date').'=,$'.
@@ -120,7 +120,7 @@ class rHistory
 				getUser().'}';
 		else
 			$finCmd = getCmd('cat=');
-		if($this->log["deletion"])
+		if ($this->log["deletion"])
 			$delCmd = getCmd('execute').'={'.getPHP().','.$rootPath.'/plugins/history/update.php'.',3,$'.
 				getCmd('d.name').'=,$'.getCmd('d.size_bytes').'=,$'.getCmd('d.bytes_done').'=,$'.
 				getCmd('d.up.total').'=,$'.getCmd('d.ratio').'=,$'.getCmd('d.creation_date').'=,$'.

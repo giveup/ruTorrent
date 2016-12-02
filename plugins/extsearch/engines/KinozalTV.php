@@ -80,8 +80,8 @@ class KinozalTVEngine extends commonEngine
 
 	protected static function formatTime($time)
 	{
-		$search = array( ' января ', ' февраля ', ' марта ', ' апреля ', ' мая ', ' июня ', 
-			' июля ', ' августа ', ' сентября ', ' октября ', ' ноября ', ' декабря ', 'вчера ', ' сегодня ' );
+		$search = array( ' пїЅпїЅпїЅпїЅпїЅпїЅ ', ' пїЅпїЅпїЅпїЅпїЅпїЅпїЅ ', ' пїЅпїЅпїЅпїЅпїЅ ', ' пїЅпїЅпїЅпїЅпїЅпїЅ ', ' пїЅпїЅпїЅ ', ' пїЅпїЅпїЅпїЅ ', 
+			' пїЅпїЅпїЅпїЅ ', ' пїЅпїЅпїЅпїЅпїЅпїЅпїЅ ', ' пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ ', ' пїЅпїЅпїЅпїЅпїЅпїЅпїЅ ', ' пїЅпїЅпїЅпїЅпїЅпїЅ ', ' пїЅпїЅпїЅпїЅпїЅпїЅпїЅ ', 'пїЅпїЅпїЅпїЅпїЅ ', ' пїЅпїЅпїЅпїЅпїЅпїЅпїЅ ' );
 		$replace = array( '.01.', '.02.', '.03.', '.04.', '.05.', '.06.', 
 			'.07.', '.08.', '.09.', '.10.', '.11.', '.12.', '-1 day ', '0 day ' );
 		return( strtotime(str_replace( $search, $replace, $time )) );
@@ -91,11 +91,11 @@ class KinozalTVEngine extends commonEngine
 	{
 		$added = 0;
 		$url = 'http://kinozal.tv';
-		if($useGlobalCats)
+		if ($useGlobalCats)
 			$categories = array( 'all'=>'0', 'tv'=>'5', 'games'=>'23', 'anime'=>'20', 'software'=>'32', 'pictures'=>'40', 'books'=>'41' );
 		else
 			$categories = &$this->categories;
-		if(!array_key_exists($cat,$categories))
+		if (!array_key_exists($cat,$categories))
 			$cat = $categories['all'];
 		else
 			$cat = $categories[$cat];
@@ -103,8 +103,8 @@ class KinozalTVEngine extends commonEngine
 		for($pg = 0; $pg<11; $pg++)
 		{
 			$cli = $this->fetch( $url.'/browse.php?s='.$what.'&a=3&page='.$pg.'&c='.$cat );
-			if( ($cli==false) || 
-				(strpos($cli->results, "<br><center><b>Нет активных раздач")!==false) ||
+			if ( ($cli==false) || 
+				(strpos($cli->results, "<br><center><b>пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ")!==false) ||
 				(strpos($cli->results, '<input type=password size=48 name="password"')!==false)
 				)
 				break;
@@ -117,12 +117,12 @@ class KinozalTVEngine extends commonEngine
 				'<td class=.*>(?P<seeds>.*)</td>.*'.
 				'<td class=.*>(?P<date>.*)</td>|siU', $cli->results, $matches);
 				
-			if($res)
+			if ($res)
 			{
 				for($i=0; $i<$res; $i++)
 				{
 					$link = $url."/download.php?id=".$matches["id"][$i];
-					if(!array_key_exists($link,$ret))
+					if (!array_key_exists($link,$ret))
 					{
 						$item = $this->getNewEntry();
 						$item["cat"] = self::getInnerCategory($matches["cat"][$i]);
@@ -131,10 +131,10 @@ class KinozalTVEngine extends commonEngine
 						$item["size"] = self::formatSize(str_replace("<br>"," ",$matches["size"][$i]));
 						$item["seeds"] = intval(self::removeTags($matches["seeds"][$i]));
 						$item["peers"] = intval(self::removeTags($matches["leech"][$i]));
-						$item["time"] = self::formatTime(self::removeTags(str_replace("в ", "",$matches["date"][$i])));
+						$item["time"] = self::formatTime(self::removeTags(str_replace("пїЅ ", "",$matches["date"][$i])));
 						$ret[$link] = $item;
 						$added++;
-						if($added>=$limit)
+						if ($added>=$limit)
 							return;
 					}
 				}

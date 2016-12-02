@@ -10,7 +10,7 @@ plugin.allDone = function()
 	$.each(["diskspace","quotaspace","cpuload"], function(ndx,name)
 	{
 		var plg = thePlugins.get(name);
-		if(plg && plg.enabled)
+		if (plg && plg.enabled)
 		{
 			plg.prgStartColor = new RGBackground("#8fbc00");
 			plg.prgEndColor = new RGBackground("#d76000");

@@ -18,7 +18,7 @@ class commonEngine
 	{
 		$className = get_class($this);
 		$pos = strpos($className, "Engine");
-		if($pos!==false)
+		if ($pos!==false)
 			$className = substr($className,0,$pos);
 		return($className);
 	}
@@ -46,10 +46,10 @@ class commonEngine
 	public function fetch($url, $encode = 1, $method="GET", $content_type="", $body="")
 	{
 		$client = $this->makeClient($url);
-		if($encode)
+		if ($encode)
 			$url = Snoopy::linkencode($url);
 		$client->fetchComplex($url, $method, $content_type, $body);
-		if($client->status>=200 && $client->status<300)
+		if ($client->status>=200 && $client->status<300)
 		{
 			ini_set( "pcre.backtrack_limit", max(strlen($client->results),100000) );
 			return($client);
@@ -60,14 +60,14 @@ class commonEngine
 	{
 		global $profileMask;
 		$cli = $this->fetch( $url );
-		if($cli)
+		if ($cli)
 		{
 			$name = $cli->get_filename();
-			if($name===false)
+			if ($name===false)
 				$name = md5($url).".torrent";
 			$name = getUniqueUploadedFilename($name);
 			$f = @fopen($name,"w");
-			if($f!==false)
+			if ($f!==false)
 			{
 				@fwrite($f,$cli->results,strlen($cli->results));
 				fclose($f);
@@ -84,7 +84,7 @@ class commonEngine
 	static public function formatSize( $item )
 	{
 		$sz = explode(" ",self::removeTags($item));
-		if(count($sz)>1)
+		if (count($sz)>1)
 		{
 			$val = floatval($sz[0]);
 			switch(strtolower($sz[1]))
@@ -120,25 +120,25 @@ class commonEngine
 	}
 	static public function fromUTF($out,$encoding)
 	{
-		if(function_exists('iconv'))
+		if (function_exists('iconv'))
 			$out = iconv('UTF-8', $encoding.'//TRANSLIT', $out);
 		else
-		if(function_exists('mb_convert_encoding'))
+		if (function_exists('mb_convert_encoding'))
 		        $out = mb_convert_encoding($out, $encoding, 'UTF-8');
 		else
-		if(function_exists('utf8_decode'))
+		if (function_exists('utf8_decode'))
 		        $out = utf8_decode($out);
 		return($out);	
 	}
 	static public function toUTF($out,$encoding)
 	{
-		if(function_exists('iconv'))
+		if (function_exists('iconv'))
 			$out = iconv($encoding, 'UTF-8//TRANSLIT', $out);
 		else
-		if(function_exists('mb_convert_encoding'))
+		if (function_exists('mb_convert_encoding'))
 		        $out = mb_convert_encoding($out, 'UTF-8', $encoding );
 		else
-		if(function_exists('utf8_encode'))
+		if (function_exists('utf8_encode'))
 		        $out = utf8_encode($out);
 		else
 		        $out = win2utf($out);
@@ -164,7 +164,7 @@ class rSearchHistory
 	}
 	public function del( $href )
 	{
-		if(array_key_exists($href,$this->lst))
+		if (array_key_exists($href,$this->lst))
 		{
 			unset($this->lst[$href]);
 			$this->changed = true;
@@ -176,7 +176,7 @@ class rSearchHistory
 	}
 	public function getHash( $url )
 	{
-		if(array_key_exists($url,$this->lst))
+		if (array_key_exists($url,$this->lst))
 			return($this->lst[$url]["hash"]);
 		return("");
 	}
@@ -193,7 +193,7 @@ class rSearchHistory
 		foreach( $this->lst as $key=>$value )
 		{
 			unset($this->lst[$key]);
-			if(++$i>=$cnt)
+			if (++$i>=$cnt)
 				break;
 		}
 	}
@@ -222,11 +222,11 @@ class engineManager
 	{
 		$oldEngines = $this->engines;
 		$this->engines = array();
-		if( $handle = opendir($dir) )
+		if ( $handle = opendir($dir) )
 		{
 			while(false !== ($file = readdir($handle)))
 			{
-				if(is_file($dir.'/'.$file))
+				if (is_file($dir.'/'.$file))
 				{
 					$name = basename($file,".php");
 					$this->engines[$name] = array( "name"=>$name, "path"=>fullpath($dir.'/'.$file), "object"=>$name."Engine", "enabled"=>true, "global"=>true, "limit"=>100 );
@@ -237,20 +237,20 @@ class engineManager
 					$this->engines[$name]["cats"] = $obj->categories;
 					$this->engines[$name]["cookies"] = (array_key_exists("cookies",$obj->defaults) ? $obj->defaults["cookies"] : '');
 					$this->engines[$name]["auth"] = (array_key_exists("auth",$obj->defaults) ? 1 : 0);
-					if(array_key_exists("disabled",$obj->defaults) && $obj->defaults["disabled"])
+					if (array_key_exists("disabled",$obj->defaults) && $obj->defaults["disabled"])
 						$this->engines[$name]["enabled"] = 0;
-					if(array_key_exists($name,$oldEngines) && array_key_exists("limit",$oldEngines[$name]))
+					if (array_key_exists($name,$oldEngines) && array_key_exists("limit",$oldEngines[$name]))
 					{
 						$this->engines[$name]["enabled"] = intval($oldEngines[$name]["enabled"]);
 						$this->engines[$name]["global"] = intval($oldEngines[$name]["global"]);
 						$this->engines[$name]["limit"] = intval($oldEngines[$name]["limit"]);
 					}
 
-					if(!rTorrentSettings::get()->isPluginRegistered('cookies') && 
+					if (!rTorrentSettings::get()->isPluginRegistered('cookies') && 
 						$this->engines[$name]["enabled"] && 
 						!empty($this->engines[$name]["cookies"]))
 						$this->engines[$name]["enabled"] = 0;
-					if(!rTorrentSettings::get()->isPluginRegistered('loginmgr') && 
+					if (!rTorrentSettings::get()->isPluginRegistered('loginmgr') && 
 						$this->engines[$name]["enabled"] && 
 						$this->engines[$name]["auth"])
 						$this->engines[$name]["enabled"] = 0;
@@ -275,12 +275,12 @@ class engineManager
 				$ret.=',';
 			}
 			$len = strlen($ret);
-			if($ret[$len-1]==',')
+			if ($ret[$len-1]==',')
 				$ret = substr($ret,0,$len-1);
 			$ret.=']},';
 		}
 		$len = strlen($ret);
-		if($ret[$len-1]==',')
+		if ($ret[$len-1]==',')
 			$ret = substr($ret,0,$len-1);
 		return($ret."};\n");
 	}
@@ -289,14 +289,14 @@ class engineManager
 	{
 		foreach( $this->engines as $name=>$nfo )
 		{
-			if(isset($_REQUEST[$name."_enabled"]))
+			if (isset($_REQUEST[$name."_enabled"]))
 				$this->engines[$name]["enabled"] = intval($_REQUEST[$name."_enabled"]);
-			if(isset($_REQUEST[$name."_global"]))
+			if (isset($_REQUEST[$name."_global"]))
 				$this->engines[$name]["global"] = intval($_REQUEST[$name."_global"]);
-			if(isset($_REQUEST[$name."_limit"]))
+			if (isset($_REQUEST[$name."_limit"]))
 				$this->engines[$name]["limit"] = intval($_REQUEST[$name."_limit"]);
 		}
-		if(isset($_REQUEST["limit"]))
+		if (isset($_REQUEST["limit"]))
 			$this->limit = intval($_REQUEST["limit"]);
 		$this->store();
 	}
@@ -306,19 +306,19 @@ class engineManager
 		$cache = new rCache();
 		$history = new rSearchHistory();
 		$cache->get($history);
-		if($withRSS)
+		if ($withRSS)
 		{
-			if(rTorrentSettings::get()->isPluginRegistered("rss"))
+			if (rTorrentSettings::get()->isPluginRegistered("rss"))
 			{
 				global $rootPath;
 				require_once( $rootPath.'/plugins/rss/rss.php');
 				$cache  = new rCache( '/rss/cache' );
 				$rssHistory = new rRSSHistory();
-				if($cache->get($rssHistory))
+				if ($cache->get($rssHistory))
 				{
 					foreach($rssHistory->lst as $url=>$info)
 					{
-						if(strlen($info["hash"])==40)
+						if (strlen($info["hash"])==40)
 							$history->add($url,$info["hash"]);
 					}
 				}
@@ -329,9 +329,9 @@ class engineManager
 
 	static public function saveHistory( $history )
 	{
-		if($history->isChanged())
+		if ($history->isChanged())
 		{
-			if($history->isOverflow())
+			if ($history->isOverflow())
 				$history->pack();
 			$cache = new rCache();
 			return($cache->set($history));
@@ -341,7 +341,7 @@ class engineManager
 
 	public function getObject( $eng )
 	{
-		if(array_key_exists($eng,$this->engines))
+		if (array_key_exists($eng,$this->engines))
 		{
 			$nfo = $this->engines[$eng];
 			require_once( $nfo["path"] );
@@ -354,15 +354,15 @@ class engineManager
 
 	static protected function correctItem(&$nfo)
 	{
-		if(empty($nfo["time"]))
+		if (empty($nfo["time"]))
 			$nfo["time"] = 0;
-		if(empty($nfo["size"]))
+		if (empty($nfo["size"]))
 			$nfo["size"] = 0;
-		if(empty($nfo["seeds"]))
+		if (empty($nfo["seeds"]))
 			$nfo["seeds"] = 0;
-		if(empty($nfo["peers"]))
+		if (empty($nfo["peers"]))
 			$nfo["peers"] = 0;
-		if( isInvalidUTF8( $nfo["name"] ) )
+		if ( isInvalidUTF8( $nfo["name"] ) )
 			$nfo["name"] = commonEngine::toUTF($nfo["name"],"ISO-8859-1");
 	}
 
@@ -379,7 +379,7 @@ class engineManager
 			{
 				foreach( $this->engines as $name=>$nfo )
 				{
-					if(($nfo["global"] && $nfo["enabled"]) &&
+					if (($nfo["global"] && $nfo["enabled"]) &&
 						(($nfo["public"] && ($eng=="public")) || (!$nfo["public"] && ($eng=="private")) || ($eng=="all")))
 					{
 						require_once( $nfo["path"] );
@@ -407,7 +407,7 @@ class engineManager
 			$nfo["hash"] = $history->getHash( $href );
 			$ret["data"][] = $nfo;
 			$cnt++;
-			if($cnt>=$this->limit)
+			if ($cnt>=$this->limit)
 				break;
 		}
 		return($ret);
@@ -421,19 +421,19 @@ class engineManager
 		{
 			$url = $urls[$i];
 			$success = false;
-			if(strpos($url,"magnet:")===0)
+			if (strpos($url,"magnet:")===0)
 			{
-				if($success = rTorrent::sendMagnet($url, $isStart, $isAddPath, $directory, $label))
+				if ($success = rTorrent::sendMagnet($url, $isStart, $isAddPath, $directory, $label))
 					$history->add($url,$success);
 			}
 			else
 			{
 				$object = $this->getObject($engs[$i]);
         			$torrent = $object->getTorrent( $url, $object );
-				if($torrent!==false)
+				if ($torrent!==false)
 				{	
 					global $saveUploadedTorrents;
-					if(($success = rTorrent::sendTorrent($torrent, $isStart, $isAddPath, $directory, $label, $saveUploadedTorrents, $fast))===false)
+					if (($success = rTorrent::sendTorrent($torrent, $isStart, $isAddPath, $directory, $label, $saveUploadedTorrents, $fast))===false)
 						@unlink($torrent);
 					else
 						$history->add($url,$success);

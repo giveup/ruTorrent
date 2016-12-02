@@ -17,11 +17,11 @@ class PtPEngine extends commonEngine
 	{
 		$added = 0;
 		$url = 'http://passthepopcorn.me';
-		if($useGlobalCats)
+		if ($useGlobalCats)
 			$categories = array( 'all'=>'' );
 		else
 			$categories = &$this->categories;
-		if(!array_key_exists($cat,$categories))
+		if (!array_key_exists($cat,$categories))
 			$cat = $categories['all'];
 		else
 			$cat = $categories[$cat];
@@ -30,7 +30,7 @@ class PtPEngine extends commonEngine
 		{
 			$itemsFound = false;
 			$cli = $this->fetch( $url.'/torrents.php?searchstr='.$what.$cat.'&order_by=seeders&grouping=1&page='.$pg );			
-			if( ($cli==false) || (strpos($cli->results, "<h2>Your search did not match anything.</h2>")!==false) ||
+			if ( ($cli==false) || (strpos($cli->results, "<h2>Your search did not match anything.</h2>")!==false) ||
 				(strpos($cli->results, "<td>Password&nbsp;</td>")!==false))
 				break;
 		
@@ -39,7 +39,7 @@ class PtPEngine extends commonEngine
 				'title="View Torrent">(?P<name>.*)<span'.
 				'`siU', $cli->results, $matches);
 
-			if($res)
+			if ($res)
 			{
 				$groups = array();
                                 for($i=0; $i<$res; $i++)
@@ -54,13 +54,13 @@ class PtPEngine extends commonEngine
 					'<td.*>(?P<leech>.*)</td>'.
 					'`siU', $cli->results, $matches);
 
-				if($res)
+				if ($res)
 				{
 					$itemsFound = true;
 					for($i=0; $i<$res; $i++)
 					{
 						$link = $url."/torrents.php?".self::removeTags($matches["link"][$i]);
-						if(!array_key_exists($link,$ret))
+						if (!array_key_exists($link,$ret))
 						{
 							$item = $this->getNewEntry();
 							$item["desc"] = $url."/torrents.php?id=".self::removeTags($matches["desc"][$i]);
@@ -69,14 +69,14 @@ class PtPEngine extends commonEngine
 							$item["seeds"] = intval(self::removeTags($matches["seeds"][$i]));
 							$item["peers"] = intval(self::removeTags($matches["leech"][$i]));
 							$grp = intval($matches["id"][$i]);
-							if(array_key_exists($grp,$groups))
+							if (array_key_exists($grp,$groups))
 								$item["name"] = $groups[$grp].self::removeTags($matches["name"][$i]);
 							else
 								$item["name"] = self::removeTags($matches["name"][$i]);
 
 							$ret[$link] = $item;
 							$added++;
-							if($added>=$limit)
+							if ($added>=$limit)
 								return;
 						}
 					}
@@ -92,15 +92,15 @@ class PtPEngine extends commonEngine
 					'<td.*>(?P<leech>.*)</td>.*'.
                                         '<span class="time" title="(?P<date>.*)">'.
 					'`siU', $cli->results, $matches);
-				if($res)
+				if ($res)
 				{
 					$title = '';
-					if( preg_match( '`<title>(?P<title>.*)::`',$cli->results, $matches1 ) )
+					if ( preg_match( '`<title>(?P<title>.*)::`',$cli->results, $matches1 ) )
 						$title = $matches1["title"];
 					for($i=0; $i<$res; $i++)
 					{
 						$link = $url."/torrents.php?".self::removeTags($matches["link"][$i]);
-						if(!array_key_exists($link,$ret))
+						if (!array_key_exists($link,$ret))
 						{
 							$item = $this->getNewEntry();
 							$item["desc"] = $url."/torrents.php?id=".self::removeTags($matches["desc"][$i]);
@@ -110,14 +110,14 @@ class PtPEngine extends commonEngine
 							$item["name"] = self::removeTags($title.' '.$matches["name"][$i]);
 							$ret[$link] = $item;
 							$added++;
-							if($added>=$limit)
+							if ($added>=$limit)
 								return;
 						}
 					}
 				}
 			}
 
-			if(!$itemsFound)
+			if (!$itemsFound)
 				break;
 		}
 	}

@@ -21,7 +21,7 @@ rTorrentStub.prototype.portcheck = function()
 
 plugin.createPortMenu = function(e)
 {
-        if(e.which==3)
+        if (e.which==3)
         {
 		theContextMenu.clear();
 		theContextMenu.add([ theUILang.checkPort,  plugin.update ]);
@@ -33,8 +33,7 @@ plugin.createPortMenu = function(e)
 plugin.onLangLoaded = function()
 {
 	plugin.addPaneToStatusbar("port-td",$("<div>").attr("id","port-holder").get(0),2);
-	if(plugin.canChangeMenu())
-		$("#port-td").addClass("pstatus0").mouseclick( plugin.createPortMenu );
+	$("#port-td").addClass("pstatus0").mouseclick( plugin.createPortMenu );
 	plugin.update();
 }
 

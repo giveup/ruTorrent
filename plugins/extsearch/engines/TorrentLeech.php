@@ -31,20 +31,20 @@ class TorrentLeechEngine extends commonEngine
 	{
 		$added = 0;
 		$url = 'http://www.torrentleech.org';
-		if($useGlobalCats)
+		if ($useGlobalCats)
 			$categories = array( 'all'=>'', 'movies'=>'/categories/1,8,9,10,11,12,13,14,15,29', 
 				'tv'=>'/categories/2,26,27', 'music'=>'/categories/4,16,31', 'games'=>'/categories/3,17,18,19,20,21,22,28,30', 
 				'anime'=>'/categories/7', 'software'=>'/categories/6,23,24,25', 'books'=>'/categories/5' );
 		else
 			$categories = &$this->categories;
-		if(!array_key_exists($cat,$categories))
+		if (!array_key_exists($cat,$categories))
 			$cat = $categories['all'];
 		else
 			$cat = $categories[$cat];
 		for($pg = 1; $pg<11; $pg++)
 		{
 			$cli = $this->fetch( Snoopy::linkencode($url.'/torrents/browse/index/query/'.$what.'/orderby/seeders/order/desc/page/'.$pg).$cat, false );
-                        if( ($cli==false) || 
+                        if ( ($cli==false) || 
 				(strpos($cli->results, "There are no results found, based on your search parameters")!==false) ||
 				(strpos($cli->results, ">Password")!==false))
 				break;
@@ -60,12 +60,12 @@ class TorrentLeechEngine extends commonEngine
 				'<td>(?P<leech>.*)</td>'.
 				'`siU', $cli->results, $matches);
 
-			if($res)
+			if ($res)
 			{
 				for($i=0; $i<$res; $i++)
 				{
 					$link = $url."/download/".$matches["id"][$i].'/dummy';
-					if(!array_key_exists($link,$ret))
+					if (!array_key_exists($link,$ret))
 					{
 						$item = $this->getNewEntry();
 						$item["cat"] = self::getInnerCategory($matches["cat"][$i]);
@@ -77,7 +77,7 @@ class TorrentLeechEngine extends commonEngine
 						$item["peers"] = intval(self::removeTags($matches["leech"][$i]));
 						$ret[$link] = $item;
 						$added++;
-						if($added>=$limit)
+						if ($added>=$limit)
 							return;
 					}
 				}

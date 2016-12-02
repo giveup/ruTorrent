@@ -116,7 +116,7 @@ class XMPPHP_XMPP extends XMPPHP_XMLStream {
 		$this->user	 = $user;
 		$this->password = $password;
 		$this->resource = $resource;
-		if(!$server) $server = $host;
+		if (!$server) $server = $host;
 		$this->basejid = $this->user . '@' . $this->host;
 
 		$this->roster = new Roster();
@@ -162,7 +162,7 @@ class XMPPHP_XMPP extends XMPPHP_XMLStream {
 	 * @param string $subject
 	 */
 	public function message($to, $body, $type = 'chat', $subject = null, $payload = null) {
-	    if(is_null($type))
+	    if (is_null($type))
 	    {
 	        $type = 'chat';
 	    }
@@ -172,9 +172,9 @@ class XMPPHP_XMPP extends XMPPHP_XMLStream {
 		$subject = htmlspecialchars($subject);
 		
 		$out = "<message from=\"{$this->fulljid}\" to=\"$to\" type='$type'>";
-		if($subject) $out .= "<subject>$subject</subject>";
+		if ($subject) $out .= "<subject>$subject</subject>";
 		$out .= "<body>$body</body>";
-		if($payload) $out .= $payload;
+		if ($payload) $out .= $payload;
 		$out .= "</message>";
 		
 		$this->send($out);
@@ -188,21 +188,21 @@ class XMPPHP_XMPP extends XMPPHP_XMLStream {
 	 * @param string $to
 	 */
 	public function presence($status = null, $show = 'available', $to = null, $type='available', $priority=0) {
-		if($type == 'available') $type = '';
+		if ($type == 'available') $type = '';
 		$to	 = htmlspecialchars($to);
 		$status = htmlspecialchars($status);
-		if($show == 'unavailable') $type = 'unavailable';
+		if ($show == 'unavailable') $type = 'unavailable';
 		
 		$out = "<presence";
-		if($to) $out .= " to=\"$to\"";
-		if($type) $out .= " type='$type'";
-		if($show == 'available' and !$status) {
+		if ($to) $out .= " to=\"$to\"";
+		if ($type) $out .= " type='$type'";
+		if ($show == 'available' and !$status) {
 			$out .= "/>";
 		} else {
 			$out .= ">";
-			if($show != 'available') $out .= "<show>$show</show>";
-			if($status) $out .= "<status>$status</status>";
-			if($priority) $out .= "<priority>$priority</priority>";
+			if ($show != 'available') $out .= "<show>$show</show>";
+			if ($status) $out .= "<status>$status</status>";
+			if ($priority) $out .= "<priority>$priority</priority>";
 			$out .= "</presence>";
 		}
 		
@@ -224,7 +224,7 @@ class XMPPHP_XMPP extends XMPPHP_XMLStream {
 	 * @param string $xml
 	 */
 	public function message_handler($xml) {
-		if(isset($xml->attrs['type'])) {
+		if (isset($xml->attrs['type'])) {
 			$payload['type'] = $xml->attrs['type'];
 		} else {
 			$payload['type'] = 'chat';
@@ -248,17 +248,17 @@ class XMPPHP_XMPP extends XMPPHP_XMLStream {
 		$payload['status'] = (isset($xml->sub('status')->data)) ? $xml->sub('status')->data : '';
 		$payload['priority'] = (isset($xml->sub('priority')->data)) ? intval($xml->sub('priority')->data) : 0;
 		$payload['xml'] = $xml;
-		if($this->track_presence) {
+		if ($this->track_presence) {
 			$this->roster->setPresence($payload['from'], $payload['priority'], $payload['show'], $payload['status']);
 		}
 		$this->log->log("Presence: {$payload['from']} [{$payload['show']}] {$payload['status']}",  XMPPHP_Log::LEVEL_DEBUG);
-		if(array_key_exists('type', $xml->attrs) and $xml->attrs['type'] == 'subscribe') {
-			if($this->auto_subscribe) {
+		if (array_key_exists('type', $xml->attrs) and $xml->attrs['type'] == 'subscribe') {
+			if ($this->auto_subscribe) {
 				$this->send("<presence type='subscribed' to='{$xml->attrs['from']}' from='{$this->fulljid}' />");
 				$this->send("<presence type='subscribe' to='{$xml->attrs['from']}' from='{$this->fulljid}' />");
 			}
 			$this->event('subscription_requested', $payload);
-		} elseif(array_key_exists('type', $xml->attrs) and $xml->attrs['type'] == 'subscribed') {
+		} elseif (array_key_exists('type', $xml->attrs) and $xml->attrs['type'] == 'subscribed') {
 			$this->event('subscription_accepted', $payload);
 		} else {
 			$this->event('presence', $payload);
@@ -271,9 +271,9 @@ class XMPPHP_XMPP extends XMPPHP_XMLStream {
 	 * @param string $xml
 	 */
 	protected function features_handler($xml) {
-		if($xml->hasSub('starttls') and $this->use_encryption) {
+		if ($xml->hasSub('starttls') and $this->use_encryption) {
 			$this->send("<starttls xmlns='urn:ietf:params:xml:ns:xmpp-tls'><required /></starttls>");
-		} elseif($xml->hasSub('bind') and $this->authed) {
+		} elseif ($xml->hasSub('bind') and $this->authed) {
 			$id = $this->getId();
 			$this->addIdHandler($id, 'resource_bind_handler');
 			$this->send("<iq xmlns=\"jabber:client\" type=\"set\" id=\"$id\"><bind xmlns=\"urn:ietf:params:xml:ns:xmpp-bind\"><resource>{$this->resource}</resource></bind></iq>");
@@ -316,7 +316,7 @@ class XMPPHP_XMPP extends XMPPHP_XMLStream {
 	 * @param string $xml
 	 */
 	protected function resource_bind_handler($xml) {
-		if($xml->attrs['type'] == 'result') {
+		if ($xml->attrs['type'] == 'result') {
 			$this->log->log("Bound to " . $xml->sub('bind')->sub('jid')->data);
 			$this->fulljid = $xml->sub('bind')->sub('jid')->data;
 			$jidarray = explode('/',$this->fulljid);
@@ -400,7 +400,7 @@ class XMPPHP_XMPP extends XMPPHP_XMLStream {
 	public function getVCard($jid = Null) {
 		$id = $this->getID();
 		$this->addIdHandler($id, 'vcard_get_handler');
-		if($jid) {
+		if ($jid) {
 			$this->send("<iq type='get' id='$id' to='$jid'><vCard xmlns='vcard-temp' /></iq>");
 		} else {
 			$this->send("<iq type='get' id='$id'><vCard xmlns='vcard-temp' /></iq>");

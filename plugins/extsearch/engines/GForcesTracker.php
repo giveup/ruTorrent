@@ -14,11 +14,11 @@ class GForcesTrackerEngine extends commonEngine
 	{
 		$added = 0;
 		$url = 'http://www.thegft.org';
-		if($useGlobalCats)
+		if ($useGlobalCats)
 			$categories = array( 'all'=>'&cat=0' );
 		else
 			$categories = &$this->categories;
-		if(!array_key_exists($cat,$categories))
+		if (!array_key_exists($cat,$categories))
 			$cat = $categories['all'];
 		else
 			$cat = $categories[$cat];
@@ -26,7 +26,7 @@ class GForcesTrackerEngine extends commonEngine
 		{
 			$cli = $this->fetch( $url.'/browse.php?search='.$what.'&blah=0&sort=7&type=desc&page='.$pg.$cat );
 			
-			if( ($cli==false) || (strpos($cli->results, "<h2>Nothing found!</h2>")!==false) ||
+			if ( ($cli==false) || (strpos($cli->results, "<h2>Nothing found!</h2>")!==false) ||
 				(strpos($cli->results, ">Password:</td>")!==false))
 				break;
 			$res = preg_match_all('/<img border="0" src=.* alt="(?P<cat>.*)" \/><\/a>'.
@@ -37,7 +37,7 @@ class GForcesTrackerEngine extends commonEngine
 				'<td .*>(?P<leech>.*)<\/td>.*'.
 				'<td .*>(?P<date>.*)<\/td>.*'.
 				'<td .*>(?P<size>.*)<\/td>/siU', $cli->results, $matches);
-			if(($res!==false) && ($res>0) &&
+			if (($res!==false) && ($res>0) &&
 				count($matches["id"])==count($matches["cat"]) &&
 				count($matches["cat"])==count($matches["name"]) && 
 				count($matches["name"])==count($matches["size"]) &&
@@ -49,7 +49,7 @@ class GForcesTrackerEngine extends commonEngine
 				for($i=0; $i<count($matches["id"]); $i++)
 				{
 					$link = $url."/download.php?id=".$matches["id"][$i]."&name=".$matches["tname"][$i];
-					if(!array_key_exists($link,$ret))
+					if (!array_key_exists($link,$ret))
 					{
 						$item = $this->getNewEntry();
 						$item["cat"] = self::removeTags($matches["cat"][$i]);
@@ -62,7 +62,7 @@ class GForcesTrackerEngine extends commonEngine
 						$item["peers"] = intval(self::removeTags($matches["leech"][$i]));
 						$ret[$link] = $item;
 						$added++;
-						if($added>=$limit)
+						if ($added>=$limit)
 							return;
 					}
 				}

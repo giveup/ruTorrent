@@ -1,5 +1,5 @@
 plugin.loadLang();
-if(theWebUI.theme)
+if (theWebUI.theme)
 {
 	plugin.path = "plugins/theme/themes/"+theWebUI.theme+"/";
 	plugin.loadCSS("style");
@@ -52,6 +52,6 @@ plugin.setSettings = theWebUI.setSettings;
 theWebUI.setSettings = function() 
 {
 	plugin.setSettings.call(this);
-	if($($$("webui.theme")).val()!=theWebUI.theme)
+	if ($($$("webui.theme")).val()!=theWebUI.theme)
 		theWebUI.request("?action=settheme",[theWebUI.reload, theWebUI]);
 }

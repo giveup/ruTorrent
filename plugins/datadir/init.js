@@ -4,10 +4,10 @@ plugin.loadLang();
 theWebUI.EditDataDir = function()
 {
 	var id = theWebUI.getTable("trt").getFirstSelected();
-	if( id && (id.length==40) && this.torrents[id] )
+	if ( id && (id.length==40) && this.torrents[id] )
 	{
         var base_path = this.torrents[id].base_path.trim();
-		if( !base_path.length ) // torrent is not open
+		if ( !base_path.length ) // torrent is not open
 			this.request( "?action=getbasepath&hash=" + id, [this.showDataDirDlg, this] );
 		else
 			theWebUI.showDataDirDlg( { hash: id, basepath: base_path } );
@@ -19,7 +19,7 @@ theWebUI.showDataDirDlg = function( d )
 	var id = theWebUI.getTable("trt").getFirstSelected();
 	var is_done = false;
 	var is_multy = false;
-	if( id && (id.length==40) && this.torrents[id] )
+	if ( id && (id.length==40) && this.torrents[id] )
 	{
 		is_done = this.torrents[id].done == 1000;
 		is_multy = this.torrents[id].multi_file != 0;
@@ -55,21 +55,18 @@ rTorrentStub.prototype.getbasepathResponse = function( xml )
 	return( { hash: this.hashes[0], basepath: this.getValue( values, 3 ) } );
 }
 
-if(plugin.canChangeMenu())
+plugin.createMenu = theWebUI.createMenu;
+theWebUI.createMenu = function( e, id )
 {
-	plugin.createMenu = theWebUI.createMenu;
-	theWebUI.createMenu = function( e, id )
+	plugin.createMenu.call(this, e, id);
+	if (plugin.enabled && plugin.allStuffLoaded)
 	{
-		plugin.createMenu.call(this, e, id);
-		if(plugin.enabled && plugin.allStuffLoaded)
-		{
-			var table = this.getTable("trt");
+		var table = this.getTable("trt");
 
-			var el = theContextMenu.get( theUILang.Properties );
-			if( el )
-				theContextMenu.add( el, [theUILang.DataDir + "...",
-					((table.selCount > 1) || (table.getFirstSelected().length==40)) ? "theWebUI.EditDataDir()" : null] );
-		}
+		var el = theContextMenu.get( theUILang.Properties );
+		if ( el )
+			theContextMenu.add( el, [theUILang.DataDir + "...",
+				((table.selCount > 1) || (table.getFirstSelected().length==40)) ? "theWebUI.EditDataDir()" : null] );
 	}
 }
 
@@ -79,7 +76,7 @@ theWebUI.sendDataDir = function()
 	var sr = this.getTable("trt").rowSel;
 	for( var k in sr )
 	{
-		if( sr[k] && (k.length==40))
+		if ( sr[k] && (k.length==40))
 		{
 			this.DataDirID = k;
 			this.requestWithTimeout( "?action=setdatadir", [this.receiveDataDir, this], function()
@@ -95,13 +92,13 @@ theWebUI.sendDataDir = function()
 theWebUI.receiveDataDir = function( d )
 {
 	$('#btn_datadir_ok').prop("disabled",false);
-	if( !d.errors.length )
+	if ( !d.errors.length )
 		theDialogManager.hide( 'dlg_datadir' );
 	else
 		for( var i = 0; i < d.errors.length; i++ )
 		{
 			var s = eval(d.errors[i].desc);
-			if( d.errors[i].prm )
+			if ( d.errors[i].prm )
 				s += " (" + d.errors[i].prm + ")";
 			noty( s, "error" );
 		}
@@ -148,7 +145,7 @@ plugin.onLangLoaded = function()
 			"<input type='button' value='"+ theUILang.Cancel + "' class='Cancel Button'/>" +
 		"</div>",
 		true);
-	if(thePlugins.isInstalled("_getdir"))
+	if (thePlugins.isInstalled("_getdir"))
 	{
 		var btn = new theWebUI.rDirBrowser( 'dlg_datadir', 'edit_datadir', 'btn_datadir_browse', 'frame_datadir_browse' );
 		theDialogManager.setHandler('dlg_datadir','afterHide',function()

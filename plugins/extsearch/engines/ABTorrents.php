@@ -15,11 +15,11 @@ class ABTorrentsEngine extends commonEngine
 	{
 		$added = 0;
 		$url = 'http://www.abtorrents.me';
-		if($useGlobalCats)
+		if ($useGlobalCats)
 			$categories = array( 'all'=>'0' );
 		else
 			$categories = &$this->categories;
-		if(!array_key_exists($cat,$categories))
+		if (!array_key_exists($cat,$categories))
 			$cat = $categories['all'];
 		else
 			$cat = $categories[$cat];
@@ -28,7 +28,7 @@ class ABTorrentsEngine extends commonEngine
 		{
 			$cli = $this->fetch( $url.'/pages/torrents/browse.php?q='.$what.'&sort=seeders&dir=desc&nd=1&page='.$pg.'&cat='.$cat );
 
-			if( ($cli==false) || (strpos($cli->results, ">No Results Found!<")!==false) 
+			if ( ($cli==false) || (strpos($cli->results, ">No Results Found!<")!==false) 
 				|| (strpos($cli->results, '>Password:<')!==false))
 				break;
 
@@ -43,12 +43,12 @@ class ABTorrentsEngine extends commonEngine
 				'.*<td class="row2">(?P<leech>.*)</td>'.
 				'.*<td class="row2"><acronym title="(?P<date>[^"]*)">'.
 				'`siU', $cli->results, $matches);
-			if($res)
+			if ($res)
 			{
 				for($i=0; $i<$res; $i++)
 				{
 					$link = $url."/pages/torrents/download.php/".$matches["id"][$i]."/dummy.torrent";
-					if(!array_key_exists($link,$ret))
+					if (!array_key_exists($link,$ret))
 					{
 						$item = $this->getNewEntry();
 						$item["cat"] = self::removeTags($matches["cat"][$i]);
@@ -60,7 +60,7 @@ class ABTorrentsEngine extends commonEngine
 						$item["peers"] = intval(self::removeTags($matches["leech"][$i]));
 						$ret[$link] = $item;
 						$added++;
-						if($added>=$limit)
+						if ($added>=$limit)
 							return;
 					}
 				}

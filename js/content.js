@@ -19,7 +19,7 @@ function makeContent()
 
 	$("#query").keydown( function(e)
 	{
-		if(e.keyCode == 13)
+		if (e.keyCode == 13)
 			theSearchEngines.run();
 	});
 
@@ -84,7 +84,7 @@ function makeContent()
 		$("#torrent_file").val("");
 		$("#add_button").prop("disabled",false);
 		var d = (this.contentDocument || this.contentWindow.document);
-		if(d && (d.location.href != "about:blank")) {
+		if (d && (d.location.href != "about:blank")) {
 			try { var txt = d.body.textContent ? d.body.textContent : d.body.innerText; eval(txt); } catch(e) {}
 		}
 	}));
@@ -92,7 +92,7 @@ function makeContent()
 	{
 		$("#url").val("");
 		var d = (this.contentDocument || this.contentWindow.document);
-		if(d.location.href != "about:blank")
+		if (d.location.href != "about:blank")
 			try { eval(d.body.textContent ? d.body.textContent : d.body.innerText); } catch(e) {}
 	}));
 	theDialogManager.make("padd",theUILang.peerAdd,
@@ -160,26 +160,26 @@ function makeContent()
 	var makeAddRequest = function(frm)
 	{
 		var s = theURLs.AddTorrentURL+"?";
-		if($("#torrents_start_stopped").prop("checked"))
+		if ($("#torrents_start_stopped").prop("checked"))
 			s += 'torrents_start_stopped=1&';
-		if($("#fast_resume").prop("checked"))
+		if ($("#fast_resume").prop("checked"))
 			s += 'fast_resume=1&';
-		if($("#not_add_path").prop("checked"))
+		if ($("#not_add_path").prop("checked"))
 			s += 'not_add_path=1&';
-		if($("#randomize_hash").prop("checked"))
+		if ($("#randomize_hash").prop("checked"))
 			s += 'randomize_hash=1&';
 		var dir = $("#dir_edit").val().trim();
-		if(dir.length)
+		if (dir.length)
 			s += ('dir_edit='+encodeURIComponent(dir)+'&');
 		var lbl = $("#tadd_label").val().trim();
-		if(lbl.length)
+		if (lbl.length)
 			s += ('label='+encodeURIComponent(lbl));
 		frm.action = s;
 		return(true);
 	}
 	$("#addtorrent").submit(function()
 	{
-		if(!$("#torrent_file").val().match(/\.torrent$/i))
+		if (!$("#torrent_file").val().match(/\.torrent$/i))
 		{
 			alert(theUILang.Not_torrent_file);
 	   		return(false);
@@ -588,30 +588,30 @@ function correctContent()
 		canChangeTorrentProperties:	0x0080
 	};
 
-	if(!$type(theWebUI.systemInfo))
+	if (!$type(theWebUI.systemInfo))
 		theWebUI.systemInfo = { rTorrent: { version: '?', libVersion: '?', started: false, apiVersion : 0 } };
 
-	if(!theWebUI.systemInfo.rTorrent.started)
+	if (!theWebUI.systemInfo.rTorrent.started)
         	theWebUI.showFlags &= ~0xFFEF;
 
-	if(!(theWebUI.showFlags & showEnum.showDownloadsPage))
+	if (!(theWebUI.showFlags & showEnum.showDownloadsPage))
 		rPlugin.prototype.removePageFromOptions("st_dl");
-	if(!(theWebUI.showFlags & showEnum.showConnectionPage))
+	if (!(theWebUI.showFlags & showEnum.showConnectionPage))
 		rPlugin.prototype.removePageFromOptions("st_con");
-	if(!(theWebUI.showFlags & showEnum.showBittorentPage))
+	if (!(theWebUI.showFlags & showEnum.showBittorentPage))
 		rPlugin.prototype.removePageFromOptions("st_bt");
-	if(!(theWebUI.showFlags & showEnum.showAdvancedPage))
+	if (!(theWebUI.showFlags & showEnum.showAdvancedPage))
 		rPlugin.prototype.removePageFromOptions("st_ao");
-	if(!(theWebUI.showFlags & showEnum.showPluginsTab))
+	if (!(theWebUI.showFlags & showEnum.showPluginsTab))
 	{
 		delete theWebUI.tables.plg;
   		rPlugin.prototype.removePageFromTabs("PluginList");
 	}
-	if(!(theWebUI.showFlags & showEnum.canChangeULRate))
+	if (!(theWebUI.showFlags & showEnum.canChangeULRate))
 		$("#st_up").mouseclick(null);
-	if(!(theWebUI.showFlags & showEnum.canChangeDLRate))
+	if (!(theWebUI.showFlags & showEnum.canChangeDLRate))
 		$("#st_down").mouseclick(null);
-	if(!(theWebUI.showFlags & showEnum.canChangeTorrentProperties))
+	if (!(theWebUI.showFlags & showEnum.canChangeTorrentProperties))
 	{
 		$("#prop-ulslots").prop("disabled",true);
 		$("#prop-peers_min").prop("disabled",true);
@@ -623,7 +623,7 @@ function correctContent()
 		$("#lbl_prop-superseed").remove();
 		$("#dlgProps .OK").remove();
         }
-	if(!theWebUI.systemInfo.rTorrent.started)
+	if (!theWebUI.systemInfo.rTorrent.started)
 	{
 		rPlugin.prototype.removePageFromTabs("TrackerList");
 		rPlugin.prototype.removePageFromTabs("FileList");
@@ -644,12 +644,12 @@ function correctContent()
 	{
 		theRequestManager.addRequest("fls","f.prioritize_first=",function(hash, fls, value)
 		{
-			if(value=='1')
+			if (value=='1')
 				fls.prioritize = 1;
 		});
 		theRequestManager.addRequest("fls","f.prioritize_last=",function(hash, fls, value)
 		{
-			if(value=='1')
+			if (value=='1')
 				fls.prioritize = 2;
 		});
 

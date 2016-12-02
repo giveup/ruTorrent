@@ -88,14 +88,6 @@ function getPluginInfo($name, $permissions)
                 return(false);
             }
             $flags = [
-                "canChangeToolbar"  => 0x0001,
-                "canChangeMenu"     => 0x0002,
-                "canChangeOptions"  => 0x0004,
-                "canChangeTabs"         => 0x0008,
-                "canChangeColumns"  => 0x0010,
-                "canChangeStatusBar"    => 0x0020,
-                "canChangeCategory"     => 0x0040,
-                "canBeShutdowned"   => 0x0080,
                 /*	"canBeLaunched"		=> 0x0100, */
             ];
             foreach ($flags as $flagName => $flagVal) {
@@ -103,11 +95,6 @@ function getPluginInfo($name, $permissions)
                     $perms|=$flagVal;
                 }
             }
-
-            if (!$info["plugin.may_be_shutdowned"]) {
-                $perms|=$flags["canBeShutdowned"];
-            }
-
         }
         $info["perms"] = $perms;
     }

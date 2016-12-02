@@ -1,4 +1,4 @@
-if(window.FileReader)
+if (window.FileReader)
 	plugin.loadLang();
 else
 	plugin.disable();

@@ -10,11 +10,11 @@ class TorrentReactorEngine extends commonEngine
 	{
 		$added = 0;
 		$url = 'http://www.torrentreactor.net';
-		if($useGlobalCats)
+		if ($useGlobalCats)
 			$categories = array( 'all'=>'', 'movies'=>'5', 'tv'=>'8', 'music'=>'6', 'games'=>'3', 'anime'=>'1', 'software'=>'2' );
 		else
 			$categories = &$this->categories;
-		if(!array_key_exists($cat,$categories))
+		if (!array_key_exists($cat,$categories))
 			$cat = $categories['all'];
 		else
 			$cat = $categories[$cat];
@@ -23,7 +23,7 @@ class TorrentReactorEngine extends commonEngine
 		{
 
 			$cli = $this->fetch( $url.'/torrent-search/'.$what.'/'.($pg*35).'?type=all&period=none&categories='.$cat.'&sort=seeders.desc&ajax=torrent-list' );
-			if($cli==false)
+			if ($cli==false)
 				break;
 			$res = preg_match_all('`<td class="title"><a href="(?P<desc>[^"]*)">(?P<name>.*)</a>.*'.
 				'<a title="Download torrent".*url=(?P<link>[^"]*)".*'.
@@ -32,13 +32,13 @@ class TorrentReactorEngine extends commonEngine
 				'<td class="leechers">(?P<leech>.*)</td>'.
 				'<td class="category">(?P<cat>.*)</td>'.
 				'`siU', $cli->results, $matches);
-			if($res)
+			if ($res)
 			{
 				for($i=0; $i<$res; $i++)
 				{
 					$link = urldecode($matches["link"][$i]);
 					
-					if(!array_key_exists($link,$ret))
+					if (!array_key_exists($link,$ret))
 					{
 						$item = $this->getNewEntry();
 						$item["desc"] = $url.$matches["desc"][$i];
@@ -49,7 +49,7 @@ class TorrentReactorEngine extends commonEngine
 						$item["cat"] = self::removeTags(trim($matches["cat"][$i]));
 						$ret[$link] = $item;
 						$added++;
-						if($added>=$limit)
+						if ($added>=$limit)
 							return;
 					}
 				}

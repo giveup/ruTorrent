@@ -4,11 +4,11 @@ function injectScript(fname,initFunc)
 {
 	var h = document.getElementsByTagName("head").item(0);
 	s = document.createElement("script");
-	if(initFunc)
+	if (initFunc)
 	{
 		s.onload = initFunc;
 	}
-	if(s.setAttribute)
+	if (s.setAttribute)
 		s.setAttribute('src', fname);
 	else
 		s.src = fname;
@@ -29,7 +29,7 @@ function injectCSSText(text)
 {
 	var style=document.createElement('style');
 	style.setAttribute("type", "text/css");
-	if(style.styleSheet)
+	if (style.styleSheet)
 		style.styleSheet.cssText = text;
 	else
 		style.appendChild(document.createTextNode(text));
@@ -75,7 +75,7 @@ var thePlugins =
 		for( var i in this.list )
 		{
 			var plg = this.list[i];
-			if(plg.enabled && ($type(plg["onLangLoaded"])=="function") && !plg.allStuffLoaded)
+			if (plg.enabled && ($type(plg["onLangLoaded"])=="function") && !plg.allStuffLoaded)
 				return(false);
 		}
 		return(true);
@@ -83,7 +83,7 @@ var thePlugins =
 
 	waitLoad: function( callback )
 	{
-		if(this.checkLoad())
+		if (this.checkLoad())
 			eval( callback+'()' );
 		else
 			window.setTimeout( 'thePlugins.waitLoad("'+callback+'")', 500 );
@@ -143,7 +143,7 @@ rPlugin.prototype.unlaunch = function()
 
 rPlugin.prototype.remove = function()
 {
-	if($type(this["onRemove"])=="function")
+	if ($type(this["onRemove"])=="function")
 		this.onRemove();
 	this.disable();
 	return(this);
@@ -151,7 +151,7 @@ rPlugin.prototype.remove = function()
 
 rPlugin.prototype.showError = function(err)
 {
-	if( this.allStuffLoaded )
+	if ( this.allStuffLoaded )
 		noty( eval(err), "error" );
 	else
 		setTimeout( 'thePlugins.get("'+this.name+'").showError("' + err + '")', 1000 );
@@ -202,41 +202,6 @@ rPlugin.prototype.loadMainCSS = function()
 	return(this);
 }
 
-rPlugin.prototype.canChangeMenu = function()
-{
-	return(!(this.restictions & thePlugins.restictions.cantChangeMenu));
-}
-
-rPlugin.prototype.canChangeOptions = function()
-{
-	return(!(this.restictions & thePlugins.restictions.cantChangeOptions));
-}
-
-rPlugin.prototype.canChangeToolbar = function()
-{
-	return(!(this.restictions & thePlugins.restictions.cantChangeToolbar));
-}
-
-rPlugin.prototype.canChangeTabs = function()
-{
-	return(!(this.restictions & thePlugins.restictions.cantChangeTabs));
-}
-
-rPlugin.prototype.canChangeColumns = function()
-{
-	return(!(this.restictions & thePlugins.restictions.cantChangeColumns));
-}
-
-rPlugin.prototype.canChangeStatusBar = function()
-{
-	return(!(this.restictions & thePlugins.restictions.cantChangeStatusBar));
-}
-
-rPlugin.prototype.canChangeCategory = function()
-{
-	return(!(this.restictions & thePlugins.restictions.cantChangeCategory));
-}
-
 rPlugin.prototype.canShutdown = function()
 {
 	return(!(this.restictions & thePlugins.restictions.cantShutdown));
@@ -249,19 +214,16 @@ rPlugin.prototype.canBeLaunched = function()
 
 rPlugin.prototype.attachPageToOptions = function(dlg,name)
 {
-        if(this.canChangeOptions())
-	{
-		$("#st_btns").before( $(dlg).addClass("stg_con") );
-		$("#stg aside ul li:last").removeClass("last");
-		$("#stg aside ul").append( $("<li>").attr("id","hld_"+dlg.id).addClass("last").html("<a id='mnu_"+dlg.id+"' href=\"#\" onclick=\"theOptionsSwitcher.run('"+dlg.id+"'); return(false);\">"+name+"</a>") );
-		$(dlg).css( {display: "none"} );
-	}
+	$("#st_btns").before( $(dlg).addClass("stg_con") );
+	$("#stg aside ul li:last").removeClass("last");
+	$("#stg aside ul").append( $("<li>").attr("id","hld_"+dlg.id).addClass("last").html("<a id='mnu_"+dlg.id+"' href=\"#\" onclick=\"theOptionsSwitcher.run('"+dlg.id+"'); return(false);\">"+name+"</a>") );
+	$(dlg).css( {display: "none"} );
 	return(this);
 }
 
 rPlugin.prototype.removePageFromOptions = function(id)
 {
-	if(theOptionsSwitcher.current==id)
+	if (theOptionsSwitcher.current==id)
 		theOptionsSwitcher.run('st_gl');
 	$("#"+id).remove();
 	$("#hld_"+id).remove();
@@ -271,27 +233,24 @@ rPlugin.prototype.removePageFromOptions = function(id)
 
 rPlugin.prototype.attachPageToTabs = function(dlg,name)
 {
-    if(this.canChangeTabs()) {
-        if(!dlg.className) {
-			dlg.className = "tab";
-		}
-		theTabs.tabs[dlg.id] = name;
-		var newLbl = document.createElement("li");
-		newLbl.id = "tab_"+dlg.id;
-		newLbl.innerHTML = "<a href=\"#\" onmousedown=\"theTabs.show('"+dlg.id+"');\" onfocus=\"this.blur();\">" + name + "</a>";
-		$$('tabbar').appendChild(newLbl);
-		theTabs.show("lcont");
+    if (!dlg.className) {
+		dlg.className = "tab";
 	}
+	theTabs.tabs[dlg.id] = name;
+	var newLbl = document.createElement("li");
+	newLbl.id = "tab_"+dlg.id;
+	newLbl.innerHTML = "<a href=\"#\" onmousedown=\"theTabs.show('"+dlg.id+"');\" onfocus=\"this.blur();\">" + name + "</a>";
+	document.querySelector('#tabbar').appendChild(newLbl);
+	theTabs.show("lcont");
+
+	document.querySelector('#tdcont').append(dlg);
 	return(this);
 }
 
 rPlugin.prototype.renameTab = function(id,name)
 {
-        if(this.canChangeTabs())
-        {
-		theTabs.tabs[id] = name;
-		$("#tab_"+id+" a").text(name);
-	}
+	theTabs.tabs[id] = name;
+	$("#tab_"+id+" a").text(name);
 	return(this);
 }
 
@@ -305,33 +264,27 @@ rPlugin.prototype.removePageFromTabs = function(id)
 
 rPlugin.prototype.registerTopMenu = function(weight)
 {
-        if(this.canChangeToolbar())
-        {
-        	if( !$$("mnu_plugins") )
-        		this.addButtonToToolbar("plugins",theUILang.Plugins+"...","theWebUI.showPluginsMenu()","help");
-		thePlugins.registerTopMenu( this, weight );
-	}
+	if ( !$$("mnu_plugins") )
+		this.addButtonToToolbar("plugins",theUILang.Plugins+"...","theWebUI.showPluginsMenu()","help");
+	thePlugins.registerTopMenu( this, weight );
 	return(this);
 }
 
 rPlugin.prototype.addButtonToToolbar = function(id,name,onclick,idBefore)
 {
-        if(this.canChangeToolbar())
-        {
-		var newBtn = document.createElement("A");
-		newBtn.id="mnu_"+id;
-		newBtn.href='#';
-		newBtn.title=name;
-		newBtn.innerHTML='<div class="top-menu-item" id="'+id+'" onclick="'+onclick+';return(false);"></div>';
-		$(newBtn).addClass('top-menu-item').focus( function(e) { this.blur(); } );
-		var targetBtn = idBefore ? $$("mnu_"+idBefore) : null;
-		if(targetBtn)
-			targetBtn.parentNode.insertBefore(newBtn,targetBtn);
-		else
-		{
-			targetBtn = $$("mnu_settings");
-			targetBtn.parentNode.appendChild(newBtn);
-		}
+	var newBtn = document.createElement("A");
+	newBtn.id="mnu_"+id;
+	newBtn.href='#';
+	newBtn.title=name;
+	newBtn.innerHTML='<div class="top-menu-item" id="'+id+'" onclick="'+onclick+';return(false);"></div>';
+	$(newBtn).addClass('top-menu-item').focus( function(e) { this.blur(); } );
+	var targetBtn = idBefore ? $$("mnu_"+idBefore) : null;
+	if (targetBtn)
+		targetBtn.parentNode.insertBefore(newBtn,targetBtn);
+	else
+	{
+		targetBtn = $$("mnu_settings");
+		targetBtn.parentNode.appendChild(newBtn);
 	}
 	return(this);
 }
@@ -343,18 +296,15 @@ rPlugin.prototype.removeButtonFromToolbar = function(id)
 
 rPlugin.prototype.addSeparatorToToolbar = function(idBefore)
 {
-        if(this.canChangeToolbar())
-        {
-	        var targetBtn = idBefore ? $$("mnu_"+idBefore) : null;
-		var sep = document.createElement("DIV");
-		sep.className = "TB_Separator";
-		if(targetBtn)
-			targetBtn.parentNode.insertBefore(sep,targetBtn);
-		else
-		{
-	        	targetBtn = $$("mnu_settings");
-			targetBtn.parentNode.appendChild(sep);
-		}
+    var targetBtn = idBefore ? $$("mnu_"+idBefore) : null;
+	var sep = document.createElement("DIV");
+	sep.className = "TB_Separator";
+	if (targetBtn)
+		targetBtn.parentNode.insertBefore(sep,targetBtn);
+	else
+	{
+        	targetBtn = $$("mnu_settings");
+		targetBtn.parentNode.appendChild(sep);
 	}
 	return(this);
 }
@@ -366,13 +316,11 @@ rPlugin.prototype.removeSeparatorFromToolbar = function(idBefore)
 
 rPlugin.prototype.addPaneToStatusbar = function(id,div,no)
 {
-        if(this.canChangeStatusBar()) {
-		var row = $("#StatusBar");
-		var container = $('<div/>');
-		container.attr("id",id).append( $(div) );
+	var row = $("#StatusBar");
+	var container = $('<div/>');
+	container.attr("id",id).append( $(div) );
 
-		row.prepend(container);
-	}
+	row.prepend(container);
 	return(this);
 }
 
@@ -384,13 +332,10 @@ rPlugin.prototype.removePaneFromStatusbar = function(id)
 
 rPlugin.prototype.addPaneToCategory = function(id,name)
 {
-        if(this.canChangeCategory())
-        {
-		$('#CatList').append(
-			$("<div>").addClass("catpanel").attr("id",id).text(name).click(function() { theWebUI.togglePanel(this); })).
-				append($("<div>").attr("id",id+"_cont").addClass("catpanel_cont"));
-		theWebUI.showPanel($$(id),!theWebUI.settings["webui.closed_panels"][id]);
-	}
+	$('#CatList').append(
+		$("<div>").addClass("catpanel").attr("id",id).text(name).click(function() { theWebUI.togglePanel(this); })).
+			append($("<div>").attr("id",id+"_cont").addClass("catpanel_cont"));
+	theWebUI.showPanel($$(id),!theWebUI.settings["webui.closed_panels"][id]);
 	return($("#"+id+"_cont"));
 }
 
