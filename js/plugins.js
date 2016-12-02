@@ -269,7 +269,7 @@ rPlugin.prototype.removePageFromOptions = function(id)
 	return(this);
 }
 
-rPlugin.prototype.attachPageToTabs = function(dlg,name,idBefore)
+rPlugin.prototype.attachPageToTabs = function(dlg,name)
 {
         if(this.canChangeTabs())
         {
@@ -279,10 +279,8 @@ rPlugin.prototype.attachPageToTabs = function(dlg,name,idBefore)
 		var newLbl = document.createElement("li");
 		newLbl.id = "tab_"+dlg.id;
 		newLbl.innerHTML = "<a href=\"#\" onmousedown=\"theTabs.show('"+dlg.id+"');\" onfocus=\"this.blur();\">" + name + "</a>";
-		if(!idBefore)
-			idBefore = "lcont";
-		$$(idBefore).parentNode.insertBefore(dlg,$$(idBefore));
-		var beforeLbl = $$("tab_"+idBefore);
+		$$("lcont").parentNode.insertBefore(dlg,$$("lcont"));
+		var beforeLbl = $$("tab_lcont");
 		beforeLbl.parentNode.insertBefore(newLbl,beforeLbl);
 		theTabs.show("lcont");
 	}
