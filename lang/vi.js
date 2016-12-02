@@ -182,7 +182,6 @@ var theUILang =
  pnlState			: "Tình trạng",
  newLabel			: "Nhãn mới",
  enterLabel			: "Nhập Nhãn",
- UIEffects			: "Hiển thị hiệu ứng giao diện",
  Plugins			: "Bổ sung",
  plgName			: "Tên",
  plgStatus			: "Trạng thải",

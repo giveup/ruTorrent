@@ -182,7 +182,6 @@ var theUILang =
  pnlState			: "State",
  newLabel			: "New Label",
  enterLabel			: "Enter Label",
- UIEffects			: "Show effects for UI elements",
  Plugins			: "Додаци",
  plgName			: "Име",
  plgStatus			: "Статус",

@@ -144,7 +144,6 @@ var theWebUI =
 		"webui.aside_vw":			20,
 		"webui.footer_vh":			40,
 
-		"webui.effects":		0,
 		"webui.search":			-1,
 		"webui.ignore_timeouts":	0,
 		"webui.retry_on_error":		120,
@@ -398,7 +397,6 @@ var theWebUI =
 				this.toggleDetails();
 			}
 		}
-		theDialogManager.setEffects( iv(this.settings["webui.effects"])*200 );
 //		this.setStatusUpdate();
 		$.each(this.tables, function(ndx,table) {
 			table.obj.create($$(table.container), table.columns, ndx);
@@ -605,9 +603,6 @@ var theWebUI =
 					if ((/^webui\./).test(i)) {
 						needSave = true;
 						switch(i) {
-							case "webui.effects":
-								theDialogManager.setEffects( iv(nv)*200 );
-								break;
 							case "webui.alternate_color":
 								document.body.classList.toggle('alternate_color', nv);
 								break;

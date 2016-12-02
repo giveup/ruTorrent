@@ -182,7 +182,6 @@ var theUILang =
  pnlState			: "Durum",
  newLabel			: "Yeni Etiket",
  enterLabel			: "Etiket Girin",
- UIEffects			: "Show effects for UI elements",
  Plugins			: "Plugins",
  plgName			: "Name",
  plgStatus			: "Status",

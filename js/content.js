@@ -304,10 +304,6 @@ function makeContent()
 						"<label for=\"webui.ignore_timeouts\">"+"<input type=\"checkbox\" id=\"webui.ignore_timeouts\" checked=\"true\" />"+theUILang.dontShowTimeouts+"</label>"+
 					"</div>"+
 
-					"<div class=\"op50l algnright\"><input type=\"checkbox\" id=\"webui.effects\"/>"+
-						"<label for=\"webui.effects\">"+theUILang.UIEffects+"</label>"+
-					"</div>"+
-
 					"<div class=\"op50l algnright\"><input type=\"checkbox\" id=\"webui.speedintitle\"/>"+
 						"<label for=\"webui.speedintitle\">"+theUILang.showSpeedInTitle+"</label>"+
 					"</div>"+

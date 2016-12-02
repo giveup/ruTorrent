@@ -184,7 +184,6 @@ var theUILang =
  pnlState			: "状态",
  newLabel			: "新标签",
  enterLabel			: "输入标签",
- UIEffects			: "UI 元素显示特效",
  Plugins			: "插件",
  plgName			: "名称",
  plgStatus			: "状态",

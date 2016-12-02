@@ -184,7 +184,6 @@ var theUILang =
  pnlState			: "State",
  newLabel			: "Ny Label",
  enterLabel			: "Enter Label",
- UIEffects			: "Vis effekter på UI elementer",
  Plugins			: "Plugins",
  plgName			: "Navn",
  plgStatus			: "Status",

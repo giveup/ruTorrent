@@ -184,7 +184,6 @@ var theUILang =
  pnlState			: "State",
  newLabel			: "Új címke",
  enterLabel			: "Új címke",
- UIEffects			: "UI animált menü megjelenítés",
  Plugins			: "Bővítmények",
  plgName			: "Név",
  plgStatus			: "Státusz",

@@ -184,7 +184,6 @@ var theUILang =
  pnlState			: "State",
  newLabel			: "New Label",
  enterLabel			: "Enter Label",
- UIEffects			: "Show effects for UI elements",
  Plugins			: "Plugins",
  plgName			: "Name",
  plgStatus			: "Status",

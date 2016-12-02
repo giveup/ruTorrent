@@ -84,7 +84,6 @@ var theDialogManager =
 	maxZ: 2000,
 	visible : [],
 	items : {},
-	divider: 0,
 	modalState: false,
 
 	make: function( id, name, content, isModal, noClose )
@@ -147,10 +146,6 @@ var theDialogManager =
 		else
 			this.show(id);
 	},
-	setEffects: function( divider )
-	{
-		this.divider = divider;
-	},
 	setModalState: function()
 	{
         	$('#modalbg').show();
@@ -170,9 +165,14 @@ var theDialogManager =
 	      	if($type(this.items[id]) && ($type(this.items[id].beforeShow)=="function"))
 	        	this.items[id].beforeShow(id);
 		this.center(id);
-		obj.show(obj.data("modal") ? null : this.divider,callback);
-        	if($type(this.items[id]) && ($type(this.items[id].afterShow)=="function"))
-	        	this.items[id].afterShow(id);
+		if (obj.data("modal")) {
+			obj.show();
+		} else {
+			obj.show(callback);
+		}
+    	if($type(this.items[id]) && ($type(this.items[id].afterShow)=="function")) {
+        	this.items[id].afterShow(id);
+		}
 		this.bringToTop(id);
 	},
 	hide: function( id, callback )
@@ -183,7 +183,7 @@ var theDialogManager =
         	var obj = $('#'+id);
         	if($type(this.items[id]) && ($type(this.items[id].beforeHide)=="function"))
 	        	this.items[id].beforeHide(id);
-		obj.hide(this.divider,callback);
+		obj.hide(callback);
         	if($type(this.items[id]) && ($type(this.items[id].afterHide)=="function"))
 	        	this.items[id].afterHide(id);
 		if(obj.data("modal"))
@@ -380,14 +380,14 @@ var theContextMenu =
 	                if(submenu.offset().top<0)
 				submenu.css( "top", -submenu.height()+20-submenu.offset().top );
                 });
-                obj.show(theDialogManager.divider, function() { obj.css( { overflow: "visible" } ); } );
+                obj.show(function() { obj.css( { overflow: "visible" } ); } );
 	},
 	hide: function()
 	{
 		this.noHide = false;
 	        if(this.obj.is(":visible"))
 	        {
-			this.obj.hide(theDialogManager.divider);
+			this.obj.hide();
 			this.clear();
 			return(true);
 		}
