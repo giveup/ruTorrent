@@ -253,7 +253,7 @@ rPlugin.prototype.attachPageToOptions = function(dlg,name)
 	{
 		$("#st_btns").before( $(dlg).addClass("stg_con") );
 		$("#stg aside ul li:last").removeClass("last");
-		$("#stg aside ul").append( $("<li>").attr("id","hld_"+dlg.id).addClass("last").html("<a id='mnu_"+dlg.id+"' href=\"javascript://void()\" onclick=\"theOptionsSwitcher.run('"+dlg.id+"'); return(false);\">"+name+"</a>") );
+		$("#stg aside ul").append( $("<li>").attr("id","hld_"+dlg.id).addClass("last").html("<a id='mnu_"+dlg.id+"' href=\"#\" onclick=\"theOptionsSwitcher.run('"+dlg.id+"'); return(false);\">"+name+"</a>") );
 		$(dlg).css( {display: "none"} );
 	}
 	return(this);
@@ -278,7 +278,7 @@ rPlugin.prototype.attachPageToTabs = function(dlg,name,idBefore)
 		theTabs.tabs[dlg.id] = name;
 		var newLbl = document.createElement("li");
 		newLbl.id = "tab_"+dlg.id;
-		newLbl.innerHTML = "<a href=\"javascript://void();\" onmousedown=\"theTabs.show('"+dlg.id+"');\" onfocus=\"this.blur();\">" + name + "</a>";
+		newLbl.innerHTML = "<a href=\"#\" onmousedown=\"theTabs.show('"+dlg.id+"');\" onfocus=\"this.blur();\">" + name + "</a>";
 		if(!idBefore)
 			idBefore = "lcont";
 		$$(idBefore).parentNode.insertBefore(dlg,$$(idBefore));
@@ -324,7 +324,7 @@ rPlugin.prototype.addButtonToToolbar = function(id,name,onclick,idBefore)
         {
 		var newBtn = document.createElement("A");
 		newBtn.id="mnu_"+id;
-		newBtn.href='javascript://void();';
+		newBtn.href='#';
 		newBtn.title=name;
 		newBtn.innerHTML='<div class="top-menu-item" id="'+id+'" onclick="'+onclick+';return(false);"></div>';
 		$(newBtn).addClass('top-menu-item').focus( function(e) { this.blur(); } );

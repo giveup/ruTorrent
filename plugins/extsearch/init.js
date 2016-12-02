@@ -771,7 +771,7 @@ plugin.onLangLoaded = function()
 			{
 				if(thePlugins.isInstalled("cookies"))
 					contPrivate+=
-						"<div class='checkbox'><a href=\"javascript://void();\" onclick=\"theOptionsSwitcher.run(\'st_cookies\'); return(false);\">"+theUILang.exsCookies+":</a><input type='text' class='TextboxLarge' readOnly=true id='"+ndx+"_cookies' value='"+val.cookies+"'/></div>";
+						"<div class='checkbox'><a href=\"#\" onclick=\"theOptionsSwitcher.run(\'st_cookies\'); return(false);\">"+theUILang.exsCookies+":</a><input type='text' class='TextboxLarge' readOnly=true id='"+ndx+"_cookies' value='"+val.cookies+"'/></div>";
 				else
 				{
 					contPrivate+="<div class='checkbox'>"+theUILang.exsMustInstallCookies+"</div>";
@@ -783,7 +783,7 @@ plugin.onLangLoaded = function()
 			{
 				if(thePlugins.isInstalled("loginmgr"))
 					contPrivate+=
-						"<div class='checkbox'><a href=\"javascript://void();\" onclick=\"theOptionsSwitcher.run(\'st_loginmgr\'); return(false);\">"+theUILang.exsLoginMgr+"</a></div>";
+						"<div class='checkbox'><a href=\"#\" onclick=\"theOptionsSwitcher.run(\'st_loginmgr\'); return(false);\">"+theUILang.exsLoginMgr+"</a></div>";
 				else
 				{
 					contPrivate+="<div class='checkbox'>"+theUILang.exsMustInstallLoginMgr+"</div>";

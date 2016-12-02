@@ -213,11 +213,11 @@ function makeContent()
 			'<center>'+
 				'<table width=100% border=0>'+
 					'<tr><td><strong>F1</strong></td><td>'+theUILang.This_screen+'</td></tr>'+
-					'<tr><td><strong><strong>F4</strong></td><td><a href="javascript://void();" onclick="theWebUI.toggleMenu(); return(false);">'+theUILang.Toggle_menu+'</a></td></tr>'+
-					'<tr><td><strong><strong>F6</strong></td><td><a href="javascript://void();" onclick="theWebUI.toggleDetails(); return(false);">'+theUILang.Toggle_details+'</a></td></tr>'+
-					'<tr><td><strong><strong>F7</strong></td><td><a href="javascript://void();" onclick="theWebUI.toggleCategories(); return(false);">'+theUILang.Toggle_categories+'</a></td></tr>'+
-					'<tr><td><strong><strong>Ctrl-O</strong></td><td><a href="javascript://void();" onclick="theWebUI.showAdd(); return(false);">'+theUILang.torrent_add+'</a></td></tr>'+
-					'<tr><td><strong><strong>Ctrl-P</strong></td><td><a href="javascript://void();" onclick="theWebUI.showSettings(); return(false);">'+theUILang.ruTorrent_settings+'</a></td></tr>'+
+					'<tr><td><strong><strong>F4</strong></td><td><a href="#" onclick="theWebUI.toggleMenu(); return(false);">'+theUILang.Toggle_menu+'</a></td></tr>'+
+					'<tr><td><strong><strong>F6</strong></td><td><a href="#" onclick="theWebUI.toggleDetails(); return(false);">'+theUILang.Toggle_details+'</a></td></tr>'+
+					'<tr><td><strong><strong>F7</strong></td><td><a href="#" onclick="theWebUI.toggleCategories(); return(false);">'+theUILang.Toggle_categories+'</a></td></tr>'+
+					'<tr><td><strong><strong>Ctrl-O</strong></td><td><a href="#" onclick="theWebUI.showAdd(); return(false);">'+theUILang.torrent_add+'</a></td></tr>'+
+					'<tr><td><strong><strong>Ctrl-P</strong></td><td><a href="#" onclick="theWebUI.showSettings(); return(false);">'+theUILang.ruTorrent_settings+'</a></td></tr>'+
 					'<tr><td><strong><strong>Del</strong></td><td>'+theUILang.Delete_current_torrents+'</td></tr>'+
 					'<tr><td><strong><strong>Ctrl-A</strong></td><td>'+theUILang.Select_all+'</td></tr>'+
 					'<tr><td><strong><strong>Ctrl-Z</strong></td><td>'+theUILang.Deselect_all+'</td></tr>'+
@@ -245,19 +245,19 @@ function makeContent()
 		'<div class="row">' +
 		"<aside>"+
 			"<ul>"+
-				"<li class=\"first\"><a id=\"mnu_st_gl\" href=\"javascript://void();\" onclick=\"theOptionsSwitcher.run(\'st_gl\'); return(false);\" class=\"focus\">"+
+				"<li class=\"first\"><a id=\"mnu_st_gl\" href=\"#\" onclick=\"theOptionsSwitcher.run(\'st_gl\'); return(false);\" class=\"focus\">"+
 					theUILang.General+
 				"</a></li>"+
-				"<li id='hld_st_dl'><a id=\"mnu_st_dl\" href=\"javascript://void();\" onclick=\"theOptionsSwitcher.run(\'st_dl\'); return(false);\">"+
+				"<li id='hld_st_dl'><a id=\"mnu_st_dl\" href=\"#\" onclick=\"theOptionsSwitcher.run(\'st_dl\'); return(false);\">"+
 					theUILang.Downloads+
 				"</a></li>"+
-				"<li id='hld_st_con'><a id=\"mnu_st_con\" href=\"javascript://void();\" onclick=\"theOptionsSwitcher.run(\'st_con\'); return(false);\">"+
+				"<li id='hld_st_con'><a id=\"mnu_st_con\" href=\"#\" onclick=\"theOptionsSwitcher.run(\'st_con\'); return(false);\">"+
 					theUILang.Connection+
 				"</a></li>"+
-				"<li id='hld_st_bt'><a id=\"mnu_st_bt\" href=\"javascript://void();\" onclick=\"theOptionsSwitcher.run(\'st_bt\'); return(false);\">"+
+				"<li id='hld_st_bt'><a id=\"mnu_st_bt\" href=\"#\" onclick=\"theOptionsSwitcher.run(\'st_bt\'); return(false);\">"+
 					theUILang.BitTorrent+
 				"</a></li>"+
-				"<li  id='hld_st_ao' class=\"last\"><a id=\"mnu_st_ao\" href=\"javascript://void();\" onclick=\"theOptionsSwitcher.run(\'st_ao\'); return(false);\">"+
+				"<li  id='hld_st_ao' class=\"last\"><a id=\"mnu_st_ao\" href=\"#\" onclick=\"theOptionsSwitcher.run(\'st_ao\'); return(false);\">"+
 					theUILang.Advanced+
 				"</a></li>"+
 			"</ul>"+

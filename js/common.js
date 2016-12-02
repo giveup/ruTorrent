@@ -655,7 +655,7 @@ var theTabs =
 	{
 		var s = "";
 		for (var n in this.tabs) {
-			s += "<li id=\"tab_" + n + "\"><a href=\"javascript://void();\" onmousedown=\"theTabs.show('" + n + "'); return(false);\" onfocus=\"this.blur();\">" + this.tabs[n] + "</a></li>";
+			s += "<li id=\"tab_" + n + "\"><a href=\"#\" onmousedown=\"theTabs.show('" + n + "'); return(false);\" onfocus=\"this.blur();\">" + this.tabs[n] + "</a></li>";
 		}
 		$("#tabbar").html(s);
 		$("#tab_lcont").append( $("<input type='button'>").attr("id","clear_log").addClass('Button').val(theUILang.ClearButton).hide().click( function()
