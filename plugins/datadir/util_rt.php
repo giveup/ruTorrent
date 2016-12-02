@@ -141,7 +141,7 @@ function rtGetRelativePath($base_dir, $real_dir)
 function rtIsFile($path)
 {
     // use Novik's implementation
-    return LFS::is_file($path);
+    return is_file($path);
 
     //if ( is_file( $path ) )
     //	return true;
@@ -172,7 +172,7 @@ function rtMkDir($dir, $mode = 0777)
 //------------------------------------------------------------------------------
 function rtMoveFile($src, $dst, $dbg = false)
 {
-    $ss = LFS::stat($src);
+    $ss = stat($src);
     if (!rename($src, $dst)) {
         if ($dbg) {
             rtDbg(__FUNCTION__, "from ".$src);

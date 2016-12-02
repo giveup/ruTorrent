@@ -187,7 +187,7 @@ class rTorrent
                 $torrent->{'libtorrent_resume'}['files'] = array();
             }
             foreach ($files as $key => $file) {
-                $ss = LFS::stat($base.$file);
+                $ss = stat($base.$file);
                 if ($ss===false) {
                     return(false);
                 }

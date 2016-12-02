@@ -33,7 +33,7 @@ function compareEntries($a, $b)
 if (isset($_REQUEST['dir']) && strlen($_REQUEST['dir'])) {
     $dir = rawurldecode($_REQUEST['dir']);
     rTorrentSettings::get()->correctDirectory($dir);
-    if (LFS::is_file($dir) &&
+    if (is_file($dir) &&
         (($theSettings->uid<0) ||
         !$checkUserPermissions ||
         isUserHavePermission($theSettings->uid, $theSettings->gid, $dir, 0x0004))) {
@@ -76,7 +76,7 @@ if ($dh) {
             ) {
             $dirs['/'.$file] = addslash($path);
         } else {
-            if (LFS::is_file($path)
+            if (is_file($path)
                 && ( $theSettings->uid<0 || isUserHavePermission($theSettings->uid, $theSettings->gid, $path, 0x0004))
                 ) {
                 $files[$file." "] = $path;

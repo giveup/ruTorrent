@@ -122,7 +122,7 @@ class rUnpack
                                 }
                                 $filesToDelete .= $filePath . ";";
                             } else {
-                                $stat = LFS::stat($filePath);
+                                $stat = stat($filePath);
                                 if ($stat) {
                                     if ($stat['nlink'] > 1) {
                                         if ($unpack_debug_enabled) {
@@ -161,7 +161,7 @@ class rUnpack
                                 }
                                 $filesToDelete .= $filePath . ";";
                             } else {
-                                $stat = LFS::stat($filePath);
+                                $stat = stat($filePath);
                                 if ($stat) {
                                     if ($stat['nlink'] > 1) {
                                         if ($unpack_debug_enabled) {
@@ -201,7 +201,7 @@ class rUnpack
                             }
                             $filesToDelete .= $basename;
                         } else {
-                            $stat = LFS::stat($basename);
+                            $stat = stat($basename);
                             if ($stat) {
                                 if ($stat['nlink'] > 1) {
                                     if ($unpack_debug_enabled) {
@@ -236,7 +236,7 @@ class rUnpack
                             }
                             $filesToDelete .= $basename;
                         } else {
-                            $stat = LFS::stat($basename);
+                            $stat = stat($basename);
                             if ($stat) {
                                 if ($stat['nlink'] > 1) {
                                     if ($unpack_debug_enabled) {
