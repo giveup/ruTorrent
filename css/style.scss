@@ -237,14 +237,19 @@ a {
   cursor: e-resize;
   width: 5px;
 }
+
 #VDivider {
   cursor: n-resize;
   height: 5px;
 }
-#dividerDrag {
-  background: #a0a0a0;
-  display: none;
-  position: absolute;
+
+// These are mirrored in js/webui.js aside_vw & footer_vh
+#CatList {
+  width: 20vw;
+}
+
+#tdetails {
+  height: 40vh;
 }
 
 #stg {

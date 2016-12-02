@@ -195,8 +195,6 @@ var theURLs =
 	XMLRPCMountPoint 	: "/RPC2",
 	AddTorrentURL 		: "php/addtorrent.php",
 	SetSettingsURL		: "php/setsettings.php",
-	GetSettingsURL		: "php/getsettings.php",
-	GetPluginsURL		: "php/getplugins.php",
 	GetDonePluginsURL	: "php/doneplugins.php",
 	RIPEURL			: "https://apps.db.ripe.net/search/query.html?searchtext="
 };

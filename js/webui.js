@@ -139,8 +139,11 @@ var theWebUI =
 		"webui.confirm_when_deleting":	1,
 		"webui.alternate_color":	1,
 		"webui.update_interval":	3000,
-		"webui.hsplit":			0.88,
-		"webui.vsplit":			0.5,
+
+		// These are mirrored in css/style.scss #tdetails & #CatList
+		"webui.aside_vw":			20,
+		"webui.footer_vh":			40,
+
 		"webui.effects":		0,
 		"webui.search":			-1,
 		"webui.ignore_timeouts":	0,
@@ -202,14 +205,12 @@ var theWebUI =
 	{
 		log("WebUI started.");
 		this.setStatusUpdate();
-		this.getPlugins();
-		this.getUISettings();
-		if (!this.configured) {
-			this.config({});
-		}
-		this.assignEvents();
-		this.set_sizing_preferences();
-		this.update();
+		$('script[src="./php/getplugins.php"]').on('load', function(){
+			theWebUI.getPlugins();
+			theWebUI.getUISettings();
+
+		});
+		theWebUI.assignEvents();
 		return(this.configured);
 	},
 
@@ -268,7 +269,6 @@ var theWebUI =
 
 	getPlugins: function()
 	{
-		this.request("?action=getplugins", null, false);
 		if (thePlugins.isInstalled("_getdir")) {
 			$('#dir_edit').after($("<input type=button>").addClass("Button").attr("id","dir_btn").focus( function() { this.blur(); } ));
 			var btn = new this.rDirBrowser( 'tadd', 'dir_edit', 'dir_btn' );
@@ -282,7 +282,19 @@ var theWebUI =
 
 	getUISettings: function()
 	{
-		this.request("?action=getuisettings", [this.config, this], false);
+		fetch('./php/getsettings.php', {
+			credentials: 'same-origin',
+		})
+		.then(function (resp) { return resp.json(); })
+		.then(function (json) {
+			theWebUI.settings = json;
+			if (!theWebUI.configured) {
+				theWebUI.config({});
+			}
+			theWebUI.set_sizing_preferences();
+			theWebUI.update();
+		})
+		// this.request("?action=getuisettings", [this.config, this], false);
 	},
 
 	config: function(data)
@@ -2024,13 +2036,11 @@ var theWebUI =
 
 	set_sizing_preferences: function()
 	{
-		var ww = $('main').width();
-		var wh = $('main').height();
 		if (theWebUI.settings["webui.show_cats"]) {
-			$("#CatList").width(Math.floor(ww * (1 - theWebUI.settings["webui.hsplit"])) - 5);
+			$("#CatList").width(theWebUI.settings["webui.aside_vw"] + 'vw');
 		}
 		if (theWebUI.settings["webui.show_dets"]) {
-			$('#tdetails').height(Math.floor(wh * (1 - theWebUI.settings["webui.vsplit"])));
+			$('#tdetails').height(theWebUI.settings["webui.footer_vh"] + 'vh');
 		}
 	},
 
@@ -2043,22 +2053,14 @@ var theWebUI =
 
 	setVSplitter : function()
 	{
-		var r = 1 - ($("#tdetails").height() / $(window).height());
-		r = Math.floor(r * Math.pow(10, 3)) / Math.pow(10, 3);
-		if ((theWebUI.settings["webui.vsplit"] != r) && (r>0) && (r<1)) {
-			theWebUI.settings["webui.vsplit"] = r;
-			theWebUI.save();
-		}
+		theWebUI.settings["webui.footer_vh"] = 100 * $("#tdetails").height() / $(window).height();
+		theWebUI.save();
 	},
 
 	setHSplitter : function()
 	{
-		var r = 1 - ($("#CatList").width()+5)/$(window).width();
-		r = Math.floor(r * Math.pow(10, 3)) / Math.pow(10, 3);
-		if ((theWebUI.settings["webui.hsplit"] != r) && (r>0) && (r<1)) {
-			theWebUI.settings["webui.hsplit"] = r;
-			theWebUI.save();
-		}
+		theWebUI.settings["webui.aside_vw"] =  100 * $("#CatList").width() / $(window).width();
+		theWebUI.save();
 	},
 
 	toggleMenu: function()

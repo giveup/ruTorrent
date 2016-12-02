@@ -23,41 +23,61 @@ function makeContent()
 			theSearchEngines.run();
 	});
 
-	new DnD("HDivider",
-	{
-		left : function() { return(60); },
-		right : function() { return( $(window).width()-20 ); },
-		restrictY : true,
-		maskId : "dividerDrag",
-		onStart : function(e) { return(theWebUI.settings["webui.show_cats"]); },
-		onRun : function(e) { $(document.body).css( "cursor", "e-resize" ); },
-		onFinish : function(e)
-		{
-	        var self = e.data;
-			var w = self.mask.offset().left-2;
-			$("#CatList").width( w );
-			theWebUI.setHSplitter();
-			$(document.body).css( "cursor", "" );
-		}
-	});
+	(function () {
+		var HDivider = document.querySelector('#HDivider'),
+			HContent = document.querySelector('#CatList'),
+			animation = null;
 
-	new DnD("VDivider",
-	{
-		top : function() { return(60); },
-		bottom : function() { return( $(window).height()-60 ); },
-		restrictX : true,
-		maskId : "dividerDrag",
-		onStart : function(e) { return(theWebUI.settings["webui.show_dets"]); },
-		onRun : function(e) { $(document.body).css( "cursor", "n-resize" ); },
-		onFinish : function(e)
-		{
-			var self = e.data;
-			var h = self.mask.offset().top+2;
-			$('#tdetails').height($('#maincont').height() - h);
-	        theWebUI.setVSplitter();
-			$(document.body).css( "cursor", "" );
+		function initDrag(e) {
+		   startX = e.clientX;
+		   startWidth = parseInt(document.defaultView.getComputedStyle(HContent).width, 10);
+		   document.documentElement.addEventListener('mousemove', doDrag, false);
+		   document.documentElement.addEventListener('mouseup', stopDrag, false);
 		}
-	});
+
+		function doDrag(e) {
+			cancelAnimationFrame(animation);
+		    animation = requestAnimationFrame(function(){
+				HContent.style.width = (startWidth + (e.clientX - startX)) + 'px';
+		    });
+		}
+
+		function stopDrag(e) {
+		    document.documentElement.removeEventListener('mousemove', doDrag, false);
+			document.documentElement.removeEventListener('mouseup', stopDrag, false);
+			theWebUI.setHSplitter();
+		}
+
+		HDivider.addEventListener('mousedown', initDrag, false);
+	})();
+
+	(function () {
+		var VDivider = document.querySelector('#VDivider'),
+			VContent = document.querySelector('#tdetails'),
+			animation = null;
+
+		function initDrag(e) {
+		   startY = e.clientY;
+		   startHeight = parseInt(document.defaultView.getComputedStyle(VContent).height, 10);
+		   document.documentElement.addEventListener('mousemove', doDrag, false);
+		   document.documentElement.addEventListener('mouseup', stopDrag, false);
+		}
+
+		function doDrag(e) {
+			cancelAnimationFrame(animation);
+		    animation = requestAnimationFrame(function(){
+				VContent.style.height = (startHeight - (e.clientY - startY)) + 'px';
+		    });
+		}
+
+		function stopDrag(e) {
+		    document.documentElement.removeEventListener('mousemove', doDrag, false);
+			document.documentElement.removeEventListener('mouseup', stopDrag, false);
+			theWebUI.setVSplitter();
+		}
+
+		VDivider.addEventListener('mousedown', initDrag, false);
+	})();
 
 	$(document.body).append($("<iframe name='uploadfrm'/>").css({visibility: "hidden"}).attr( { name: "uploadfrm" } ).width(0).height(0).on('load', function()
 	{

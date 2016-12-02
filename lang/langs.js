@@ -90,5 +90,5 @@ function SetActiveLanguage(lang)
 	var expires = "; expires=" + date.toGMTString();
 	document.cookie = "Language="+ lang + expires +"; path=/";
 }
-
-document.write("<script type=\"text/javascript\" src=\"./lang/"+GetActiveLanguage()+".js\"></script>");
+//
+// document.write("<script type=\"text/javascript\" src=\"./lang/"+GetActiveLanguage()+".js\"></script>");
