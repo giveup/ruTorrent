@@ -48,7 +48,6 @@ class rTorrentSettings
         "get_proxy_address"     =>  array( "name"=>"network.http.proxy_address", "prm"=>0 ),
         "get_receive_buffer_size"   =>  array( "name"=>"network.receive_buffer.size", "prm"=>0 ),
         "get_safe_sync"         =>  array( "name"=>"pieces.sync.always_safe", "prm"=>0 ),
-        "get_scgi_dont_route"   =>  array( "name"=>"network.scgi.dont_route", "prm"=>0 ),
         "get_send_buffer_size"  =>  array( "name"=>"network.send_buffer.size", "prm"=>0 ),
         "get_session"       =>  array( "name"=>"session.path", "prm"=>0 ),
         "get_session_lock"  =>  array( "name"=>"session.use_lock", "prm"=>0 ),
@@ -63,7 +62,6 @@ class rTorrentSettings
         "get_throttle_up_rate"  =>  array( "name"=>"throttle.up.rate", "prm"=>1 ),              // ?
         "get_timeout_safe_sync"     =>  array( "name"=>"pieces.sync.timeout_safe", "prm"=>0 ),
         "get_timeout_sync"  =>  array( "name"=>"pieces.sync.timeout", "prm"=>0 ),
-        "get_tracker_numwant"   =>  array( "name"=>"trackers.numwant", "prm"=>0 ),
         "get_up_rate"       =>  array( "name"=>"throttle.global_up.rate", "prm"=>0 ),
         "get_up_total"      =>  array( "name"=>"throttle.global_up.total", "prm"=>0 ),
         "get_upload_rate"   =>  array( "name"=>"throttle.global_up.max_rate", "prm"=>0 ),
@@ -81,7 +79,6 @@ class rTorrentSettings
         "set_session"       =>  array( "name"=>"session.path.set", "prm"=>1 ),
         "set_session_lock"  =>  array( "name"=>"session.use_lock.set", "prm"=>1 ),
         "set_session_on_completion"     =>  array( "name"=>"session.on_completion.set", "prm"=>1 ),
-        "set_tracker_numwant"   =>  array( "name"=>"trackers.numwant.set", "prm"=>1 ),
         "set_upload_rate"   =>  array( "name"=>"throttle.global_up.max_rate.set", "prm"=>1 ),
         "system.file_allocate"  =>  array( "name"=>"system.file.allocate", "prm"=>0 ),
         "system.file_allocate.set"  =>  array( "name"=>"system.file.allocate.set", "prm"=>1 ),      // ?

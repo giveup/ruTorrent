@@ -376,15 +376,9 @@ select.cols {border: 1px solid #808080; padding: 2px; width: 120px;}
 #dlgProps {width: 395px; height: 215px;}
 #dlgProps .dlg-header {background-image: url('../images/props.gif');}
 #dlgProps .content {width: 380px; margin-left: 5px; }
-#dlgProps textarea#prop-trackers {width: 100%; height: 70px; background: #fff; border: 1px solid #d0d0d0;}
 #dlgProps fieldset {margin-bottom: 5px; }
 #dlgProps fieldset div {line-height: 16px; }
 #dlgProps fieldset .props-spacer {width: 90%; float: left;}
-#prop-tracker_numwant {width: 60px; float: right;}
-#prop-ulslots {width: 60px; float: right;}
-#prop-peers_min {width: 60px; float: right;}
-#prop-peers_max {width: 60px; float: right;}
-#prop-seed_ratio {width: 40px;}
 
 #yesnoDlg {width: 280px; height: 100px;}
 #yesnoDlg .dlg-header {background-image: url('../images/error.gif');}

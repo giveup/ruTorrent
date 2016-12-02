@@ -648,7 +648,6 @@ function correctContent()
 		"get_proxy_address"	:	{ name: "network.http.proxy_address", prm: 0 },
 		"get_receive_buffer_size"	:	{ name: "network.receive_buffer.size", prm: 0 },
 		"get_safe_sync"		:	{ name: "pieces.sync.always_safe", prm: 0 },
-		"get_scgi_dont_route"	:	{ name: "network.scgi.dont_route", prm: 0 },
 		"get_send_buffer_size"	:	{ name: "network.send_buffer.size", prm: 0 },
 		"get_session"		:	{ name: "session.path", prm: 0 },
 		"get_session_lock"	:	{ name: "session.use_lock", prm: 0 },
