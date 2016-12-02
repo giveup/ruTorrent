@@ -142,7 +142,7 @@ class Snoopy
 			$path = "";
 			foreach($arr as $var)
 			{
-				switch($var)
+				switch ($var)
 				{
 					case "/":
 					case ";":
@@ -165,7 +165,7 @@ class Snoopy
 			$query = "?";
 			foreach($arr as $var)
 			{
-				switch($var)
+				switch ($var)
 				{
 					case "&":
 					case "=":
@@ -239,7 +239,7 @@ class Snoopy
 		$this->host = $parts["host"];
 		$this->_isproxy = (!empty($this->proxy_host) && !empty($this->proxy_port));
 		$ret = true;
-		switch($parts["scheme"])
+		switch ($parts["scheme"])
 		{
 			case "dummy":
 			{
@@ -630,7 +630,7 @@ class Snoopy
 		{
 			// socket connection failed
 			$this->status = $errno;
-			switch($errno)
+			switch ($errno)
 			{
 				case -3:
 					$this->error="socket creation failed (-3)";

@@ -24,7 +24,7 @@ if (isset($HTTP_RAW_POST_DATA)) {
         $parts = explode("=", $var);
         if ($parts[0]=="plg") {
             $perms = $theSettings->getPluginData($parts[1]);
-            switch($cmd)
+            switch ($cmd)
             {
                 case "unlaunch":
                     if (is_null($perms) || ($perms & FLAG_CAN_CHANGE_LAUNCH)) {

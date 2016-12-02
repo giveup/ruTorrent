@@ -31,7 +31,7 @@ plugin.onLangLoaded = function()
 
 			error: function(err, file)
 			{
-				switch(err)
+				switch (err)
 				{
 					case 'BrowserNotSupported':
 					{

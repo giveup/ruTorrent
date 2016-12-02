@@ -20,7 +20,7 @@ $ret = array( "status"=>255, "errors"=>array("Can't retrieve information") );
 if (isset($_REQUEST['hash']) &&
     isset($_REQUEST['no']) &&
     isset($_REQUEST['cmd'])) {
-    switch($_REQUEST['cmd'])
+    switch ($_REQUEST['cmd'])
     {
         case "mediainfo":
             {

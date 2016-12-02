@@ -3,7 +3,7 @@ require_once( 'history.php' );
 
 if (isset($_REQUEST['cmd'])) {
     $cmd = $_REQUEST['cmd'];
-    switch($cmd)
+    switch ($cmd)
     {
         case "set":
             {

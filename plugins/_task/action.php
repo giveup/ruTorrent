@@ -4,7 +4,7 @@ require_once( "task.php" );
 
 $ret = array();
 
-switch($_REQUEST['cmd'])
+switch ($_REQUEST['cmd'])
 {
     case "kill":
         $ret = rTask::kill($_REQUEST['no']);

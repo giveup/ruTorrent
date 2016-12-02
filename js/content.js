@@ -576,53 +576,10 @@ function makeContent()
 
 function correctContent()
 {
-	var showEnum =
-	{
-		showDownloadsPage:	0x0001,
-		showConnectionPage:	0x0002,
-		showBittorentPage:	0x0004,
-		showAdvancedPage:	0x0008,
-		showPluginsTab:		0x0010,
-		canChangeULRate:	0x0020,
-		canChangeDLRate:	0x0040,
-		canChangeTorrentProperties:	0x0080
-	};
-
 	if (!$type(theWebUI.systemInfo))
 		theWebUI.systemInfo = { rTorrent: { version: '?', libVersion: '?', started: false, apiVersion : 0 } };
 
-	if (!theWebUI.systemInfo.rTorrent.started)
-        	theWebUI.showFlags &= ~0xFFEF;
-
-	if (!(theWebUI.showFlags & showEnum.showDownloadsPage))
-		rPlugin.prototype.removePageFromOptions("st_dl");
-	if (!(theWebUI.showFlags & showEnum.showConnectionPage))
-		rPlugin.prototype.removePageFromOptions("st_con");
-	if (!(theWebUI.showFlags & showEnum.showBittorentPage))
-		rPlugin.prototype.removePageFromOptions("st_bt");
-	if (!(theWebUI.showFlags & showEnum.showAdvancedPage))
-		rPlugin.prototype.removePageFromOptions("st_ao");
-	if (!(theWebUI.showFlags & showEnum.showPluginsTab))
-	{
-		delete theWebUI.tables.plg;
-  		rPlugin.prototype.removePageFromTabs("PluginList");
-	}
-	if (!(theWebUI.showFlags & showEnum.canChangeULRate))
-		$("#st_up").mouseclick(null);
-	if (!(theWebUI.showFlags & showEnum.canChangeDLRate))
-		$("#st_down").mouseclick(null);
-	if (!(theWebUI.showFlags & showEnum.canChangeTorrentProperties))
-	{
-		$("#prop-ulslots").prop("disabled",true);
-		$("#prop-peers_min").prop("disabled",true);
-		$("#prop-peers_max").prop("disabled",true);
-		$("#prop-tracker_numwant").prop("disabled",true);
-		$("#prop-pex").remove();
-		$("#lbl_prop-pex").remove();
-		$("#prop-superseed").remove();
-		$("#lbl_prop-superseed").remove();
-		$("#dlgProps .OK").remove();
-        }
+	delete theWebUI.tables.plg;
 	if (!theWebUI.systemInfo.rTorrent.started)
 	{
 		rPlugin.prototype.removePageFromTabs("TrackerList");

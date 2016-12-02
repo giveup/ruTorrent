@@ -140,7 +140,7 @@ class rScheduler
                 $wDay = 6;
             }
             $no = $this->week[$wDay][$di["hours"]];
-            switch($no)
+            switch ($no)
             {
                 case SCH_FAST:
                     self::processArray(array_merge($this->seedStopped, $this->leechStopped), "d.open", "d.start");

@@ -52,7 +52,7 @@ class rRatioRule
 		$ret = false;
 		if ($this->enabled==1)
 		{
-			switch($this->reason)
+			switch ($this->reason)
 			{
 				case RR_LABEL_CONTAIN:
 				{

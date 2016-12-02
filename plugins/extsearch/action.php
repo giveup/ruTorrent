@@ -14,7 +14,7 @@ if ($em===false)
 if (isset($_REQUEST['mode']))
 {
 	$cmd = $_REQUEST['mode'];
-	switch($cmd)
+	switch ($cmd)
 	{
 		case "set":
 		{

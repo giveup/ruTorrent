@@ -8,7 +8,7 @@ if (isset($_REQUEST['mode'])) {
 $mngr = rRatioRulesList::load();
 $val = null;
 
-switch($cmd)
+switch ($cmd)
 {
     case "setrules":
         {
@@ -25,7 +25,7 @@ switch($cmd)
             $vars = explode('&', $HTTP_RAW_POST_DATA);
             foreach ($vars as $var) {
                 $parts = explode("=", $var);
-                switch($parts[0])
+                switch ($parts[0])
                 {
                     case "hash":
                         {

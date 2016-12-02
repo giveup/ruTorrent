@@ -532,7 +532,7 @@ rTorrentStub.prototype.setprioritize = function()
 {
 	for (var i=0; i<this.vs.length; i++)
 	{
-		switch(this.ss[0])
+		switch (this.ss[0])
 		{
 			case '0':
 			{
@@ -1203,7 +1203,7 @@ function Ajax(URI, isASync, onComplete, onTimeout, onError, reqTimeout)
 				Ajax("?list=1", isASync, onComplete, onTimeout, onError, reqTimeout);
 			} else {
         		if (!stub.isError()) {
-        			switch($type(onComplete)) {
+        			switch ($type(onComplete)) {
 						case "function":
 							onComplete(responseText);
 							break;

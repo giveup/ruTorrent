@@ -320,7 +320,7 @@ var theContextMenu =
 			       	if (val[0] == CMENU_SEL)
 		 		{
 		 	        	var a = $("<a></a>").addClass("sel menu-cmd").text(val[1]);
-			 	        switch($type(val[2]))
+			 	        switch ($type(val[2]))
 			 	        {
 						case "string": a.attr("href","#").click( function() { eval(val[2]) } ); break;
 						case "function": a.attr("href","#").click(val[2]); break;
@@ -332,7 +332,7 @@ var theContextMenu =
 					if ($type(val[0]))
 					{
 						var a = $("<a></a>").addClass("menu-cmd").text(val[0]);
-						switch($type(val[1]))
+						switch ($type(val[1]))
 						{
 				 	        	case false: a.addClass("dis"); break;
 							case "string": a.attr("href","#").click( function() { eval(val[1]) } ); break;

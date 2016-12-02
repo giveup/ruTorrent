@@ -7,7 +7,7 @@ eval( getPluginConf('screenshots') );
 $ret = array();
 if (isset($_REQUEST['cmd'])) {
     $st = ffmpegSettings::load();
-    switch($_REQUEST['cmd'])
+    switch ($_REQUEST['cmd'])
     {
         case "ffmpeg":
             if (isset($_REQUEST['hash']) &&

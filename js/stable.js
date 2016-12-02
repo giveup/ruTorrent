@@ -695,7 +695,7 @@ dxSTable.prototype.Sort = function(e)
 	var d = this.getCache(ind);
 	var u = d.slice(0);
 	var self = this;
-	switch(this.colsdata[ind].type)
+	switch (this.colsdata[ind].type)
 	{
 		case TYPE_STRING :
 			d.sort(function(x, y) { return self.sortAlphaNumeric(x, y); });
@@ -1072,7 +1072,7 @@ dxSTable.prototype.keyEvents = function(e)
 		var c = e.which;
 		if (e.metaKey)
 		{
-			switch(c)
+			switch (c)
 			{
 				case 65:
 				{
@@ -1347,7 +1347,7 @@ dxSTable.prototype.setAlignment = function()
 	var aAlign = [];
 	for(i = 0; i < this.cols; i++)
 	{
-		switch(this.colsdata[i].align)
+		switch (this.colsdata[i].align)
 		{
 			case ALIGN_LEFT:
 				align = "left";

@@ -62,7 +62,7 @@ class recentTrackers
 
 $ret = array();
 if (isset($_REQUEST['cmd'])) {
-    switch($_REQUEST['cmd'])
+    switch ($_REQUEST['cmd'])
     {
         case "rtget":
             {

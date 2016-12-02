@@ -263,7 +263,7 @@ function rtOpFiles($files, $src, $dst, $op, $dbg = false)
         if (rtIsFile($dest)) {
             unlink($dest);
         }
-        switch($op)
+        switch ($op)
         {
             case "HardLink":
                 {

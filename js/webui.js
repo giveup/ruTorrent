@@ -154,7 +154,6 @@ var theWebUI =
 		"webui.log_autoswitch":		1,
 		"webui.show_labelsize":		0,
 	},
-	showFlags: 0,
 	total:
 	{
 		rateDL: 	0,
@@ -227,7 +226,7 @@ var theWebUI =
 		});
 		var keyEvent = function (e)
 		{
-			switch(e.which) {
+			switch (e.which) {
 				case 27 : 				// Esc
 					if (theContextMenu.hide() || theDialogManager.hideTopmost()) {
 						return(false);
@@ -529,7 +528,7 @@ var theWebUI =
 	{
 		$.each(newSettings, function(i,v)
 		{
-			switch(v)
+			switch (v)
 			{
 				case "true":
 				case "auto":
@@ -562,7 +561,7 @@ var theWebUI =
 					o.prop('checked',(v!=0));
 				else
 				{
-					switch(i)
+					switch (i)
 					{
 							case "max_memory_usage":
 									v /= 1024;
@@ -592,7 +591,7 @@ var theWebUI =
 			{
 				o = $(o);
 				var nv = o.is("input:checkbox") ? (o.prop('checked') ? 1 : 0) : o.val();
-				switch(i) {
+				switch (i) {
 						case "max_memory_usage":
 						nv *= 1024;
 					case "upload_rate":
@@ -602,7 +601,7 @@ var theWebUI =
 				if (nv!=v) {
 					if ((/^webui\./).test(i)) {
 						needSave = true;
-						switch(i) {
+						switch (i) {
 							case "webui.alternate_color":
 								document.body.classList.toggle('alternate_color', nv);
 								break;
@@ -1278,7 +1277,7 @@ var theWebUI =
 	{
 		var ret = true;
 		var status = this.torrents[hash].state;
-		switch(act) {
+		switch (act) {
 			case "start" :
 				ret = (!(status & dStatus.started) || (status & dStatus.paused) && !(status & dStatus.checking) && !(status & dStatus.hashing));
 				break;

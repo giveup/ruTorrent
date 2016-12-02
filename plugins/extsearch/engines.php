@@ -87,7 +87,7 @@ class commonEngine
 		if (count($sz)>1)
 		{
 			$val = floatval($sz[0]);
-			switch(strtolower($sz[1]))
+			switch (strtolower($sz[1]))
 			{
 				case "tib":
 				case "tb":
@@ -371,7 +371,7 @@ class engineManager
 	{
 		$arr = array();
 		$what = rawurlencode($what);
-		switch($eng)
+		switch ($eng)
 		{
 			case "public":
 			case "private":

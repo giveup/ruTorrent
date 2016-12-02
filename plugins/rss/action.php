@@ -11,7 +11,7 @@ if (isset($_REQUEST['mode']))
 $errorsReported = false;
 $dataType="application/json";
 $mngr = new rRSSManager();
-switch($cmd)
+switch ($cmd)
 {
 	case "setinterval":
 	{

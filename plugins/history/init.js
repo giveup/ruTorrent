@@ -27,7 +27,7 @@ plugin.rebuildNotificationsPage = function()
 	{
 		var state = plugin.isNotificationsSupported();
 		$('#notifTip').text(theUILang.notifTip[state ]);
-		switch(state)
+		switch (state)
 		{
 			case notify.PERMISSION_DENIED:
 			case false:
@@ -124,7 +124,7 @@ theWebUI.config = function(data)
 				if (arr[i]==null)
 					arr[i] = '';
 				else
-					switch(table.getIdByCol(i))
+					switch (table.getIdByCol(i))
 					{
 						case "seedingtime" :
 						case "time":

@@ -36,7 +36,7 @@ theWebUI.setConsoleTaskState = function( options )
 {
 	for( var name in options )
 	{
-		switch(name)
+		switch (name)
 		{
 			case 'showerrors':
 			{
@@ -58,7 +58,7 @@ plugin.start = function()
 	for( var i in this.foreground.params )
 	{
 		var parameter = this.foreground.params[i];
-		switch($type(parameter))
+		switch ($type(parameter))
 		{
 			case "array":
 			{
@@ -328,7 +328,7 @@ theWebUI.config = function(data)
 				if (arr[i]==null)
 					arr[i] = '';
 				var s = table.getIdByCol(i);
-				switch(s)
+				switch (s)
 				{
 					case 'finish':
 					case 'start':

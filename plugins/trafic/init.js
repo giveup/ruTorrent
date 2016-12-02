@@ -150,7 +150,7 @@ rTraficGraph.prototype.setData = function( arr )
 			now.setTime(now.getTime());
 			var actualData = true;
 
-	        switch(arr.mode) {
+	        switch (arr.mode) {
 				case 'day':
 					this.ticks.push([i,h+":00"]);
 					actualData = (now.getDate()==dt.getDate());

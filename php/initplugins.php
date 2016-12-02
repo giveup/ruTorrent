@@ -17,7 +17,7 @@ if (!chdir(__DIR__)) {
         exit();
 }
 
-function getPluginInfo($name, $permissions)
+function getPluginInfo($name)
 {
         $info = array(
         'rtorrent.php.error'=>array(),
@@ -38,8 +38,7 @@ function getPluginInfo($name, $permissions)
                 if (count($fields)==2) {
                     $value = addcslashes(trim($fields[1]), "\\\'\"\n\r\t");
                     $field = trim($fields[0]);
-                    switch($field)
-                    {
+                    switch ($field) {
                         case "plugin.may_be_shutdowned":
                         case "plugin.may_be_launched":
                             $info[$field] = intval($value);
@@ -64,11 +63,6 @@ function getPluginInfo($name, $permissions)
                     }
                 }
             }
-            if ($permissions!==false) {
-                if (!getFlag($permissions, $name, "enabled")) {
-                    return(false);
-                }
-            }
         }
         return(array_key_exists("plugin.version", $info) ? $info : false);
 }
@@ -91,7 +85,6 @@ if ($tmp!='/tmp/') {
 
 $theSettings = rTorrentSettings::get(true);
 if ($theSettings->linkExist && ($handle = opendir('../plugins'))) {
-    $permissions = parse_ini_file("../conf/plugins.ini", true);
     $init = array();
     $names = array();
     $phpVersion = phpversion();
@@ -110,10 +103,9 @@ if ($theSettings->linkExist && ($handle = opendir('../plugins'))) {
             if (!array_key_exists($file, $userPermissions)) {
                 $userPermissions[$file] = true;
             }
-            $info = getPluginInfo($file, $permissions);
+            $info = getPluginInfo($file);
             if ($info &&
                 $info["plugin.may_be_launched"] &&
-                (getFlag($permissions, $file, "enabled")=="user-defined") &&
                 !$userPermissions[$file]) {
                 $info = false;
             }
