@@ -1,4 +1,4 @@
-if(window.FileReader)
+if (window.FileReader)
 	plugin.loadLang();
 else
 	plugin.disable();
@@ -31,7 +31,7 @@ plugin.onLangLoaded = function()
 
 			error: function(err, file)
 			{
-				switch(err)
+				switch (err)
 				{
 					case 'BrowserNotSupported':
 					{

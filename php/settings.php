@@ -9,37 +9,26 @@ class rTorrentSettings
     public $linkExist = false;
     public $directory = '/tmp';
     public $session = null;
-    public $gid = array();
+    public $gid = [];
     public $uid = -1;
     public $version;
     public $libVersion;
     public $apiVersion = 0;
-    public $plugins = array();
-    public $hooks = array();
+    public $plugins = [];
+    public $hooks = [];
     public $aliases = array(
-        "d.multicall"       =>  array( "name"=>"d.multicall2", "prm"=>1 ),
-        "execute_capture"   =>  array( "name"=>"execute.capture", "prm"=>1 ),
-        "execute_capture_nothrow"   =>  array( "name"=>"execute.capture_nothrow", "prm"=>1 ),
-        "execute_nothrow"   =>  array( "name"=>"execute.nothrow", "prm"=>1 ),
-        "execute_raw"       =>  array( "name"=>"execute.raw", "prm"=>1 ),
-        "execute_raw_nothrow"   =>  array( "name"=>"execute.raw_nothrow", "prm"=>1 ),
-        "execute_throw"         =>  array( "name"=>"execute.throw", "prm"=>1 ),
         "f.set_priority"    =>  array( "name"=>"f.priority.set", "prm"=>0 ),
         "fi.get_filename_last"  =>  array( "name"=>"fi.filename_last", "prm"=>0 ),
         "get_bind"      =>  array( "name"=>"network.bind_address", "prm"=>0 ),
         "get_check_hash"    =>  array( "name"=>"pieces.hash.on_completion", "prm"=>0 ),
         "get_connection_leech"  =>  array( "name"=>"protocol.connection.leech", "prm"=>0 ),
         "get_connection_seed"   =>  array( "name"=>"protocol.connection.seed", "prm"=>0 ),
-        "get_dht_port"      =>  array( "name"=>"dht.port", "prm"=>0 ),
-        "get_dht_throttle"  =>  array( "name"=>"dht.throttle.name", "prm"=>0 ),
         "get_directory"         =>  array( "name"=>"directory.default", "prm"=>0 ),
         "get_down_rate"         =>  array( "name"=>"throttle.global_down.rate", "prm"=>0 ),
         "get_down_total"    =>  array( "name"=>"throttle.global_down.total", "prm"=>0 ),
         "get_download_rate"     =>  array( "name"=>"throttle.global_down.max_rate", "prm"=>0 ),
-        "get_http_cacert"   =>  array( "name"=>"network.http.cacert", "prm"=>0 ),
         "get_http_capath"   =>  array( "name"=>"network.http.capath", "prm"=>0 ),
         "get_http_proxy"    =>  array( "name"=>"network.http.proxy_address", "prm"=>0 ),
-        "get_ip"        =>  array( "name"=>"network.local_address", "prm"=>0 ),
         "get_max_downloads_div"     =>  array( "name"=>"throttle.max_downloads.div", "prm"=>0 ),
         "get_max_downloads_global"  =>  array( "name"=>"throttle.max_downloads.global", "prm"=>0 ),
         "get_max_file_size"     =>  array( "name"=>"system.file.max_size", "prm"=>0 ),
@@ -56,15 +45,9 @@ class rTorrentSettings
         "get_min_peers"         =>  array( "name"=>"throttle.min_peers.normal", "prm"=>0 ),
         "get_min_peers_seed"    =>  array( "name"=>"throttle.min_peers.seed", "prm"=>0 ),
         "get_name"      =>  array( "name"=>"session.name", "prm"=>0 ),
-        "get_port_random"   =>  array( "name"=>"network.port_random", "prm"=>0 ),
-        "get_port_range"    =>  array( "name"=>"network.port_range", "prm"=>0 ),
-        "get_preload_min_size"  =>  array( "name"=>"pieces.preload.min_size", "prm"=>0 ),
-        "get_preload_required_rate"     =>  array( "name"=>"pieces.preload.min_rate", "prm"=>0 ),
-        "get_preload_type"  =>  array( "name"=>"pieces.preload.type", "prm"=>0 ),
         "get_proxy_address"     =>  array( "name"=>"network.http.proxy_address", "prm"=>0 ),
         "get_receive_buffer_size"   =>  array( "name"=>"network.receive_buffer.size", "prm"=>0 ),
         "get_safe_sync"         =>  array( "name"=>"pieces.sync.always_safe", "prm"=>0 ),
-        "get_scgi_dont_route"   =>  array( "name"=>"network.scgi.dont_route", "prm"=>0 ),
         "get_send_buffer_size"  =>  array( "name"=>"network.send_buffer.size", "prm"=>0 ),
         "get_session"       =>  array( "name"=>"session.path", "prm"=>0 ),
         "get_session_lock"  =>  array( "name"=>"session.use_lock", "prm"=>0 ),
@@ -79,41 +62,30 @@ class rTorrentSettings
         "get_throttle_up_rate"  =>  array( "name"=>"throttle.up.rate", "prm"=>1 ),              // ?
         "get_timeout_safe_sync"     =>  array( "name"=>"pieces.sync.timeout_safe", "prm"=>0 ),
         "get_timeout_sync"  =>  array( "name"=>"pieces.sync.timeout", "prm"=>0 ),
-        "get_tracker_numwant"   =>  array( "name"=>"trackers.numwant", "prm"=>0 ),
         "get_up_rate"       =>  array( "name"=>"throttle.global_up.rate", "prm"=>0 ),
         "get_up_total"      =>  array( "name"=>"throttle.global_up.total", "prm"=>0 ),
         "get_upload_rate"   =>  array( "name"=>"throttle.global_up.max_rate", "prm"=>0 ),
-        "get_xmlrpc_size_limit"     =>  array( "name"=>"network.xmlrpc.size_limit", "prm"=>0 ),
-        "http_cacert"       =>  array( "name"=>"network.http.cacert", "prm"=>0 ),
         "http_capath"       =>  array( "name"=>"network.http.capath", "prm"=>0 ),
         "http_proxy"        =>  array( "name"=>"network.proxy_address", "prm"=>0 ),
         "session_save"      =>  array( "name"=>"session.save", "prm"=>0 ),
         "set_bind"      =>  array( "name"=>"network.bind_address.set", "prm"=>1 ),
         "set_directory"         =>  array( "name"=>"directory.default.set", "prm"=>1 ),
         "set_download_rate"     =>  array( "name"=>"throttle.global_down.max_rate.set", "prm"=>1 ),
-        "set_http_cacert"   =>  array( "name"=>"network.http.cacert.set", "prm"=>1 ),
         "set_http_capath"   =>  array( "name"=>"network.http.capath.set", "prm"=>1 ),
         "set_http_proxy"    =>  array( "name"=>"network.http.proxy_address.set", "prm"=>1 ),
-        "set_ip"        =>  array( "name"=>"network.local_address.set", "prm"=>1 ),
         "set_proxy_address"     =>  array( "name"=>"network.http.proxy_address.set", "prm"=>1 ),
         "set_receive_buffer_size"   =>  array( "name"=>"network.receive_buffer.size.set", "prm"=>1 ),
         "set_send_buffer_size"  =>  array( "name"=>"network.send_buffer.size.set", "prm"=>1 ),
         "set_session"       =>  array( "name"=>"session.path.set", "prm"=>1 ),
         "set_session_lock"  =>  array( "name"=>"session.use_lock.set", "prm"=>1 ),
         "set_session_on_completion"     =>  array( "name"=>"session.on_completion.set", "prm"=>1 ),
-        "set_tracker_numwant"   =>  array( "name"=>"trackers.numwant.set", "prm"=>1 ),
         "set_upload_rate"   =>  array( "name"=>"throttle.global_up.max_rate.set", "prm"=>1 ),
-        "set_xmlrpc_dialect"    =>  array( "name"=>"network.xmlrpc.dialect.set", "prm"=>1 ),        // ?
-        "set_xmlrpc_size_limit"     =>  array( "name"=>"network.xmlrpc.size_limit.set", "prm"=>1 ),
         "system.file_allocate"  =>  array( "name"=>"system.file.allocate", "prm"=>0 ),
         "system.file_allocate.set"  =>  array( "name"=>"system.file.allocate.set", "prm"=>1 ),      // ?
         "throttle_down"         =>  array( "name"=>"throttle.down", "prm"=>1 ),                 // ?
         "throttle_ip"       =>  array( "name"=>"throttle.ip", "prm"=>1 ),               // ?
         "throttle_up"       =>  array( "name"=>"throttle.up", "prm"=>1 ),               // ?
         "tracker_numwant"   =>  array( "name"=>"trackers.numwant", "prm"=>0 ),
-        "xmlrpc_dialect"    =>  array( "name"=>"network.xmlrpc.dialect.set", "prm"=>1 ),        // ?
-        "xmlrpc_size_limit"     =>  array( "name"=>"network.xmlrpc.size_limit.set", "prm"=>1 ),
-        "load"          =>  array( "name"=>"load.normal", "prm"=>1 ),
     );
     public $started = 0;
     public $server = '';
@@ -226,13 +198,13 @@ class rTorrentSettings
                 new rXMLRPCCommand("get_directory"),
                 new rXMLRPCCommand("get_session"),
                 new rXMLRPCCommand("system.library_version"),
-                new rXMLRPCCommand("set_xmlrpc_size_limit", 67108863),
+                new rXMLRPCCommand("network.xmlrpc.size_limit.set", ["", 67108863]),
                 new rXMLRPCCommand("get_name"),
-                new rXMLRPCCommand("get_port_range"),
+                new rXMLRPCCommand("network.port_range"),
             ]);
             if ($req->success()) {
                 $this->directory = $req->val[0];
-                        $this->session = $req->val[1];
+                $this->session = $req->val[1];
                 $this->libVersion = $req->val[2];
                 $this->server = $req->val[4];
                 $this->portRange = $req->val[5];
@@ -246,14 +218,14 @@ class rTorrentSettings
 
                 if (isLocalMode()) {
                     if (!empty($this->session)) {
-                                        $this->started = @filemtime($this->session.'/rtorrent.lock');
+                        $this->started = @filemtime($this->session.'/rtorrent.lock');
                         if ($this->started===false) {
                             $this->started = 0;
                         }
                     }
                     $id = getExternal('id');
                     $req = new rXMLRPCRequest(
-                        new rXMLRPCCommand("execute_capture", array("sh","-c",$id." -u ; ".$id." -G ; echo ~ "))
+                        new rXMLRPCCommand("execute.capture", ["", "sh","-c",$id." -u ; ".$id." -G ; echo ~ "])
                     );
                     if ($req->run() && !$req->fault && (($line=explode("\n", $req->val[0]))!==false) && (count($line)>2)) {
                         $this->uid = intval(trim($line[0]));
@@ -297,15 +269,15 @@ class rTorrentSettings
     }
     public function getOnFinishedCommand($args)
     {
-            return($this->getEventCommand('on_finished', 'finished', $args));
+        return($this->getEventCommand('on_finished', 'finished', $args));
     }
     public function getOnResumedCommand($args)
     {
-            return($this->getEventCommand('on_start', 'resumed', $args));
+        return($this->getEventCommand('on_start', 'resumed', $args));
     }
     public function getOnHashdoneCommand($args)
     {
-            return($this->getEventCommand('on_hash_done', 'hash_done', $args));
+        return($this->getEventCommand('on_hash_done', 'hash_done', $args));
     }
     public function getAbsScheduleCommand($name, $interval, $cmd) // $interval in seconds
     {

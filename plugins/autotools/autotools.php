@@ -41,11 +41,11 @@ class rAutoTools
     }
     public function set()
     {
-        if (!isset( $HTTP_RAW_POST_DATA )) {
-            $HTTP_RAW_POST_DATA = file_get_contents("php://input");
+        if (!isset( $rawData )) {
+            $rawData = file_get_contents("php://input");
         }
-        if (isset( $HTTP_RAW_POST_DATA )) {
-            $vars = explode('&', $HTTP_RAW_POST_DATA);
+        if (isset( $rawData )) {
+            $vars = explode('&', $rawData);
             $this->enable_label = 0;
             $this->label_template = "{DIR}";
             $this->enable_move = 0;
@@ -133,7 +133,7 @@ class rAutoTools
         if ($this->enable_move && (trim($this->path_to_finished)!='')) {
             if ($this->fileop_type=="Move") {
                 $cmd =  $theSettings->getOnFinishedCommand(array('automove'.getUser(),
-                        getCmd('d.directory_base.set').'="$'.getCmd('execute_capture').
+                        getCmd('d.directory_base.set').'="$execute.capture'.
                         '={'.getPHP().','.$pathToAutoTools.'/check.php,$'.getCmd('d.base_path').'=,$'.
                         getCmd('d.base_filename').'=,$'.getCmd('d.is_multi_file').'=,$'.getCmd('d.custom1').'=,$'.getCmd('d.name').'=,'.getUser().'}" ; '.
                         getCmd('execute').'={'.getPHP().','.$pathToAutoTools.'/move.php,$'.getCmd('d.hash').'=,$'.getCmd('d.base_path').'=,$'.
@@ -141,7 +141,7 @@ class rAutoTools
                     ));
             } else {
                 $cmd =  $theSettings->getOnFinishedCommand(array('automove'.getUser(),
-                        getCmd('d.custom.set').'=x-dest,"$'.getCmd('execute_capture').
+                        getCmd('d.custom.set').'=x-dest,"$execute.capture'.
                         '={'.getPHP().','.$pathToAutoTools.'/move.php,$'.getCmd('d.hash').'=,$'.getCmd('d.base_path').'=,$'.
                         getCmd('d.base_filename').'=,$'.getCmd('d.is_multi_file').'=,$'.getCmd('d.custom1').'=,$'.getCmd('d.name').'=,'.getUser().'}"'
                     ));

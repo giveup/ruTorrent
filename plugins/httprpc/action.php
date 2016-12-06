@@ -4,14 +4,14 @@ require_once('../../php/xmlrpc.php');
 require_once('rpccache.php');
 
 $mode = "raw";
-$add = array();
-$ss = array();
-$vs = array();
-$hash = array();
+$add = [];
+$ss = [];
+$vs = [];
+$hash = [];
 
-$HTTP_RAW_POST_DATA = file_get_contents("php://input");
-if (isset($HTTP_RAW_POST_DATA)) {
-    $vars = explode('&', $HTTP_RAW_POST_DATA);
+$rawData = file_get_contents("php://input");
+if (isset($rawData)) {
+    $vars = explode('&', $rawData);
     foreach ($vars as $var) {
         $parts = explode("=", $var);
         switch ($parts[0]) {
@@ -50,7 +50,7 @@ function makeMulticall($cmds, $hash, $add, $prefix)
     $cnt = count($cmds)+count($add);
     $req = new rXMLRPCRequest($cmd);
     if ($req->success()) {
-            $result = array();
+            $result = [];
         for ($i = 0; $i<count($req->val); $i+=$cnt) {
             $result[] = array_slice($req->val, $i, $cnt);
         }
@@ -111,7 +111,7 @@ switch ($mode) {
             "d.is_private=",
             "d.is_multi_file="
         );
-        $cmd = new rXMLRPCCommand("d.multicall", "main");
+        $cmd = new rXMLRPCCommand("d.multicall2", ["", "main"]);
         $cmd->addParameters(array_map("getCmd", $cmds));
         foreach ($add as $prm) {
             $cmd->addParameter($prm);
@@ -120,12 +120,12 @@ switch ($mode) {
         $req = new rXMLRPCRequest($cmd);
         if ($req->success()) {
             $theCache = new rpcCache();
-            $dTorrents = array();
-            $torrents = array();
+            $dTorrents = [];
+            $torrents = [];
             foreach ($req->val as $index => $value) {
                 if ($index % $cnt == 0) {
                     $current_index = $value;
-                    $torrents[$current_index] = array();
+                    $torrents[$current_index] = [];
                 } else {
                     $torrents[$current_index][] = $value;
                 }
@@ -237,7 +237,7 @@ switch ($mode) {
             $req->addCommand(new rXMLRPCCommand($prm));
         }
         if ($req->success()) {
-            $result = array();
+            $result = [];
             $dht_active = $req->val[0];
             $dht = $req->val[1];
             $i = 3;
@@ -345,9 +345,9 @@ switch ($mode) {
             "t.scrape_incomplete=",
             "t.scrape_downloaded="
         );
-        $result = array();
+        $result = [];
         if (empty($hash)) {
-            $prm = getCmd("cat").'="$'.getCmd("t.multicall=").getCmd("d.hash=").",";
+            $prm = 'cat'.'="$'.getCmd("t.multicall=")."d.hash=".",";
             foreach ($cmds as $tcmd) {
                 $prm.=getCmd($tcmd).','.getCmd("cat=#").',';
             }
@@ -357,11 +357,12 @@ switch ($mode) {
             $prm = substr($prm, 0, -1).'"';
             $cnt = count($cmds)+count($add);
             $req = new rXMLRPCRequest();
-            $req->addCommand(new rXMLRPCCommand("d.multicall", array(
+            $req->addCommand(new rXMLRPCCommand("d.multicall2", [
+                "",
                 "main",
-                getCmd("d.hash="),
+                "d.hash=",
                 $prm
-            )));
+            ]));
             if ($req->success()) {
                 for ($i = 0; $i< count($req->val); $i+=2) {
                     $tracker = explode('#', $req->val[$i+1]);
@@ -375,7 +376,7 @@ switch ($mode) {
             foreach ($hash as $ndx => $h) {
                 $ret = makeMulticall($cmds, $h, $add, 't');
                 if ($ret===false) {
-                    $result[$h] = array();
+                    $result[$h] = [];
                 } else {
                     $result[$h] = $ret;
                 }
@@ -394,7 +395,7 @@ switch ($mode) {
             if ($ss[$ndx]=="ndht") {
                 $cmd = new rXMLRPCCommand('dht', (($v==0) ? "disable" : "auto"));
             } else {
-                $cmd = new rXMLRPCCommand(substr($ss[$ndx], 1).'.set', $v);
+                $cmd = new rXMLRPCCommand(substr($ss[$ndx], 1).'.set', ["", $v]);
             }
             $req->addCommand($cmd);
         }
@@ -403,7 +404,7 @@ switch ($mode) {
                 $result = $req->val;
             }
         } else {
-            $result = array();
+            $result = [];
         }
         break;
     case "setprops":    /**/
@@ -414,7 +415,7 @@ switch ($mode) {
                 $cmd = new rXMLRPCCommand("branch", array(
                     $hash[0],
                     getCmd("d.is_active="),
-                    getCmd("cat").'=$'.getCmd("d.stop=").',$'.getCmd("d.close=").',$'.getCmd("d.connection_seed.set=").$conn.',$'.getCmd("d.open=").',$'.getCmd("d.start="),
+                    'cat'.'=$'.getCmd("d.stop=").',$'.getCmd("d.close=").',$'.getCmd("d.connection_seed.set=").$conn.',$'.getCmd("d.open=").',$'.getCmd("d.start="),
                     getCmd("d.connection_seed.set=").$conn
                     ));
             } else {
@@ -495,8 +496,8 @@ switch ($mode) {
         }
         break;
     default:
-        if (isset($HTTP_RAW_POST_DATA)) {
-            $result = rXMLRPCRequest::send($HTTP_RAW_POST_DATA);
+        if (isset($rawData)) {
+            $result = rXMLRPCRequest::send($rawData);
             if (!empty($result)) {
                 $pos = strpos($result, "\r\n\r\n");
                 if ($pos !== false) {

@@ -1,6 +1,6 @@
 <?php
 
-require_once( 'util.php' );
+require_once('util.php');
 require_once( 'xmlrpc.php' );
 require_once( 'Torrent.php' );
 
@@ -37,7 +37,7 @@ class rTorrent
                     @unlink($filename);
                 }
             } else {
-                $cmd = new rXMLRPCCommand($isStart ? 'load.start' : 'load');
+                $cmd = new rXMLRPCCommand($isStart ? 'load.start' : 'load.normal');
                 $cmd->addParameter("");
                 $cmd->addParameter($filename);
             }
@@ -98,7 +98,7 @@ class rTorrent
             }
             if (strlen($hash)==40) {
                 $req = new rXMLRPCRequest();
-                $cmd = new rXMLRPCCommand($isStart ? 'load.start' : 'load');
+                $cmd = new rXMLRPCCommand($isStart ? 'load.start' : 'load.normal');
                 $cmd->addParameter("");
                 $cmd->addParameter($magnet);
                 if ($directory && (strlen($directory)>0)) {
@@ -159,7 +159,7 @@ class rTorrent
 
     public static function fastResume($torrent, $base, $add_path = true)
     {
-            $files = array();
+            $files = [];
             $info = $torrent->info;
             $psize = intval($info['piece length']);
         $base = trim($base);
@@ -184,10 +184,10 @@ class rTorrent
             $chunks = intval(($tsize + $psize - 1) / $psize);
             $torrent->{'libtorrent_resume'}['bitfield'] = intval($chunks);
             if (!isset($torrent->{'libtorrent_resume'}['files'])) {
-                $torrent->{'libtorrent_resume'}['files'] = array();
+                $torrent->{'libtorrent_resume'}['files'] = [];
             }
             foreach ($files as $key => $file) {
-                $ss = LFS::stat($base.$file);
+                $ss = stat($base.$file);
                 if ($ss===false) {
                     return(false);
                 }

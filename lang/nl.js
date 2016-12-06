@@ -184,7 +184,6 @@ var theUILang =
  pnlState			: "Status",
  newLabel			: "Nieuw Etiket",
  enterLabel			: "Invoeren Etiket",
- UIEffects			: "Laat UI-elementen zien",
  Plugins			: "Plugins",
  plgName			: "Naam",
  plgStatus			: "Status",

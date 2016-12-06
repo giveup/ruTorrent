@@ -182,7 +182,6 @@ var theUILang =
  pnlState			: "狀態",
  newLabel			: "新標籤",
  enterLabel			: "Enter Label",
- UIEffects			: "Show effects for UI elements",
  Plugins			: "Plugins",
  plgName			: "Name",
  plgStatus			: "Status",

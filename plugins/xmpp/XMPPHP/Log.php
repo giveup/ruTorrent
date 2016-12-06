@@ -47,7 +47,7 @@ class XMPPHP_Log {
 	/**
 	 * @var array
 	 */
-	protected $data = array();
+	protected $data = [];
 
 	/**
 	 * @var array
@@ -85,7 +85,7 @@ class XMPPHP_Log {
 	public function log($msg, $runlevel = self::LEVEL_INFO) {
 		$time = time();
 		#$this->data[] = array($this->runlevel, $msg, $time);
-		if($this->printout and $runlevel <= $this->runlevel) {
+		if ($this->printout and $runlevel <= $this->runlevel) {
 			$this->writeLine($msg, $runlevel, $time);
 		}
 	}
@@ -98,16 +98,16 @@ class XMPPHP_Log {
 	 * @param integer $runlevel
 	 */
 	public function printout($clear = true, $runlevel = null) {
-		if($runlevel === null) {
+		if ($runlevel === null) {
 			$runlevel = $this->runlevel;
 		}
-		foreach($this->data as $data) {
-			if($runlevel <= $data[0]) {
+		foreach ($this->data as $data) {
+			if ($runlevel <= $data[0]) {
 				$this->writeLine($data[1], $runlevel, $data[2]);
 			}
 		}
-		if($clear) {
-			$this->data = array();
+		if ($clear) {
+			$this->data = [];
 		}
 	}
 	

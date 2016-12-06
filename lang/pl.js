@@ -185,7 +185,6 @@ var theUILang =
  pnlState			: "Stan",
  newLabel			: "Nowa etykieta",
  enterLabel			: "Wpisz etykietę",
- UIEffects			: "Pokaż efekty dla elementów UI",
  Plugins			: "Wtyczki",
  plgName			: "Nazwa",
  plgStatus			: "Status",

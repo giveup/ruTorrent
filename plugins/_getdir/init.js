@@ -5,7 +5,7 @@ theWebUI.rDirBrowser = function( dlg_id, edit_id, btn_id, frame_id, withFiles )
 	this.edit = $('#'+edit_id);
 	this.btn  = $('#'+btn_id);
 	this.scriptName = withFiles ? "getfiles" : "getdirs";
-	if(!frame_id)
+	if (!frame_id)
 		frame_id = edit_id+"_frame";
 	var self = this;
 	this.btn.val("...").on( "click", function() { return(self.toggle()); } ).addClass("browseButton");
@@ -45,7 +45,7 @@ theWebUI.rDirBrowser.prototype.show = function()
 
 theWebUI.rDirBrowser.prototype.hide = function()
 {
-        if(this.frame.css("visibility")!="hidden")
+        if (this.frame.css("visibility")!="hidden")
         {
 	        this.btn.val("...");
 		this.edit.prop( "read-only", false );

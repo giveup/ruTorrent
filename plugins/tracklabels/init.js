@@ -6,27 +6,24 @@ plugin.injectedStyles = {};
 plugin.config = theWebUI.config;
 theWebUI.config = function(data)
 {
-	if(plugin.canChangeColumns())
+	theWebUI.tables.trt.columns.push({ text: theUILang.Tracker, width: '100px', id: 'tracker', type: TYPE_STRING});
+	plugin.config.call(this,data);
+	plugin.reqId = theRequestManager.addRequest("trk", null, function(hash,tracker,value)
 	{
-		theWebUI.tables.trt.columns.push({ text: theUILang.Tracker, width: '100px', id: 'tracker', type: TYPE_STRING});
-		plugin.config.call(this,data);
-		plugin.reqId = theRequestManager.addRequest("trk", null, function(hash,tracker,value)
+		var domain = theWebUI.getTrackerName( tracker.name );
+		tracker.icon = "trk"+domain.replace(/\./g, "_");
+		if (!plugin.injectedStyles[tracker.icon])
 		{
-			var domain = theWebUI.getTrackerName( tracker.name );
-			tracker.icon = "trk"+domain.replace(/\./g, "_");
-			if(!plugin.injectedStyles[tracker.icon])
-			{
-				plugin.injectedStyles[tracker.icon] = true;
-				injectCSSText( "."+tracker.icon+" {background-image: url(./plugins/tracklabels/action.php?tracker="+domain+"); background-repeat: no-repeat; background-size: 16px 16px; }\n" );
-			}
-		});
-	}
+			plugin.injectedStyles[tracker.icon] = true;
+			injectCSSText( "."+tracker.icon+" {background-image: url(./plugins/tracklabels/action.php?tracker="+domain+"); background-repeat: no-repeat; background-size: 16px 16px; }\n" );
+		}
+	});
 }
 
 plugin.filterByLabel = theWebUI.filterByLabel;
 theWebUI.filterByLabel = function(hash)
 {
-	if(plugin.enabled && theWebUI.actLbl && $($$(theWebUI.actLbl)).hasClass('tracker'))
+	if (plugin.enabled && theWebUI.actLbl && $($$(theWebUI.actLbl)).hasClass('tracker'))
 		theWebUI.filterByTracker(hash);
 	else
 		plugin.filterByLabel.call(theWebUI,hash);
@@ -34,7 +31,7 @@ theWebUI.filterByLabel = function(hash)
 
 theWebUI.filterByTracker = function(hash)
 {
-        if(theWebUI.isTrackerInActualLabel(hash))
+        if (theWebUI.isTrackerInActualLabel(hash))
 		this.getTable("trt").unhideRow(hash);
 	else
 		this.getTable("trt").hideRow(hash);
@@ -48,14 +45,14 @@ plugin.isActualLabel = function(lbl)
 theWebUI.isTrackerInActualLabel = function(hash)
 {
         var ret = false;
-	if($type(this.torrents[hash]) && $type(this.trackers) && $type(this.trackers[hash]))
+	if ($type(this.torrents[hash]) && $type(this.trackers) && $type(this.trackers[hash]))
 	{
-		for( var i=0; i<this.trackers[hash].length; i++)
+		for ( var i=0; i<this.trackers[hash].length; i++)
 		{
-			if(this.trackers[hash][i].group==0)
+			if (this.trackers[hash][i].group==0)
 			{
 				var tracker = theWebUI.getTrackerName( this.trackers[hash][i].name );
-				if(tracker && plugin.isActualLabel(tracker))
+				if (tracker && plugin.isActualLabel(tracker))
 				{
 					ret = true;
 					break;
@@ -70,27 +67,27 @@ plugin.addTrackers = theWebUI.addTrackers;
 theWebUI.addTrackers = function(data)
 {
 	plugin.addTrackers.call(theWebUI,data);
-	if(plugin.enabled)
+	if (plugin.enabled)
 		theWebUI.rebuildTrackersLabels();
 }
 
-if(!$type(theWebUI.getTrackerName))
+if (!$type(theWebUI.getTrackerName))
 {
 	theWebUI.getTrackerName = function(announce)
 	{
 	        var domain = '';
-		if(announce)
+		if (announce)
 		{
 			var parts = announce.match(/^(?:([^:\/?#]+):)?(?:\/\/((?:(([^:@]*):?([^:@]*))?@)?([^:\/?#]*)(?::(\d*))?))?((((?:[^?#\/]*\/)*)([^?#]*))(?:\?([^#]*))?(?:#(.*))?)/);
-			if(parts && (parts.length>6))
+			if (parts && (parts.length>6))
 			{
 				domain = parts[6];
-				if(!domain.match(/^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$/))
+				if (!domain.match(/^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$/))
 				{
 					parts = domain.split(".");
-					if(parts.length>2)
+					if (parts.length>2)
 					{
-						if($.inArray(parts[parts.length-2]+"", ["co", "com", "net", "org"])>=0 ||
+						if ($.inArray(parts[parts.length-2]+"", ["co", "com", "net", "org"])>=0 ||
 							$.inArray(parts[parts.length-1]+"", ["uk"])>=0)
 							parts = parts.slice(parts.length-3);
 						else
@@ -106,20 +103,19 @@ if(!$type(theWebUI.getTrackerName))
 
 theWebUI.trackersLabelContextMenu = function(e)
 {
-        if(e.which==3)
+        if (e.which==3)
         {
 	        var table = theWebUI.getTable("trt");
 		table.clearSelection();
 		theWebUI.switchLabel(this);
 		table.fillSelection();
 		var id = table.getFirstSelected();
-		if(id && plugin.canChangeMenu())
-		{
+		if (id) {
 			theWebUI.createMenu(null, id);
 			theContextMenu.show();
-		}
-		else
+		} else {
 			theContextMenu.hide();
+		}
 	}
 	else
 		theWebUI.switchLabel(this);
@@ -131,7 +127,7 @@ plugin.updateLabalsImages = function()
 	$('#plabel_cont ul li').each( function()
 	{
 		var lbl = this.id.substr(5,this.id.length-10);
-		if(!$$("lbl_"+lbl))
+		if (!$$("lbl_"+lbl))
 			$(this).prepend( $("<img>").attr("id","lbl_"+lbl).attr("src","plugins/tracklabels/action.php?label="+lbl).addClass("tfavicon") ).css({ padding: "2px 4px" });
 	});
 }
@@ -140,9 +136,9 @@ plugin.updateLabels = theWebUI.updateLabels;
 theWebUI.updateLabels = function(wasRemoved)
 {
 	plugin.updateLabels.call(theWebUI,wasRemoved);
-	if(plugin.enabled)
+	if (plugin.enabled)
 	{
-		if(wasRemoved)
+		if (wasRemoved)
 			theWebUI.rebuildTrackersLabels();
 		plugin.updateLabalsImages();
 	}
@@ -150,35 +146,34 @@ theWebUI.updateLabels = function(wasRemoved)
 
 theWebUI.rebuildTrackersLabels = function()
 {
-	if(!plugin.allStuffLoaded)
+	if (!plugin.allStuffLoaded)
 		setTimeout('theWebUI.rebuildTrackersLabels()',1000);
 	else
 	{
 		var table = this.getTable('trt');
 		var trackersLabels = new Object();
 		var counted = new Object();
-		for(var hash in this.trackers)
+		for (var hash in this.trackers)
 		{
-			if($type(this.torrents[hash]))
+			if ($type(this.torrents[hash]))
 			{
 			        this.torrents[hash].tracker = null;
 				counted[hash] = new Array();
-				for( var i=0; i<this.trackers[hash].length; i++)
+				for ( var i=0; i<this.trackers[hash].length; i++)
 				{
-					if(this.trackers[hash][i].group==0)
+					if (this.trackers[hash][i].group==0)
 					{
 						var tracker = theWebUI.getTrackerName( this.trackers[hash][i].name );
-						if(tracker)
+						if (tracker)
 						{
-							if(!this.torrents[hash].tracker)
+							if (!this.torrents[hash].tracker)
 							{
 								this.torrents[hash].tracker = tracker;
-								if(plugin.canChangeColumns())
-									table.setValueById(hash, 'tracker', tracker);
+								table.setValueById(hash, 'tracker', tracker);
 							}
-							if($.inArray(tracker, counted[hash]) == -1)
+							if ($.inArray(tracker, counted[hash]) == -1)
 							{
-								if($type(trackersLabels[tracker]))
+								if ($type(trackersLabels[tracker]))
 									trackersLabels[tracker]++;
 								else
 									trackersLabels[tracker] = 1;
@@ -189,24 +184,21 @@ theWebUI.rebuildTrackersLabels = function()
 				}
 			}
 		}
-		if(plugin.canChangeColumns())
-		{
-			table.refreshRows();
-			if(table.sIndex !=- 1)
-				table.Sort();		
-		}
+		table.refreshRows();
+		if (table.sIndex !=- 1)
+			table.Sort();
 		var ul = $("#torrl");
 
 		var keys = new Array();
-		for(var lbl in trackersLabels)
+		for (var lbl in trackersLabels)
 			keys.push(lbl);
 		keys.sort();
 
-		for(var i=0; i<keys.length; i++) 
+		for (var i=0; i<keys.length; i++)
 		{
 			var lbl = keys[i];
 			var li = null;
-			if(lbl in this.trackersLabels)
+			if (lbl in this.trackersLabels)
 			{
 				li = $($$('i'+lbl));
 	                	li.children("span").text(trackersLabels[lbl]);
@@ -219,19 +211,19 @@ theWebUI.rebuildTrackersLabels = function()
 					prepend( $("<img>").attr("src","plugins/tracklabels/action.php?tracker="+lbl).addClass("tfavicon") ).css({ padding: "2px 4px" });
 				ul.append(li);
 			}
-			if(plugin.isActualLabel(lbl))
+			if (plugin.isActualLabel(lbl))
 				li.addClass("sel");
 		}
 		var needSwitch = false;
-		for(var lbl in this.trackersLabels)
-			if(!(lbl in trackersLabels))
+		for (var lbl in this.trackersLabels)
+			if (!(lbl in trackersLabels))
 			{
 				$($$('i'+lbl)).remove();
-				if(plugin.isActualLabel(lbl))
+				if (plugin.isActualLabel(lbl))
 					needSwitch = true;
 			}
 		this.trackersLabels = trackersLabels;
-		if(needSwitch)
+		if (needSwitch)
 			theWebUI.switchLabel($$("-_-_-all-_-_-"));
 	}
 }
@@ -247,13 +239,10 @@ plugin.onRemove = function()
 {
 	plugin.removePaneFromCategory('ptrackers');
 	theWebUI.switchLabel($$("-_-_-all-_-_-"));
-	if(plugin.canChangeColumns())
-	{
-		theWebUI.getTable("trt").removeColumnById("tracker");
-		if(thePlugins.isInstalled("rss"))
-			theWebUI.getTable("rss").removeColumnById("tracker");
-		theRequestManager.removeRequest('trk',plugin.reqId);
-	}
+	theWebUI.getTable("trt").removeColumnById("tracker");
+	if (thePlugins.isInstalled("rss"))
+		theWebUI.getTable("rss").removeColumnById("tracker");
+	theRequestManager.removeRequest('trk',plugin.reqId);
 }
 
 theWebUI.initTrackersLabels();

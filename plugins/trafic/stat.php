@@ -99,7 +99,7 @@ class rStat
     }
     protected static function getTrackers()
     {
-        $files = array();
+        $files = [];
         $dir = getSettingsPath().'/trafic/trackers';
         $dh = @opendir($dir);
         if ($dh) {

@@ -46,24 +46,24 @@ class HDTsEngine extends commonEngine
 	{
 		$added = 0;
 		$url = 'https://hdts.ru';
-		if($useGlobalCats)
+		if ($useGlobalCats)
 			$categories = array( 'all'=>'&category[]=0' );
 		else
 			$categories = &$this->categories;
-		if(!array_key_exists($cat,$categories))
+		if (!array_key_exists($cat,$categories))
 			$cat = $categories['all'];
 		else
 			$cat = $categories[$cat];
 
-		for($pg = 0; $pg<11; $pg++)
+		for ($pg = 0; $pg<11; $pg++)
 		{
 			$cli = $this->fetch( $url.'/torrents.php?active=1'.$cat.'&search='.$what.'&options=0&order=seeds&by=DESC&page='.$pg );
-			if( ($cli==false) || (strpos($cli->results, ">No torrents here...</td>")!==false) ||
+			if ( ($cli==false) || (strpos($cli->results, ">No torrents here...</td>")!==false) ||
 				(strpos($cli->results, ">Password:<")!==false))
 				break;
 			$result = $cli->results;
 			$first = strpos($result, "<!-- Column Headers  -->");
-			if($first!==false)
+			if ($first!==false)
 				$result = substr($result,$first);
 
 			$res = preg_match_all('`<a href=torrents\.php\?category=\d+><img src=images/categories/.*alt="(?P<cat>.*)"/><\/td>.*'.
@@ -78,12 +78,12 @@ class HDTsEngine extends commonEngine
 				'<td.*><a href="peers\.php.*>(?P<leech>.*)</td>'.
 				'`siU', $result, $matches);
 
-			if($res)
+			if ($res)
 			{
-				for($i=0; $i<$res; $i++)
+				for ($i=0; $i<$res; $i++)
 				{
 					$link = $url."/download.php?id=".$matches["id"][$i];
-					if(!array_key_exists($link,$ret))
+					if (!array_key_exists($link,$ret))
 					{
 						$item = $this->getNewEntry();
 						$item["cat"] = self::removeTags($matches["cat"][$i]);
@@ -95,7 +95,7 @@ class HDTsEngine extends commonEngine
 						$item["peers"] = intval(self::removeTags($matches["leech"][$i]));
 						$ret[$link] = $item;
 						$added++;
-						if($added>=$limit)
+						if ($added>=$limit)
 							return;
 					}
 				}

@@ -3,11 +3,11 @@ require_once( 'unpack.php' );
 
 ignore_user_abort(true);
 set_time_limit(0);
-$ret = array();
+$ret = [];
 
 if (isset($_REQUEST['cmd'])) {
     $cmd = $_REQUEST['cmd'];
-    switch($cmd)
+    switch ($cmd)
     {
         case "set":
             $up = new rUnpack();

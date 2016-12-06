@@ -17,7 +17,7 @@ class MyAnonamouseEngine extends commonEngine
 		$added = 0;
 		$url = 'https://www.myanonamouse.net';
 
-		if($useGlobalCats)
+		if ($useGlobalCats)
 			$categories = array
 			( 
 				'all'=>'&tor[cat][]=0',
@@ -27,17 +27,17 @@ class MyAnonamouseEngine extends commonEngine
 			);
 		else
 			$categories = &$this->categories;
-		if(!array_key_exists($cat,$categories))
+		if (!array_key_exists($cat,$categories))
 			$cat = $categories['all'];
 		else
 			$cat = $categories[$cat];
 
-		for($pg = 0; $pg<10; $pg++)
+		for ($pg = 0; $pg<10; $pg++)
 		{
 			$cli = $this->fetch( $url.'/tor/js/loadSearch.php?tor[text]='.$what.
 				'&tor[srchIn]=0&tor[fullTextType]=old&tor[author]=&tor[series]=&tor[narrator]=&tor[searchType]=active&tor[searchIn]=torrents&tor[browseFlags][]=16&tor[hash]=&tor[sortType]=seedersDesc'.
 				$cat.'&tor[startNumber]='.($pg*20) );
-			if( ($cli==false) || (strpos($cli->results, "<h3>Sorry, nothing found with your specified search</h3>")!==false) ||
+			if ( ($cli==false) || (strpos($cli->results, "<h3>Sorry, nothing found with your specified search</h3>")!==false) ||
 				(strpos($cli->results, '<input type="password"')!==false))
 				break;
         		$res = preg_match_all('`<td><a class="title" href="(?P<desc>[^"]*)">(?P<name>[^>]*)</a>[^\n]*</td>\s*'.
@@ -46,12 +46,12 @@ class MyAnonamouseEngine extends commonEngine
                 	        '<td>(?P<date>[^<]*)<br />[^\n]*</td>\s*'.
 	                      	'<td><p>(?P<seeds>[^<]*)</p><p>(?P<leech>[^<]*)</p>[^\n]*</td>\s*</tr>'.
 	                        '`siU', $cli->results, $matches);
-			if($res)
+			if ($res)
 			{
-				for($i=0; $i<$res; $i++)
+				for ($i=0; $i<$res; $i++)
 				{
 					$link = $url.$matches["link"][$i];
-					if(!array_key_exists($link,$ret))
+					if (!array_key_exists($link,$ret))
 					{
 						$item = $this->getNewEntry();
 						$item["desc"] = $url.$matches["desc"][$i];
@@ -62,7 +62,7 @@ class MyAnonamouseEngine extends commonEngine
 						$item["peers"] = intval(trim(self::removeTags($matches["leech"][$i])));
 						$ret[$link] = $item;
 						$added++;
-						if($added>=$limit)
+						if ($added>=$limit)
 							return;
 					}
 				}

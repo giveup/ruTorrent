@@ -14,7 +14,7 @@ eval(getPluginConf('ratio'));
 class rRatio
 {
     public $hash = "ratio.dat";
-    public $rat = array();
+    public $rat = [];
     public $default = 0;
 
     public static function load()
@@ -42,13 +42,13 @@ class rRatio
     }
     public function fillArray()
     {
-        $this->rat = array();
+        $this->rat = [];
         $this->pad();
         $this->default = 0;
     }
     public function getTimes()
     {
-        $ret = array();
+        $ret = [];
         for ($i=0; $i<MAX_RATIO; $i++) {
             if (array_key_exists("time", $this->rat[$i]) && ($this->rat[$i]["time"]>=0)) {
                 $ret[]=$i;
@@ -70,9 +70,9 @@ class rRatio
         $times = $this->getTimes();
         $cnt = count($times);
         if ($cnt) {
-            $cmd = new rXMLRPCCommand("d.multicall", array("complete",getCmd("d.hash="),getCmd("d.custom=")."seedingtime",getCmd("d.is_active=") ));
+            $cmd = new rXMLRPCCommand("d.multicall2", ["", "complete", "d.hash=", getCmd("d.custom=")."seedingtime", getCmd("d.is_active=") ]);
             foreach ($times as $i) {
-                $cmd->addParameters(array( getCmd("cat")."=".$i, getCmd("d.views.has")."=rat_".$i));
+                $cmd->addParameters(array( 'cat'."=".$i, getCmd("d.views.has")."=rat_".$i));
             }
             $req = new rXMLRPCRequest($cmd);
             if ($req->success()) {
@@ -120,7 +120,7 @@ class rRatio
     }
     public function correct()
     {
-        $cmd = new rXMLRPCCommand("d.multicall", array("default",getCmd("d.hash=")));
+        $cmd = new rXMLRPCCommand("d.multicall2", ["", "default", "d.hash="]);
         for ($i=0; $i<MAX_RATIO; $i++) {
             $cmd->addParameters(array( getCmd("d.views.has")."=rat_".$i, getCmd("view.set_not_visible")."=rat_".$i ));
         }
@@ -205,7 +205,7 @@ class rRatio
 
     public function set()
     {
-        $this->rat = array();
+        $this->rat = [];
         $this->default = 0;
         for ($i = 0; $i<MAX_RATIO; $i++) {
             $arr = array( "action"=>RAT_STOP, "min"=>100, "max"=>300, "upload"=>20, "name"=>"", "time"=>-1 );

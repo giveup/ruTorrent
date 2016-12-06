@@ -20,7 +20,7 @@
 function readLangCookie() {
 	var nameEQ = "Language=";
 	var ca = document.cookie.split(';');
-	for(var i=0;i < ca.length;i++) {
+	for (var i=0;i < ca.length;i++) {
 		var c = ca[i];
 		while (c.charAt(0)==' ') c = c.substring(1,c.length);
 		if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
@@ -60,21 +60,21 @@ function GetActiveLanguage()
 {
 	var DefaultLanguage = 'en';
 	var LC = readLangCookie();
-	if(LC != null)
+	if (LC != null)
 		return LC;
 	var A;
-	if(navigator.userLanguage)
+	if (navigator.userLanguage)
 		A = navigator.userLanguage.toLowerCase();
 	else
-		if(navigator.language)
+		if (navigator.language)
 			A = navigator.language.toLowerCase();
-	if(A.length >= 5)
+	if (A.length >= 5)
 	{
 		A = A.substr(0,5);
-		if(AvailableLanguages[A])
+		if (AvailableLanguages[A])
 			return A;
 	}
-	if(A.length >= 2)
+	if (A.length >= 2)
 	{
 		A = A.substr(0,2);
 		if (AvailableLanguages[A])
@@ -90,5 +90,5 @@ function SetActiveLanguage(lang)
 	var expires = "; expires=" + date.toGMTString();
 	document.cookie = "Language="+ lang + expires +"; path=/";
 }
-
-document.write("<script type=\"text/javascript\" src=\"./lang/"+GetActiveLanguage()+".js\"></script>");
+//
+// document.write("<script type=\"text/javascript\" src=\"./lang/"+GetActiveLanguage()+".js\"></script>");

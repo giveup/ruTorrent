@@ -4,7 +4,7 @@ require_once( '../../php/settings.php' );
 eval( getPluginConf('feeds') );
 
 $lang = (isset($_REQUEST['lang']) && is_file('lang/'.$_REQUEST['lang'].'.php')) ? $_REQUEST['lang'] : 'en';
-$theUILang = array();
+$theUILang = [];
 require_once( 'lang/'.$lang.'.php' );
 
 function bytes($bt)
@@ -119,7 +119,7 @@ $ret = '<?xml version="1.0" encoding="UTF-8"?>'.
     '<image><url>'.$url.'images/logo.svg</url><link>'.$url.'</link><title>ruTorrent</title></image>';
 
 $view = ''; // all, inactive
-switch($mode)
+switch ($mode)
 {
     case 'downloading':
         $view = 'incomplete';
@@ -134,8 +134,9 @@ switch($mode)
 }
 
 $prm = [
+    "",
     $view,
-    getCmd("d.hash="),
+    "d.hash=",
     getCmd("d.name="),
     getCmd("d.message="),
     getCmd("d.up.rate="),
@@ -160,10 +161,10 @@ if ($showItemDescription) {
         getCmd("d.peers_accounted="),
         getCmd("d.peers_complete=")));
 }
-$req = new rXMLRPCRequest(new rXMLRPCCommand("d.multicall", $prm));
+$req = new rXMLRPCRequest(new rXMLRPCCommand("d.multicall2", $prm));
 
 if ($req->success()) {
-    $items = array();
+    $items = [];
     for ($i = 0; $i<count($req->val); $i+=21) {
         $item = [
             "guid"=>$req->val[$i],

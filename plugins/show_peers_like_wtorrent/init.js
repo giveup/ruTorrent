@@ -12,7 +12,7 @@ theWebUI.config = function(data)
 		{
 		        var arr = value.split('#');
 			torrent.seeds_all = 0;
-			for(var i=0; i<arr.length; i++)
+			for (var i=0; i<arr.length; i++)
 				torrent.seeds_all += iv(arr[i]);
 			torrent.seeds = torrent.seeds_actual + " (" + torrent.seeds_all + ")";
 		}
@@ -27,7 +27,7 @@ theWebUI.config = function(data)
 		{
 		        var arr = value.split('#');
 			torrent.peers_all = 0;
-			for(var i=0; i<arr.length; i++)
+			for (var i=0; i<arr.length; i++)
 				torrent.peers_all += iv(arr[i]);
 			torrent.peers = torrent.peers_actual + " (" + torrent.peers_all + ")";
 		}

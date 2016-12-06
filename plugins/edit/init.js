@@ -34,45 +34,42 @@ theWebUI.editTrackers = function(id)
 	theDialogManager.show("tedit");
 }
 
-if (plugin.canChangeMenu())
+plugin.isTorrentCommandEnabled = theWebUI.isTorrentCommandEnabled;
+theWebUI.isTorrentCommandEnabled = function(act,hash)
 {
-	plugin.isTorrentCommandEnabled = theWebUI.isTorrentCommandEnabled;
-	theWebUI.isTorrentCommandEnabled = function(act,hash)
-	{
-		if (act=="edittorrent") {
-			if (!plugin.isTorrentCommandEnabled.call(this,act,hash))
-				return(false);
-			else
-				return(hash && (hash.length==40))
-		}
-		return(plugin.isTorrentCommandEnabled.call(this,act,hash));
+	if (act=="edittorrent") {
+		if (!plugin.isTorrentCommandEnabled.call(this,act,hash))
+			return(false);
+		else
+			return(hash && (hash.length==40))
 	}
+	return(plugin.isTorrentCommandEnabled.call(this,act,hash));
+}
 
-	plugin.createMenu = theWebUI.createMenu;
-	theWebUI.createMenu = function(e, id)
-	{
-		plugin.createMenu.call(this,e,id);
-		if (plugin.enabled && plugin.allStuffLoaded) {
-			var el = theContextMenu.get(theUILang.Properties);
-			if (el) {
-				theContextMenu.add([theUILang.EditTrackers,
-					((this.getTable("trt").selCount>1) && this.getHashes('edittorrent')) || this.isTorrentCommandEnabled("edittorrent",id) ?
-					"theWebUI.editTrackers('"+theWebUI.dID+"')" : null]);
-			}
-		}
-	}
-
-	plugin.createTrackerMenu = theWebUI.createTrackerMenu;
-	theWebUI.createTrackerMenu = function(e, id)
-	{
-		if (plugin.createTrackerMenu.call(theWebUI, e, id) && plugin.allStuffLoaded && plugin.enabled) {
-			theContextMenu.add([CMENU_SEP]);
+plugin.createMenu = theWebUI.createMenu;
+theWebUI.createMenu = function(e, id)
+{
+	plugin.createMenu.call(this,e,id);
+	if (plugin.enabled && plugin.allStuffLoaded) {
+		var el = theContextMenu.get(theUILang.Properties);
+		if (el) {
 			theContextMenu.add([theUILang.EditTrackers,
-				this.isTorrentCommandEnabled("edittorrent",theWebUI.dID) ? "theWebUI.editTrackers('"+theWebUI.dID+"')" : null]);
-			return(true);
+				((this.getTable("trt").selCount>1) && this.getHashes('edittorrent')) || this.isTorrentCommandEnabled("edittorrent",id) ?
+				"theWebUI.editTrackers('"+theWebUI.dID+"')" : null]);
 		}
-		return(false);
 	}
+}
+
+plugin.createTrackerMenu = theWebUI.createTrackerMenu;
+theWebUI.createTrackerMenu = function(e, id)
+{
+	if (plugin.createTrackerMenu.call(theWebUI, e, id) && plugin.allStuffLoaded && plugin.enabled) {
+		theContextMenu.add([CMENU_SEP]);
+		theContextMenu.add([theUILang.EditTrackers,
+			this.isTorrentCommandEnabled("edittorrent",theWebUI.dID) ? "theWebUI.editTrackers('"+theWebUI.dID+"')" : null]);
+		return(true);
+	}
+	return(false);
 }
 
 theWebUI.sendEdit = function()

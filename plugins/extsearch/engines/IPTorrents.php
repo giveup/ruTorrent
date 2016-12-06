@@ -26,20 +26,20 @@ class IPTorrentsEngine extends commonEngine
 	{
 		$added = 0;
 		$url = 'https://www.iptorrents.com';
-		if($useGlobalCats)
+		if ($useGlobalCats)
 			$categories = array( 'all'=>'', 
 				'movies'=>'&l72=1', 'tv'=>'&l73=1', 'music'=>'&l75=1', 'games'=>'&l74=1', 
 				'anime'=>'&l60=1', 'software'=>'&l1=1&l86=1', 'pictures'=>'&l36=1', 'books'=>'&l35=1&l64=1' );
 		else
 			$categories = &$this->categories;
-		if(!array_key_exists($cat,$categories))
+		if (!array_key_exists($cat,$categories))
 			$cat = $categories['all'];
 		else
 			$cat = $categories[$cat];
-		for($pg = 1; $pg<11; $pg++)
+		for ($pg = 1; $pg<11; $pg++)
 		{
 			$cli = $this->fetch( $url.'/torrents/?'.$cat.'o=seeders;q='.$what.';qf=ti;p='.$pg );
-			if( ($cli==false) || (strpos($cli->results, ">Nothing found!<")!==false) ||
+			if ( ($cli==false) || (strpos($cli->results, ">Nothing found!<")!==false) ||
 				(strpos($cli->results, ">Password:<")!==false))
 				break;
 
@@ -53,13 +53,13 @@ class IPTorrentsEngine extends commonEngine
 				'<td class="ac t_leechers">(?P<leech>.*)</td>'.				
 				'`siU', $cli->results, $matches);
 
-			if($res)
+			if ($res)
 			{
 				$now = time();
-				for($i=0; $i<$res; $i++)
+				for ($i=0; $i<$res; $i++)
 				{
 					$link = $url."/download.php/".$matches["id"][$i]."/".$matches["tname"][$i];
-					if(!array_key_exists($link,$ret))
+					if (!array_key_exists($link,$ret))
 					{
 						$item = $this->getNewEntry();
 						$item["cat"] = self::removeTags($matches["cat"][$i]);
@@ -71,7 +71,7 @@ class IPTorrentsEngine extends commonEngine
 						$item["peers"] = intval(self::removeTags($matches["leech"][$i]));
 						$ret[$link] = $item;
 						$added++;
-						if($added>=$limit)
+						if ($added>=$limit)
 							return;
 					}
 				}

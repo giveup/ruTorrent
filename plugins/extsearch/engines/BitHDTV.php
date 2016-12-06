@@ -14,18 +14,18 @@ class BitHDTVEngine extends commonEngine
 	{
 		$added = 0;
 		$url = 'https://www.bit-hdtv.com';
-		if($useGlobalCats)
+		if ($useGlobalCats)
 			$categories = array( 'all'=>'&cat=0' );
 		else
 			$categories = &$this->categories;
-		if(!array_key_exists($cat,$categories))
+		if (!array_key_exists($cat,$categories))
 			$cat = $categories['all'];
 		else
 			$cat = $categories[$cat];
-		for($pg = 0; $pg<10; $pg++)
+		for ($pg = 0; $pg<10; $pg++)
 		{
 			$cli = $this->fetch( $url.'/torrents.php?search='.$what.'&sort=7&type=desc&page='.$pg.$cat );
-			if( ($cli==false) || (strpos($cli->results, "<h2>No match!</h2>")!==false) 
+			if ( ($cli==false) || (strpos($cli->results, "<h2>No match!</h2>")!==false) 
 				|| (strpos($cli->results, '>Password:<')!==false))
 				break;
 			$res = preg_match_all('/<img border="0" src=.* alt="(?P<cat>.*)" \/><\/a>'.
@@ -38,7 +38,7 @@ class BitHDTVEngine extends commonEngine
 				'.*<td .*>.*<\/td>.*'.
 				'.*<td .*>(?P<seeds>.*)<\/td>.*<td .*>(?P<leech>.*)<\/td>/siU', $cli->results, $matches);
 
-			if(($res!==false) && ($res>0) &&
+			if (($res!==false) && ($res>0) &&
 				count($matches["id"])==count($matches["cat"]) &&
 				count($matches["cat"])==count($matches["name"]) && 
 				count($matches["name"])==count($matches["size"]) &&
@@ -47,10 +47,10 @@ class BitHDTVEngine extends commonEngine
 				count($matches["seeds"])==count($matches["tname"]) &&
 				count($matches["date"])==count($matches["leech"]) )
 			{
-				for($i=0; $i<count($matches["id"]); $i++)
+				for ($i=0; $i<count($matches["id"]); $i++)
 				{
 					$link = $url."/download.php?/".$matches["id"][$i]."/".$matches["tname"][$i];
-					if(!array_key_exists($link,$ret))
+					if (!array_key_exists($link,$ret))
 					{
 						$item = $this->getNewEntry();
 						$item["cat"] = self::removeTags($matches["cat"][$i]);
@@ -62,7 +62,7 @@ class BitHDTVEngine extends commonEngine
 						$item["peers"] = intval(self::removeTags($matches["leech"][$i]));
 						$ret[$link] = $item;
 						$added++;
-						if($added>=$limit)
+						if ($added>=$limit)
 							return;
 					}
 				}

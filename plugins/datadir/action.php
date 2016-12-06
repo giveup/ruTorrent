@@ -17,13 +17,13 @@ function Debug($str)
 ignore_user_abort(true);
 set_time_limit(0);
 
-$errors = array();
+$errors = [];
 
-if (!isset( $HTTP_RAW_POST_DATA )) {
-    $HTTP_RAW_POST_DATA = file_get_contents("php://input");
+if (!isset( $rawData )) {
+    $rawData = file_get_contents("php://input");
 }
-if (isset( $HTTP_RAW_POST_DATA )) {
-    $vars = explode('&', $HTTP_RAW_POST_DATA);
+if (isset( $rawData )) {
+    $vars = explode('&', $rawData);
     $hash = null;
     $datadir = "";
     $move_addpath = "1";

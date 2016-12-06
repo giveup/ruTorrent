@@ -14,21 +14,21 @@ class RevTTEngine extends commonEngine
 	{
 		$added = 0;
 		$url = 'https://revolutiontt.me';
-		if($useGlobalCats)
+		if ($useGlobalCats)
 			$categories = array( 'all'=>'&cat=0', 'movies'=>'&cat=20&cat=44&cat=3&cat=10&cat=19', 
 				'tv'=>'&cat=43&cat=45&cat=42&cat=7', 'music'=>'&cat=6&cat=46&cat=29', 
 				'games'=>'&cat=4&cat=21&cat=17&cat=16&cat=40&cat=39', 
 				'anime'=>'&cat=23', 'software'=>'&cat=22&cat=1', 'books'=>'&cat=36' );
 		else
 			$categories = &$this->categories;
-		if(!array_key_exists($cat,$categories))
+		if (!array_key_exists($cat,$categories))
 			$cat = $categories['all'];
 		else
 			$cat = $categories[$cat];
-		for($pg = 0; $pg<10; $pg++)
+		for ($pg = 0; $pg<10; $pg++)
 		{
 			$cli = $this->fetch( $url.'/browse.php?search='.$what.'&titleonly=1&sort=7&type=desc&page='.$pg.$cat );
-			if( ($cli==false) || (strpos($cli->results, "<h2>Nothing Found!</h2>")!==false)
+			if ( ($cli==false) || (strpos($cli->results, "<h2>Nothing Found!</h2>")!==false)
 				|| (strpos($cli->results, '>Login</title>')!==false))
 				break;
 			$res = preg_match_all('/<img border="0" src=.* alt="(?P<cat>.*)" \/><\/a>'.
@@ -38,7 +38,7 @@ class RevTTEngine extends commonEngine
 				'<td .*>(?P<date>.*)<\/td>.*'.
 				'<td .*>(?P<size>.*)<\/td>'.
 				'.*<td .*>.*<\/td>.*<td .*>(?P<seeds>.*)<\/td>.*<td .*>(?P<leech>.*)<\/td>/siU', $cli->results, $matches);
-			if(($res!==false) && ($res>0) &&
+			if (($res!==false) && ($res>0) &&
 				count($matches["id"])==count($matches["cat"]) &&
 				count($matches["cat"])==count($matches["name"]) && 
 				count($matches["name"])==count($matches["size"]) &&
@@ -47,10 +47,10 @@ class RevTTEngine extends commonEngine
 				count($matches["seeds"])==count($matches["tname"]) &&
 				count($matches["date"])==count($matches["leech"]) )
 			{
-				for($i=0; $i<count($matches["id"]); $i++)
+				for ($i=0; $i<count($matches["id"]); $i++)
 				{
 					$link = $url."/download.php/".$matches["id"][$i]."/".$matches["tname"][$i];
-					if(!array_key_exists($link,$ret))
+					if (!array_key_exists($link,$ret))
 					{
 						$item = $this->getNewEntry();
 						$item["cat"] = self::removeTags($matches["cat"][$i]);
@@ -62,7 +62,7 @@ class RevTTEngine extends commonEngine
 						$item["peers"] = intval(self::removeTags($matches["leech"][$i]));
 						$ret[$link] = $item;
 						$added++;
-						if($added>=$limit)
+						if ($added>=$limit)
 							return;
 					}
 				}

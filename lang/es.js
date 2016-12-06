@@ -182,7 +182,6 @@ var theUILang =
  pnlState			: "Estado",
  newLabel			: "Nueva etiqueta",
  enterLabel			: "Etiqueta",
- UIEffects			: "Mostrar efectos en los elemontos de la interfaz",
  Plugins			: "Plugins",
  plgName			: "Nombre",
  plgStatus			: "Estado",

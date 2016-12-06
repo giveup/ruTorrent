@@ -15,7 +15,6 @@ $conf = getConfFile('config.php');
 if ($conf) {
     require_once($conf);
 }
-require_once( 'lfs.php' );
 
 if (!isset($profileMask)) {
     $profileMask = 0777;
@@ -89,7 +88,7 @@ function win2utf($str)
     );
     $and=0x3F;
     for ($i=0; $i<strlen($str); $i++) {
-        $octet=array();
+        $octet=[];
         if (ord($str[$i])<0x80) {
             $strhex=ord($str[$i]);
         } else {
@@ -209,7 +208,7 @@ function isLocalMode($host = null, $port = null)
 
 function isUserHavePermissionPrim($uid, $gids, $file, $flags)
 {
-    $ss=LFS::stat($file);
+    $ss=stat($file);
     if ($ss) {
         $p=$ss['mode'];
         if (($p & $flags) == $flags) {
@@ -235,7 +234,7 @@ function isUserHavePermission($uid, $gids, $file, $flags)
 {
     if ($uid<=0) {
         if (($flags & 0x0001) && !is_dir($file)) {
-            return(($ss=LFS::stat($file)) && ($ss['mode'] & 0x49));
+            return(($ss=stat($file)) && ($ss['mode'] & 0x49));
         } else {
             return(true);
         }
@@ -275,7 +274,7 @@ function fullpath($path, $base = '')
         return(fullpath(addslash($base).$path, getcwd()));
     }
     $path=explode('/', $path);
-    $newpath=array();
+    $newpath=[];
     foreach ($path as $p) {
         if ($p === '' || $p === '.') {
             continue;
@@ -490,8 +489,8 @@ function deleteDirectory($dir)
 function sendFile($filename, $contentType = null, $nameToSent = null, $mustExit = true)
 {
     global $canUseXSendFile;
-    $stat = @LFS::stat($filename);
-    if ($stat && @LFS::is_file($filename) && @LFS::is_readable($filename)) {
+    $stat = @stat($filename);
+    if ($stat && is_file($filename) && is_readable($filename)) {
         $etag = sprintf('"%x-%x-%x"', $stat['ino'], $stat['size'], $stat['mtime'] * 1000000);
         if ((isset($_SERVER['HTTP_IF_NONE_MATCH']) && $_SERVER['HTTP_IF_NONE_MATCH'] == $etag) ||
                         (isset($_SERVER['HTTP_IF_MODIFIED_SINCE']) && strtotime($_SERVER['HTTP_IF_MODIFIED_SINCE']) >= $stat['mtime'])) {
@@ -505,7 +504,7 @@ function sendFile($filename, $contentType = null, $nameToSent = null, $mustExit 
                 $nameToSent = rawurlencode($nameToSent);
             }
             header('Content-Disposition: attachment; filename="'.$nameToSent.'"');
-    
+
             if ($mustExit &&
                 $canUseXSendFile &&
                 function_exists('apache_get_modules') &&
@@ -608,7 +607,7 @@ function getTempDirectory()
 {
     global $tempDirectory;
     if (empty($tempDirectory)) {
-        $directories = array();
+        $directories = [];
         if (ini_get('upload_tmp_dir')) {
             $directories[] = ini_get('upload_tmp_dir');
         }

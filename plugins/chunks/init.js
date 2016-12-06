@@ -5,7 +5,7 @@ plugin.updateDetails = theWebUI.updateDetails;
 theWebUI.updateDetails = function()
 {
 	plugin.updateDetails.call(this);
-	if((this.activeView == 'Chunks') && plugin.enabled && plugin.allStuffLoaded)
+	if ((this.activeView == 'Chunks') && plugin.enabled && plugin.allStuffLoaded)
 	{
 		if (this.dID != "")
 		{
@@ -21,13 +21,13 @@ plugin.clearDetails = theWebUI.clearDetails;
 theWebUI.clearDetails = function()
 {
 	plugin.clearDetails.call(theWebUI);
-	if(plugin.enabled && plugin.allStuffLoaded)
+	if (plugin.enabled && plugin.allStuffLoaded)
 		plugin.clearChunks();
 }
 
 plugin.drawChunks = function( d )
 {
-	if( $('#cCont').get(0).clientWidth && ($type(d.chunks) || $type(d.seen)) )
+	if ( $('#cCont').get(0).clientWidth && ($type(d.chunks) || $type(d.seen)) )
 	{
 		var mode = iv($('#chunks_mode').val());
 		var cells = mode ? d.seen : d.chunks;
@@ -36,42 +36,42 @@ plugin.drawChunks = function( d )
 		var numRows = Math.ceil( cellsCount / numCols );
 		var table = $('#cTable').get(0);
 		var mustInsert = (cellsCount!=plugin.cellsCount) || (numRows!=table.rows.length) || (numCols!=plugin.numCols);
-		if(mustInsert)
+		if (mustInsert)
 			plugin.clearChunks();
 
 		$('#ccount').text(d.tsize);
 		$('#csize').text(( d.size / 1024 ) + " " + theUILang.KB);
 		$('#cinfohdr').text( (mode ? theUILang.cAvail : theUILang.cDownloaded)+':' );
-		if(!mode)
+		if (!mode)
 			$('#cinfo').text( theWebUI.torrents[plugin.hash].done/10+'%' );
 		$('#clegend').text( theUILang.cLegendVal[mode] );
 
 		var k = mode;
 		var sumAvail = 0;
 		var sumBitAvail = 0;
-		for(var i=0; i < numRows; i++)
+		for (var i=0; i < numRows; i++)
 		{
 			var tRow = mustInsert ? table.insertRow(-1) : table.rows[i];
-			for(var j=0; j < numCols && (k<cells.length); j++, k++)
+			for (var j=0; j < numCols && (k<cells.length); j++, k++)
 			{
 	    			var tCell = mustInsert ? tRow.insertCell(-1) : tRow.cells[j];
 				var chunk = cells.charAt( k );
-				if( chunk != '0')
+				if ( chunk != '0')
 	        			tCell.innerHTML = chunk;
     				else
 					tCell.innerHTML = "&nbsp;";
 				tCell.className = "cCell Cell" + chunk;
-				if(mode)
+				if (mode)
 				{
 					var val = parseInt(chunk,16);
 					sumAvail+=val;
-					if(val)
+					if (val)
 						sumBitAvail++;
 					k++;
 				}
 			}
 		}
-		if(mode)
+		if (mode)
 			$('#cinfo').text( ((sumBitAvail==d.tsize) ? sumAvail/d.tsize : sumBitAvail/d.tsize).toFixed(2) );
 		plugin.cellsCount = cellsCount;
 		plugin.numCols = numCols;
@@ -96,7 +96,7 @@ rTorrentStub.prototype.getchunks = function()
 {
 	var commands = ["d.bitfield", "d.chunk_size", "d.size_chunks"];
 	commands.push("d.chunks_seen");
-	for(var i in commands)
+	for (var i in commands)
 	{
 		var cmd = new rXMLRPCCommand( commands[i] );
 		cmd.addParameter("string",plugin.hash);
@@ -106,7 +106,7 @@ rTorrentStub.prototype.getchunks = function()
 
 rTorrentStub.prototype.getchunksResponse = function(xml)
 {
-	if(plugin.hash!=theWebUI.dID)
+	if (plugin.hash!=theWebUI.dID)
 	        return({});
 	var datas = xml.getElementsByTagName('data');
 	var data = datas[0];

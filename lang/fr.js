@@ -184,7 +184,6 @@ var theUILang =
  pnlState			: "Etat",
  newLabel			: "Nouvelle étiquette",
  enterLabel			: "Ajouter une étiquette",
- UIEffects			: "Activer les effets de l'UI",
  Plugins			: "Plugins",
  plgName			: "Nom",
  plgStatus			: "État",

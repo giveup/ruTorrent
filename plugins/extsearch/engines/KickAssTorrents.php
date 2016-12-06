@@ -10,19 +10,19 @@ class KickAssTorrentsEngine extends commonEngine
 	{
 		$added = 0;
 		$url = 'http://kickass.to';
-		if($useGlobalCats)
+		if ($useGlobalCats)
 			$categories = array( 'all'=>'', 'movies'=>' category:movies', 'tv'=>' category:tv', 'music'=>' category:music', 'games'=>' category:games', 'anime'=>' category:anime', 'software'=>' category:applications', 'books'=>' category:books' );
 		else
 			$categories = &$this->categories;
-		if(!array_key_exists($cat,$categories))
+		if (!array_key_exists($cat,$categories))
 			$cat = $categories['all'];
 		else
 			$cat = $categories[$cat];
 
-		for($pg = 1; $pg<11; $pg++)
+		for ($pg = 1; $pg<11; $pg++)
 		{
 			$cli = $this->fetch( $url.'/usearch/'.$what.$cat.'/'.$pg.'/?field=seeders&sorder=desc' );
-			if( ($cli==false) || (strpos($cli->results, "<h2>Nothing found!</h2>")!==false) )
+			if ( ($cli==false) || (strpos($cli->results, "<h2>Nothing found!</h2>")!==false) )
 				break;
 			$res = preg_match_all('`href="magnet:(?P<link>.*)".*<div class="torrentname">.*<div class="markeredBlock.*'.
 				'<a href="(?P<desc>.*)" class="cellMainLink">(?P<name>.*)</a>.*'.
@@ -33,12 +33,12 @@ class KickAssTorrentsEngine extends commonEngine
 				'<td class=".*">(?P<seeds>.*)</td>.*'.
 				'<td class=".*">(?P<leech>.*)</td>'.
 				'`siU', $cli->results, $matches);
-			if($res)
+			if ($res)
 			{
-				for($i=0; $i<$res; $i++)
+				for ($i=0; $i<$res; $i++)
 				{
 					$link = "magnet:".$matches["link"][$i];
-					if(!array_key_exists($link,$ret) && intval($matches["seeds"][$i]))
+					if (!array_key_exists($link,$ret) && intval($matches["seeds"][$i]))
 					{
 						$item = $this->getNewEntry();
 						$item["desc"] = $url.$matches["desc"][$i];
@@ -50,7 +50,7 @@ class KickAssTorrentsEngine extends commonEngine
 						$item["cat"] = self::removeTags($matches["cat"][$i]);
 						$ret[$link] = $item;
 						$added++;
-						if($added>=$limit)
+						if ($added>=$limit)
 							return;
 					}
 				}

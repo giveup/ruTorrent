@@ -31,11 +31,9 @@ class rXmpp
 
     public function set()
     {
-        if (!isset( $HTTP_RAW_POST_DATA )) {
-            $HTTP_RAW_POST_DATA = file_get_contents("php://input");
-        }
-        if (isset( $HTTP_RAW_POST_DATA )) {
-            $vars = explode('&', $HTTP_RAW_POST_DATA);
+        $rawData = file_get_contents("php://input");
+        if (isset($rawData)) {
+            $vars = explode('&', $rawData);
             $this->jabberHost = "";
             $this->jabberPort = 5222;
             ;
@@ -109,7 +107,7 @@ class rXmpp
         $req = new rXMLRPCRequest();
         if ($this->message !== '' && isset($this->jabberServer) && isset($this->jabberLogin) && isset($this->jabberPasswd) && isset($this->jabberFor)) {
             $cmd = $theSettings->getOnFinishedCommand(array('xmpp'.getUser(),
-                getCmd('execute.nothrow.bg').'={'.getPHP().','.$pathToXmpp.'/notify.php,"$'.getCmd('d.name').'=","'.getUser().'"}'
+                'execute.nothrow.bg={'.getPHP().','.$pathToXmpp.'/notify.php,"$'.getCmd('d.name').'=","'.getUser().'"}'
                 ));
         } else {
             $cmd = $theSettings->getOnFinishedCommand(array('xmpp'.getUser(), getCmd('cat=')));

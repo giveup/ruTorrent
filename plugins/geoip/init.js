@@ -1,7 +1,7 @@
 plugin.loadLang();
 plugin.loadMainCSS();
 
-var thePeersCache = 
+var thePeersCache =
 {
 	MAX_SIZE: 1024,
 	ips: [],
@@ -9,7 +9,7 @@ var thePeersCache =
 
 	add: function( data )
 	{
-		for( var i = 0; i< data.length; i++ )
+		for ( var i = 0; i< data.length; i++ )
 		{
 			this.ips.push(data[i].ip);
 			this.info[data[i].ip] = data[i].info;
@@ -18,9 +18,9 @@ var thePeersCache =
 
 	strip: function()
 	{
-		if(this.ips.length>=this.MAX_SIZE)
+		if (this.ips.length>=this.MAX_SIZE)
 		{
-			for(var i=0; i<this.MAX_SIZE/2; i++)
+			for (var i=0; i<this.MAX_SIZE/2; i++)
 				delete this.info[this.ips[i]];
 			this.ips.splice(0,this.MAX_SIZE/2);
 		}
@@ -28,7 +28,7 @@ var thePeersCache =
 
 	update: function( ip, comment )
 	{
-		if(this.get(ip))
+		if (this.get(ip))
 			this.info[ip].comment = comment;
 	},
 
@@ -39,18 +39,18 @@ var thePeersCache =
 
 	fill: function(peer)
 	{
-	        if(!peer.processed)
+	        if (!peer.processed)
 	        {
 	                var info = this.get(peer.ip);
-	                if(info)
+	                if (info)
         	        {
                 	        peer.processed = true;
-                	        if(plugin.retrieveCountry)
+                	        if (plugin.retrieveCountry)
                 	        {
 					peer.country = info.country;
 					peer.icon = "geoip geoip_flag_"+peer.country.substr(0,2);
 				}
-				if(plugin.retrieveComments)
+				if (plugin.retrieveComments)
 					peer.comment = info.comment;
 				peer.name = info.host;
 			}
@@ -62,36 +62,33 @@ var thePeersCache =
 plugin.config = theWebUI.config;
 theWebUI.config = function(data)
 {
-	if(plugin.canChangeColumns())
+	if (plugin.retrieveCountry)
 	{
-		if(plugin.retrieveCountry)
+		this.tables.prs.columns.unshift({text : 'Country', width : '60px', id: 'country', type : TYPE_STRING});
+		plugin.prsFormat = this.tables.prs.format;
+		theWebUI.tables.prs.format = function(table,arr)
 		{
-			this.tables.prs.columns.unshift({text : 'Country', width : '60px', id: 'country', type : TYPE_STRING});
-			plugin.prsFormat = this.tables.prs.format;
-			theWebUI.tables.prs.format = function(table,arr)
-			{
-				if(plugin.allStuffLoaded)
-					for(var i in arr)
-					{
-						if(arr[i]==null)
-							arr[i] = '';
-						else
-   						if(table.getIdByCol(i)=="country")
-   						{
-							var countryName = theUILang.country[arr[i].substr(0,2)];
-							if(countryName)
-								arr[i] = countryName+arr[i].substr(2);
-							break;
-						}
-	        			}
-				return(plugin.prsFormat(table,arr));
-			}
+			if (plugin.allStuffLoaded)
+				for (var i in arr)
+				{
+					if (arr[i]==null)
+						arr[i] = '';
+					else
+						if (table.getIdByCol(i)=="country")
+						{
+						var countryName = theUILang.country[arr[i].substr(0,2)];
+						if (countryName)
+							arr[i] = countryName+arr[i].substr(2);
+						break;
+					}
+        			}
+			return(plugin.prsFormat(table,arr));
 		}
-		if(plugin.retrieveComments)
-			this.tables.prs.columns.push({text : 'Comment', width : '200px', id: 'comment', type : TYPE_STRING});
 	}
+	if (plugin.retrieveComments)
+		this.tables.prs.columns.push({text : 'Comment', width : '200px', id: 'comment', type : TYPE_STRING});
 	plugin.config.call(this,data);
-	if((plugin.retrieveCountry || plugin.retrieveComments) && plugin.canChangeColumns())
+	if ((plugin.retrieveCountry || plugin.retrieveComments))
 		plugin.done();
 }
 
@@ -99,15 +96,15 @@ plugin.getpeersResponse = rTorrentStub.prototype.getpeersResponse;
 rTorrentStub.prototype.getpeersResponse = function(xml)
 {
 	var peers = plugin.getpeersResponse.call(this,xml);
-	if(plugin.enabled)
+	if (plugin.enabled)
 	{
 		var content = "";
 		$.each( peers, function(id,peer)
 		{
-			if(!thePeersCache.fill(peer))
+			if (!thePeersCache.fill(peer))
 				content += ("&ip="+peer.ip);
 		});
-		if(content.length)
+		if (content.length)
 		{
 			var AjaxReq = jQuery.ajax(
 			{
@@ -135,47 +132,44 @@ rTorrentStub.prototype.getpeersResponse = function(xml)
 	return(peers);
 }
 
-if(plugin.canChangeColumns())
+plugin.done = function()
 {
-	plugin.done = function()
+	if (plugin.allStuffLoaded)
 	{
-		if(plugin.allStuffLoaded)
+		var table = theWebUI.getTable("prs");
+		table.renameColumnById("country",theUILang.countryName);
+		table.renameColumnById("comment",theUILang.commentName);
+		table.oldFilesSortAlphaNumeric = table.sortAlphaNumeric;
+		table.sortAlphaNumeric = function(x, y)
 		{
-			var table = theWebUI.getTable("prs");
-			table.renameColumnById("country",theUILang.countryName);
-			table.renameColumnById("comment",theUILang.commentName);
-			table.oldFilesSortAlphaNumeric = table.sortAlphaNumeric;
-			table.sortAlphaNumeric = function(x, y) 
+			if (this.getIdByCol(this.sIndex)=="country")
 			{
-				if(this.getIdByCol(this.sIndex)=="country")
-				{
-				        var newX = { key: x.k, v: x.v, e: x.e };
-			        	var newY = { key: y.k, v: y.v, e: y.e };		
-					if(theUILang.country[x.v])
-						newX.v = theUILang.country[x.v];
-					if(theUILang.country[y.v])
-						newY.v = theUILang.country[y.v];
-					return(this.oldFilesSortAlphaNumeric(newX,newY));
-				}
-				return(this.oldFilesSortAlphaNumeric(x,y));
+			        var newX = { key: x.k, v: x.v, e: x.e };
+		        	var newY = { key: y.k, v: y.v, e: y.e };
+				if (theUILang.country[x.v])
+					newX.v = theUILang.country[x.v];
+				if (theUILang.country[y.v])
+					newY.v = theUILang.country[y.v];
+				return(this.oldFilesSortAlphaNumeric(newX,newY));
 			}
-		}       	
-		else
-			setTimeout(arguments.callee,1000);
+			return(this.oldFilesSortAlphaNumeric(x,y));
+		}
 	}
+	else
+		setTimeout(arguments.callee,1000);
 }
 
-if(plugin.canChangeMenu() && plugin.retrieveComments)
+if (plugin.retrieveComments)
 {
 	plugin.createPeerMenu = theWebUI.createPeerMenu;
    	theWebUI.createPeerMenu = function(e, id)
 	{
-		if(plugin.createPeerMenu.call(theWebUI,e,id))
+		if (plugin.createPeerMenu.call(theWebUI,e,id))
 		{
 			var el = theContextMenu.get( theUILang.peerAdd );
-			if(el)
+			if (el)
 			{
-				theContextMenu.add(el,[theUILang.peerComment+'...', 
+				theContextMenu.add(el,[theUILang.peerComment+'...',
 					this.isTorrentCommandEnabled('commentpeer',this.dID) && (theWebUI.getTable("prs").selCount==1) ? "theDialogManager.show('cadd')" : null]);
 				return(true);
 			}
@@ -205,7 +199,7 @@ if(plugin.canChangeMenu() && plugin.retrieveComments)
 
 plugin.onLangLoaded = function()
 {
-	if(plugin.retrieveComments)
+	if (plugin.retrieveComments)
 	{
 		theDialogManager.make("cadd",theUILang.peerComment,
 			'<div class="content fxcaret">'+theUILang.peerCommentLabel+'<br><input type="text" id="peerComment" class="Textbox" maxlength="64"/></div>'+
@@ -223,8 +217,8 @@ plugin.onLangLoaded = function()
 
 plugin.onRemove = function()
 {
-        if(plugin.retrieveCountry)
+        if (plugin.retrieveCountry)
 		theWebUI.getTable("prs").removeColumnById("country");
-        if(plugin.retrieveComments)
+        if (plugin.retrieveComments)
 		theWebUI.getTable("prs").removeColumnById("country");
 }

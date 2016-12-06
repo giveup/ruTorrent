@@ -1,65 +1,62 @@
 plugin.loadLang();
 plugin.loadMainCSS();
 
-if(plugin.canChangeOptions())
+plugin.accaddAndShowSettings = theWebUI.addAndShowSettings;
+theWebUI.addAndShowSettings = function(arg)
 {
-	plugin.accaddAndShowSettings = theWebUI.addAndShowSettings;
-	theWebUI.addAndShowSettings = function(arg)
+	if (plugin.enabled)
 	{
-		if(plugin.enabled)
+		$.each( theWebUI.theAccounts, function(name,val)
 		{
-			$.each( theWebUI.theAccounts, function(name,val)
-			{
-				$('#'+name+'_lmenabled').prop("checked", (val.enabled==1));
-				$('#'+name+'_lmlogin').val(val.login);
-				$('#'+name+'_lmauto').val(val.auto);
-				$('#'+name+'_lmpassword').val(val.password);
-				$('#'+name+'_lmenabled').change();
-			});
+			$('#'+name+'_lmenabled').prop("checked", (val.enabled==1));
+			$('#'+name+'_lmlogin').val(val.login);
+			$('#'+name+'_lmauto').val(val.auto);
+			$('#'+name+'_lmpassword').val(val.password);
+			$('#'+name+'_lmenabled').change();
+		});
+	}
+	plugin.accaddAndShowSettings.call(theWebUI,arg);
+}
+
+plugin.accWasChanged = function()
+{
+	var ret = false;
+	$.each( theWebUI.theAccounts, function(name,val)
+	{
+		if ( ($('#'+name+'_lmenabled').prop("checked") ^ val.enabled) ||
+			($('#'+name+'_lmauto').val()!=val.auto) ||
+			($('#'+name+'_lmlogin').val()!=val.login) ||
+			($('#'+name+'_lmpassword').val()!=val.password))
+		{
+			ret = true;
+			return(false);
 		}
-		plugin.accaddAndShowSettings.call(theWebUI,arg);
-	}
+	});
+	return(ret);
+}
 
-	plugin.accWasChanged = function()
-	{
-		var ret = false;
-		$.each( theWebUI.theAccounts, function(name,val)
-		{
-			if( ($('#'+name+'_lmenabled').prop("checked") ^ val.enabled) ||
-				($('#'+name+'_lmauto').val()!=val.auto) ||
-				($('#'+name+'_lmlogin').val()!=val.login) ||
-				($('#'+name+'_lmpassword').val()!=val.password))
-			{
-				ret = true;
-				return(false);
-			}
-		});
-		return(ret);
-	}
+plugin.accSettings = theWebUI.setSettings;
+theWebUI.setSettings = function()
+{
+	plugin.accSettings.call(this);
+	if (plugin.enabled && plugin.accWasChanged())
+		this.request("?action=setacc");
+}
 
-	plugin.accSettings = theWebUI.setSettings;
-	theWebUI.setSettings = function()
+rTorrentStub.prototype.setacc = function()
+{
+	var s = '';
+	$.each( theWebUI.theAccounts, function(name,val)
 	{
-		plugin.accSettings.call(this);
-		if(plugin.enabled && plugin.accWasChanged())
-			this.request("?action=setacc");
-	}
-
-	rTorrentStub.prototype.setacc = function()
-	{
-		var s = '';
-		$.each( theWebUI.theAccounts, function(name,val)
-		{
-			s+=("&"+name+"_enabled="+($('#'+name+'_lmenabled').prop("checked") ? 1 : 0)+
-				"&"+name+"_auto="+$('#'+name+'_lmauto').val()+
-				"&"+name+"_login="+encodeURIComponent($('#'+name+'_lmlogin').val().trim())+
-				"&"+name+"_password="+encodeURIComponent($('#'+name+'_lmpassword').val().trim()));
-		});
-		this.content = "mode=set"+s;
-	        this.contentType = "application/x-www-form-urlencoded";
-		this.mountPoint = "plugins/loginmgr/action.php";
-		this.dataType = "script";
-	}
+		s+=("&"+name+"_enabled="+($('#'+name+'_lmenabled').prop("checked") ? 1 : 0)+
+			"&"+name+"_auto="+$('#'+name+'_lmauto').val()+
+			"&"+name+"_login="+encodeURIComponent($('#'+name+'_lmlogin').val().trim())+
+			"&"+name+"_password="+encodeURIComponent($('#'+name+'_lmpassword').val().trim()));
+	});
+	this.content = "mode=set"+s;
+    this.contentType = "application/x-www-form-urlencoded";
+	this.mountPoint = "plugins/loginmgr/action.php";
+	this.dataType = "script";
 }
 
 plugin.onLangLoaded = function()

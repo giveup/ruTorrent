@@ -55,11 +55,11 @@ class XMPPHP_BOSH extends XMPPHP_XMPP {
 
 			$this->rid = 3001;
 			$this->sid = null;
-			if($session)
+			if ($session)
 			{
 				$this->loadSession();
 			}
-			if(!$this->sid) {
+			if (!$this->sid) {
 				$body = $this->__buildBody();
 				$body->addAttribute('hold','1');
 				$body->addAttribute('to', $this->host);
@@ -82,7 +82,7 @@ class XMPPHP_BOSH extends XMPPHP_XMPP {
 		}
 
 		public function __sendBody($body=null, $recv=true) {
-			if(!$body) {
+			if (!$body) {
 				$body = $this->__buildBody();
 			}
 			$ch = curl_init($this->http_server);
@@ -94,7 +94,7 @@ class XMPPHP_BOSH extends XMPPHP_XMPP {
 			curl_setopt($ch, CURLOPT_HTTPHEADER, $header );
 			curl_setopt($ch, CURLOPT_VERBOSE, 0);
 			$output = '';
-			if($recv) {
+			if ($recv) {
 				curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 				$output = curl_exec($ch);
 				$this->http_buffer[] = $output;
@@ -108,10 +108,10 @@ class XMPPHP_BOSH extends XMPPHP_XMPP {
 			$xml->addAttribute('content', 'text/xml; charset=utf-8');
 			$xml->addAttribute('rid', $this->rid);
 			$this->rid += 1;
-			if($this->sid) $xml->addAttribute('sid', $this->sid);
-			#if($this->sid) $xml->addAttribute('xmlns', 'http://jabber.org/protocol/httpbind');
+			if ($this->sid) $xml->addAttribute('sid', $this->sid);
+			#if ($this->sid) $xml->addAttribute('xmlns', 'http://jabber.org/protocol/httpbind');
 			$xml->addAttribute('xml:lang', 'en');
-			if($sub) { // ok, so simplexml is lame
+			if ($sub) { // ok, so simplexml is lame
 				$p = dom_import_simplexml($xml);
 				$c = dom_import_simplexml($sub);
 				$cn = $p->ownerDocument->importNode($c, true);
@@ -122,7 +122,7 @@ class XMPPHP_BOSH extends XMPPHP_XMPP {
 		}
 
 		public function __process() {
-			if($this->http_buffer) {
+			if ($this->http_buffer) {
 				$this->__parseBuffer();
 			} else {
 				$this->__sendBody();
@@ -135,7 +135,7 @@ class XMPPHP_BOSH extends XMPPHP_XMPP {
 				$idx = key($this->http_buffer);
 				$buffer = $this->http_buffer[$idx];
 				unset($this->http_buffer[$idx]);
-				if($buffer) {
+				if ($buffer) {
 					$xml = new SimpleXMLElement($buffer);
 					$children = $xml->xpath('child::node()');
 					foreach ($children as $child) {
@@ -158,7 +158,7 @@ class XMPPHP_BOSH extends XMPPHP_XMPP {
 		public function reset() {
 			$this->xml_depth = 0;
 			unset($this->xmlobj);
-			$this->xmlobj = array();
+			$this->xmlobj = [];
 			$this->setupParser();
 			#$this->send($this->stream_start);
 			$body = $this->__buildBody();
@@ -171,11 +171,11 @@ class XMPPHP_BOSH extends XMPPHP_XMPP {
 		}
 
 		public function loadSession() {
-			if(isset($_SESSION['XMPPHP_BOSH_RID'])) $this->rid = $_SESSION['XMPPHP_BOSH_RID'];
-			if(isset($_SESSION['XMPPHP_BOSH_SID'])) $this->sid = $_SESSION['XMPPHP_BOSH_SID'];
-			if(isset($_SESSION['XMPPHP_BOSH_authed'])) $this->authed = $_SESSION['XMPPHP_BOSH_authed'];
-			if(isset($_SESSION['XMPPHP_BOSH_jid'])) $this->jid = $_SESSION['XMPPHP_BOSH_jid'];
-			if(isset($_SESSION['XMPPHP_BOSH_fulljid'])) $this->fulljid = $_SESSION['XMPPHP_BOSH_fulljid'];
+			if (isset($_SESSION['XMPPHP_BOSH_RID'])) $this->rid = $_SESSION['XMPPHP_BOSH_RID'];
+			if (isset($_SESSION['XMPPHP_BOSH_SID'])) $this->sid = $_SESSION['XMPPHP_BOSH_SID'];
+			if (isset($_SESSION['XMPPHP_BOSH_authed'])) $this->authed = $_SESSION['XMPPHP_BOSH_authed'];
+			if (isset($_SESSION['XMPPHP_BOSH_jid'])) $this->jid = $_SESSION['XMPPHP_BOSH_jid'];
+			if (isset($_SESSION['XMPPHP_BOSH_fulljid'])) $this->fulljid = $_SESSION['XMPPHP_BOSH_fulljid'];
 		}
 
 		public function saveSession() {

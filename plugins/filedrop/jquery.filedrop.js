@@ -221,7 +221,7 @@
     	            if (files[fileIndex].size > max_file_size) {
     	              opts.error(errors[2], files[fileIndex], fileIndex);
     	              // Remove from queue
-    	              processingQueue.forEach(function(value, key) {
+    	              processingQueue.foreach (function(value, key) {
     	                if (value === fileIndex) processingQueue.splice(key, 1);
     	              });
     	              filesRejected++;
@@ -235,7 +235,7 @@
     	          }
     	        } catch (err) {
     	          // Remove from queue
-    	          processingQueue.forEach(function(value, key) {
+    	          processingQueue.foreach (function(value, key) {
     	            if (value === fileIndex) processingQueue.splice(key, 1);
     	          });
     	          opts.error(errors[0]);
@@ -303,7 +303,7 @@
               filesDone++;
 
               // Remove from processing queue
-              processingQueue.forEach(function(value, key) {
+              processingQueue.foreach (function(value, key) {
                 if (value === fileIndex) processingQueue.splice(key, 1);
               });
 

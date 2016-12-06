@@ -184,7 +184,6 @@ var theUILang =
  pnlState			: "Состояние",
  newLabel			: "Новая метка",
  enterLabel			: "Введите метку",
- UIEffects			: "Анимация UI элементов",
  Plugins			: "Плагины",
  plgName			: "Имя",
  plgStatus			: "Статус",

@@ -10,20 +10,20 @@ class ExtraTorrentEngine extends commonEngine
 	{
 		$added = 0;
 		$url = 'http://extratorrent.cc';
-		if($useGlobalCats)
+		if ($useGlobalCats)
 			$categories = array( 'all'=>'', 'movies'=>'4', 'tv'=>'8', 'music'=>'5', 'games'=>'3', 'anime'=>'1', 'software'=>'7', 'pictures'=>'6', 'books'=>'2' );
 		else
 			$categories = &$this->categories;
-		if(!array_key_exists($cat,$categories))
+		if (!array_key_exists($cat,$categories))
 			$cat = $categories['all'];
 		else
 			$cat = $categories[$cat];
 
-		for($pg = 1; $pg<11; $pg++)
+		for ($pg = 1; $pg<11; $pg++)
 		{
 			$cli = $this->fetch( $url.'/advanced_search/?page='.$pg.'&with='.$what.'&seeds_from=1&srt=seeds&order=desc&pp=50&s_cat='.$cat.'&size_to=#results' );
 
-			if(($cli==false) || (strpos($cli->results, "<i>No torrents</i>")!==false))
+			if (($cli==false) || (strpos($cli->results, "<i>No torrents</i>")!==false))
 				break;
 
 			$res = preg_match_all('`<tr class="tl.*"><td><a href="/torrent_download/.*" title="Download .*">'.
@@ -34,12 +34,12 @@ class ExtraTorrentEngine extends commonEngine
 				'<td class="l.">(?P<leech>.*)</td>'.
 				'`siU', $cli->results, $matches );
 
-			if($res)
+			if ($res)
 			{
-				for( $i=0; $i<$res; $i++)
+				for ( $i=0; $i<$res; $i++)
 				{
 					$link = $url."/download/".$matches["id"][$i];
-					if(!array_key_exists($link,$ret))
+					if (!array_key_exists($link,$ret))
 					{
 						$item = $this->getNewEntry();
 						$item["desc"] = $url."/torrent/".$matches["id"][$i];
@@ -50,7 +50,7 @@ class ExtraTorrentEngine extends commonEngine
 						$item["peers"] = intval(self::removeTags($matches["leech"][$i]));
 						$ret[$link] = $item;
 						$added++;
-						if($added>=$limit)
+						if ($added>=$limit)
 							return;
 					}
 				}

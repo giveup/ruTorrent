@@ -23,7 +23,7 @@ theSearchEngines.isPublicPresent = function(enable)
 	var ret = false;
 	$.each(this.sites,function(ndx,val)
 	{
-		if((val.public==enable) && val.enabled && val.global)
+		if ((val.public==enable) && val.enabled && val.global)
 		{
 			ret = true;
 			return(false);
@@ -35,22 +35,22 @@ theSearchEngines.isPublicPresent = function(enable)
 plugin.sitesShow = theSearchEngines.show;
 theSearchEngines.show = function()
 {
-	if(plugin.enabled)
+	if (plugin.enabled)
 	{
 		theContextMenu.clear();
 		theSearchEngines.checkForIncorrectCurrent(false);
-		if(theSearchEngines.current=='all')
+		if (theSearchEngines.current=='all')
 			theContextMenu.add([CMENU_SEL, theUILang.All, "theSearchEngines.set('all')"]);
 		else
 			theContextMenu.add([theUILang.All, "theSearchEngines.set('all')"]);
 
-		if(this.isPublicPresent(true) && this.isPublicPresent(false))
+		if (this.isPublicPresent(true) && this.isPublicPresent(false))
 		{
-			if(theSearchEngines.current=='public')
+			if (theSearchEngines.current=='public')
 				theContextMenu.add([CMENU_SEL, theUILang.extAllPublic, "theSearchEngines.set('public')"]);
 			else
 				theContextMenu.add([theUILang.extAllPublic, "theSearchEngines.set('public')"]);
-			if(theSearchEngines.current=='private')
+			if (theSearchEngines.current=='private')
 				theContextMenu.add([CMENU_SEL, theUILang.extAllPrivate, "theSearchEngines.set('private')"]);
 			else
 				theContextMenu.add([theUILang.extAllPrivate, "theSearchEngines.set('private')"]);
@@ -63,33 +63,33 @@ theSearchEngines.show = function()
 		var privatePresent = false;
 		$.each(this.sites,function(ndx,val)
 		{
-			if(val.enabled)
+			if (val.enabled)
 			{
-				if(val.public)
+				if (val.public)
 					publicPresent = true;
 				else
 					privatePresent = true;
-				if(publicPresent && privatePresent)
+				if (publicPresent && privatePresent)
 					return(false);
 			}
 		});
 
 		$.each(this.sites,function(ndx,val)
 		{
-			if(val.enabled)
+			if (val.enabled)
 			{
-				if(publicPresent && privatePresent)
+				if (publicPresent && privatePresent)
 				{
-				        if(val.public)
+				        if (val.public)
 				        {
-						if(theSearchEngines.current==ndx)
+						if (theSearchEngines.current==ndx)
 							public.push([CMENU_SEL, ndx, "theSearchEngines.set('"+ndx+"')"]);
 						else
 							public.push([ndx, "theSearchEngines.set('"+ndx+"')"]);
 					}
 					else
 				        {
-						if(theSearchEngines.current==ndx)
+						if (theSearchEngines.current==ndx)
 							private.push([CMENU_SEL, ndx, "theSearchEngines.set('"+ndx+"')"]);
 						else
 							private.push([ndx, "theSearchEngines.set('"+ndx+"')"]);
@@ -97,23 +97,23 @@ theSearchEngines.show = function()
 				}
 				else
 				{
-					if(theSearchEngines.current==ndx)
+					if (theSearchEngines.current==ndx)
 						theContextMenu.add([CMENU_SEL, ndx, "theSearchEngines.set('"+ndx+"')"]);
 					else
 						theContextMenu.add([ndx, "theSearchEngines.set('"+ndx+"')"]);
 				}
 			}
 			else
-				if(theSearchEngines.current==ndx)
+				if (theSearchEngines.current==ndx)
 					theSearchEngines.current=-1;
 		});
-		if(public.length)
+		if (public.length)
 			theContextMenu.add([CMENU_CHILD, theUILang.extPublic, public]);
-		if(private.length)
+		if (private.length)
 			theContextMenu.add([CMENU_CHILD, theUILang.extPrivate, private]);
-		if(publicPresent || privatePresent)
+		if (publicPresent || privatePresent)
 			theContextMenu.add([CMENU_SEP]);
-		if(theSearchEngines.current==-1)
+		if (theSearchEngines.current==-1)
 			theContextMenu.add([CMENU_SEL, theUILang.innerSearch, "theSearchEngines.set(-1)"]);
 		else
 			theContextMenu.add([theUILang.innerSearch, "theSearchEngines.set(-1)"]);
@@ -126,16 +126,16 @@ theSearchEngines.show = function()
 
 theSearchEngines.checkForIncorrectCurrent = function( refreshCats )
 {
-	if(plugin.enabled)
+	if (plugin.enabled)
 	{
-		if(($type(theSearchEngines.current)=="number") && (theSearchEngines.current>=0))
+		if (($type(theSearchEngines.current)=="number") && (theSearchEngines.current>=0))
 		{
 			theSearchEngines.current = -1;
 			theWebUI.save();
 		}
 		else
 		{
-			if((    (theSearchEngines.current!='all') &&
+			if ((    (theSearchEngines.current!='all') &&
 				(theSearchEngines.current!='private') &&
 				(theSearchEngines.current!='public') &&
 				(!$type(theSearchEngines.sites[theSearchEngines.current]) || !theSearchEngines.sites[theSearchEngines.current].enabled)
@@ -150,7 +150,7 @@ theSearchEngines.checkForIncorrectCurrent = function( refreshCats )
 				theWebUI.save();
 			};
 		}
-		if(refreshCats)
+		if (refreshCats)
 			plugin.refreshCategories();
 	}
 }
@@ -158,13 +158,13 @@ theSearchEngines.checkForIncorrectCurrent = function( refreshCats )
 plugin.sitesRun = theSearchEngines.run;
 theSearchEngines.run = function()
 {
-	if(plugin.enabled)
+	if (plugin.enabled)
 	{
 		var s = $("#query").val().trim();
-		if(s.length)
+		if (s.length)
 		{
 			this.checkForIncorrectCurrent(false);
-		        if(theSearchEngines.current==-1)
+		        if (theSearchEngines.current==-1)
 			        theWebUI.setTeg(s);
 			else
 			{
@@ -188,19 +188,19 @@ rTorrentStub.prototype.extsearch = function()
 rTorrentStub.prototype.loadtegtorrents = function()
 {
 	this.content = "mode=loadtorrents";
-	if($("#tegtorrents_start_stopped").prop("checked"))
+	if ($("#tegtorrents_start_stopped").prop("checked"))
 		this.content += '&torrents_start_stopped=1';
-	if($("#tegnot_add_path").prop("checked"))
+	if ($("#tegnot_add_path").prop("checked"))
 		this.content += '&not_add_path=1';
 	var dir = $("#tegdir_edit").val().trim();
-	if(dir.length)
+	if (dir.length)
 		this.content += ('&dir_edit='+encodeURIComponent(dir));
 	var lbl = $("#teglabel").val().trim();
-	if(lbl.length)
+	if (lbl.length)
 		this.content += '&label='+encodeURIComponent(lbl);
-	if($("#tegfast_resume").prop("checked"))
+	if ($("#tegfast_resume").prop("checked"))
 		this.content += 'fast_resume=1&';
-	for(var i = 0; i<plugin.tegArray.length; i++)
+	for (var i = 0; i<plugin.tegArray.length; i++)
 	{
 		var item = plugin.tegArray[i];
 		this.content += ('&url='+encodeURIComponent(item.data.link)+'&eng='+item.data.src+'&teg='+item.id+'&ndx='+item.ndx);
@@ -216,7 +216,7 @@ plugin.tegArray = new Array();
 
 plugin.reloadData = function(id)
 {
-	if($type(plugin.tegs[id]))
+	if ($type(plugin.tegs[id]))
 	{
 		var table = theWebUI.getTable("teg");
 		table.noSort = true;
@@ -224,12 +224,12 @@ plugin.reloadData = function(id)
 		table.scrollTo(0);
 		var data = plugin.tegs[id].data;
 		var count = 0;
-		for( var i = 0; i<data.length; i++ )
+		for ( var i = 0; i<data.length; i++ )
 		{
 			var item = data[i];
-			if(!item.deleted)
+			if (!item.deleted)
 			{
-				if(item.hash && $type(theWebUI.torrents[item.hash]))
+				if (item.hash && $type(theWebUI.torrents[item.hash]))
 				{
 					table.addRow(theWebUI.getTable("trt").getValues(item.hash),
 						id+'$'+i, theWebUI.getTable("trt").getIcon(item.hash));
@@ -248,7 +248,7 @@ plugin.reloadData = function(id)
 				count++;
 			}
 		}
-		if(table.sIndex !=- 1)
+		if (table.sIndex !=- 1)
 			table.Sort();
 		plugin.correctCounter(id,count);
 		table.noSort = false;
@@ -260,7 +260,7 @@ plugin.enterTeg = function()
 	plugin.reloadData(theWebUI.actLbl);
 	var lst = $("#List");
 	var table = theWebUI.getTable("teg");
-	if(lst.is(":visible"))
+	if (lst.is(":visible"))
 	{
 		theWebUI.getTable("trt").clearSelection();
 		theWebUI.dID = "";
@@ -281,14 +281,14 @@ plugin.leaveTeg = function()
 
 plugin.correctCounter = function(id,count)
 {
-	if($type(plugin.tegs[id]))
+	if ($type(plugin.tegs[id]))
 	{
-		if(count===null)
+		if (count===null)
 		{
 			count = 0;
 			var data = plugin.tegs[id].data;
-			for( var i = 0; i<data.length; i++ )
-				if(!data[i].deleted)
+			for ( var i = 0; i<data.length; i++ )
+				if (!data[i].deleted)
 					count++;
 		}
 		$("#"+id+"-c").text(count);
@@ -299,25 +299,25 @@ plugin.correctCounter = function(id,count)
 plugin.switchLabel = theWebUI.switchLabel;
 theWebUI.switchLabel = function(obj)
 {
-	if(plugin.enabled && theWebUI.actLbl && $type(plugin.tegs[theWebUI.actLbl]))
+	if (plugin.enabled && theWebUI.actLbl && $type(plugin.tegs[theWebUI.actLbl]))
 		plugin.leaveTeg();
 	plugin.switchLabel.call(theWebUI,obj);
-	if(plugin.enabled && theWebUI.actLbl && $type(plugin.tegs[theWebUI.actLbl]))
+	if (plugin.enabled && theWebUI.actLbl && $type(plugin.tegs[theWebUI.actLbl]))
 		plugin.enterTeg();
 }
 
 plugin.filterByLabel = theWebUI.filterByLabel;
 theWebUI.filterByLabel = function(hash)
 {
-        if(!$($$(this.actLbl)).hasClass("exteg"))
+        if (!$($$(this.actLbl)).hasClass("exteg"))
 		plugin.filterByLabel.call(theWebUI,hash);
 }
 
 theWebUI.setTagsHash = function(d)
 {
-	if($type(plugin.tegs[d.teg]))
+	if ($type(plugin.tegs[d.teg]))
 	{
-		for( var i=0; i<d.data.length; i++ )
+		for ( var i=0; i<d.data.length; i++ )
 		{
 			var item = plugin.tegs[d.teg].data[ d.data[i].ndx ];
 			item.hash = d.data[i].hash;
@@ -339,14 +339,14 @@ theWebUI.extTegLoad = function()
 
 theWebUI.extTegOpen = function()
 {
-	for(var i = 0; i<plugin.tegArray.length; i++)
+	for (var i = 0; i<plugin.tegArray.length; i++)
 		window.open(plugin.tegArray[i].data.desc,"_blank");
 }
 
 theWebUI.tegItemRemove = function()
 {
 	var table = theWebUI.getTable("teg");
-	for(var i = 0; i<plugin.tegArray.length; i++)
+	for (var i = 0; i<plugin.tegArray.length; i++)
 	{
 		plugin.tegs[theWebUI.actLbl].data[plugin.tegArray[i].ndx].deleted = true;
 		table.removeRow( theWebUI.actLbl+"$"+plugin.tegArray[i].ndx );
@@ -358,7 +358,7 @@ theWebUI.tegItemRemove = function()
 theWebUI.showTegURLInfo = function()
 {
 	var table = theWebUI.getTable("teg");
-	for(var i = 0; i<plugin.tegArray.length; i++)
+	for (var i = 0; i<plugin.tegArray.length; i++)
 	{
 		log(theUILang.exsURLGUID+": "+plugin.tegs[theWebUI.actLbl].data[plugin.tegArray[i].ndx].desc);
 		log(theUILang.exsURLHref+": "+plugin.tegs[theWebUI.actLbl].data[plugin.tegArray[i].ndx].link);
@@ -379,15 +379,15 @@ plugin.createExtTegMenu = function(e, id)
 	plugin.tegArray = new Array();
 
 	var sr = theWebUI.getTable("teg").rowSel;
-	for(var k in sr)
+	for (var k in sr)
 	{
-		if(sr[k] == true)
+		if (sr[k] == true)
 		{
 			var nfo = plugin.getTegByRowId(k);
-			if(nfo)
+			if (nfo)
 			{
 				var hash = nfo.data.hash;
-				if(hash && $type(theWebUI.torrents[hash]))
+				if (hash && $type(theWebUI.torrents[hash]))
 					trtArray.push(hash);
 				else
 					plugin.tegArray.push(nfo);
@@ -395,26 +395,21 @@ plugin.createExtTegMenu = function(e, id)
 		}
 	}
 	theContextMenu.clear();
-	if(plugin.tegArray.length)
+	if (plugin.tegArray.length)
 	{
-	        if(plugin.canChangeMenu())
-	        {
-			theContextMenu.add([ theUILang.tegMenuLoad, "theWebUI.extTegLoad()"]);
-			theContextMenu.add([ theUILang.tegMenuOpen, "theWebUI.extTegOpen()"]);
-			theContextMenu.add([ theUILang.tegMenuDeleteItem, "theWebUI.tegItemRemove()"]);
-			theContextMenu.add([ theUILang.exsURLInfo, "theWebUI.showTegURLInfo()"] );
-		}
-		else
-			theContextMenu.hide();
+		theContextMenu.add([ theUILang.tegMenuLoad, "theWebUI.extTegLoad()"]);
+		theContextMenu.add([ theUILang.tegMenuOpen, "theWebUI.extTegOpen()"]);
+		theContextMenu.add([ theUILang.tegMenuDeleteItem, "theWebUI.tegItemRemove()"]);
+		theContextMenu.add([ theUILang.exsURLInfo, "theWebUI.showTegURLInfo()"] );
 	}
 	else
-	if(trtArray.length)
+	if (trtArray.length)
 	{
 	        var table = theWebUI.getTable("trt");
-		for(var k in table.rowSel)
+		for (var k in table.rowSel)
 			table.rowSel[k] = false;
 		table.selCount = trtArray.length;
-		for(var i = 0; i<trtArray.length; i++)
+		for (var i = 0; i<trtArray.length; i++)
 			table.rowSel[trtArray[i]] = true;
 		table.refreshSelection();
 		theWebUI.dID = trtArray[0];
@@ -424,32 +419,24 @@ plugin.createExtTegMenu = function(e, id)
 
 plugin.extTegContextMenu = function(e)
 {
-        if(e.which==3)
+        if (e.which==3)
         {
-		if(plugin.canChangeMenu())
+		var table = theWebUI.getTable("teg");
+		theWebUI.getTable("trt").clearSelection();
+		table.clearSelection();
+		theWebUI.switchLabel(this);
+		table.fillSelection();
+		var id = table.getFirstSelected();
+		if (id)
 		{
-			var table = theWebUI.getTable("teg");
-			theWebUI.getTable("trt").clearSelection();
-			table.clearSelection();
-			theWebUI.switchLabel(this);
-			table.fillSelection();
-			var id = table.getFirstSelected();
-			if(id)
-			{
-				plugin.createExtTegMenu(null, id);
-		   		theContextMenu.add([CMENU_SEP]);
-			}
-			else
-				theContextMenu.clear();
-			theContextMenu.add([ theUILang.tegRefresh,  "theWebUI.tegRefresh()"]);
-			theContextMenu.add([ theUILang.tegMenuDelete, "theWebUI.extTegDelete()"]);
-			theContextMenu.show();
+			plugin.createExtTegMenu(null, id);
+	   		theContextMenu.add([CMENU_SEP]);
 		}
 		else
-		{
-			theContextMenu.hide();
-			theWebUI.switchLabel(this);
-		}
+			theContextMenu.clear();
+		theContextMenu.add([ theUILang.tegRefresh,  "theWebUI.tegRefresh()"]);
+		theContextMenu.add([ theUILang.tegMenuDelete, "theWebUI.extTegDelete()"]);
+		theContextMenu.show();
 	}
 	else
 		theWebUI.switchLabel(this);
@@ -461,8 +448,8 @@ theWebUI.setExtSearchTag = function( d )
 	$("#query").removeAttr("readonly");
 	var what = $("#query").val().trim();
 	var str = theSearchEngines.getEngName(d.eng)+"/"+($type(theUILang["excat"+d.cat]) ? theUILang["excat"+d.cat] : d.cat)+": "+what;
-	for( var id in plugin.tegs )
-		if(plugin.tegs[id].val==str)
+	for ( var id in plugin.tegs )
+		if (plugin.tegs[id].val==str)
 		{
 			plugin.tegs[id].data = d.data;
 			theWebUI.switchLabel($$(id));
@@ -481,11 +468,11 @@ theWebUI.setExtSearchTag = function( d )
 plugin.getTegByRowId = function( rowId )
 {
 	var pos = rowId.indexOf('$');
-	if(pos>0)
+	if (pos>0)
 	{
 		var tegId = rowId.substr(0,pos);
 		var index = rowId.substr(pos+1);
-		if($type(plugin.tegs[tegId]) && (plugin.tegs[tegId].data.length>index))
+		if ($type(plugin.tegs[tegId]) && (plugin.tegs[tegId].data.length>index))
 			return( { id: tegId, ndx: index, data: plugin.tegs[tegId].data[index] } );
 	}
 	return(null);
@@ -496,17 +483,17 @@ theWebUI.loadTorrents = function(needSort)
 {
 	plugin.loadTorrents.call(this,needSort);
 	var table = this.getTable("teg");
-	if(plugin.enabled && this.actLbl && $type(plugin.tegs[this.actLbl]))
+	if (plugin.enabled && this.actLbl && $type(plugin.tegs[this.actLbl]))
 	{
 		var updated = false;
 		var tegItems = plugin.tegs[this.actLbl].data;
-		for(var i=0; i<tegItems.length; i++)
+		for (var i=0; i<tegItems.length; i++)
 		{
 			var item = tegItems[i];
 			var ndx = this.actLbl+'$'+i;
-			if($type(table.rowdata[ndx]))
+			if ($type(table.rowdata[ndx]))
 			{
-				if((item.hash!="") && $type(this.torrents[item.hash]))
+				if ((item.hash!="") && $type(this.torrents[item.hash]))
 					updated = table.updateRowFrom(this.getTable("trt"),item.hash,ndx) || updated;
 				else
 				{
@@ -524,14 +511,14 @@ theWebUI.loadTorrents = function(needSort)
 				}
 			}
 		}
-		if(updated && (table.sIndex !=- 1))
+		if (updated && (table.sIndex !=- 1))
 			table.Sort();
 	}
 }
 
 theWebUI.tegRefresh = function()
 {
-	if($type(plugin.tegs[theWebUI.actLbl]))
+	if ($type(plugin.tegs[theWebUI.actLbl]))
 	{
 		var item = plugin.tegs[theWebUI.actLbl];
 		$("#query").val(item.what).prop("readonly",true);
@@ -543,23 +530,23 @@ theWebUI.tegItemSelect = function(e,id)
 {
 	var sr = theWebUI.getTable("teg").rowSel;
 	var trtArray = new Array();
-	for(var k in sr)
+	for (var k in sr)
 	{
-		if(sr[k] == true)
+		if (sr[k] == true)
 		{
 			var nfo = plugin.getTegByRowId(k);
-			if(nfo && nfo.data.hash && $type(theWebUI.torrents[nfo.data.hash]))
+			if (nfo && nfo.data.hash && $type(theWebUI.torrents[nfo.data.hash]))
 				trtArray.push(nfo.data.hash);
 		}
 	}
 	var table = theWebUI.getTable("trt");
-	for(var k in table.rowSel)
+	for (var k in table.rowSel)
 		table.rowSel[k] = false;
 	table.selCount = trtArray.length;
-	for(var i = 0; i<trtArray.length; i++)
+	for (var i = 0; i<trtArray.length; i++)
 		table.rowSel[trtArray[i]] = true;
 	table.refreshSelection();
-	if(id && (nfo = plugin.getTegByRowId(id)) &&
+	if (id && (nfo = plugin.getTegByRowId(id)) &&
 		nfo.data.hash &&
 		$type(theWebUI.torrents[nfo.data.hash]))
 		theWebUI.trtSelect(e, nfo.data.hash);
@@ -567,22 +554,21 @@ theWebUI.tegItemSelect = function(e,id)
 	{
 		theWebUI.dID = "";
 		theWebUI.clearDetails();
-		if((e.which==3) && plugin.canChangeMenu())
-		{
+		if ((e.which==3)) {
 			plugin.createExtTegMenu(e, id);
 			theContextMenu.show();
-		}
-		else
+		} else {
 			theContextMenu.hide();
+		}
 	}
 }
 
 theWebUI.tegItemDblClick = function(obj)
 {
 	var nfo = plugin.getTegByRowId(obj.id);
-	if(nfo)
+	if (nfo)
 	{
-		if(nfo.data.hash && $type(theWebUI.torrents[nfo.data.hash]))
+		if (nfo.data.hash && $type(theWebUI.torrents[nfo.data.hash]))
 		{
 			var tmp = new Object();
 	                tmp.id = nfo.data.hash;
@@ -612,12 +598,12 @@ theWebUI.config = function(data)
 	theSearchEngines.checkForIncorrectCurrent(true);
 }
 
-if(plugin.enabled && plugin.canChangeOptions())
+if (plugin.enabled)
 {
 	plugin.andShowSettings = theWebUI.addAndShowSettings;
 	theWebUI.addAndShowSettings = function(arg)
 	{
-		if(plugin.enabled)
+		if (plugin.enabled)
 		{
 			$('#exs_limit').val(theSearchEngines.globalLimit);
 			$.each(theSearchEngines.sites,function(ndx,val)
@@ -626,7 +612,7 @@ if(plugin.enabled && plugin.canChangeOptions())
 				$('#'+ndx+'_global').prop("checked", (val.global==1)).change();
 				$('#'+ndx+'_limit').val(val.limit);
 
-			        if(val.enabled==1)
+			        if (val.enabled==1)
 					$('#opt_'+ndx).addClass('bld');
 				else
 					$('#opt_'+ndx).removeClass('bld');
@@ -641,12 +627,12 @@ if(plugin.enabled && plugin.canChangeOptions())
 
 	plugin.dataWasChanged = function()
 	{
-		if(iv($('#exs_limit').val())!=theSearchEngines.globalLimit)
+		if (iv($('#exs_limit').val())!=theSearchEngines.globalLimit)
 			return(true);
 		var ret = false;
 		$.each(theSearchEngines.sites,function(ndx,val)
 		{
-			if( 	(($('#'+ndx+'_enabled').prop("checked") ? 1 : 0) ^ val.enabled) ||
+			if ( 	(($('#'+ndx+'_enabled').prop("checked") ? 1 : 0) ^ val.enabled) ||
 				(($('#'+ndx+'_global').prop("checked") ? 1 : 0) ^ val.global) ||
 				iv($('#'+ndx+'_limit').val())!=val.limit )
 			{
@@ -661,7 +647,7 @@ if(plugin.enabled && plugin.canChangeOptions())
 	theWebUI.setSettings = function()
 	{
 		plugin.setSettings.call(this);
-		if(plugin.enabled && plugin.dataWasChanged())
+		if (plugin.enabled && plugin.dataWasChanged())
 			this.request("?action=setexsearch",[theSearchEngines.checkForIncorrectCurrent,theSearchEngines]);
 	}
 
@@ -684,22 +670,22 @@ if(plugin.enabled && plugin.canChangeOptions())
 plugin.refreshCategories = function()
 {
 	$('#exscategory option').remove();
-	if((theSearchEngines.current == 'all') ||
+	if ((theSearchEngines.current == 'all') ||
 		(theSearchEngines.current == 'private') ||
 		(theSearchEngines.current == 'public'))
 	{
-		if(plugin.allStuffLoaded)
+		if (plugin.allStuffLoaded)
 		{
-			for( var i=0; i<plugin.categories.length; i++)
+			for ( var i=0; i<plugin.categories.length; i++)
 				$('#exscategory').append("<option value='"+plugin.categories[i]+"'>"+theUILang["excat"+plugin.categories[i]]+"</option>");
 		}
 		else
 			$('#exscategory').append("<option value='all'>"+theUILang.excatall+"</option>");
 	}
 	else
-        if($type(theSearchEngines.sites[theSearchEngines.current]))
+        if ($type(theSearchEngines.sites[theSearchEngines.current]))
 	{
-		for( var i=0; i<theSearchEngines.sites[theSearchEngines.current].cats.length; i++)
+		for ( var i=0; i<theSearchEngines.sites[theSearchEngines.current].cats.length; i++)
 			$('#exscategory').append("<option value='"+theSearchEngines.sites[theSearchEngines.current].cats[i]+"'>"+theSearchEngines.sites[theSearchEngines.current].cats[i]+"</option>");
 	}
 	$("#exscategory").prop("disabled",(theSearchEngines.current == -1));
@@ -707,7 +693,7 @@ plugin.refreshCategories = function()
 
 plugin.shutdownOldVersion = function()
 {
-	if(thePlugins.get('search').allStuffLoaded)
+	if (thePlugins.get('search').allStuffLoaded)
 	{
 		thePlugins.get('search').remove();
 		theWebUI.plgRefresh();
@@ -728,7 +714,7 @@ plugin.onLangLoaded = function()
 		"</div>"+
 		"<div id='buttons' class='aright buttons-list'><input type='button' class='OK Button' value="+theUILang.ok+" onclick='theDialogManager.hide(\"tegLoadTorrents\");theWebUI.tegLoadTorrents();return(false);'/><input type='button' class='Cancel Button' value='"+theUILang.Cancel+"'/></div>",
 		true);
-	if(thePlugins.isInstalled("_getdir"))
+	if (thePlugins.isInstalled("_getdir"))
 	{
 		$('#tegdir_edit').after($("<input type=button>").addClass("Button").attr("id","tegBtn").focus( function() { this.blur(); } ));
 		var btn = new theWebUI.rDirBrowser( 'tegLoadTorrents', 'tegdir_edit', 'tegBtn' );
@@ -749,7 +735,7 @@ plugin.onLangLoaded = function()
 	var toDisable = [];
 	$.each(theSearchEngines.sites,function(ndx,val)
 	{
-		if(val.public)
+		if (val.public)
 		{
 			contPublic +=
 				"<div id='cont_"+ndx+"' class='seng_public'>"+
@@ -767,11 +753,11 @@ plugin.onLangLoaded = function()
 					"<div class='checkbox'><input type='checkbox' id='"+ndx+"_enabled' onchange=\"$('#opt_"+ndx+"').toggleClass('bld'); linked(this, 0, ['"+ndx+"_global','"+ndx+"_limit']);\"/><label for='"+ndx+"_enabled' id='lbl_"+ndx+"_enabled'>"+theUILang.Enabled+"</label></div>"+
 					"<div class='checkbox'><input type='checkbox' id='"+ndx+"_global' onchange=\"linked(this, 0, ['"+ndx+"_limit']);\"/><label for='"+ndx+"_global' id='lbl_"+ndx+"_global'>"+theUILang.exsGlobal+"</label></div>"+
 					"<div class='checkbox'><label for='"+ndx+"_limit' id='lbl_"+ndx+"_limit'>"+theUILang.exsLimit+":</label><input type='text' class='Textbox num' maxlength=6 id='"+ndx+"_limit'/></div>";
-			if(val.cookies)
+			if (val.cookies)
 			{
-				if(thePlugins.isInstalled("cookies"))
+				if (thePlugins.isInstalled("cookies"))
 					contPrivate+=
-						"<div class='checkbox'><a href=\"javascript://void();\" onclick=\"theOptionsSwitcher.run(\'st_cookies\'); return(false);\">"+theUILang.exsCookies+":</a><input type='text' class='TextboxLarge' readOnly=true id='"+ndx+"_cookies' value='"+val.cookies+"'/></div>";
+						"<div class='checkbox'><a href=\"#\" onclick=\"theOptionsSwitcher.run(\'st_cookies\'); return(false);\">"+theUILang.exsCookies+":</a><input type='text' class='TextboxLarge' readOnly=true id='"+ndx+"_cookies' value='"+val.cookies+"'/></div>";
 				else
 				{
 					contPrivate+="<div class='checkbox'>"+theUILang.exsMustInstallCookies+"</div>";
@@ -779,11 +765,11 @@ plugin.onLangLoaded = function()
 				}
 			}
 			else
-			if(val.auth)
+			if (val.auth)
 			{
-				if(thePlugins.isInstalled("loginmgr"))
+				if (thePlugins.isInstalled("loginmgr"))
 					contPrivate+=
-						"<div class='checkbox'><a href=\"javascript://void();\" onclick=\"theOptionsSwitcher.run(\'st_loginmgr\'); return(false);\">"+theUILang.exsLoginMgr+"</a></div>";
+						"<div class='checkbox'><a href=\"#\" onclick=\"theOptionsSwitcher.run(\'st_loginmgr\'); return(false);\">"+theUILang.exsLoginMgr+"</a></div>";
 				else
 				{
 					contPrivate+="<div class='checkbox'>"+theUILang.exsMustInstallLoginMgr+"</div>";
@@ -798,7 +784,7 @@ plugin.onLangLoaded = function()
 		styles +=
 			(".Engine"+ndx+" {background-image: url(./plugins/extsearch/images/"+ndx+".png); background-repeat: no-repeat}\n");
 	});
-	if(contPublic.length)
+	if (contPublic.length)
 	{
 		s+="<fieldset><legend>"+theUILang.exsEngines+" ("+theUILang.extPublic+")</legend>";
 		s+="<select id='sel_public'>";
@@ -807,7 +793,7 @@ plugin.onLangLoaded = function()
 		s+=contPublic;
 		s+="</fieldset>";
 	}
-	if(contPrivate.length)
+	if (contPrivate.length)
 	{
 		s+="<fieldset><legend>"+theUILang.exsEngines+" ("+theUILang.extPrivate+")</legend>";
 		s+="<select id='sel_private'>";
@@ -816,10 +802,10 @@ plugin.onLangLoaded = function()
 		s+=contPrivate;
 		s+="</fieldset>";
 	}
-	if(styles.length)
+	if (styles.length)
 		injectCSSText(styles);
 	this.attachPageToOptions($("<div>").attr("id","st_extsearch").html(s)[0],theUILang.exsSearch);
-	for( var i in toDisable )
+	for ( var i in toDisable )
 	{
 		$('#'+toDisable[i]+'_enabled').prop("disabled",true).prop("checked",false);
 		$('#lbl_'+toDisable[i]+'_enabled').addClass("disabled");
@@ -839,7 +825,7 @@ plugin.onLangLoaded = function()
 	$(td).prop("id","exscat").html(s);
 	plugin.markLoaded();
 	theSearchEngines.checkForIncorrectCurrent(true);
-	if(thePlugins.isInstalled('search'))
+	if (thePlugins.isInstalled('search'))
 		plugin.shutdownOldVersion();
 }
 
@@ -849,7 +835,7 @@ plugin.onRemove = function()
 	theSearchEngines.current = -1;
 	theWebUI.save();
 	theWebUI.switchLabel($$("-_-_-all-_-_-"));
-	for( var teg in plugin.tegs )
+	for ( var teg in plugin.tegs )
 		$("#"+teg).remove();
 	plugin.tegs = {};
 	$("#TegList").remove();

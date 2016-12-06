@@ -51,7 +51,7 @@ if (!$dh) {
     }
     $dh = @opendir($dir);
 }
-$files = array();
+$files = [];
 if ($dh) {
     $dir = addslash($dir);
     while (false !== ($file = readdir($dh))) {

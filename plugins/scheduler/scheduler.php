@@ -15,11 +15,11 @@ class rScheduler
 {
     public $hash = "scheduler.dat";
     public $enabled = 0;
-    public $UL = array();
-    public $DL = array();
-    public $week = array();
-    public $seedStopped = array();
-    public $leechStopped = array();
+    public $UL = [];
+    public $DL = [];
+    public $week = [];
+    public $seedStopped = [];
+    public $leechStopped = [];
 
     public static function load()
     {
@@ -32,7 +32,7 @@ class rScheduler
     }
     public function fillWeek()
     {
-        $this->week = array();
+        $this->week = [];
         for ($i=0; $i<7; $i++) {
             $this->week[] = array_fill(0, 24, SCH_FAST);
         }
@@ -111,12 +111,12 @@ class rScheduler
     public static function getActiveTorrents()
     {
         $delta = 2;
-        $cmd = new rXMLRPCCommand("d.multicall", array("started",getCmd("d.hash="),getCmd("d.connection_current=") ));
+        $cmd = new rXMLRPCCommand("d.multicall2", ["", "started", "d.hash=", getCmd("d.connection_current=")]);
         $cmd->addParameter(getCmd("d.custom=")."sch_ignore");
         $delta = 3;
         $req = new rXMLRPCRequest($cmd);
-        $seeds = array();
-        $leeches = array();
+        $seeds = [];
+        $leeches = [];
         if ($req->run() && !$req->fault) {
             for ($i=0; $i<count($req->val); $i+=$delta) {
                 $hash = $req->val[$i];
@@ -140,20 +140,20 @@ class rScheduler
                 $wDay = 6;
             }
             $no = $this->week[$wDay][$di["hours"]];
-            switch($no)
+            switch ($no)
             {
                 case SCH_FAST:
                     self::processArray(array_merge($this->seedStopped, $this->leechStopped), "d.open", "d.start");
-                    $this->seedStopped = array();
-                    $this->leechStopped = array();
+                    $this->seedStopped = [];
+                    $this->leechStopped = [];
                     self::setSpeed(SCH_DEF_UL, SCH_DEF_DL);
                     break;
                 case SCH_RESTRICT1:
                 case SCH_RESTRICT2:
                 case SCH_RESTRICT3:
                     self::processArray(array_merge($this->seedStopped, $this->leechStopped), "d.open", "d.start");
-                    $this->seedStopped = array();
-                    $this->leechStopped = array();
+                    $this->seedStopped = [];
+                    $this->leechStopped = [];
                     self::setSpeed($this->UL[$no-SCH_RESTRICT1], $this->DL[$no-SCH_RESTRICT1]);
                     break;
                 case SCH_STOP:
@@ -170,7 +170,7 @@ class rScheduler
                         $this->leechStopped = array_merge($this->leechStopped, $active["leeches"]);
                     }
                     self::processArray($this->seedStopped, "d.open", "d.start");
-                    $this->seedStopped = array();
+                    $this->seedStopped = [];
                     self::setSpeed(SCH_DEF_UL, 1);
                     break;
             }

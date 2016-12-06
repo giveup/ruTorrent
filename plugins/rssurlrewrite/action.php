@@ -7,7 +7,7 @@ if (isset($_REQUEST['mode'])) {
 $mngr = rURLRewriteRulesList::load();
 $val = null;
 
-switch($cmd)
+switch ($cmd)
 {
     case "checkrule":
         $rule = new rURLRewriteRule(

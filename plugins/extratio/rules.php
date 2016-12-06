@@ -33,11 +33,11 @@ class rRatioRule
 	static public function isTrackerPrivate( $trackers )
 	{
 		$trks = explode( '#', $trackers );
-		foreach( $trks as $trk )
+		foreach ( $trks as $trk )
 		{
 			$ret = null;
 			rTorrentSettings::get()->pushEvent( "CheckTracker", array( "announce"=>$trk, "result"=>&$ret ) );
-			if( $ret ||
+			if ( $ret ||
 				(is_null($ret) &&
 					(preg_match( '`^(http|https|udp)://(?:[0-9]{1,3}\.){3}[0-9]{1,3}((:(\d){2,5})|).*/an.*\?.+=.+`i', $trk ) ||
 					preg_match( '`^(http|https|udp)://(?:[0-9]{1,3}\.){3}[0-9]{1,3}((:(\d){2,5})|)/.*[0-9a-z]{8,32}/an`i', $trk ) ||
@@ -50,9 +50,9 @@ class rRatioRule
 	public function isApplicable( $label, $trackers )
 	{
 		$ret = false;
-		if($this->enabled==1)
+		if ($this->enabled==1)
 		{
-			switch($this->reason)
+			switch ($this->reason)
 			{
 				case RR_LABEL_CONTAIN:
 				{
@@ -83,7 +83,7 @@ class rRatioRule
 class rRatioRulesList
 {
 	public $hash = "ratiorules.dat";
-        public $lst = array();
+        public $lst = [];
 
 	static public function load()
 	{
@@ -103,60 +103,59 @@ class rRatioRulesList
 	}
         public function set()
 	{
-		if(!isset($HTTP_RAW_POST_DATA))
-			$HTTP_RAW_POST_DATA = file_get_contents("php://input");
-		$this->lst = array();
+		$rawData = file_get_contents("php://input");
+		$this->lst = [];
 		$rule = null;
-		if(isset($HTTP_RAW_POST_DATA))
+		if (isset($rawData))
 		{
-			$vars = explode('&', $HTTP_RAW_POST_DATA);
-			foreach($vars as $var)
+			$vars = explode('&', $rawData);
+			foreach ($vars as $var)
 			{
-				$parts = explode("=",$var);
-				if($parts[0]=="name")
+				$parts = explode("=", $var);
+				if ($parts[0]=="name")
 				{
-					if($rule)
+					if ($rule)
 						$this->add($rule);
 					$rule = new rRatioRule(rawurldecode($parts[1]));
 				}
 				else
-				if($parts[0]=="pattern")
+				if ($parts[0]=="pattern")
 				{
-					if($rule)
+					if ($rule)
 						$rule->pattern = trim(rawurldecode($parts[1]));
 				}
 				else
-				if($parts[0]=="reason")
+				if ($parts[0]=="reason")
 				{
-					if($rule)
+					if ($rule)
 						$rule->reason = intval($parts[1]);
 				}
 				else
-				if($parts[0]=="enabled")
+				if ($parts[0]=="enabled")
 				{
-					if($rule)
+					if ($rule)
 						$rule->enabled = intval($parts[1]);
 				}
 				else
-				if($parts[0]=="no")
+				if ($parts[0]=="no")
 				{
-					if($rule)
+					if ($rule)
 						$rule->no = intval($parts[1]);
 				}
 				else
-				if($parts[0]=="ratio")
+				if ($parts[0]=="ratio")
 				{
-					if($rule)
+					if ($rule)
 						$rule->ratio = $parts[1];
 				}
 				else
-				if($parts[0]=="channel")
+				if ($parts[0]=="channel")
 				{
-					if($rule)
+					if ($rule)
 						$rule->channel = $parts[1];
 				}
   	                }
-			if($rule)
+			if ($rule)
 				$this->add($rule);
 			$this->store();
 			$this->setHandlers();
@@ -168,9 +167,9 @@ class rRatioRulesList
 	}
 	public function getRule( $label, $trackers )
 	{
-		foreach( $this->lst as $item )
+		foreach ( $this->lst as $item )
 		{
-			if($item->isApplicable( $label, $trackers ))
+			if ($item->isApplicable( $label, $trackers ))
 				return($item);
 		}
 		return(null);
@@ -178,45 +177,45 @@ class rRatioRulesList
 	public function checkLabels( $hashes )
 	{
 		$req = new rXMLRPCRequest();
-		foreach( $hashes as $hash )
+		foreach ( $hashes as $hash )
 		{
-			$req->addCommand( new rXMLRPCCommand( "d.custom1", $hash ) ); 
+			$req->addCommand( new rXMLRPCCommand( "d.custom1", $hash ) );
 			$req->addCommand( new rXMLRPCCommand( "d.state", $hash ) );
 			$req->addCommand( new rXMLRPCCommand( "d.views", $hash ) );
 			$req->addCommand( new rXMLRPCCommand( "d.throttle_name", $hash ) );
 		}
-		if($req->getCommandsCount() && $req->success())
+		if ($req->getCommandsCount() && $req->success())
 		{
 			$out = new rXMLRPCRequest();
-			foreach( $hashes as $ndx=>$hash )
+			foreach ( $hashes as $ndx=>$hash )
 			{
 				$label = rawurldecode($req->val[$ndx*4]);
 				$state = !empty($req->val[$ndx*4+1]);
 				$ratio = null;
-				if( preg_match( '`rat_(\d+)`',$req->val[$ndx*4+2],$matches ) )
-					$ratio = 'rat_'.$matches[1];	
+				if ( preg_match( '`rat_(\d+)`',$req->val[$ndx*4+2],$matches ) )
+					$ratio = 'rat_'.$matches[1];
 				$throttle = $req->val[$ndx*4+3];
 
 				$trackers = '';
 			        $req1 = new rXMLRPCRequest( array(
-					new rXMLRPCCommand("t.multicall", 
+					new rXMLRPCCommand("t.multicall",
 						array($hash,"",getCmd("t.url=")))));
-				if($req1->success())
+				if ($req1->success())
 					$trackers = implode( '#', $req1->val );
 				$rule = $this->getRule( $label, $trackers );
-				if($rule)
+				if ($rule)
 				{
-					if(!empty($rule->channel) && ($rule->channel!=$throttle))
+					if (!empty($rule->channel) && ($rule->channel!=$throttle))
 					{
-						if($state)
+						if ($state)
 							$out->addCommand( new rXMLRPCCommand('d.stop', $hash) );
 						$out->addCommand( new rXMLRPCCommand('d.throttle_name.set', array($hash,$rule->channel)) );
-						if($state)
+						if ($state)
 							$out->addCommand( new rXMLRPCCommand('d.start', $hash) );
 					}
-					if(!empty($rule->ratio) && ($rule->ratio!=$ratio))
+					if (!empty($rule->ratio) && ($rule->ratio!=$ratio))
 					{
-						if(!is_null($ratio))
+						if (!is_null($ratio))
 						{
 							$out->addCommand( new rXMLRPCCommand('view.set_not_visible', array($hash, $ratio) ) );
 							$out->addCommand( new rXMLRPCCommand('d.views.remove', array($hash, $ratio) ) );
@@ -226,7 +225,7 @@ class rRatioRulesList
 					}
 				}
 			}
-			if($out->getCommandsCount())
+			if ($out->getCommandsCount())
 				$out->run();
 		}
 	}
@@ -235,30 +234,30 @@ class rRatioRulesList
 		global $rootPath;
 	        $throttleRulesExist = false;
 	        $ratioRulesExist = false;
-		foreach( $this->lst as $item )
+		foreach ( $this->lst as $item )
 		{
-			if($item->ratio!='')
+			if ($item->ratio!='')
 				$ratioRulesExist = true;
-			if($item->channel!='')		
+			if ($item->channel!='')
 				$throttleRulesExist = true;
 		}
-		if($ratioRulesExist)
+		if ($ratioRulesExist)
 		{
 			eval(getPluginConf('ratio'));
 			$insCmd = '';
-			for($i=0; $i<MAX_RATIO; $i++)
+			for ($i=0; $i<MAX_RATIO; $i++)
 				$insCmd .= (getCmd('d.views.has=').'rat_'.$i.',,');
-			$ratCmd = 
-                                getCmd('d.custom.set').'=x-extratio1,"$'.getCmd('execute_capture').
+			$ratCmd =
+                                getCmd('d.custom.set').'=x-extratio1,"$'.'execute.capture'.
                                 '={'.getPHP().','.$rootPath.'/plugins/extratio/update.php,\"$'.getCmd('t.multicall').'=$'.getCmd('d.hash').'=,'.getCmd('t.url').'=,'.getCmd('cat').'=#\",$'.getCmd('d.custom1').'=,ratio,'.getUser().'}" ; '.
                                 getCmd('branch').'=$'.getCmd('not').'=$'.getCmd('d.custom').'=x-extratio1,,'.$insCmd.
                                 getCmd('view.set_visible').'=$'.getCmd('d.custom').'=x-extratio1';
 		}
 		else
 			$ratCmd = getCmd('cat=');
-		if($throttleRulesExist)
-			$thrCmd = 
-                                getCmd('d.custom.set').'=x-extratio2,"$'.getCmd('execute_capture').
+		if ($throttleRulesExist)
+			$thrCmd =
+                                getCmd('d.custom.set').'=x-extratio2,"$'.'execute.capture'.
                                 '={'.getPHP().','.$rootPath.'/plugins/extratio/update.php,\"$'.getCmd('t.multicall').'=$'.getCmd('d.hash').'=,'.getCmd('t.url').'=,'.getCmd('cat').'=#\",$'.getCmd('d.custom1').'=,channel,'.getUser().'}" ; '.
                                 getCmd('branch').'=$'.getCmd('not').'=$'.getCmd('d.custom').'=x-extratio2,,'.
                                 getCmd('d.throttle_name.set').'=$'.getCmd('d.custom').'=x-extratio2';

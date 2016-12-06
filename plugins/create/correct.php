@@ -17,8 +17,8 @@ if (count($argv) > 1) {
         is_file($tname) && is_readable($tname)) {
         $request = unserialize(file_get_contents($fname));
         $comment = '';
-        $announce_list = array();
-        $trackers = array();
+        $announce_list = [];
+        $trackers = [];
         $trackersCount = 0;
         if (isset($request['trackers'])) {
             $arr = explode("\r", $request['trackers']);
@@ -30,7 +30,7 @@ if (count($argv) > 1) {
                 } else {
                     if (count($trackers)>0) {
                         $announce_list[] = $trackers;
-                        $trackers = array();
+                        $trackers = [];
                     }
                 }
             }

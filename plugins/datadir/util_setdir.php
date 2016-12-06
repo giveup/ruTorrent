@@ -118,7 +118,7 @@ function rtSetDataDir($hash, $dest_path, $add_path, $move_files, $fast_resume, $
     }
 
     // Get list of torrent data files
-    $torrent_files = array();
+    $torrent_files = [];
     if ($is_ok && $move_files) {
         $req = rtExec("f.multicall", array( $hash, "", getCmd("f.path=") ), $dbg);
         if (!$req) {
@@ -134,7 +134,7 @@ function rtSetDataDir($hash, $dest_path, $add_path, $move_files, $fast_resume, $
     // 1. Stop torrent if active (if not, then rTorrent can crash)
     // 2. Close torrent anyway
     if ($is_ok) {
-        $cmds = array();
+        $cmds = [];
         if ($is_active) {
             $cmds[] = "d.stop";
         }
@@ -210,7 +210,7 @@ function rtSetDataDir($hash, $dest_path, $add_path, $move_files, $fast_resume, $
                 $session      = $req->val[0];
                 $tied_to_file = $req->val[1];
                 $label        = rawurldecode($req->val[2]);
-                $addition     = array();
+                $addition     = [];
                 if (!empty( $req->val[3] )) {
                     $addition[] = getCmd("d.connection_seed.set=").$req->val[3];
                 }

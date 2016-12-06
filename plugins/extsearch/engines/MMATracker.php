@@ -15,18 +15,18 @@ class MMATrackerEngine extends commonEngine
 	{
 		$added = 0;
 		$url = 'http://www.mma-tracker.net';
-		if($useGlobalCats)
+		if ($useGlobalCats)
 			$categories = array( 'all'=>'' );
 		else
 			$categories = &$this->categories;
-		if(!array_key_exists($cat,$categories))
+		if (!array_key_exists($cat,$categories))
 			$cat = $categories['all'];
 		else
 			$cat = $categories[$cat];
-		for($pg = 0; $pg<10; $pg++)
+		for ($pg = 0; $pg<10; $pg++)
 		{
 			$cli = $this->fetch( $url.'/browse.php?search='.$what.'&incldesc=0&sort=7&type=desc&page='.$pg.$cat.'#tabletop' );
-			if( ($cli==false) || (strpos($cli->results, "<h2>Nothing found!</h2>")!==false)
+			if ( ($cli==false) || (strpos($cli->results, "<h2>Nothing found!</h2>")!==false)
 				|| (strpos($cli->results, '>Password:<')!==false))
 				break;
 			$res = preg_match_all('/<a href="browse.php\?tag1=.*">(?P<cat>.*)<\/a>'.
@@ -37,12 +37,12 @@ class MMATrackerEngine extends commonEngine
                 '<div .*>.*<\/div><div .*>(?P<size>.*)<\/div>.*'.
                 '<div .*>.*<\/div>.*'.
                 '<a href="download.php\/\d+\/(?P<tname>.*)">/siU', $cli->results, $matches);
-			if($res)
+			if ($res)
 			{
-				for($i=0; $i<$res; $i++)
+				for ($i=0; $i<$res; $i++)
 				{
 					$link = $url."/download.php/".$matches["id"][$i]."/".$matches["tname"][$i];
-					if(!array_key_exists($link,$ret))
+					if (!array_key_exists($link,$ret))
 					{
 						$item = $this->getNewEntry();
 						$item["cat"] = self::removeTags($matches["cat"][$i]);
@@ -53,7 +53,7 @@ class MMATrackerEngine extends commonEngine
 						$item["peers"] = intval(self::removeTags($matches["leech"][$i]));
 						$ret[$link] = $item;
 						$added++;
-						if($added>=$limit)
+						if ($added>=$limit)
 							return;
 					}
 				}

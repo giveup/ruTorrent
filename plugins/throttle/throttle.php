@@ -6,7 +6,7 @@ eval(getPluginConf('throttle'));
 class rThrottle
 {
     public $hash = "throttle.dat";
-    public $thr = array();
+    public $thr = [];
     public $default = 0;
 
     public static function load()
@@ -20,7 +20,7 @@ class rThrottle
     }
     public function fillArray()
     {
-        $this->thr = array();
+        $this->thr = [];
         $v = 16;
         for ($i=0; $i<MAX_THROTTLE/2; $i++) {
             $this->thr[] = array( "up"=>$v, "down"=>0, "name"=>"up".$v );
@@ -53,7 +53,7 @@ class rThrottle
         for ($i=0; $i<MAX_THROTTLE; $i++) {
             if ($this->isCorrect($i)) {
                 $up = $this->thr[$i]["up"];
-                $down = $this->thr[$i]["down"];
+                $down = $this->thr[$i]["down."];
             } else {
                 $up = 0;
                 $down = 0;
@@ -72,14 +72,15 @@ class rThrottle
     }
     public function correct()
     {
-        $toCorrect = array();
+        $toCorrect = [];
         $req = new rXMLRPCRequest(
-            new rXMLRPCCommand("d.multicall", array(
-                    "",
-                getCmd("d.hash="),
-                getCmd("d.throttle_name="),
-                getCmd('cat').'=$'.getCmd("get_throttle_up_max").'=$'.getCmd("d.throttle_name="),
-                getCmd('cat').'=$'.getCmd("get_throttle_down_max").'=$'.getCmd("d.throttle_name=")))
+            new rXMLRPCCommand("d.multicall2", [
+                "",
+                "",
+                "d.hash=",
+                'd.throttle_name=',
+                'cat'.'=$'."get_throttle_up_max".'=$'.'d.throttle_name=',
+                'cat'.'=$'."get_throttle_down_max".'=$'.'d.throttle_name='])
         );
         if ($req->run() && !$req->fault) {
             for ($i=0; $i<count($req->val); $i+=4) {
@@ -136,7 +137,7 @@ class rThrottle
     }
     public function set()
     {
-        $this->thr = array();
+        $this->thr = [];
         $this->default = 0;
         for ($i = 0; $i<MAX_THROTTLE; $i++) {
             $arr = array( "up"=>0, "down"=>0, "name"=>"" );

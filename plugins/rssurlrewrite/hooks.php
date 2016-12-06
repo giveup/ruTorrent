@@ -8,7 +8,7 @@ class rssurlrewriteHooks
     {
         $mngr = new rRSSManager();
         $rules = rURLRewriteRulesList::load($mngr);
-        $newHrefs = array();
+        $newHrefs = [];
         foreach ($prm["rss"]->items as $href => &$item) {
             $oldHref = $href;
             $rules->apply($prm["rss"], $mngr->groups, $href, $item['guid']);

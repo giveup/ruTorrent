@@ -17,18 +17,18 @@ class BitMeTVEngine extends commonEngine
 	{
 		$added = 0;
 		$url = 'http://www.bitmetv.org';
-		if($useGlobalCats)
+		if ($useGlobalCats)
 			$categories = array( 'all'=>'');
 		else
 			$categories = &$this->categories;
-		if(!array_key_exists($cat,$categories))
+		if (!array_key_exists($cat,$categories))
 			$cat = $categories['all'];
 		else
 			$cat = $categories[$cat];
-		for($pg = 0; $pg<10; $pg++)
+		for ($pg = 0; $pg<10; $pg++)
 		{
 			$cli = $this->fetch( $url.'/browse.php?search='.$what.'&sort=seeders&d=DESC&incldead=0&page='.$pg."&cat=".$cat );
-			if( ($cli==false) || (strpos($cli->results, "<h3>Nothing found!</h3>")!==false) ||
+			if ( ($cli==false) || (strpos($cli->results, "<h3>Nothing found!</h3>")!==false) ||
 				(strpos($cli->results, "<tr><td><b>Password:</b></td>")!==false))
 				break;
 			$res = preg_match_all('/<img border="0" src=.* alt="(?P<cat>.*)" \/><\/a>'.
@@ -37,7 +37,7 @@ class BitMeTVEngine extends commonEngine
 				'<td .*>.*<\/td>.*<td .*>.*<\/td>.*<td .*>.*<\/td>.*'.
 				'<td .*>(?P<size>.*)<\/td>'.
 				'.*<td .*>.*<\/td>.*<td .*>(?P<seeds>.*)<\/td>.*<td .*>(?P<leech>.*)<\/td>/siU', $cli->results, $matches);
-			if(($res!==false) && ($res>0) &&
+			if (($res!==false) && ($res>0) &&
 				count($matches["id"])==count($matches["cat"]) &&
 				count($matches["cat"])==count($matches["name"]) && 
 				count($matches["name"])==count($matches["size"]) &&
@@ -46,10 +46,10 @@ class BitMeTVEngine extends commonEngine
 				count($matches["seeds"])==count($matches["tname"]) &&
 				count($matches["date"])==count($matches["leech"]) )
 			{
-				for($i=0; $i<count($matches["id"]); $i++)
+				for ($i=0; $i<count($matches["id"]); $i++)
 				{
 					$link = $url."/download.php/".$matches["id"][$i]."/".$matches["tname"][$i];
-					if(!array_key_exists($link,$ret))
+					if (!array_key_exists($link,$ret))
 					{
 						$item = $this->getNewEntry();
 						$item["cat"] = self::removeTags($matches["cat"][$i]);
@@ -57,14 +57,14 @@ class BitMeTVEngine extends commonEngine
 						$item["name"] = self::removeTags($matches["name"][$i]);
 						$item["size"] = self::formatSize(str_replace("<br>"," ",$matches["size"][$i]));
 						$tm = self::removeTags($matches["date"][$i]);
-						if( (($pos1=strpos($tm,","))!==false) &&
+						if ( (($pos1=strpos($tm,","))!==false) &&
 						    (($pos2=strpos($tm," at"))!==false))
 						    $item["time"] = strtotime(substr($tm,$pos1+2,$pos2-$pos1-2).substr($tm,$pos2+3));
 						$item["seeds"] = intval(self::removeTags($matches["seeds"][$i]));
 						$item["peers"] = intval(self::removeTags($matches["leech"][$i]));
 						$ret[$link] = $item;
 						$added++;
-						if($added>=$limit)
+						if ($added>=$limit)
 							return;
 					}
 				}

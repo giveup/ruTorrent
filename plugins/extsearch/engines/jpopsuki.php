@@ -19,22 +19,22 @@ class jpopsukiEngine extends commonEngine
 	{
 		$added = 0;
 		$url = 'http://jpopsuki.eu';
-		if($useGlobalCats)
+		if ($useGlobalCats)
 			$categories = array( 'all'=>'0', 
 				'tv'=>"&filter_cat[5]=1&filter_cat[6]=1&filter_cat[7]=1", 
 				'pictures'=>"&filter_cat[9]=1", 
 				 );
 		else
 			$categories = &$this->categories;
-		if(!array_key_exists($cat,$categories))
+		if (!array_key_exists($cat,$categories))
 			$cat = $categories['all'];
 		else
 			$cat = $categories[$cat];
 
-		for($pg = 1; $pg<11; $pg++)
+		for ($pg = 1; $pg<11; $pg++)
 		{
 			$cli = $this->fetch( $url.'/torrents.php?searchstr='.$what.$cat.'&order_by=s6&order_way=DESC&disablegrouping=1&page='.$pg );			
-			if( ($cli==false) || (strpos($cli->results, ">Your search did not match anything.<")!==false) ||
+			if ( ($cli==false) || (strpos($cli->results, ">Your search did not match anything.<")!==false) ||
 				(strpos($cli->results, ">Password")!==false))
 				break;
 			$res = preg_match_all('`<tr class="torrent_redline">.*<a href=\'torrents\.php.*>(?P<cat>.*)</a></td>.*'.
@@ -48,12 +48,12 @@ class jpopsukiEngine extends commonEngine
 				'<td.*>(?P<seeds>.*)</td>.*'.
 				'<td.*>(?P<leech>.*)</td>'.
 				'`siU', $cli->results, $matches);
-			if($res)
+			if ($res)
 			{
-				for($i=0; $i<$res; $i++)
+				for ($i=0; $i<$res; $i++)
 				{
 					$link = $url."/torrents.php?action=download&".self::removeTags($matches["link"][$i]);
-					if(!array_key_exists($link,$ret))
+					if (!array_key_exists($link,$ret))
 					{
 						$item = $this->getNewEntry();
 						$item["desc"] = $url."/torrents.php?id=".self::removeTags($matches["desc"][$i]);
@@ -65,7 +65,7 @@ class jpopsukiEngine extends commonEngine
 						$item["cat"] = self::removeTags($matches["cat"][$i]);
 						$ret[$link] = $item;
 						$added++;
-						if($added>=$limit)
+						if ($added>=$limit)
 							return;
 					}
 				}

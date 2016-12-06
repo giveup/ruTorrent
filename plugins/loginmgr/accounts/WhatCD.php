@@ -12,12 +12,12 @@ class WhatCDAccount extends commonAccount
 	{
 
 		$is_result_fetched = false;
-		if($client->fetch( $this->url."/login.php" ))
+		if ($client->fetch( $this->url."/login.php" ))
 		{
                         $client->setcookies();
 			$client->referer = $this->url."/login.php";
 
-        		if($client->fetch( $this->url."/login.php","POST","application/x-www-form-urlencoded", 
+        		if ($client->fetch( $this->url."/login.php","POST","application/x-www-form-urlencoded", 
 				"username=".rawurlencode($login)."&password=".rawurlencode($password)."&keeplogged=1&login=Login" ))
 			{
 				$client->setcookies();

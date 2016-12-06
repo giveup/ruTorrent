@@ -1,5 +1,5 @@
 plugin.loadLang();
-if(theWebUI.theme)
+if (theWebUI.theme)
 {
 	plugin.path = "plugins/theme/themes/"+theWebUI.theme+"/";
 	plugin.loadCSS("style");
@@ -27,7 +27,7 @@ if(theWebUI.theme)
 plugin.onLangLoaded = function()
 {
 	var themes = '<option value="" '+(theWebUI.theme ? '' : 'selected')+'>'+theUILang.themeStandard+'</option>';
-	for( var i in plugin.themes )
+	for ( var i in plugin.themes )
 		themes += '<option value="'+plugin.themes[i]+'"'+(theWebUI.theme==plugin.themes[i] ? 'selected' : '')+'>'+plugin.themes[i]+'</option>';
 	$($$("webui.lang")).parent().after(
 		'<div class="op50l algnright">'+
@@ -52,6 +52,6 @@ plugin.setSettings = theWebUI.setSettings;
 theWebUI.setSettings = function() 
 {
 	plugin.setSettings.call(this);
-	if($($$("webui.theme")).val()!=theWebUI.theme)
+	if ($($$("webui.theme")).val()!=theWebUI.theme)
 		theWebUI.request("?action=settheme",[theWebUI.reload, theWebUI]);
 }

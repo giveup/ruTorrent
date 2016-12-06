@@ -184,7 +184,6 @@ var theUILang =
  pnlState            : "Tilstand",
  newLabel            : "Ny Etikett",
  enterLabel          : "Lag ny etikett",
- UIEffects           : "Vis effekter på brukergrensesnitt-elementer",
  Plugins             : "Tilleggsmoduler",
  plgName             : "Navn",
  plgStatus           : "Status",

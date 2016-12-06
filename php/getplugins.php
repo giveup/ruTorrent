@@ -1,9 +1,9 @@
 <?php
 
-require_once( "util.php" );
-require_once( "settings.php" );
+require_once('util.php');
+require_once('settings.php');
 
-function getPluginInfo($name, $permissions)
+function getPluginInfo($name)
 {
     $info = [
         'rtorrent.need'=>1,
@@ -34,7 +34,7 @@ function getPluginInfo($name, $permissions)
             if (count($fields)==2) {
                 $value = addcslashes(trim($fields[1]), "\\\'\"\n\r\t");
                 $field = trim($fields[0]);
-                switch($field)
+                switch ($field)
                 {
                     case "plugin.help":
                     case "plugin.author":
@@ -82,34 +82,6 @@ function getPluginInfo($name, $permissions)
                 }
             }
         }
-        $perms = 0;
-        if ($permissions!==false) {
-            if (!getFlag($permissions, $name, "enabled")) {
-                return(false);
-            }
-            $flags = [
-                "canChangeToolbar"  => 0x0001,
-                "canChangeMenu"     => 0x0002,
-                "canChangeOptions"  => 0x0004,
-                "canChangeTabs"         => 0x0008,
-                "canChangeColumns"  => 0x0010,
-                "canChangeStatusBar"    => 0x0020,
-                "canChangeCategory"     => 0x0040,
-                "canBeShutdowned"   => 0x0080,
-                /*	"canBeLaunched"		=> 0x0100, */
-            ];
-            foreach ($flags as $flagName => $flagVal) {
-                if (!getFlag($permissions, $name, $flagName)) {
-                    $perms|=$flagVal;
-                }
-            }
-
-            if (!$info["plugin.may_be_shutdowned"]) {
-                $perms|=$flags["canBeShutdowned"];
-            }
-
-        }
-        $info["perms"] = $perms;
     }
     return(array_key_exists("plugin.version", $info) ? $info : false);
 }
@@ -147,28 +119,6 @@ function testRemoteRequests($remoteRequests)
     return($ret);
 }
 
-$access = getConfFile('access.ini');
-if (!$access) {
-    $access = "../conf/access.ini";
-}
-$permissions = parse_ini_file($access);
-$settingsFlags = [
-    "showDownloadsPage"     => 0x0001,
-    "showConnectionPage"    => 0x0002,
-    "showBittorentPage"     => 0x0004,
-    "showAdvancedPage"  => 0x0008,
-    "showPluginsTab"    => 0x0010,
-    "canChangeULRate"   => 0x0020,
-    "canChangeDLRate"   => 0x0040,
-    "canChangeTorrentProperties"    => 0x0080,
-];
-$perms = 0;
-foreach ($settingsFlags as $flagName => $flagVal) {
-    if (array_key_exists($flagName, $permissions) && $permissions[$flagName]) {
-        $perms|=$flagVal;
-    }
-}
-$jResult .= "theWebUI.showFlags = ".$perms.";\n";
 $jResult .= "theURLs.XMLRPCMountPoint = '".$XMLRPCMountPoint."';\n";
 $jResult.="theWebUI.systemInfo = {};\ntheWebUI.systemInfo.php = { canHandleBigFiles : ".((PHP_INT_SIZE<=4) ? "false" : "true")." };\n";
 
@@ -241,11 +191,6 @@ if ($handle = opendir('../plugins')) {
                 }
             }
         }
-        $plg = getConfFile('plugins.ini');
-        if (!$plg) {
-            $plg = "../conf/plugins.ini";
-        }
-        $permissions = parse_ini_file($plg, true);
         $init = [];
         $names = [];
         $disabled = [];
@@ -270,10 +215,9 @@ if ($handle = opendir('../plugins')) {
                 if (!array_key_exists($file, $userPermissions)) {
                     $userPermissions[$file] = true;
                 }
-                $info = getPluginInfo($file, $permissions);
+                $info = getPluginInfo($file);
                 if ($info) {
-                    if ($info["plugin.may_be_launched"] &&
-                        getFlag($permissions, $file, "enabled")=="user-defined") {
+                    if ($info["plugin.may_be_launched"]) {
                         $info["perms"] |= $canBeLaunched;
                         if (!$userPermissions[$file]) {
                             $info["perms"] |= $disabledByUser;

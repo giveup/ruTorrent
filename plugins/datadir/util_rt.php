@@ -141,11 +141,11 @@ function rtGetRelativePath($base_dir, $real_dir)
 function rtIsFile($path)
 {
     // use Novik's implementation
-    return LFS::is_file($path);
+    return is_file($path);
 
-    //if( is_file( $path ) )
+    //if ( is_file( $path ) )
     //	return true;
-    //$out = array();
+    //$out = [];
     //$ret = "1";
     //exec( 'test -f '.escapeshellarg( $path ), $out, $ret );
     //return (int)$ret == 0;
@@ -172,7 +172,7 @@ function rtMkDir($dir, $mode = 0777)
 //------------------------------------------------------------------------------
 function rtMoveFile($src, $dst, $dbg = false)
 {
-    $ss = LFS::stat($src);
+    $ss = stat($src);
     if (!rename($src, $dst)) {
         if ($dbg) {
             rtDbg(__FUNCTION__, "from ".$src);
@@ -263,7 +263,7 @@ function rtOpFiles($files, $src, $dst, $op, $dbg = false)
         if (rtIsFile($dest)) {
             unlink($dest);
         }
-        switch($op)
+        switch ($op)
         {
             case "HardLink":
                 {
@@ -309,7 +309,7 @@ function rtScanFiles($path, $mask, $subdir = '')
     if ($subdir != '') {
         $subdir = rtAddTailSlash($subdir);
     }
-    $ret = array();
+    $ret = [];
     if (is_dir($path.$subdir)) {
         $handle = opendir($path.$subdir);
         while (false !== ( $item = readdir($handle) )) {
@@ -414,9 +414,9 @@ function rtMakeStrParam($param)
 function rtAddTorrent($fname, $isStart, $directory, $label, $dbg = false)
 {
     if ($isStart) {
-        $method = 'load_start_verbose';
+        $method = 'load.start_verbose';
     } else {
-        $method = 'load_verbose';
+        $method = 'load.verbose';
     }
 
     if ($dbg) {
@@ -469,6 +469,7 @@ function rtAddTorrent($fname, $isStart, $directory, $label, $dbg = false)
         '<methodCall>'.
         '<methodName>'.$method.'</methodName>'.
         '<params>'.
+            '<param><value><string></string></value></param>'.
             '<param><value><string>'.$fname.'</string></value></param>'.
             $directory.
             $comment.
@@ -477,7 +478,7 @@ function rtAddTorrent($fname, $isStart, $directory, $label, $dbg = false)
             $delete_tied.
         '</params></methodCall>';
 
-    //if( $dbg ) rtDbg( __FUNCTION__, $content );
+    //if ( $dbg ) rtDbg( __FUNCTION__, $content );
     $res = rXMLRPCRequest::send($content);
 
     if ($dbg && !empty($res)) {

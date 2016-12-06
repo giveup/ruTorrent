@@ -6,7 +6,7 @@ eval( getPluginConf('mediainfo') );
 class mediainfoSettings
 {
     public $hash = "mediainfo.dat";
-    public $data = array();
+    public $data = [];
     public static function load()
     {
         $cache = new rCache();
@@ -20,7 +20,7 @@ $ret = array( "status"=>255, "errors"=>array("Can't retrieve information") );
 if (isset($_REQUEST['hash']) &&
     isset($_REQUEST['no']) &&
     isset($_REQUEST['cmd'])) {
-    switch($_REQUEST['cmd'])
+    switch ($_REQUEST['cmd'])
     {
         case "mediainfo":
             {
@@ -37,7 +37,7 @@ if (isset($_REQUEST['hash']) &&
                     }
                 }
                 if ($filename!=='') {
-                    $commands = array();
+                    $commands = [];
                     $flags = '';
                     $st = mediainfoSettings::load();
                     $task = new rTask(array

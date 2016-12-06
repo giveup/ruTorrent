@@ -9,7 +9,7 @@
  * http://www.gnu.org/licenses/gpl.html.
  */
 
-require_once( 'util.php' );
+require_once('util.php');
 
 class Torrent
 {
@@ -202,7 +202,7 @@ class Torrent
         if ($this->pointer>=strlen($this->data)) {
             throw new Exception('Bad torrent data1 '.$this->pointer);
         }
-        switch($this->data[$this->pointer])
+        switch ($this->data[$this->pointer])
             {
             case 'i':
                 return($this->decode_integer());
@@ -506,7 +506,7 @@ class Torrent
             ];
         }
 
-        switch(count($info_files))
+        switch (count($info_files))
         {
             case 0:
                 return false;

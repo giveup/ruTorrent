@@ -4,10 +4,10 @@ require_once( __DIR__.'/../_task/task.php' );
 require_once( 'ffmpeg.php' );
 eval( getPluginConf('screenshots') );
 
-$ret = array();
+$ret = [];
 if (isset($_REQUEST['cmd'])) {
     $st = ffmpegSettings::load();
-    switch($_REQUEST['cmd'])
+    switch ($_REQUEST['cmd'])
     {
         case "ffmpeg":
             if (isset($_REQUEST['hash']) &&
@@ -25,7 +25,7 @@ if (isset($_REQUEST['cmd'])) {
                         }
                     }
                     if ($filename!=='') {
-                        $commands = array();
+                        $commands = [];
                         $offs = $st->data['exfrmoffs'];
                         $useWidth = $st->data['exusewidth'];
                         for ($i=0; $i<$st->data['exfrmcount']; $i++) {

@@ -19,52 +19,72 @@ function makeContent()
 
 	$("#query").keydown( function(e)
 	{
-		if(e.keyCode == 13)
+		if (e.keyCode == 13)
 			theSearchEngines.run();
 	});
 
-	new DnD("HDivider",
-	{
-		left : function() { return(60); },
-		right : function() { return( $(window).width()-20 ); },
-		restrictY : true,
-		maskId : "dividerDrag",
-		onStart : function(e) { return(theWebUI.settings["webui.show_cats"]); },
-		onRun : function(e) { $(document.body).css( "cursor", "e-resize" ); },
-		onFinish : function(e)
-		{
-	        var self = e.data;
-			var w = self.mask.offset().left-2;
-			$("#CatList").width( w );
-			theWebUI.setHSplitter();
-			$(document.body).css( "cursor", "" );
-		}
-	});
+	(function () {
+		var HDivider = document.querySelector('#HDivider'),
+			HContent = document.querySelector('#CatList'),
+			animation = null;
 
-	new DnD("VDivider",
-	{
-		top : function() { return(60); },
-		bottom : function() { return( $(window).height()-60 ); },
-		restrictX : true,
-		maskId : "dividerDrag",
-		onStart : function(e) { return(theWebUI.settings["webui.show_dets"]); },
-		onRun : function(e) { $(document.body).css( "cursor", "n-resize" ); },
-		onFinish : function(e)
-		{
-			var self = e.data;
-			var h = self.mask.offset().top+2;
-			$('#tdetails').height($('#maincont').height() - h);
-	        theWebUI.setVSplitter();
-			$(document.body).css( "cursor", "" );
+		function initDrag(e) {
+		   startX = e.clientX;
+		   startWidth = parseInt(document.defaultView.getComputedStyle(HContent).width, 10);
+		   document.documentElement.addEventListener('mousemove', doDrag, false);
+		   document.documentElement.addEventListener('mouseup', stopDrag, false);
 		}
-	});
+
+		function doDrag(e) {
+			cancelAnimationFrame(animation);
+		    animation = requestAnimationFrame(function(){
+				HContent.style.width = (startWidth + (e.clientX - startX)) + 'px';
+		    });
+		}
+
+		function stopDrag(e) {
+		    document.documentElement.removeEventListener('mousemove', doDrag, false);
+			document.documentElement.removeEventListener('mouseup', stopDrag, false);
+			theWebUI.setHSplitter();
+		}
+
+		HDivider.addEventListener('mousedown', initDrag, false);
+	})();
+
+	(function () {
+		var VDivider = document.querySelector('#VDivider'),
+			VContent = document.querySelector('#tdetails'),
+			animation = null;
+
+		function initDrag(e) {
+		   startY = e.clientY;
+		   startHeight = parseInt(document.defaultView.getComputedStyle(VContent).height, 10);
+		   document.documentElement.addEventListener('mousemove', doDrag, false);
+		   document.documentElement.addEventListener('mouseup', stopDrag, false);
+		}
+
+		function doDrag(e) {
+			cancelAnimationFrame(animation);
+		    animation = requestAnimationFrame(function(){
+				VContent.style.height = (startHeight - (e.clientY - startY)) + 'px';
+		    });
+		}
+
+		function stopDrag(e) {
+		    document.documentElement.removeEventListener('mousemove', doDrag, false);
+			document.documentElement.removeEventListener('mouseup', stopDrag, false);
+			theWebUI.setVSplitter();
+		}
+
+		VDivider.addEventListener('mousedown', initDrag, false);
+	})();
 
 	$(document.body).append($("<iframe name='uploadfrm'/>").css({visibility: "hidden"}).attr( { name: "uploadfrm" } ).width(0).height(0).on('load', function()
 	{
 		$("#torrent_file").val("");
 		$("#add_button").prop("disabled",false);
 		var d = (this.contentDocument || this.contentWindow.document);
-		if(d && (d.location.href != "about:blank")) {
+		if (d && (d.location.href != "about:blank")) {
 			try { var txt = d.body.textContent ? d.body.textContent : d.body.innerText; eval(txt); } catch(e) {}
 		}
 	}));
@@ -72,7 +92,7 @@ function makeContent()
 	{
 		$("#url").val("");
 		var d = (this.contentDocument || this.contentWindow.document);
-		if(d.location.href != "about:blank")
+		if (d.location.href != "about:blank")
 			try { eval(d.body.textContent ? d.body.textContent : d.body.innerText); } catch(e) {}
 	}));
 	theDialogManager.make("padd",theUILang.peerAdd,
@@ -140,26 +160,26 @@ function makeContent()
 	var makeAddRequest = function(frm)
 	{
 		var s = theURLs.AddTorrentURL+"?";
-		if($("#torrents_start_stopped").prop("checked"))
+		if ($("#torrents_start_stopped").prop("checked"))
 			s += 'torrents_start_stopped=1&';
-		if($("#fast_resume").prop("checked"))
+		if ($("#fast_resume").prop("checked"))
 			s += 'fast_resume=1&';
-		if($("#not_add_path").prop("checked"))
+		if ($("#not_add_path").prop("checked"))
 			s += 'not_add_path=1&';
-		if($("#randomize_hash").prop("checked"))
+		if ($("#randomize_hash").prop("checked"))
 			s += 'randomize_hash=1&';
 		var dir = $("#dir_edit").val().trim();
-		if(dir.length)
+		if (dir.length)
 			s += ('dir_edit='+encodeURIComponent(dir)+'&');
 		var lbl = $("#tadd_label").val().trim();
-		if(lbl.length)
+		if (lbl.length)
 			s += ('label='+encodeURIComponent(lbl));
 		frm.action = s;
 		return(true);
 	}
 	$("#addtorrent").submit(function()
 	{
-		if(!$("#torrent_file").val().match(/\.torrent$/i))
+		if (!$("#torrent_file").val().match(/\.torrent$/i))
 		{
 			alert(theUILang.Not_torrent_file);
 	   		return(false);
@@ -193,11 +213,11 @@ function makeContent()
 			'<center>'+
 				'<table width=100% border=0>'+
 					'<tr><td><strong>F1</strong></td><td>'+theUILang.This_screen+'</td></tr>'+
-					'<tr><td><strong><strong>F4</strong></td><td><a href="javascript://void();" onclick="theWebUI.toggleMenu(); return(false);">'+theUILang.Toggle_menu+'</a></td></tr>'+
-					'<tr><td><strong><strong>F6</strong></td><td><a href="javascript://void();" onclick="theWebUI.toggleDetails(); return(false);">'+theUILang.Toggle_details+'</a></td></tr>'+
-					'<tr><td><strong><strong>F7</strong></td><td><a href="javascript://void();" onclick="theWebUI.toggleCategories(); return(false);">'+theUILang.Toggle_categories+'</a></td></tr>'+
-					'<tr><td><strong><strong>Ctrl-O</strong></td><td><a href="javascript://void();" onclick="theWebUI.showAdd(); return(false);">'+theUILang.torrent_add+'</a></td></tr>'+
-					'<tr><td><strong><strong>Ctrl-P</strong></td><td><a href="javascript://void();" onclick="theWebUI.showSettings(); return(false);">'+theUILang.ruTorrent_settings+'</a></td></tr>'+
+					'<tr><td><strong><strong>F4</strong></td><td><a href="#" onclick="theWebUI.toggleMenu(); return(false);">'+theUILang.Toggle_menu+'</a></td></tr>'+
+					'<tr><td><strong><strong>F6</strong></td><td><a href="#" onclick="theWebUI.toggleDetails(); return(false);">'+theUILang.Toggle_details+'</a></td></tr>'+
+					'<tr><td><strong><strong>F7</strong></td><td><a href="#" onclick="theWebUI.toggleCategories(); return(false);">'+theUILang.Toggle_categories+'</a></td></tr>'+
+					'<tr><td><strong><strong>Ctrl-O</strong></td><td><a href="#" onclick="theWebUI.showAdd(); return(false);">'+theUILang.torrent_add+'</a></td></tr>'+
+					'<tr><td><strong><strong>Ctrl-P</strong></td><td><a href="#" onclick="theWebUI.showSettings(); return(false);">'+theUILang.ruTorrent_settings+'</a></td></tr>'+
 					'<tr><td><strong><strong>Del</strong></td><td>'+theUILang.Delete_current_torrents+'</td></tr>'+
 					'<tr><td><strong><strong>Ctrl-A</strong></td><td>'+theUILang.Select_all+'</td></tr>'+
 					'<tr><td><strong><strong>Ctrl-Z</strong></td><td>'+theUILang.Deselect_all+'</td></tr>'+
@@ -225,19 +245,19 @@ function makeContent()
 		'<div class="row">' +
 		"<aside>"+
 			"<ul>"+
-				"<li class=\"first\"><a id=\"mnu_st_gl\" href=\"javascript://void();\" onclick=\"theOptionsSwitcher.run(\'st_gl\'); return(false);\" class=\"focus\">"+
+				"<li class=\"first\"><a id=\"mnu_st_gl\" href=\"#\" onclick=\"theOptionsSwitcher.run(\'st_gl\'); return(false);\" class=\"focus\">"+
 					theUILang.General+
 				"</a></li>"+
-				"<li id='hld_st_dl'><a id=\"mnu_st_dl\" href=\"javascript://void();\" onclick=\"theOptionsSwitcher.run(\'st_dl\'); return(false);\">"+
+				"<li id='hld_st_dl'><a id=\"mnu_st_dl\" href=\"#\" onclick=\"theOptionsSwitcher.run(\'st_dl\'); return(false);\">"+
 					theUILang.Downloads+
 				"</a></li>"+
-				"<li id='hld_st_con'><a id=\"mnu_st_con\" href=\"javascript://void();\" onclick=\"theOptionsSwitcher.run(\'st_con\'); return(false);\">"+
+				"<li id='hld_st_con'><a id=\"mnu_st_con\" href=\"#\" onclick=\"theOptionsSwitcher.run(\'st_con\'); return(false);\">"+
 					theUILang.Connection+
 				"</a></li>"+
-				"<li id='hld_st_bt'><a id=\"mnu_st_bt\" href=\"javascript://void();\" onclick=\"theOptionsSwitcher.run(\'st_bt\'); return(false);\">"+
+				"<li id='hld_st_bt'><a id=\"mnu_st_bt\" href=\"#\" onclick=\"theOptionsSwitcher.run(\'st_bt\'); return(false);\">"+
 					theUILang.BitTorrent+
 				"</a></li>"+
-				"<li  id='hld_st_ao' class=\"last\"><a id=\"mnu_st_ao\" href=\"javascript://void();\" onclick=\"theOptionsSwitcher.run(\'st_ao\'); return(false);\">"+
+				"<li  id='hld_st_ao' class=\"last\"><a id=\"mnu_st_ao\" href=\"#\" onclick=\"theOptionsSwitcher.run(\'st_ao\'); return(false);\">"+
 					theUILang.Advanced+
 				"</a></li>"+
 			"</ul>"+
@@ -282,10 +302,6 @@ function makeContent()
 
 					"<div class=\"op50l\">"+
 						"<label for=\"webui.ignore_timeouts\">"+"<input type=\"checkbox\" id=\"webui.ignore_timeouts\" checked=\"true\" />"+theUILang.dontShowTimeouts+"</label>"+
-					"</div>"+
-
-					"<div class=\"op50l algnright\"><input type=\"checkbox\" id=\"webui.effects\"/>"+
-						"<label for=\"webui.effects\">"+theUILang.UIEffects+"</label>"+
 					"</div>"+
 
 					"<div class=\"op50l algnright\"><input type=\"checkbox\" id=\"webui.speedintitle\"/>"+
@@ -425,7 +441,7 @@ function makeContent()
 					"<legend>"+theUILang.Add_bittor_featrs+"</legend>"+
 					"<table>"+
 						"<tr>"+
-							"<td><input id=\"dht\" type=\"checkbox\"  onchange=\"linked(this, 0, ['dht_port']);\" />"+
+							"<td><input id=\"dht\" type=\"checkbox\"  onchange=\"linked(this, 0, ['dht.port']);\" />"+
 								"<label for=\"dht\">"+theUILang.En_DHT_ntw+"</label>"+
 						"</td>"+
 							"<td><input id=\"protocol.pex\" type=\"checkbox\" />"+
@@ -560,54 +576,11 @@ function makeContent()
 
 function correctContent()
 {
-	var showEnum =
-	{
-		showDownloadsPage:	0x0001,
-		showConnectionPage:	0x0002,
-		showBittorentPage:	0x0004,
-		showAdvancedPage:	0x0008,
-		showPluginsTab:		0x0010,
-		canChangeULRate:	0x0020,
-		canChangeDLRate:	0x0040,
-		canChangeTorrentProperties:	0x0080
-	};
-
-	if(!$type(theWebUI.systemInfo))
+	if (!$type(theWebUI.systemInfo))
 		theWebUI.systemInfo = { rTorrent: { version: '?', libVersion: '?', started: false, apiVersion : 0 } };
 
-	if(!theWebUI.systemInfo.rTorrent.started)
-        	theWebUI.showFlags &= ~0xFFEF;
-
-	if(!(theWebUI.showFlags & showEnum.showDownloadsPage))
-		rPlugin.prototype.removePageFromOptions("st_dl");
-	if(!(theWebUI.showFlags & showEnum.showConnectionPage))
-		rPlugin.prototype.removePageFromOptions("st_con");
-	if(!(theWebUI.showFlags & showEnum.showBittorentPage))
-		rPlugin.prototype.removePageFromOptions("st_bt");
-	if(!(theWebUI.showFlags & showEnum.showAdvancedPage))
-		rPlugin.prototype.removePageFromOptions("st_ao");
-	if(!(theWebUI.showFlags & showEnum.showPluginsTab))
-	{
-		delete theWebUI.tables.plg;
-  		rPlugin.prototype.removePageFromTabs("PluginList");
-	}
-	if(!(theWebUI.showFlags & showEnum.canChangeULRate))
-		$("#st_up").mouseclick(null);
-	if(!(theWebUI.showFlags & showEnum.canChangeDLRate))
-		$("#st_down").mouseclick(null);
-	if(!(theWebUI.showFlags & showEnum.canChangeTorrentProperties))
-	{
-		$("#prop-ulslots").prop("disabled",true);
-		$("#prop-peers_min").prop("disabled",true);
-		$("#prop-peers_max").prop("disabled",true);
-		$("#prop-tracker_numwant").prop("disabled",true);
-		$("#prop-pex").remove();
-		$("#lbl_prop-pex").remove();
-		$("#prop-superseed").remove();
-		$("#lbl_prop-superseed").remove();
-		$("#dlgProps .OK").remove();
-        }
-	if(!theWebUI.systemInfo.rTorrent.started)
+	delete theWebUI.tables.plg;
+	if (!theWebUI.systemInfo.rTorrent.started)
 	{
 		rPlugin.prototype.removePageFromTabs("TrackerList");
 		rPlugin.prototype.removePageFromTabs("FileList");
@@ -628,12 +601,12 @@ function correctContent()
 	{
 		theRequestManager.addRequest("fls","f.prioritize_first=",function(hash, fls, value)
 		{
-			if(value=='1')
+			if (value=='1')
 				fls.prioritize = 1;
 		});
 		theRequestManager.addRequest("fls","f.prioritize_last=",function(hash, fls, value)
 		{
-			if(value=='1')
+			if (value=='1')
 				fls.prioritize = 2;
 		});
 
@@ -644,29 +617,18 @@ function correctContent()
 
 	$.extend(theRequestManager.aliases,
 	{
-		"d.multicall"		:	{ name: "d.multicall2", prm: 1 },
-		"execute_capture"	:	{ name: "execute.capture", prm: 1 },
-		"execute_capture_nothrow"	:	{ name: "execute.capture_nothrow", prm: 1 },
-		"execute_nothrow"	:	{ name: "execute.nothrow", prm: 1 },
-		"execute_raw"		:	{ name: "execute.raw", prm: 1 },
-		"execute_raw_nothrow"	:	{ name: "execute.raw_nothrow", prm: 1 },
-		"execute_throw"		:	{ name: "execute.throw", prm: 1 },
 		"f.set_priority"	:	{ name: "f.priority.set", prm: 0 },
 		"fi.get_filename_last"	:	{ name: "fi.filename_last", prm: 0 },
 		"get_bind"		:	{ name: "network.bind_address", prm: 0 },
 		"get_check_hash"	:	{ name: "pieces.hash.on_completion", prm: 0 },
 		"get_connection_leech"	:	{ name: "protocol.connection.leech", prm: 0 },
 		"get_connection_seed"	:	{ name: "protocol.connection.seed", prm: 0 },
-		"get_dht_port"		:	{ name: "dht.port", prm: 0 },
-		"get_dht_throttle"	:	{ name: "dht.throttle.name", prm: 0 },
 		"get_directory"		:	{ name: "directory.default", prm: 0 },
 		"get_down_rate"		:	{ name: "throttle.global_down.rate", prm: 0 },
 		"get_down_total"	:	{ name: "throttle.global_down.total", prm: 0 },
 		"get_download_rate"	:	{ name: "throttle.global_down.max_rate", prm: 0 },
-		"get_http_cacert"	:	{ name: "network.http.cacert", prm: 0 },
 		"get_http_capath"	:	{ name: "network.http.capath", prm: 0 },
 		"get_http_proxy"	:	{ name: "network.http.proxy_address", prm: 0 },
-		"get_ip"		:	{ name: "network.local_address", prm: 0 },
 		"get_max_downloads_div"	:	{ name: "throttle.max_downloads.div", prm: 0 },
 		"get_max_downloads_global"	:	{ name: "throttle.max_downloads.global", prm: 0 },
 		"get_max_file_size"	:	{ name: "system.file.max_size", prm: 0 },
@@ -683,14 +645,9 @@ function correctContent()
 		"get_min_peers"		:	{ name: "throttle.min_peers.normal", prm: 0 },
 		"get_min_peers_seed"	:	{ name: "throttle.min_peers.seed", prm: 0 },
 		"get_name"		:	{ name: "session.name", prm: 0 },
-		"get_port_random"	:	{ name: "network.port_random", prm: 0 },
-		"get_port_range"	:	{ name: "network.port_range", prm: 0 },
-		"get_preload_min_size"	:	{ name: "pieces.preload.min_size", prm: 0 },
-		"get_preload_required_rate"	:	{ name: "pieces.preload.min_rate", prm: 0 },
 		"get_proxy_address"	:	{ name: "network.http.proxy_address", prm: 0 },
 		"get_receive_buffer_size"	:	{ name: "network.receive_buffer.size", prm: 0 },
 		"get_safe_sync"		:	{ name: "pieces.sync.always_safe", prm: 0 },
-		"get_scgi_dont_route"	:	{ name: "network.scgi.dont_route", prm: 0 },
 		"get_send_buffer_size"	:	{ name: "network.send_buffer.size", prm: 0 },
 		"get_session"		:	{ name: "session.path", prm: 0 },
 		"get_session_lock"	:	{ name: "session.use_lock", prm: 0 },
@@ -709,18 +666,14 @@ function correctContent()
 		"get_up_rate"		:	{ name: "throttle.global_up.rate", prm: 0 },
 		"get_up_total"		:	{ name: "throttle.global_up.total", prm: 0 },
 		"get_upload_rate"	:	{ name: "throttle.global_up.max_rate", prm: 0 },
-		"get_xmlrpc_size_limit"	:	{ name: "network.xmlrpc.size_limit", prm: 0 },
-		"http_cacert"		:	{ name: "network.http.cacert", prm: 0 },
 		"http_capath"		:	{ name: "network.http.capath", prm: 0 },
 		"http_proxy"		:	{ name: "network.proxy_address", prm: 0 },
 		"session_save"		:	{ name: "session.save", prm: 0 },
 		"set_bind"		:	{ name: "network.bind_address.set", prm: 1 },
 		"set_directory"		:	{ name: "directory.default.set", prm: 1 },
 		"set_download_rate"	:	{ name: "throttle.global_down.max_rate.set", prm: 1 },
-		"set_http_cacert"	:	{ name: "network.http.cacert.set", prm: 1 },
 		"set_http_capath"	:	{ name: "network.http.capath.set", prm: 1 },
 		"set_http_proxy"	:	{ name: "network.http.proxy_address.set", prm: 1 },
-		"set_ip"		:	{ name: "network.local_address.set", prm: 1 },
 		"set_proxy_address"	:	{ name: "network.http.proxy_address.set", prm: 1 },
 		"set_receive_buffer_size"	:	{ name: "network.receive_buffer.size.set", prm: 1 },
 		"set_send_buffer_size"	:	{ name: "network.send_buffer.size.set", prm: 1 },
@@ -729,8 +682,6 @@ function correctContent()
 		"set_session_on_completion"	:	{ name: "session.on_completion.set", prm: 1 },
 		"set_tracker_numwant"	:	{ name: "trackers.numwant.set", prm: 1 },
 		"set_upload_rate"	:	{ name: "throttle.global_up.max_rate.set", prm: 1 },
-		"set_xmlrpc_dialect"	:	{ name: "network.xmlrpc.dialect.set", prm: 1 },
-		"set_xmlrpc_size_limit"	:	{ name: "network.xmlrpc.size_limit.set", prm: 1 },
 		"system.file_allocate"	:	{ name: "system.file.allocate", prm: 0 },
 		"system.file_allocate.set"	:	{ name: "system.file.allocate.set", prm: 1 },
 		"t.set_enabled"		:	{ name: "t.is_enabled.set", prm: 0 },
@@ -738,9 +689,6 @@ function correctContent()
 		"throttle_ip"		:	{ name: "throttle.ip", prm: 1 },
 		"throttle_up"		:	{ name: "throttle.up", prm: 1 },
 		"tracker_numwant"	:	{ name: "trackers.numwant", prm: 0 },
-		"xmlrpc_dialect"	:	{ name: "network.xmlrpc.dialect.set", prm: 1 },
-		"xmlrpc_size_limit"	:	{ name: "network.xmlrpc.size_limit.set", prm: 1 },
-		"load"			:	{ name: "load.normal", prm: 1 }
 	});
 
 	$("#rtorrentv").text(theWebUI.systemInfo.rTorrent.version+"/"+theWebUI.systemInfo.rTorrent.libVersion);

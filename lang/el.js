@@ -182,7 +182,6 @@ var theUILang =
  pnlState			: "Κατάσταση",
  newLabel			: "Νέα ετικέτα",
  enterLabel			: "Εισαγωγή ετικέτας",
- UIEffects			: "Προβολή εφέ για στοιχεία του UI",
  Plugins			: "Πρόσθετα",
  plgName			: "Όνομα",
  plgStatus			: "Κατάσταση",

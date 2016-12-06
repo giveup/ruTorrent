@@ -12,7 +12,7 @@ theWebUI.showRatioRules = function()
 plugin.storeRuleParams = function()
 {
 	var no = 0;
-	if(this.curRule)
+	if (this.curRule)
 	{
 		no = parseInt(this.curRule.id.substr(4));
 		this.rules[no].pattern = $('#ratio_pattern').val();
@@ -25,9 +25,9 @@ plugin.storeRuleParams = function()
 
 theWebUI.selectRatioRule = function( el )
 {
-	if(plugin.curRule!=el)
+	if (plugin.curRule!=el)
 	{
-		if(plugin.curRule)
+		if (plugin.curRule)
 			plugin.curRule.className = 'TextboxNormal';
 		plugin.storeRuleParams();
 		plugin.curRule = el;
@@ -45,21 +45,21 @@ theWebUI.selectRatioRule = function( el )
 plugin.loadRules = function( rle )
 {
 	var fltThrottle = $('#dst_throttle');
-	if(fltThrottle.length)
+	if (fltThrottle.length)
 	{
 		$('#dst_throttle option').remove();
 		fltThrottle.append("<option value=''>"+theUILang.dontSet+"</option>");
-		for(var i=0; i<theWebUI.maxThrottle; i++)
-			if(theWebUI.isCorrectThrottle(i))
+		for (var i=0; i<theWebUI.maxThrottle; i++)
+			if (theWebUI.isCorrectThrottle(i))
 				fltThrottle.append("<option value='thr_"+i+"'>"+theWebUI.throttles[i].name+"</option>");
 	}
 	var fltRatio = $('#dst_ratio');
-	if(fltRatio.length)
+	if (fltRatio.length)
 	{
 		$('#dst_ratio option').remove();
 		fltRatio.append("<option value=''>"+theUILang.dontSet+"</option>");
-		for(var i=0; i<theWebUI.maxRatio; i++)
-			if(theWebUI.isCorrectRatio(i))
+		for (var i=0; i<theWebUI.maxRatio; i++)
+			if (theWebUI.isCorrectRatio(i))
 				fltRatio.append("<option value='rat_"+i+"'>"+theWebUI.ratios[i].name+"</option>");
 	}
 	plugin.curRule = null;
@@ -67,20 +67,20 @@ plugin.loadRules = function( rle )
 	list.empty();
 	plugin.rules = rle;
 	plugin.maxRuleNo = 0;
-	for(var i=0; i<plugin.rules.length; i++)
+	for (var i=0; i<plugin.rules.length; i++)
 	{
 		var f = plugin.rules[i];
-		if(plugin.maxRuleNo<f.no)
+		if (plugin.maxRuleNo<f.no)
 			plugin.maxRuleNo = f.no;
 		list.append( $("<li>").html("<input type='checkbox' id='_rre"+i+"'/><input type='text' class='TextboxNormal' onfocus=\"theWebUI.selectRatioRule(this);\" id='_rrn"+i+"'/>"));
 		$("#_rrn"+i).val(f.name);
-		if(f.enabled)
+		if (f.enabled)
 			$("#_rre"+i).prop("checked",true);
 	}
-	for(var i=0; i<plugin.rules.length; i++)
+	for (var i=0; i<plugin.rules.length; i++)
 	{
 		var f = plugin.rules[i];
-		if(f.no<0)
+		if (f.no<0)
 		{
 			plugin.maxRuleNo++;
 			f.no = plugin.maxRuleNo;
@@ -94,17 +94,17 @@ plugin.loadRules = function( rle )
 
 plugin.setButtonsState = function()
 {
-	if(plugin.curRule)
+	if (plugin.curRule)
 	{
-		if($(plugin.curRule).parent().prev().length)
+		if ($(plugin.curRule).parent().prev().length)
 			$('#ratUpRule').removeClass('disabled');
 		else
 			$('#ratUpRule').addClass('disabled');
-		if($(plugin.curRule).parent().next().length)
+		if ($(plugin.curRule).parent().next().length)
 			$('#ratDownRule').removeClass('disabled');
 		else
 			$('#ratDownRule').addClass('disabled');
-		if(plugin.rules.length)
+		if (plugin.rules.length)
 			$('#ratDelRule').removeClass('disabled');
 		else
 			$('#ratDelRule').addClass('disabled');
@@ -116,7 +116,7 @@ plugin.setButtonsState = function()
 
 theWebUI.upRatioRule = function()
 {
-	if(plugin.curRule && $(plugin.curRule).parent().prev().length)
+	if (plugin.curRule && $(plugin.curRule).parent().prev().length)
 	{
 		var cur = $(plugin.curRule).parent();
 		var prev = $(plugin.curRule).parent().prev();
@@ -139,7 +139,7 @@ theWebUI.upRatioRule = function()
 
 theWebUI.downRatioRule = function()
 {
-	if(plugin.curRule && $(plugin.curRule).parent().next().length)
+	if (plugin.curRule && $(plugin.curRule).parent().next().length)
 	{
 		var cur = $(plugin.curRule).parent();
 		var next = $(plugin.curRule).parent().next();
@@ -169,7 +169,7 @@ theWebUI.addNewRatioRule = function()
 	list.append( $("<li>").html("<input type='checkbox' id='_rre"+i+"'/><input type='text' class='TextboxNormal' onfocus=\"theWebUI.selectRatioRule(this);\" id='_rrn"+i+"'/>"));
 	plugin.rules.push(f);
 	$("#_rrn"+i).val( f.name );
-	if(f.enabled)
+	if (f.enabled)
 		$("#_rre"+i).prop("checked",true);
 	$("#_rrn"+i).focus();
 	plugin.setButtonsState();
@@ -177,20 +177,20 @@ theWebUI.addNewRatioRule = function()
 
 theWebUI.deleteCurrentRatioRule = function()
 {
-	if(plugin.curRule)
+	if (plugin.curRule)
 	{
 		var no = parseInt(plugin.curRule.id.substr(4));
 		plugin.rules.splice(no,1);
 		$(plugin.curRule).parent().remove();
 		plugin.curRule = null;
-		if(plugin.rules.length)
+		if (plugin.rules.length)
 		{
-			for(var i=no+1; i<plugin.rules.length+1; i++)
+			for (var i=no+1; i<plugin.rules.length+1; i++)
 			{
 				$("#_rrn"+i).prop("id", "_rrn"+(i-1));
 				$("#_rre"+i).prop("id", "_rre"+(i-1));
 			}
-			if(no>=plugin.rules.length)
+			if (no>=plugin.rules.length)
 				no = no - 1;
 			$("#_rrn"+no).focus();
 		}
@@ -212,7 +212,7 @@ rTorrentStub.prototype.setratiorules = function()
 {
 	this.content = "mode=setrules";
 	plugin.storeRuleParams();
-	for(var i=0; i<plugin.rules.length; i++)
+	for (var i=0; i<plugin.rules.length; i++)
 	{
 		var rle = plugin.rules[i];
 		var enabled = $("#_rre"+i).prop("checked") ? 1 : 0;
@@ -239,7 +239,7 @@ rTorrentStub.prototype.getratiorules = function()
 rTorrentStub.prototype.checklabels = function()
 {
 	this.content = "mode=checklabels";
-	for(var i=0; i<this.hashes.length; i++)
+	for (var i=0; i<this.hashes.length; i++)
 		this.content += ("&hash="+this.hashes[i]);
 	this.contentType = "application/x-www-form-urlencoded";
 	this.mountPoint = "plugins/extratio/action.php";
@@ -249,10 +249,10 @@ rTorrentStub.prototype.checklabels = function()
 plugin.setlabelResponse = rTorrentStub.prototype.setlabelResponse;
 rTorrentStub.prototype.setlabelResponse = function( data )
 {
-	if(this.hashes.length)
+	if (this.hashes.length)
 	{
 		var req = "?action=checklabels";
-		for(var i=0; i<this.hashes.length; i++)
+		for (var i=0; i<this.hashes.length; i++)
 			req+=("&hash="+this.hashes[i]);
 		theWebUI.request(req);
 	}
@@ -261,11 +261,11 @@ rTorrentStub.prototype.setlabelResponse = function( data )
 
 plugin.correctCSS = function()
 {
-        if(!this.cssCorrected)
+        if (!this.cssCorrected)
         {
 		rule = getCSSRule("#CatList ul li.sel");
 		rule3 = getCSSRule(".lf_rru li input.TextboxFocus");
-		if(rule && rule3)
+		if (rule && rule3)
 		{
 			rule3.style.backgroundColor = rule.style.backgroundColor;
 			rule3.style.color = rule.style.color;
@@ -274,9 +274,9 @@ plugin.correctCSS = function()
 	        rule1 = getCSSRule(".lf_rru");
         	rule2 = getCSSRule(".lf_rru li input.TextboxNormal");
 		var ruleMain = getCSSRule("html, body");
-        	if(!ruleMain)
+        	if (!ruleMain)
         		ruleMain = getCSSRule("html");
-		if(rule && rule1 && rule2 && ruleMain)
+		if (rule && rule1 && rule2 && ruleMain)
 		{
 			rule1.style.borderColor = rule.style.borderColor;
 			rule1.style.backgroundColor = rule.style.backgroundColor;
@@ -285,7 +285,7 @@ plugin.correctCSS = function()
 		}
 		rule = getCSSRule(".stg_con");
 	        rule1 = getCSSRule(".rf_rru");
-        	if(rule && rule1)
+        	if (rule && rule1)
 			rule1.style.backgroundColor = rule.style.backgroundColor;
 		this.cssCorrected = true;
 	}
@@ -293,7 +293,7 @@ plugin.correctCSS = function()
 
 plugin.createPluginMenu = function()
 {
-	if(this.enabled)
+	if (this.enabled)
 		theContextMenu.add([theUILang.mnu_ratiorule, "theWebUI.showRatioRules()"]);
 }
 
@@ -341,7 +341,7 @@ plugin.onLangLoaded = function()
 		"</div>");
   	$('#ratio_reason').change( function()
   	{
-		if(iv($(this).val())>1)
+		if (iv($(this).val())>1)
 			$('#ratio_pattern').css("visibility","hidden");
 		else
 			$('#ratio_pattern').css("visibility","visible");

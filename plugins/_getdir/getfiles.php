@@ -33,7 +33,7 @@ function compareEntries($a, $b)
 if (isset($_REQUEST['dir']) && strlen($_REQUEST['dir'])) {
     $dir = rawurldecode($_REQUEST['dir']);
     rTorrentSettings::get()->correctDirectory($dir);
-    if (LFS::is_file($dir) &&
+    if (is_file($dir) &&
         (($theSettings->uid<0) ||
         !$checkUserPermissions ||
         isUserHavePermission($theSettings->uid, $theSettings->gid, $dir, 0x0004))) {
@@ -61,8 +61,8 @@ if (!$dh) {
     }
     $dh = @opendir($dir);
 }
-$files = array();
-$dirs = array();
+$files = [];
+$dirs = [];
 if ($dh) {
     $dir = addslash($dir);
     while (false !== ($file = readdir($dh))) {
@@ -76,7 +76,7 @@ if ($dh) {
             ) {
             $dirs['/'.$file] = addslash($path);
         } else {
-            if (LFS::is_file($path)
+            if (is_file($path)
                 && ( $theSettings->uid<0 || isUserHavePermission($theSettings->uid, $theSettings->gid, $path, 0x0004))
                 ) {
                 $files[$file." "] = $path;
@@ -123,10 +123,10 @@ function keyHandler(e)
 {
 	e = e || window.event;
 	var charCode = (e.which == null) ? e.keyCode : ((e.which!=0 && e.charCode!=0) ? e.which : 0);
-	if(charCode>=32)
+	if (charCode>=32)
 	{
 		var elements = document.getElementsByName('i'+e.charCode);
-		if( elements.length )
+		if ( elements.length )
 		{
 			var el = elements[0];
 			menuClick(el);
@@ -154,12 +154,12 @@ selected = null;
 
 function menuClick(obj)
 {
-	if(selected)
+	if (selected)
 		selected.className = 'rmenuitem';
 	obj.className = 'rmenuitemselected';
 	selected = obj;
 	var code = obj.getAttribute('code');
-	if(code && doc)
+	if (code && doc)
 	{
 		var el = doc.getElementById(<?php echo $edit_id;?>);
 		el.value = decodeURIComponent(code);

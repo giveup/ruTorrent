@@ -21,22 +21,22 @@ class HDVnbitsEngine extends commonEngine
 		$added = 0;
 		$url = 'http://hdvnbits.org';
 
-		if($useGlobalCats)
+		if ($useGlobalCats)
 			$categories = array( 'all'=>'0', 'movies'=>'2', 'tv'=>'3', 'music'=>'5', 'games'=>'1', 'software'=>'4' );
 		else
 			$categories = &$this->categories;
-		if(!array_key_exists($cat,$categories))
+		if (!array_key_exists($cat,$categories))
 			$cat = $categories['all'];
 		else
 			$cat = $categories[$cat];
-		for($pg = 0; $pg<10; $pg++)
+		for ($pg = 0; $pg<10; $pg++)
 		{
 			$cli = $this->fetch( $url.'/torrents.php?search='.$what.'&incldead=1&sort=7&type=desc&page='.$pg.'&sltCategory='.$cat );
-			if( ($cli==false) || (strpos($cli->results, "Nothing found! Try again with a refined search string")!==false))
+			if ( ($cli==false) || (strpos($cli->results, "Nothing found! Try again with a refined search string")!==false))
 				break;
 			$result = $cli->results;
 			$first = strpos($result, '<form method="get" name="searchbox" action="?">');
-			if($first!==false)
+			if ($first!==false)
 				$result = substr($result,$first);
 
 			$res = preg_match_all('`<a href="/torrents.php\?sltSubCategory=(?P<cat>\d*)"><img src=.*</a></td>.*'.
@@ -45,12 +45,12 @@ class HDVnbitsEngine extends commonEngine
 				'</tr></table></td>.*</td><td class="rowfollow nowrap">(?P<date>.*)</td><td class="rowfollow">(?P<size>.*)</td><td class="rowfollow" align="center">(?P<seeds>.*)</td>.*'.
 				'<td class="rowfollow">(?P<leech>.*)</td>'.
 				'`siU', $result, $matches);
-			if($res)
+			if ($res)
 			{
-				for($i=0; $i<$res; $i++)
+				for ($i=0; $i<$res; $i++)
 				{
 					$link = $url."/download.php?id=".$matches["id"][$i];
-					if(!array_key_exists($link,$ret))
+					if (!array_key_exists($link,$ret))
 					{
 						$item = $this->getNewEntry();
 						$item["cat"] = $this->reverseCats[self::removeTags($matches["cat"][$i])];
@@ -62,7 +62,7 @@ class HDVnbitsEngine extends commonEngine
 						$item["peers"] = intval(self::removeTags($matches["leech"][$i]));
 						$ret[$link] = $item;
 						$added++;
-						if($added>=$limit)
+						if ($added>=$limit)
 							return;
 					}
 				}

@@ -10,7 +10,7 @@ class LostFilmAccount extends commonAccount
 	}
 	protected function isOKPostFetch($client,$url,$method,$content_type,$body)
 	{
-		if(	preg_match("`/download\.php\?id=(\d+)&`si", $url, $matches) &&
+		if (	preg_match("`/download\.php\?id=(\d+)&`si", $url, $matches) &&
 			preg_match("`/browse.php\?cat=`si", $client->lastredirectaddr) &&
 			$client->fetch($this->url."/details.php?id=".$matches[1]) &&
 			preg_match("`/download\.php\?id=".$matches[1]."&\S+\s*\sonMouseOver=\"setCookie\('dlt','([^']*)'`si", $client->results, $md5))
@@ -23,11 +23,11 @@ class LostFilmAccount extends commonAccount
 	protected function login($client,$login,$password,&$url,&$method,&$content_type,&$body,&$is_result_fetched)
 	{
 		$is_result_fetched = false;
-		if($client->fetch( $this->url ))
+		if ($client->fetch( $this->url ))
 		{
 			$client->setcookies();
 			$client->referer = $this->url;
-        		if($client->fetch( $this->url."/useri.php","POST","application/x-www-form-urlencoded", 
+        		if ($client->fetch( $this->url."/useri.php","POST","application/x-www-form-urlencoded", 
 				"FormLogin=".rawurlencode($login)."&FormPassword=".rawurlencode($password).'&module=1&repage=user&act=login' ))
 			{
 				$client->setcookies();

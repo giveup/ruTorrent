@@ -363,7 +363,8 @@ rTorrentStub.prototype.settrackerstate = function()
 
 rTorrentStub.prototype.list = function()
 {
-	var cmd = new rXMLRPCCommand("d.multicall");
+	var cmd = new rXMLRPCCommand("d.multicall2");
+	cmd.addParameter("string","");
 	cmd.addParameter("string","main");
 	for ( var i in theRequestManager.trt.commands )
 	{
@@ -381,20 +382,6 @@ rTorrentStub.prototype.setuisettings = function()
 	this.mountPoint = theURLs.SetSettingsURL;
 	this.contentType = "application/x-www-form-urlencoded";
 	this.dataType = "text";
-}
-
-rTorrentStub.prototype.getuisettings = function()
-{
-	this.mountPoint = theURLs.GetSettingsURL;
-	this.dataType = "json";
-}
-
-rTorrentStub.prototype.getplugins = function()
-{
-	this.mountPoint = theURLs.GetPluginsURL;
-	this.dataType = "script";
-	this.cache = true;
-	this.method = 'GET';
 }
 
 rTorrentStub.prototype.doneplugins = function()
@@ -545,7 +532,7 @@ rTorrentStub.prototype.setprioritize = function()
 {
 	for (var i=0; i<this.vs.length; i++)
 	{
-		switch(this.ss[0])
+		switch (this.ss[0])
 		{
 			case '0':
 			{
@@ -977,7 +964,7 @@ rTorrentStub.prototype.getpeersResponse = function(xml)
 		peer.ul = this.getValue(values,10);		//	p.get_up_rate
 		peer.peerdl = this.getValue(values,12);		//	p.get_peer_rate
 		peer.peerdownloaded = this.getValue(values,13);	//	p.get_peer_total
-		peer.port = this.getValue(values,14);		//	p.get_port
+		peer.port = this.getValue(values,14);		//	p.port
 		var id = this.getValue(values,0);
 		$.each( theRequestManager.prs.handlers, function(i,handler)
 		{
@@ -1216,7 +1203,7 @@ function Ajax(URI, isASync, onComplete, onTimeout, onError, reqTimeout)
 				Ajax("?list=1", isASync, onComplete, onTimeout, onError, reqTimeout);
 			} else {
         		if (!stub.isError()) {
-        			switch($type(onComplete)) {
+        			switch ($type(onComplete)) {
 						case "function":
 							onComplete(responseText);
 							break;

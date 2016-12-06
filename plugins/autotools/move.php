@@ -39,7 +39,7 @@ function operationOnTorrentFiles($torrent, &$base_path, $base_file, $is_multy_fi
     Debug("from ".$base_path);
     Debug("to   ".$dest_path);
 
-        $files = array();
+        $files = [];
         $info = $torrent->info;
     if (isset($info['files'])) {
         foreach ($info['files'] as $key => $file) {
@@ -108,7 +108,7 @@ if ($at->enable_move && (@preg_match($at->automove_filter.'u', $label)==1)) {
                         $dest_path.=addslash($name);
                     }
                     if (operationOnTorrentFiles($torrent, $base_path, $base_name, $is_multi, $dest_path, $fileop_type)) {
-                    //						if($fileop_type=="Move")
+                    //						if ($fileop_type=="Move")
                             echo $base_path;
                         $path = rtRemoveTailSlash($dest_path);
                         $path_to_finished = rtRemoveTailSlash($path_to_finished);

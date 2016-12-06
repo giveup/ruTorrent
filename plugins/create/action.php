@@ -8,7 +8,7 @@ eval( getPluginConf('create') );
 class recentTrackers
 {
     public $hash = "rtrackers.dat";
-    public $list = array();
+    public $list = [];
 
     public static function load()
     {
@@ -25,7 +25,7 @@ class recentTrackers
     }
     public function get()
     {
-        $ret = array();
+        $ret = [];
         foreach ($this->list as $ann) {
             $ret[self::getTrackerDomain($ann)] = $ann;
         }
@@ -60,9 +60,9 @@ class recentTrackers
     }
 }
 
-$ret = array();
+$ret = [];
 if (isset($_REQUEST['cmd'])) {
-    switch($_REQUEST['cmd'])
+    switch ($_REQUEST['cmd'])
     {
         case "rtget":
             {
@@ -80,7 +80,7 @@ if (isset($_REQUEST['cmd'])) {
                 }
                 if (rTorrentSettings::get()->correctDirectory($path_edit)) {
                     $rt = recentTrackers::load();
-                    $trackers = array();
+                    $trackers = [];
                     $announce_list = '';
                     if (isset($_REQUEST['trackers'])) {
                         $arr = explode("\r", $_REQUEST['trackers']);
@@ -92,7 +92,7 @@ if (isset($_REQUEST['cmd'])) {
                             } else {
                                 if (count($trackers)>0) {
                                     $announce_list .= (' -a '.escapeshellarg(implode(',', $trackers)));
-                                    $trackers = array();
+                                    $trackers = [];
                                 }
                             }
                         }
@@ -127,7 +127,7 @@ if (isset($_REQUEST['cmd'])) {
                     'piece_size'=>$_REQUEST['piece_size'],
                     'private'=>$_REQUEST['private']
                     ));
-                    $commands = array();
+                    $commands = [];
                     $commands[] = escapeshellarg($rootPath.'/plugins/create/'.$useExternal.'.sh')." ".
                     $task->id." ".
                     escapeshellarg(getPHP())." ".
@@ -145,7 +145,7 @@ if (isset($_REQUEST['cmd'])) {
                     $error = 'Incorrect directory ('.mb_substr($path_edit, mb_strlen($topDirectory)-1).')';
                 }
             }
-            $ret = array( "no"=>-1, "pid"=>0, "status"=>255, "log"=>array(), "errors"=>array($error) );
+            $ret = array( "no"=>-1, "pid"=>0, "status"=>255, "log"=>[], "errors"=>array($error) );
             break;
             }
         case "getfile":

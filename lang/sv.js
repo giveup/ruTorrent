@@ -182,7 +182,6 @@ var theUILang =
  pnlState			: "Tillstånd",
  newLabel			: "Ny etikett",
  enterLabel			: "Ange etikett",
- UIEffects			: "Visa effekter för gränssnittselement.",
  Plugins			: "Insticksprogram",
  plgName			: "Namn",
  plgStatus			: "Status",
